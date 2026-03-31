@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퇴직금 계산기 - 즉시 계산 | TopTools365</title>
+<meta name="description" content="입사일, 퇴사일, 평균임금을 입력하면 퇴직금을 즉시 계산합니다. 근속연수, 평균임금, 법정 퇴직금까지 한 번에 확인. 완전 무료.">
+<meta name="keywords" content="퇴직금 계산기, 퇴직금 계산, severance pay calculator">
+<link rel="canonical" href="https://www.toptools365.com/severance-pay/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"퇴직금 계산기","description":"입사일, 퇴사일, 평균임금을 입력하면 퇴직금을 즉시 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+<style>
+:root{--bg:#f8f7f4;--card:#fff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#1a5c8a;--accent-light:#e8f2f9;--green:#1a6b4a;--green-light:#e8f5ef;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#4a9fd4;--accent-light:#0d2233;--green:#2daa72;--green-light:#0e2a1e}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:32px 16px 80px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:20px}
+.back:hover{color:var(--accent)}
+h1{font-size:26px;font-weight:700;margin-bottom:6px}
+.subtitle{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.section-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.input-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.field input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px;font-weight:500;outline:none;transition:border-color .15s}
+.field input:focus{border-color:var(--accent)}
+.tip{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+.calc-btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.calc-btn:hover{opacity:.88}
+.results{display:none}.results.show{display:block}
+.result-main{text-align:center;padding:28px;background:var(--green-light);border-radius:10px;border:1px solid var(--green);margin-bottom:20px}
+.result-main .rlabel{font-size:13px;color:var(--green);font-weight:600;margin-bottom:10px}
+.result-main .amount{font-size:38px;font-weight:700;color:var(--green)}
+.result-main .rsub{font-size:13px;color:var(--muted);margin-top:6px}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:500px){.detail-grid{grid-template-columns:1fr 1fr}}
+.detail-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px}
+.detail-item .dlabel{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.detail-item .dval{font-size:16px;font-weight:700}
+.formula-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:13px;line-height:1.9;color:var(--muted)}
+.formula-box strong{color:var(--text)}
+.notice{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--accent);line-height:1.6;margin-top:12px}
+.lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+.lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s}
+.lang-btn.on{border-color:var(--accent);color:var(--accent)}
+.faq{margin-top:40px}.faq h2{font-size:18px;font-weight:600;margin-bottom:16px}
+.faq-item{border-top:1px solid var(--border);padding:16px 0}
+.faq-q{font-size:14px;font-weight:600;margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/">← TopTools365 홈</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">퇴직금 계산기</h1>
+  <p class="subtitle" id="t-sub">입사일·퇴사일·임금을 입력하면 퇴직금을 즉시 계산합니다. 완전 무료.</p>
+  <div class="card">
+    <div class="section-title" id="t-s1">근무 기간</div>
+    <div class="input-grid">
+      <div class="field"><label id="t-join">입사일</label><input type="date" id="joinDate"></div>
+      <div class="field"><label id="t-leave">퇴사일</label><input type="date" id="leaveDate"></div>
+    </div>
+    <p class="tip" id="t-tip1">※ 1년 미만 근무 시 퇴직금이 발생하지 않습니다.</p>
+  </div>
+  <div class="card">
+    <div class="section-title" id="t-s2">퇴직 전 3개월 임금</div>
+    <div class="input-grid">
+      <div class="field"><label id="t-m1label">월 기본급</label><input type="number" id="baseSalary" placeholder="3000000" min="0"></div>
+      <div class="field"><label id="t-m2label">월 고정수당</label><input type="number" id="allowance" placeholder="0" min="0"></div>
+      <div class="field"><label id="t-m3label">3개월 상여금 합계</label><input type="number" id="bonus" placeholder="0" min="0"></div>
+      <div class="field"><label id="t-m4label">연간 상여금 (선택)</label><input type="number" id="annualBonus" placeholder="0" min="0"></div>
+    </div>
+    <p class="tip" id="t-tip2">※ 원 단위 입력. 기본급 300만원 → 3000000</p>
+  </div>
+  <button class="calc-btn" onclick="calculate()" id="t-calc">퇴직금 계산하기</button>
+  <div class="results" id="results">
+    <div class="card">
+      <div class="result-main">
+        <div class="rlabel" id="t-result-label">예상 퇴직금</div>
+        <div class="amount" id="r-amount">-</div>
+        <div class="rsub" id="r-sub">-</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item"><div class="dlabel" id="t-d1">근속기간</div><div class="dval" id="r-period">-</div></div>
+        <div class="detail-item"><div class="dlabel" id="t-d2">1일 평균임금</div><div class="dval" id="r-daily">-</div></div>
+        <div class="detail-item"><div class="dlabel" id="t-d3">근속연수</div><div class="dval" id="r-years">-</div></div>
+      </div>
+      <div class="formula-box" id="r-formula"></div>
+      <div class="notice" id="t-notice">※ 본 계산기는 법정 퇴직금 기준이며 실제 퇴직금은 회사 규정 및 근로계약에 따라 다를 수 있습니다.</div>
+    </div>
+  </div>
+  <section class="faq">
+    <h2 id="faq-title">자주 묻는 질문</h2>
+    <div class="faq-item"><div class="faq-q" id="faq-q1">퇴직금은 언제부터 받을 수 있나요?</div><div class="faq-a" id="faq-a1">근로기준법상 계속 근로기간이 1년 이상이고 주 15시간 이상 근무한 경우 퇴직금을 받을 수 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="faq-q2">퇴직금 계산 방법은?</div><div class="faq-a" id="faq-a2">퇴직금 = 1일 평균임금 × 30일 × 근속연수. 평균임금은 퇴직 전 3개월 임금 총액을 해당 기간 일수(91일)로 나눈 금액입니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="faq-q3">상여금도 퇴직금에 포함되나요?</div><div class="faq-a" id="faq-a3">퇴직 전 3개월 내 지급된 상여금과 연간 상여금의 3개월치가 평균임금 산정에 포함됩니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="faq-q4">퇴직금은 언제까지 지급해야 하나요?</div><div class="faq-a" id="faq-a4">사용자는 근로자가 퇴직한 날로부터 14일 이내에 퇴직금을 지급해야 합니다.</div></div>
+  </section>
+  <footer><p>본 계산기는 참고용이며 실제 퇴직금은 회사 규정에 따라 다를 수 있습니다.</p></footer>
+</main>
+<script>
+let lang='ko';
+const T={ko:{title:'퇴직금 계산기',sub:'입사일·퇴사일·임금을 입력하면 퇴직금을 즉시 계산합니다. 완전 무료.',s1:'근무 기간',s2:'퇴직 전 3개월 임금',join:'입사일',leave:'퇴사일',m1:'월 기본급',m2:'월 고정수당',m3:'3개월 상여금 합계',m4:'연간 상여금 (선택)',tip1:'※ 1년 미만 근무 시 퇴직금이 발생하지 않습니다.',tip2:'※ 원 단위 입력. 기본급 300만원 → 3000000',calc:'퇴직금 계산하기',resultLabel:'예상 퇴직금',d1:'근속기간',d2:'1일 평균임금',d3:'근속연수',notice:'※ 본 계산기는 법정 퇴직금 기준이며 실제 퇴직금은 회사 규정 및 근로계약에 따라 다를 수 있습니다.',faqTitle:'자주 묻는 질문',faqQ:['퇴직금은 언제부터 받을 수 있나요?','퇴직금 계산 방법은?','상여금도 퇴직금에 포함되나요?','퇴직금은 언제까지 지급해야 하나요?'],faqA:['근로기준법상 계속 근로기간이 1년 이상이고 주 15시간 이상 근무한 경우 퇴직금을 받을 수 있습니다.','퇴직금 = 1일 평균임금 × 30일 × 근속연수.','퇴직 전 3개월 내 지급된 상여금과 연간 상여금의 3개월치가 포함됩니다.','사용자는 근로자가 퇴직한 날로부터 14일 이내에 지급해야 합니다.']},en:{title:'Severance Pay Calculator',sub:'Enter your start date, end date and salary to instantly calculate severance pay.',s1:'Employment Period',s2:'Salary (Last 3 Months)',join:'Start Date',leave:'End Date',m1:'Monthly Base Salary',m2:'Monthly Allowance',m3:'Bonus (3 months total)',m4:'Annual Bonus (optional)',tip1:'※ Requires at least 1 year of employment.',tip2:'※ Enter in KRW. e.g. 3,000,000',calc:'Calculate Severance Pay',resultLabel:'Estimated Severance Pay',d1:'Service Period',d2:'Daily Avg Wage',d3:'Years of Service',notice:'※ For reference only.',faqTitle:'FAQ',faqQ:['When am I eligible?','How is it calculated?','Is bonus included?','When must it be paid?'],faqA:['1+ year of continuous employment, 15+ hours/week.','Severance = Daily avg wage × 30 × years of service.','Bonuses within last 3 months are included.','Within 14 days of last working day.']}};
+function setLang(l,el){lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');const t=T[l];const m={'t-title':t.title,'t-sub':t.sub,'t-s1':t.s1,'t-s2':t.s2,'t-join':t.join,'t-leave':t.leave,'t-m1label':t.m1,'t-m2label':t.m2,'t-m3label':t.m3,'t-m4label':t.m4,'t-tip1':t.tip1,'t-tip2':t.tip2,'t-calc':t.calc,'t-result-label':t.resultLabel,'t-d1':t.d1,'t-d2':t.d2,'t-d3':t.d3,'t-notice':t.notice,'faq-title':t.faqTitle};Object.entries(m).forEach(([id,val])=>{const e=document.getElementById(id);if(e)e.textContent=val;});for(let i=0;i<4;i++){document.getElementById('faq-q'+(i+1)).textContent=t.faqQ[i];document.getElementById('faq-a'+(i+1)).textContent=t.faqA[i];}}
+function fmt(n){return Math.round(n).toLocaleString('ko-KR');}
+function fmtW(n){const v=Math.round(n);if(v>=100000000)return (v/100000000).toFixed(1)+'억원';if(v>=10000)return Math.round(v/10000)+'만 '+String(Math.round(v%10000)).padStart(4,'0')+'원';return v.toLocaleString()+'원';}
+function calculate(){
+  const joinVal=document.getElementById('joinDate').value;
+  const leaveVal=document.getElementById('leaveDate').value;
+  const base=parseFloat(document.getElementById('baseSalary').value)||0;
+  const allowance=parseFloat(document.getElementById('allowance').value)||0;
+  const bonus3=parseFloat(document.getElementById('bonus').value)||0;
+  const annualBonus=parseFloat(document.getElementById('annualBonus').value)||0;
+  if(!joinVal||!leaveVal){alert('입사일과 퇴사일을 입력해주세요.');return;}
+  if(!base){alert('월 기본급을 입력해주세요.');return;}
+  const join=new Date(joinVal);const leave=new Date(leaveVal);
+  const diffDays=Math.floor((leave-join)/(1000*60*60*24));
+  const diffYears=diffDays/365;
+  if(diffDays<365){alert('근속기간이 1년 미만으로 퇴직금이 발생하지 않습니다.');return;}
+  const years=Math.floor(diffYears);const months=Math.floor((diffYears-years)*12);
+  const days3=91;const totalWage3=(base+allowance)*3+bonus3+(annualBonus/12*3);
+  const dailyAvg=totalWage3/days3;const severance=dailyAvg*30*(diffDays/365);
+  document.getElementById('r-amount').textContent=fmtW(severance);
+  document.getElementById('r-sub').textContent='('+fmt(Math.round(severance))+'원)';
+  document.getElementById('r-period').textContent=years+'년 '+months+'개월';
+  document.getElementById('r-daily').textContent=fmt(Math.round(dailyAvg))+'원';
+  document.getElementById('r-years').textContent=(diffDays/365).toFixed(2)+'년';
+  document.getElementById('r-formula').innerHTML='<strong>계산 과정</strong><br>3개월 임금 합계: '+fmt(totalWage3)+'원<br>1일 평균임금: '+fmt(Math.round(dailyAvg))+'원<br>퇴직금: '+fmt(Math.round(dailyAvg))+'원 × 30일 × '+diffYears.toFixed(2)+'년 = <strong>'+fmtW(severance)+'</strong>';
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+const today=new Date();const threeYearsAgo=new Date(today);threeYearsAgo.setFullYear(today.getFullYear()-3);
+document.getElementById('joinDate').value=threeYearsAgo.toISOString().split('T')[0];
+document.getElementById('leaveDate').value=today.toISOString().split('T')[0];
+document.getElementById('baseSalary').value=3000000;
+</script>
+</body>
+</html>
