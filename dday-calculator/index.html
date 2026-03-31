@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-day 계산기 - 날짜 계산 즉시 확인 | TopTools365</title>
+<meta name="description" content="목표일까지 D-day를 즉시 계산합니다. 두 날짜 사이 일수, 주수, 개월 수 계산. 수능, 시험, 기념일, 결혼식 D-day 계산기. 완전 무료.">
+<meta name="keywords" content="D-day계산기, 디데이계산기, 날짜계산기, 날짜계산, 수능디데이, 기념일계산, 두날짜사이일수">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/dday-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="D-day 계산기 - 날짜 계산 즉시 확인 | TopTools365">
+<meta property="og:description" content="목표일까지 D-day 즉시 계산. 두 날짜 사이 일수·주수·개월 수. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"D-day 계산기","alternateName":"날짜 계산기","description":"목표일까지 D-day와 두 날짜 사이 일수를 즉시 계산하는 무료 온라인 계산기","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"D-day 계산은 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"목표 날짜에서 오늘 날짜를 빼면 D-day가 계산됩니다. 예를 들어 오늘이 1월 1일이고 목표일이 1월 10일이면 D-9입니다. 당일은 D-0 또는 D-day라고 표현합니다."}},{"@type":"Question","name":"두 날짜 사이 일수는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"종료일에서 시작일을 빼면 사이 일수가 계산됩니다. 예를 들어 1월 1일부터 1월 31일까지는 30일입니다."}},{"@type":"Question","name":"D-day와 D+day의 차이는?","acceptedAnswer":{"@type":"Answer","text":"D-day는 목표일까지 남은 날 수를 의미하고, D+day는 특정 날짜로부터 지난 날 수를 의미합니다. 예를 들어 결혼 후 D+100은 결혼 100일째 되는 날입니다."}},{"@type":"Question","name":"윤년은 자동으로 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"네, 이 계산기는 윤년을 자동으로 반영합니다. 2024년, 2028년 등 4의 배수이면서 100의 배수가 아닌 해는 366일로 계산됩니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6b66;
+    --accent: #7c3aed;
+    --accent-light: #f3e8ff;
+    --accent2: #1a6b4a;
+    --accent2-light: #e8f5ef;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root {
+      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
+      --text: #f0efe8; --muted: #9a9a92;
+      --accent: #a78bfa; --accent-light: #1e1030;
+      --accent2: #2daa72; --accent2-light: #0e2a1e;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent2); text-decoration: none; background: var(--accent2-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 탭 */
+  .tab-row { display: flex; gap: 8px; margin-bottom: 24px; }
+  .tab-btn { flex: 1; padding: 11px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .tab-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field input[type="date"] { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 16px; font-weight: 500; outline: none; transition: border-color .15s; }
+  .field input[type="date"]:focus { border-color: var(--accent); }
+  .field input[type="text"] { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; outline: none; transition: border-color .15s; }
+  .field input[type="text"]:focus { border-color: var(--accent); }
+
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .result-box { display: none; }
+  .result-box.show { display: block; }
+
+  .dday-main { text-align: center; padding: 36px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 14px; margin-bottom: 16px; }
+  .dday-title { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+  .dday-value { font-size: 72px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; letter-spacing: -2px; }
+  .dday-label { font-size: 20px; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+  .dday-date { font-size: 13px; color: var(--muted); }
+
+  .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media(max-width:480px) { .detail-grid { grid-template-columns: 1fr 1fr; } }
+  .detail-item { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .detail-item .dlabel { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .detail-item .dval { font-size: 22px; font-weight: 800; color: var(--text); }
+  .detail-item .dunit { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* 즐겨찾기 D-day */
+  .preset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media(max-width:480px) { .preset-grid { grid-template-columns: 1fr; } }
+  .preset-btn { padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; transition: all .15s; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .preset-name { font-weight: 600; }
+  .preset-date { font-size: 12px; color: var(--muted); }
+  .preset-dday { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+  /* SEO 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent2); color: var(--accent2); }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+
+  <h1 id="t-title">D-day 계산기</h1>
+  <p class="subtitle" id="t-sub">목표일까지 남은 날짜 또는 두 날짜 사이 일수를 즉시 계산합니다.</p>
+
+  <div class="card">
+    <div class="tab-row">
+      <button class="tab-btn on" onclick="setMode('dday', this)" id="btn-dday">📅 D-day 계산</button>
+      <button class="tab-btn" onclick="setMode('between', this)" id="btn-between">📆 두 날짜 사이</button>
+    </div>
+
+    <!-- D-day 모드 -->
+    <div id="mode-dday">
+      <div class="input-grid">
+        <div class="field">
+          <label id="t-today">오늘 날짜</label>
+          <input type="date" id="fromDate">
+        </div>
+        <div class="field">
+          <label id="t-target">목표 날짜</label>
+          <input type="date" id="toDate">
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:20px">
+        <label id="t-event-name">이벤트 이름 (선택)</label>
+        <input type="text" id="eventName" placeholder="예: 수능, 결혼식, 생일...">
+      </div>
+    </div>
+
+    <!-- 두 날짜 사이 모드 -->
+    <div id="mode-between" style="display:none">
+      <div class="input-grid">
+        <div class="field">
+          <label id="t-start">시작 날짜</label>
+          <input type="date" id="startDate">
+        </div>
+        <div class="field">
+          <label id="t-end">종료 날짜</label>
+          <input type="date" id="endDate">
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()" id="t-calc">계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="result-box" id="result-box">
+    <div class="dday-main" id="dday-main">
+      <div class="dday-title" id="r-event">D-day</div>
+      <div class="dday-value" id="r-dday">-</div>
+      <div class="dday-label" id="r-label">-</div>
+      <div class="dday-date" id="r-dateinfo">-</div>
+    </div>
+
+    <div class="card">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="dlabel" id="t-d1">일</div>
+          <div class="dval" id="r-days">-</div>
+          <div class="dunit" id="t-d1u">일</div>
+        </div>
+        <div class="detail-item">
+          <div class="dlabel" id="t-d2">주</div>
+          <div class="dval" id="r-weeks">-</div>
+          <div class="dunit" id="t-d2u">주</div>
+        </div>
+        <div class="detail-item">
+          <div class="dlabel" id="t-d3">개월</div>
+          <div class="dval" id="r-months">-</div>
+          <div class="dunit" id="t-d3u">개월</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자주 쓰는 D-day 프리셋 -->
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-preset">자주 쓰는 D-day</div>
+    <div class="preset-grid" id="preset-grid"></div>
+  </div>
+
+  <!-- SEO 설명 섹션 -->
+  <section class="seo-section">
+    <h2>D-day 계산기 사용 방법</h2>
+    <p>오늘 날짜와 목표 날짜를 입력하면 D-day를 즉시 계산합니다. 이벤트 이름을 입력하면 더 직관적으로 확인할 수 있습니다. 두 날짜 사이 탭을 선택하면 시작일과 종료일 사이의 정확한 일수, 주수, 개월 수를 계산합니다.</p>
+
+    <h3>D-day 표기 방법</h3>
+    <div class="info-box">
+      <strong>D-숫자</strong>: 목표일까지 남은 날 수 (예: D-30은 30일 후)<br>
+      <strong>D-0 / D-day</strong>: 목표일 당일<br>
+      <strong>D+숫자</strong>: 목표일 이후 지난 날 수 (예: 결혼 D+100)
+    </div>
+
+    <h3>날짜 계산 시 주의사항</h3>
+    <p>날짜 계산 방식에 따라 결과가 달라질 수 있습니다. 일반적으로 시작일을 포함하지 않고 종료일만 포함하는 방식(종료일 - 시작일)으로 계산합니다. 예를 들어 1월 1일부터 1월 3일까지는 2일입니다. 법적·계약적 날짜 계산은 전문가에게 확인하는 것을 권장합니다.</p>
+
+    <h3>윤년과 날짜 계산</h3>
+    <p>이 계산기는 윤년을 자동으로 반영합니다. 2024년, 2028년처럼 4의 배수이면서 100의 배수가 아닌 해는 2월이 29일로 계산됩니다. 400의 배수인 해(2000년, 2400년)도 윤년입니다.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">D-day 계산은 어떻게 하나요?</div>
+      <div class="faq-a">목표 날짜에서 오늘 날짜를 빼면 D-day가 계산됩니다. 오늘이 1월 1일이고 목표일이 1월 10일이면 D-9입니다. 당일은 D-0입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">두 날짜 사이 일수는 어떻게 계산하나요?</div>
+      <div class="faq-a">종료일에서 시작일을 빼면 됩니다. 1월 1일부터 1월 31일까지는 30일입니다. 시작일과 종료일 모두 포함하면 31일이 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">D-day와 D+day의 차이는?</div>
+      <div class="faq-a">D-day는 목표일까지 남은 날 수를, D+day는 특정 날짜로부터 지난 날 수를 의미합니다. 결혼 D+100은 결혼한 날로부터 100일째 되는 날입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">윤년은 자동으로 계산되나요?</div>
+      <div class="faq-a">네, 이 계산기는 윤년을 자동으로 반영합니다. 4의 배수이면서 100의 배수가 아닌 해는 2월이 29일로 처리됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">수능 D-day는 언제인가요?</div>
+      <div class="faq-a">수능은 매년 11월 둘째 주 목요일에 시행됩니다. 이 계산기에서 수능 날짜를 직접 입력하면 오늘부터 수능까지 남은 일수를 정확히 확인할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 법적·계약적 날짜 계산은 전문가에게 확인하세요.</p>
+    <p style="margin-top:6px">© 2025 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let mode = 'dday';
+let lang = 'ko';
+
+const PRESETS_KO = [
+  { name: '2025 수능', date: '2025-11-13' },
+  { name: '2026 수능', date: '2026-11-12' },
+  { name: '크리스마스', date: new Date().getFullYear() + '-12-25' },
+  { name: '새해', date: (new Date().getFullYear() + 1) + '-01-01' },
+];
+const PRESETS_EN = [
+  { name: 'Christmas', date: new Date().getFullYear() + '-12-25' },
+  { name: 'New Year', date: (new Date().getFullYear() + 1) + '-01-01' },
+  { name: 'Halloween', date: new Date().getFullYear() + '-10-31' },
+  { name: "Valentine's Day", date: (new Date().getFullYear() + 1) + '-02-14' },
+];
+
+function setMode(m, el) {
+  mode = m;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('mode-dday').style.display = m === 'dday' ? 'block' : 'none';
+  document.getElementById('mode-between').style.display = m === 'between' ? 'block' : 'none';
+}
+
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function diffDays(a, b) {
+  const d1 = new Date(a), d2 = new Date(b);
+  return Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
+}
+
+function formatDateEn(dateStr) {
+  const d = new Date(dateStr);
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} (${days[d.getDay()]})`;
+}
+
+function calculate() {
+  const t = T[lang];
+  if (mode === 'dday') {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+    const eventName = document.getElementById('eventName').value.trim();
+    if (!from || !to) { alert('날짜를 입력해주세요.'); return; }
+
+    const diff = diffDays(from, to);
+    let ddayStr, labelStr;
+    if (diff > 0) { ddayStr = 'D-' + diff; labelStr = t.remaining; }
+    else if (diff === 0) { ddayStr = 'D-Day'; labelStr = t.today_label; }
+    else { ddayStr = 'D+' + Math.abs(diff); labelStr = t.passed; }
+
+    document.getElementById('r-event').textContent = eventName || t.dday_label;
+    document.getElementById('r-dday').textContent = ddayStr;
+    document.getElementById('r-label').textContent = labelStr;
+    document.getElementById('r-dateinfo').textContent = lang === 'ko' ? formatDate(to) : formatDateEn(to);
+    document.getElementById('r-days').textContent = Math.abs(diff).toLocaleString();
+    document.getElementById('r-weeks').textContent = Math.floor(Math.abs(diff) / 7).toLocaleString();
+    document.getElementById('r-months').textContent = Math.floor(Math.abs(diff) / 30).toLocaleString();
+  } else {
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    if (!start || !end) { alert('날짜를 입력해주세요.'); return; }
+
+    const diff = Math.abs(diffDays(start, end));
+    document.getElementById('r-event').textContent = t.between_label;
+    document.getElementById('r-dday').textContent = diff.toLocaleString();
+    document.getElementById('r-label').textContent = t.days_label;
+    document.getElementById('r-dateinfo').textContent = (lang === 'ko' ? formatDate(start) : formatDateEn(start)) + ' ~ ' + (lang === 'ko' ? formatDate(end) : formatDateEn(end));
+    document.getElementById('r-days').textContent = diff.toLocaleString();
+    document.getElementById('r-weeks').textContent = Math.floor(diff / 7).toLocaleString();
+    document.getElementById('r-months').textContent = Math.floor(diff / 30).toLocaleString();
+  }
+
+  document.getElementById('result-box').classList.add('show');
+  document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderPresets() {
+  const presets = lang === 'ko' ? PRESETS_KO : PRESETS_EN;
+  const todayStr = today();
+  const grid = document.getElementById('preset-grid');
+  grid.innerHTML = '';
+  presets.forEach(p => {
+    const diff = diffDays(todayStr, p.date);
+    let ddayStr;
+    if (diff > 0) ddayStr = 'D-' + diff;
+    else if (diff === 0) ddayStr = 'D-Day';
+    else ddayStr = 'D+' + Math.abs(diff);
+
+    const btn = document.createElement('button');
+    btn.className = 'preset-btn';
+    btn.innerHTML = `<span><div class="preset-name">${p.name}</div><div class="preset-date">${p.date}</div></span><span class="preset-dday">${ddayStr}</span>`;
+    btn.onclick = () => {
+      document.getElementById('fromDate').value = todayStr;
+      document.getElementById('toDate').value = p.date;
+      document.getElementById('eventName').value = p.name;
+      setMode('dday', document.getElementById('btn-dday'));
+      calculate();
+    };
+    grid.appendChild(btn);
+  });
+}
+
+const T = {
+  ko: {
+    title: 'D-day 계산기', sub: '목표일까지 남은 날짜 또는 두 날짜 사이 일수를 즉시 계산합니다.',
+    today_field: '오늘 날짜', target: '목표 날짜', event: '이벤트 이름 (선택)',
+    start: '시작 날짜', end: '종료 날짜', calc: '계산하기',
+    dday_btn: '📅 D-day 계산', between_btn: '📆 두 날짜 사이',
+    d1: '일', d1u: '일', d2: '주', d2u: '주', d3: '개월', d3u: '개월',
+    preset: '자주 쓰는 D-day',
+    remaining: '남았습니다', today_label: '오늘입니다!', passed: '지났습니다',
+    dday_label: 'D-day', between_label: '두 날짜 사이', days_label: '일'
+  },
+  en: {
+    title: 'D-day Calculator', sub: 'Calculate days until your target date or between two dates.',
+    today_field: 'Today', target: 'Target Date', event: 'Event Name (optional)',
+    start: 'Start Date', end: 'End Date', calc: 'Calculate',
+    dday_btn: '📅 D-day', between_btn: '📆 Between Dates',
+    d1: 'Days', d1u: 'days', d2: 'Weeks', d2u: 'weeks', d3: 'Months', d3u: 'months',
+    preset: 'Quick D-day',
+    remaining: 'remaining', today_label: "It's today!", passed: 'have passed',
+    dday_label: 'D-day', between_label: 'Between Dates', days_label: 'days'
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-today').textContent = t.today_field;
+  document.getElementById('t-target').textContent = t.target;
+  document.getElementById('t-event-name').textContent = t.event;
+  document.getElementById('t-start').textContent = t.start;
+  document.getElementById('t-end').textContent = t.end;
+  document.getElementById('t-calc').textContent = t.calc;
+  document.getElementById('btn-dday').textContent = t.dday_btn;
+  document.getElementById('btn-between').textContent = t.between_btn;
+  document.getElementById('t-d1').textContent = t.d1;
+  document.getElementById('t-d1u').textContent = t.d1u;
+  document.getElementById('t-d2').textContent = t.d2;
+  document.getElementById('t-d2u').textContent = t.d2u;
+  document.getElementById('t-d3').textContent = t.d3;
+  document.getElementById('t-d3u').textContent = t.d3u;
+  document.getElementById('t-preset').textContent = t.preset;
+  renderPresets();
+}
+
+// 초기화
+document.getElementById('fromDate').value = today();
+const nextMonth = new Date();
+nextMonth.setMonth(nextMonth.getMonth() + 1);
+document.getElementById('toDate').value = nextMonth.toISOString().split('T')[0];
+document.getElementById('startDate').value = today();
+document.getElementById('endDate').value = nextMonth.toISOString().split('T')[0];
+renderPresets();
+calculate();
+</script>
+</body>
+</html>
