@@ -4,24 +4,46 @@
 <meta name="google-site-verification" content="m2mNEhLnL0FHBvJy9X4zy9Nkv_54btyFqLDfPiN--P0" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대출 이자 계산기 | Loan Calculator - TopTools365</title>
-<meta name="description" content="대출 원금, 금리, 기간을 입력하면 월 상환금, 총 이자, 상환 스케줄을 즉시 계산합니다.">
+<title>대출 이자 계산기 | TopTools365 - 무료 대출 계산기</title>
+<meta name="description" content="대출 원금, 금리, 기간을 입력하면 월 상환금, 총 이자, 상환 스케줄을 즉시 계산합니다. 원리금균등·원금균등·만기일시 상환 방식 모두 지원. 완전 무료.">
+<meta name="keywords" content="대출이자계산기, 대출계산기, 월상환금계산, 원리금균등상환, 원금균등상환, 대출이자계산">
 <link rel="canonical" href="https://www.toptools365.com/loan-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="대출 이자 계산기 - 무료 대출 계산기 | TopTools365">
+<meta property="og:description" content="원금·금리·기간 입력 → 월 상환금·총 이자 즉시 계산. 상환 스케줄 포함. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"대출 이자 계산기","description":"대출 원금, 금리, 기간을 입력하면 월 상환금과 총 이자를 즉시 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"원리금균등상환이란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"매달 동일한 금액을 납부하는 방식입니다. 초기에는 이자 비중이 높고 후반부로 갈수록 원금 비중이 높아집니다. 가장 일반적인 대출 상환 방식입니다."}},{"@type":"Question","name":"원금균등상환과 원리금균등상환 중 어느 것이 유리한가요?","acceptedAnswer":{"@type":"Answer","text":"총 이자 납부액은 원금균등상환이 더 적습니다. 다만 초기 월 납부금이 더 높아 부담이 클 수 있습니다. 여유 자금이 있다면 원금균등상환이 유리합니다."}},{"@type":"Question","name":"대출 이자는 어떻게 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"월 이자 = 잔여 원금 × (연 이자율 ÷ 12)로 계산됩니다. 예를 들어 연 4.5% 금리라면 월 이자율은 0.375%입니다."}}]}
+</script>
 <style>
   :root {
-    --bg: #f8f7f4; --card: #ffffff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
-    --accent: #1a6b4a; --accent-light: #e8f5ef; --accent2: #c84b2a; --accent2-light: #fdf0ec;
-    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6b66;
+    --accent: #1a6b4a;
+    --accent-light: #e8f5ef;
+    --accent2: #c84b2a;
+    --accent2-light: #fdf0ec;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
   }
   @media(prefers-color-scheme:dark) {
-    :root { --bg:#1a1a18; --card:#242422; --border:#3a3a36; --text:#f0efe8; --muted:#9a9a92;
-      --accent:#2daa72; --accent-light:#0e2a1e; --accent2:#e8704a; --accent2-light:#2a1510; }
+    :root {
+      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
+      --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --accent2: #e8704a; --accent2-light: #2a1510;
+    }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
-  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 20px; }
-  .back:hover { color: var(--accent); }
+  .back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
   h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
@@ -66,12 +88,27 @@
   .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
   .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
   .lang-btn.on { border-color: var(--accent); color: var(--accent); }
-  .footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; }
+
+  /* SEO 설명 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  .compare-table th { background: var(--accent-light); color: var(--accent); padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); line-height: 1.6; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="/">← TopTools365 홈</a>
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
   <div class="lang-row">
     <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
     <button class="lang-btn" onclick="setLang('en',this)">English</button>
@@ -107,46 +144,73 @@
     </div>
     <div class="card">
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-schedule">상환 스케줄</div>
-      <div class="tbl-wrap"><table><thead><tr><th id="t-th1">회차</th><th id="t-th2">월 상환금</th><th id="t-th3">원금</th><th id="t-th4">이자</th><th id="t-th5">잔여 원금</th></tr></thead><tbody id="schedule-body"></tbody></table></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th id="t-th1">회차</th><th id="t-th2">월 상환금</th><th id="t-th3">원금</th><th id="t-th4">이자</th><th id="t-th5">잔여 원금</th></tr></thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <p class="footer">본 계산기는 참고용이며 실제 금융 조건에 따라 다를 수 있습니다.</p>
+
+  <!-- SEO 설명 섹션 -->
+  <section class="seo-section">
+    <h2>대출 이자 계산기 사용 방법</h2>
+    <p>대출 원금, 연 이자율, 대출 기간(개월)을 입력하고 상환 방식을 선택하면 월 상환금, 총 상환금, 총 이자를 즉시 확인할 수 있습니다. 상환 스케줄을 통해 매달 얼마를 납부하는지, 잔여 원금이 얼마인지도 한눈에 볼 수 있습니다.</p>
+
+    <h3>상환 방식 비교</h3>
+    <p>대출 상환 방식은 크게 세 가지로 나뉩니다. 본인의 재정 상황에 맞는 방식을 선택하는 것이 중요합니다.</p>
+    <table class="compare-table">
+      <thead><tr><th>상환 방식</th><th>특징</th><th>적합한 경우</th></tr></thead>
+      <tbody>
+        <tr><td><strong>원리금균등상환</strong></td><td>매달 동일한 금액 납부. 초기에 이자 비중이 높고 후반으로 갈수록 원금 비중 증가</td><td>매달 고정 지출로 관리하고 싶을 때</td></tr>
+        <tr><td><strong>원금균등상환</strong></td><td>매달 동일한 원금 납부. 초기 납부금이 높지만 총 이자가 가장 적음</td><td>초기 여유 자금이 있고 이자를 줄이고 싶을 때</td></tr>
+        <tr><td><strong>만기일시상환</strong></td><td>대출 기간 동안 이자만 납부하고 만기에 원금 전액 상환</td><td>단기 자금이 필요하거나 만기에 목돈이 생길 예정일 때</td></tr>
+      </tbody>
+    </table>
+
+    <h3>대출 이자 계산 공식</h3>
+    <p>원리금균등상환의 월 납부금은 다음 공식으로 계산됩니다. 월 이자율(r) = 연 이자율 ÷ 12, 납부 횟수(n) = 대출 기간(개월)일 때, 월 납부금 = 원금 × r × (1+r)ⁿ ÷ ((1+r)ⁿ - 1)입니다. 예를 들어 3,000만원을 연 4.5%로 36개월 대출 시 월 납부금은 약 89만원입니다.</p>
+
+    <h3>대출 이자를 줄이는 방법</h3>
+    <p>대출 이자를 줄이려면 금리를 낮추거나 대출 기간을 단축하는 것이 효과적입니다. 여유 자금이 생기면 중도 상환을 활용해 원금을 줄이면 이후 납부하는 이자가 줄어듭니다. 또한 원금균등상환 방식은 원리금균등상환보다 총 이자가 적어 장기적으로 유리합니다.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">원리금균등상환과 원금균등상환 중 어느 것이 유리한가요?</div>
+      <div class="faq-a">총 이자 납부액은 원금균등상환이 더 적습니다. 하지만 초기 월 납부금이 높아 부담이 클 수 있습니다. 여유 자금이 있다면 원금균등상환이, 고정 지출 관리가 중요하다면 원리금균등상환이 유리합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">대출 금리 1%가 실제로 얼마나 차이 나나요?</div>
+      <div class="faq-a">3,000만원을 36개월 대출 시 금리 4% vs 5% 비교 시 총 이자 차이는 약 46만원입니다. 대출 금액이 크고 기간이 길수록 금리 1% 차이의 영향이 매우 커집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">대출 이자는 어떻게 계산되나요?</div>
+      <div class="faq-a">월 이자 = 잔여 원금 × (연 이자율 ÷ 12)로 계산됩니다. 연 4.5% 금리라면 월 이자율은 0.375%입니다. 원리금균등상환은 매달 납부금이 같지만, 초기에는 이자 비중이 높고 후반으로 갈수록 원금 비중이 높아집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">중도 상환 시 이자는 어떻게 되나요?</div>
+      <div class="faq-a">중도 상환 시 남은 원금에 대한 이자만 납부하면 되므로 총 이자가 줄어듭니다. 단, 일부 금융기관은 중도 상환 수수료를 부과하므로 사전에 확인이 필요합니다.</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며 실제 금융 조건에 따라 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2025 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
 </div>
+
 <script>
 let repayType='equal',lang='ko';
 const T={ko:{title:'대출 이자 계산기',sub:'원금·금리·기간을 입력하면 월 상환금과 전체 이자를 즉시 계산합니다.',loan:'대출 원금',rate:'연 이자율',period:'대출 기간',start:'시작 월',unitW:'만원',unitM:'개월',calc:'계산하기',m1:'월 상환금',m2:'총 상환금',m3:'총 이자',principalRatio:'원금 비율',lgP:'원금',lgI:'이자',schedule:'상환 스케줄',th:['회차','월 상환금','원금','이자','잔여 원금'],equalBtn:'원리금균등상환',principalBtn:'원금균등상환',bulletBtn:'만기일시상환'},en:{title:'Loan Calculator',sub:'Enter principal, rate and term to instantly calculate monthly payment and total interest.',loan:'Principal',rate:'Annual Rate',period:'Term',start:'Start Month',unitW:'K USD',unitM:'months',calc:'Calculate',m1:'Monthly Payment',m2:'Total Payment',m3:'Total Interest',principalRatio:'Principal Ratio',lgP:'Principal',lgI:'Interest',schedule:'Repayment Schedule',th:['#','Payment','Principal','Interest','Balance'],equalBtn:'Equal Payment',principalBtn:'Equal Principal',bulletBtn:'Bullet Loan'}};
 function setLang(l,el){lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');const t=T[l];document.getElementById('t-title').textContent=t.title;document.getElementById('t-sub').textContent=t.sub;document.getElementById('t-loan').textContent=t.loan;document.getElementById('t-rate').textContent=t.rate;document.getElementById('t-period').textContent=t.period;document.getElementById('t-start').textContent=t.start;document.getElementById('t-unit-w').textContent=t.unitW;document.getElementById('t-unit-m').textContent=t.unitM;document.getElementById('t-calc').textContent=t.calc;document.getElementById('t-m1').textContent=t.m1;document.getElementById('t-m2').textContent=t.m2;document.getElementById('t-m3').textContent=t.m3;document.getElementById('t-principal-ratio').textContent=t.principalRatio;document.getElementById('t-lg-p').textContent=t.lgP;document.getElementById('t-lg-i').textContent=t.lgI;document.getElementById('t-schedule').textContent=t.schedule;document.getElementById('btn-equal').textContent=t.equalBtn;document.getElementById('btn-principal').textContent=t.principalBtn;document.getElementById('btn-bullet').textContent=t.bulletBtn;const ths=document.querySelectorAll('thead th');t.th.forEach((h,i)=>{if(ths[i])ths[i].textContent=h;});}
 function setType(type,el){repayType=type;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
 function fmt(n){return n.toLocaleString('ko-KR',{maximumFractionDigits:0});}
-function calculate(){
-  const P=parseFloat(document.getElementById('principal').value)*10000;
-  const annualRate=parseFloat(document.getElementById('rate').value);
-  const n=parseInt(document.getElementById('months').value);
-  const startVal=document.getElementById('startDate').value;
-  if(!P||!annualRate||!n)return;
-  const r=annualRate/100/12;let schedule=[];
-  if(repayType==='equal'){const M=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);let balance=P;for(let i=1;i<=n;i++){const interest=balance*r;const principal=M-interest;balance-=principal;schedule.push({m:i,payment:M,principal,interest,balance:Math.max(0,balance)});}}
-  else if(repayType==='principal'){const principalPart=P/n;let balance=P;for(let i=1;i<=n;i++){const interest=balance*r;const payment=principalPart+interest;balance-=principalPart;schedule.push({m:i,payment,principal:principalPart,interest,balance:Math.max(0,balance)});}}
-  else{for(let i=1;i<=n;i++){const interest=P*r;const principal=i===n?P:0;const payment=i===n?P+interest:interest;schedule.push({m:i,payment,principal,interest,balance:i===n?0:P});}}
-  const totalPayment=schedule.reduce((s,r)=>s+r.payment,0);
-  const totalInterest=totalPayment-P;
-  const firstPayment=schedule[0].payment;
-  const principalPct=Math.round(P/totalPayment*100);
-  const interestPct=100-principalPct;
-  document.getElementById('r-monthly').textContent=fmt(Math.round(firstPayment/10000))+'만원';
-  document.getElementById('r-total').textContent=fmt(Math.round(totalPayment/10000))+'만원';
-  document.getElementById('r-interest').textContent=fmt(Math.round(totalInterest/10000))+'만원';
-  document.getElementById('r-ratio').textContent=principalPct+'% : '+interestPct+'%';
-  document.getElementById('bar-p').style.width=principalPct+'%';
-  document.getElementById('bar-i').style.width=interestPct+'%';
-  const tbody=document.getElementById('schedule-body');tbody.innerHTML='';
-  let startDate=startVal?new Date(startVal+'-01'):new Date();
-  schedule.forEach((row,idx)=>{const d=new Date(startDate);d.setMonth(d.getMonth()+idx);const dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0');const tr=document.createElement('tr');tr.innerHTML=`<td>${row.m}회 <span style="color:var(--muted);font-size:11px">${dateStr}</span></td><td>${fmt(Math.round(row.payment/10000))}만</td><td>${fmt(Math.round(row.principal/10000))}만</td><td style="color:var(--accent2)">${fmt(Math.round(row.interest/10000))}만</td><td>${fmt(Math.round(row.balance/10000))}만</td>`;tbody.appendChild(tr);});
-  document.getElementById('results').classList.add('show');
-  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
-}
-const now=new Date();
-document.getElementById('startDate').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+function calculate(){const P=parseFloat(document.getElementById('principal').value)*10000;const annualRate=parseFloat(document.getElementById('rate').value);const n=parseInt(document.getElementById('months').value);const startVal=document.getElementById('startDate').value;if(!P||!annualRate||!n)return;const r=annualRate/100/12;let schedule=[];if(repayType==='equal'){const M=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);let balance=P;for(let i=1;i<=n;i++){const interest=balance*r;const principal=M-interest;balance-=principal;schedule.push({m:i,payment:M,principal,interest,balance:Math.max(0,balance)});}}else if(repayType==='principal'){const principalPart=P/n;let balance=P;for(let i=1;i<=n;i++){const interest=balance*r;const payment=principalPart+interest;balance-=principalPart;schedule.push({m:i,payment,principal:principalPart,interest,balance:Math.max(0,balance)});}}else{for(let i=1;i<=n;i++){const interest=P*r;const principal=i===n?P:0;const payment=i===n?P+interest:interest;schedule.push({m:i,payment,principal,interest,balance:i===n?0:P});}}const totalPayment=schedule.reduce((s,r)=>s+r.payment,0);const totalInterest=totalPayment-P;const firstPayment=schedule[0].payment;const principalPct=Math.round(P/totalPayment*100);const interestPct=100-principalPct;document.getElementById('r-monthly').textContent=fmt(Math.round(firstPayment/10000))+'만원';document.getElementById('r-total').textContent=fmt(Math.round(totalPayment/10000))+'만원';document.getElementById('r-interest').textContent=fmt(Math.round(totalInterest/10000))+'만원';document.getElementById('r-ratio').textContent=principalPct+'% : '+interestPct+'%';document.getElementById('bar-p').style.width=principalPct+'%';document.getElementById('bar-i').style.width=interestPct+'%';const tbody=document.getElementById('schedule-body');tbody.innerHTML='';let startDate=startVal?new Date(startVal+'-01'):new Date();schedule.forEach((row,idx)=>{const d=new Date(startDate);d.setMonth(d.getMonth()+idx);const dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0');const tr=document.createElement('tr');tr.innerHTML=`<td>${row.m}회 <span style="color:var(--muted);font-size:11px">${dateStr}</span></td><td>${fmt(Math.round(row.payment/10000))}만</td><td>${fmt(Math.round(row.principal/10000))}만</td><td style="color:var(--accent2)">${fmt(Math.round(row.interest/10000))}만</td><td>${fmt(Math.round(row.balance/10000))}만</td>`;tbody.appendChild(tr);});document.getElementById('results').classList.add('show');document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}
+const now=new Date();document.getElementById('startDate').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
 calculate();
 </script>
 </body>
