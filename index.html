@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TopTools365 - 무료 계산기 · 변환기 · 생활 툴 모음</title>
-<meta name="description" content="대출계산기, 퇴직금계산기 등 일상에서 필요한 계산기를 무료로 제공합니다.">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="대출계산기, 퇴직금계산기, 단위변환기 등 생활에 필요한 무료 온라인 툴 모음. 빠르게 바로 사용 가능. 계속 업데이트 중.">
+<meta name="keywords" content="무료계산기, 온라인계산기, 무료툴, 대출계산기, 퇴직금계산기, 단위변환기, 생활툴">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TopTools365 - 무료 계산기 · 변환기 · 생활 툴 모음">
+<meta property="og:description" content="생활에 필요한 무료 온라인 툴 모음. 빠르게 바로 사용.">
+<meta property="og:url" content="https://www.toptools365.com/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"TopTools365","url":"https://www.toptools365.com","description":"무료 계산기, 변환기, 생활 툴 모음 사이트"}
+</script>
 <style>
   :root {
     --bg: #f8f7f4;
@@ -14,61 +23,160 @@
     --text: #1a1a18;
     --muted: #6b6b66;
     --accent: #1a6b4a;
-    --radius: 16px;
+    --accent-light: #e8f5ef;
+    --accent2: #1a5c8a;
+    --accent2-light: #e8f2f9;
+    --radius: 14px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.08);
   }
   @media(prefers-color-scheme:dark) {
-    :root { --bg:#1a1a18; --card:#242422; --border:#3a3a36; --text:#f0efe8; --muted:#9a9a92; --accent:#2daa72; }
+    :root {
+      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
+      --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --accent2: #4a9fd4; --accent2-light: #0d2233;
+    }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .wrap { max-width: 800px; margin: 0 auto; padding: 60px 16px 80px; }
-  .hero { text-align: center; margin-bottom: 56px; }
-  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
-  .hero h1 span { color: var(--accent); }
-  .hero p { font-size: 16px; color: var(--muted); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-  .tool-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    text-decoration: none;
-    color: var(--text);
-    transition: transform .15s, box-shadow .15s;
-    display: block;
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .header { padding: 48px 16px 40px; text-align: center; max-width: 800px; margin: 0 auto; }
+  .logo { font-size: 32px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; margin-bottom: 10px; }
+  .logo span { color: var(--text); }
+  .tagline { font-size: 16px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .stats-row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .stat { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+  .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  .category-row { display: flex; gap: 8px; padding: 0 16px; max-width: 800px; margin: 0 auto 24px; flex-wrap: wrap; }
+  .cat-btn { padding: 7px 16px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .cat-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 80px; }
+  .section-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; margin-top: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media(max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+
+  .tool-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); text-decoration: none; color: var(--text); transition: transform .18s, box-shadow .18s, border-color .18s; display: block; position: relative; overflow: hidden; }
+  .tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--accent); }
+  .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transition: transform .18s; transform-origin: left; }
+  .tool-card:hover::before { transform: scaleX(1); }
+  .tool-icon { font-size: 28px; margin-bottom: 10px; }
+  .tool-name { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+  .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .tool-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+  .tool-tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .tag-finance { background: var(--accent-light); color: var(--accent); }
+  .tag-health { background: #fef3e2; color: #b45309; }
+  .tag-text { background: var(--accent2-light); color: var(--accent2); }
+  .tag-life { background: #f3e8ff; color: #7c3aed; }
+  @media(prefers-color-scheme:dark) {
+    .tag-health { background: #2a1f0a; color: #e8a832; }
+    .tag-life { background: #1e1030; color: #a78bfa; }
   }
-  .tool-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-  .tool-icon { font-size: 32px; margin-bottom: 12px; }
-  .tool-name { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-  .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .tag { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
-  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 60px; }
+  .tool-arrow { font-size: 16px; color: var(--muted); transition: transform .15s, color .15s; }
+  .tool-card:hover .tool-arrow { transform: translateX(4px); color: var(--accent); }
+
+  .about-section { margin-top: 56px; padding: 32px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .about-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .about-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
+  .about-section p:last-child { margin-bottom: 0; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  @media(max-width: 520px) { .feature-grid { grid-template-columns: 1fr; } }
+  .feature-item { text-align: center; padding: 16px; background: var(--bg); border-radius: 10px; }
+  .feature-icon { font-size: 24px; margin-bottom: 8px; }
+  .feature-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .feature-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="hero">
-    <h1>Top<span>Tools</span>365</h1>
-    <p>일상에서 필요한 계산기를 무료로 제공합니다</p>
-  </div>
 
-  <div class="grid">
-    <a class="tool-card" href="/loan-calculator/">
+<header class="header">
+  <div class="logo">Top<span>Tools</span>365</div>
+  <p class="tagline">무료 계산기 · 변환기 · 생활 툴 모음<br>빠르게, 바로 사용</p>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-dot"></div>무료 이용</div>
+    <div class="stat"><div class="stat-dot"></div>계속 업데이트 중</div>
+  </div>
+</header>
+
+<div class="category-row">
+  <button class="cat-btn on" onclick="filterCat('all', this)">전체</button>
+  <button class="cat-btn" onclick="filterCat('finance', this)">💰 금융</button>
+  <button class="cat-btn" onclick="filterCat('health', this)">💪 건강</button>
+  <button class="cat-btn" onclick="filterCat('text', this)">📝 텍스트</button>
+  <button class="cat-btn" onclick="filterCat('life', this)">📅 생활</button>
+</div>
+
+<div class="wrap">
+
+  <div class="section-label" data-cat="finance">💰 금융 계산기</div>
+  <div class="grid" data-cat="finance">
+    <a class="tool-card" href="/loan-calculator/" data-cat="finance">
       <div class="tool-icon">🏦</div>
       <div class="tool-name">대출 이자 계산기</div>
-      <div class="tool-desc">원리금균등·원금균등·만기일시 상환 방식별 월 상환금과 총 이자를 즉시 계산</div>
-      <span class="tag">금융</span>
+      <div class="tool-desc">원금·금리·기간 입력 시 월 상환금, 총 이자, 상환 스케줄 즉시 계산</div>
+      <div class="tool-footer">
+        <span class="tool-tag tag-finance">금융</span>
+        <span class="tool-arrow">→</span>
+      </div>
     </a>
-    <a class="tool-card" href="/severance-pay/">
+    <a class="tool-card" href="/severance-pay/" data-cat="finance">
       <div class="tool-icon">💼</div>
       <div class="tool-name">퇴직금 계산기</div>
-      <div class="tool-desc">입사일·퇴사일·임금 입력만으로 법정 퇴직금을 즉시 계산. 근속연수 자동 산출</div>
-      <span class="tag">금융</span>
+      <div class="tool-desc">입사일·퇴사일·임금 입력 시 법정 퇴직금 즉시 계산. 근속연수 자동 계산</div>
+      <div class="tool-footer">
+        <span class="tool-tag tag-finance">금융</span>
+        <span class="tool-arrow">→</span>
+      </div>
     </a>
-    <!-- 툴 추가할 때마다 여기에 카드 복붙 -->
   </div>
 
-  <footer>© 2025 TopTools365 · 무료 온라인 계산기</footer>
+  <div class="about-section">
+    <h2>TopTools365 소개</h2>
+    <p>TopTools365는 일상에서 자주 필요한 계산기, 변환기, 생활 툴을 무료로 제공하는 사이트입니다. 복잡한 광고나 회원가입 없이 바로 사용할 수 있습니다.</p>
+    <p>대출 이자 계산, 퇴직금 계산 등 금융 계산기부터 단위 변환기, 텍스트 툴까지 생활에 필요한 다양한 툴을 계속 추가하고 있습니다.</p>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">빠른 계산</div>
+        <div class="feature-desc">입력 즉시 결과 확인. 별도 설치 불필요</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🆓</div>
+        <div class="feature-title">완전 무료</div>
+        <div class="feature-desc">모든 툴을 무료로 제한 없이 사용</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">모바일 최적화</div>
+        <div class="feature-desc">PC·스마트폰 어디서든 편리하게</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 TopTools365 · 무료 온라인 툴 모음</p>
+    <p style="margin-top:6px">계속 새로운 툴을 추가하고 있습니다</p>
+  </footer>
 </div>
+
+<script>
+function filterCat(cat, el) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+
+  document.querySelectorAll('.tool-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('.section-label, .grid').forEach(el => {
+    el.style.display = (cat === 'all' || el.dataset.cat === cat) ? (el.classList.contains('grid') ? 'grid' : 'block') : 'none';
+  });
+}
+</script>
 </body>
 </html>
