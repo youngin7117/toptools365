@@ -132,6 +132,16 @@
   .lang-btn.on { border-color: var(--accent); color: var(--accent); }
 
   footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  /* 관련 툴 */
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
 </style>
 </head>
 <body>
@@ -290,6 +300,25 @@
     <div class="faq-item">
       <div class="faq-q">소아·청소년 BMI 기준도 같은가요?</div>
       <div class="faq-a">아닙니다. 소아·청소년은 성장 단계에 따라 BMI 기준이 다릅니다. 성인 기준 BMI를 소아·청소년에게 적용하면 정확하지 않으므로 소아과 전문의에게 상담하는 것이 좋습니다.</div>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+    <a class="related-item" href="/unit-converter/">
+      <span class="related-icon">📐</span>
+      <span>단위 변환기</span>
+    </a>
+    <a class="related-item" href="/dday-calculator/">
+      <span class="related-icon">📅</span>
+      <span>D-day 계산기</span>
+    </a>
+    <a class="related-item" href="/character-counter/">
+      <span class="related-icon">📝</span>
+      <span>글자수 세기</span>
+    </a>
     </div>
   </section>
 
