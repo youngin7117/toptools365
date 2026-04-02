@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR코드 생성기 - URL 텍스트 QR코드 무료 즉시 생성 | TopTools365</title>
+<meta name="description" content="URL, 텍스트, 연락처 등 QR코드를 무료로 즉시 생성합니다. 크기·색상 설정 가능. PNG 다운로드 지원. 완전 무료.">
+<meta name="keywords" content="QR코드생성기,QR코드만들기,QR코드무료,큐알코드생성기,QR코드URL,QR코드다운로드,qr code generator">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/qr-generator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="QR코드 생성기 - URL 텍스트 QR코드 무료 즉시 생성 | TopTools365">
+<meta property="og:description" content="URL·텍스트·연락처 QR코드 즉시 생성. 크기·색상 설정. PNG 다운로드. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"QR코드 생성기","alternateName":"QR Code Generator","description":"URL, 텍스트 등을 QR코드로 즉시 변환하는 무료 온라인 툴","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"QR코드란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"QR코드(Quick Response Code)는 스마트폰 카메라로 스캔하면 URL, 텍스트, 연락처 등의 정보를 즉시 확인할 수 있는 2차원 바코드입니다."}},{"@type":"Question","name":"QR코드는 무료로 만들 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네, TopTools365의 QR코드 생성기는 완전 무료입니다. 회원가입 없이 URL, 텍스트 등을 QR코드로 즉시 변환하고 PNG 파일로 다운로드할 수 있습니다."}},{"@type":"Question","name":"QR코드 유효기간이 있나요?","acceptedAnswer":{"@type":"Answer","text":"이 생성기로 만든 QR코드는 유효기간이 없습니다. QR코드에 담긴 URL이 유효한 한 영구적으로 사용할 수 있습니다."}},{"@type":"Question","name":"QR코드에 로고를 넣을 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"이 기본 생성기는 로고 삽입 기능을 제공하지 않습니다. 색상과 크기 변경은 가능합니다. 로고 삽입이 필요한 경우 전문 디자인 툴을 활용하세요."}}]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #ffffff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 타입 탭 */
+  .type-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .type-btn { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .type-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 입력 */
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field textarea { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 15px; resize: vertical; outline: none; transition: border-color .15s; min-height: 100px; font-family: inherit; line-height: 1.6; }
+  .field textarea:focus { border-color: var(--accent); }
+  .field input[type="text"], .field input[type="tel"], .field input[type="email"] { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 15px; outline: none; transition: border-color .15s; margin-bottom: 10px; }
+  .field input:focus { border-color: var(--accent); }
+
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  .gen-btn { width: 100%; margin-top: 20px; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .gen-btn:hover { opacity: .88; }
+
+  /* QR코드 결과 */
+  .qr-result { display: none; text-align: center; }
+  .qr-result.show { display: block; }
+  .qr-wrap { display: inline-flex; align-items: center; justify-content: center; padding: 20px; background: white; border-radius: 14px; border: 2px solid var(--border); margin-bottom: 16px; }
+  #qr-canvas { display: block; }
+
+  .dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border: none; border-radius: 10px; background: var(--green); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity .15s; text-decoration: none; }
+  .dl-btn:hover { opacity: .88; }
+
+  /* 설정 */
+  .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .setting-row label { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .size-select { padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; outline: none; cursor: pointer; }
+  input[type="color"] { width: 44px; height: 36px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; padding: 2px; background: var(--bg); }
+
+  /* SEO 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  /* 관련 툴 */
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">QR코드 생성기</h1>
+  <p class="subtitle" id="t-sub">URL, 텍스트, 연락처를 QR코드로 즉시 변환합니다. PNG 다운로드 지원.</p>
+
+  <div class="card">
+    <!-- 타입 선택 -->
+    <div class="type-row">
+      <button class="type-btn on" onclick="setType('url',this)" id="btn-url">🔗 URL</button>
+      <button class="type-btn" onclick="setType('text',this)" id="btn-text">📝 텍스트</button>
+      <button class="type-btn" onclick="setType('contact',this)" id="btn-contact">👤 연락처</button>
+      <button class="type-btn" onclick="setType('wifi',this)" id="btn-wifi">📶 WiFi</button>
+    </div>
+
+    <!-- URL 입력 -->
+    <div id="input-url">
+      <div class="field">
+        <label id="t-url-label">웹사이트 URL</label>
+        <textarea id="url-input" placeholder="https://www.example.com">https://www.toptools365.com</textarea>
+      </div>
+    </div>
+
+    <!-- 텍스트 입력 -->
+    <div id="input-text" style="display:none">
+      <div class="field">
+        <label id="t-text-label">텍스트 내용</label>
+        <textarea id="text-input" placeholder="QR코드에 담을 텍스트를 입력하세요"></textarea>
+      </div>
+    </div>
+
+    <!-- 연락처 입력 -->
+    <div id="input-contact" style="display:none">
+      <div class="field">
+        <label id="t-contact-name">이름</label>
+        <input type="text" id="contact-name" placeholder="홍길동">
+        <label id="t-contact-tel">전화번호</label>
+        <input type="tel" id="contact-tel" placeholder="010-1234-5678">
+        <label id="t-contact-email">이메일 (선택)</label>
+        <input type="email" id="contact-email" placeholder="example@email.com">
+      </div>
+    </div>
+
+    <!-- WiFi 입력 -->
+    <div id="input-wifi" style="display:none">
+      <div class="field">
+        <label id="t-wifi-ssid">WiFi 이름 (SSID)</label>
+        <input type="text" id="wifi-ssid" placeholder="MyWiFi">
+        <label id="t-wifi-pw">비밀번호</label>
+        <input type="text" id="wifi-pw" placeholder="password123">
+        <label id="t-wifi-type">보안 방식</label>
+        <select class="size-select" id="wifi-type" style="width:100%;margin-bottom:10px">
+          <option value="WPA">WPA/WPA2</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">없음</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 설정 -->
+    <div class="input-grid">
+      <div class="setting-row">
+        <label id="t-size">크기</label>
+        <select class="size-select" id="qr-size">
+          <option value="128">작게 (128px)</option>
+          <option value="200" selected>보통 (200px)</option>
+          <option value="300">크게 (300px)</option>
+          <option value="400">매우 크게 (400px)</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label id="t-color">색상</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="color" id="qr-color" value="#000000" title="QR 색상">
+          <input type="color" id="qr-bg" value="#ffffff" title="배경 색상">
+        </div>
+      </div>
+    </div>
+
+    <button class="gen-btn" onclick="generateQR()" id="t-gen">QR코드 생성하기</button>
+  </div>
+
+  <!-- QR코드 결과 -->
+  <div class="card qr-result" id="qr-result">
+    <div style="margin-bottom:16px;font-size:14px;font-weight:600;text-align:center" id="t-result-title">생성된 QR코드</div>
+    <div style="text-align:center">
+      <div class="qr-wrap">
+        <div id="qr-canvas"></div>
+      </div>
+      <br>
+      <button class="dl-btn" onclick="downloadQR()" id="t-download">⬇️ PNG 다운로드</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:14px" id="t-tip-scan">스마트폰 카메라로 스캔하거나 PNG로 저장하세요.</p>
+  </div>
+
+  <!-- SEO 설명 섹션 -->
+  <section class="seo-section">
+    <h2>QR코드 생성기 사용 방법</h2>
+    <p>변환할 타입(URL·텍스트·연락처·WiFi)을 선택하고 내용을 입력한 뒤 생성 버튼을 누르면 QR코드가 즉시 생성됩니다. 크기와 색상을 설정할 수 있으며 PNG 파일로 다운로드할 수 있습니다.</p>
+
+    <h3>QR코드 활용 방법</h3>
+    <div class="info-box">
+      <strong>🔗 URL QR코드</strong>: 웹사이트 주소를 QR코드로 만들어 명함·포스터에 활용<br>
+      <strong>📝 텍스트 QR코드</strong>: 이벤트 정보, 안내 문구 등 텍스트 공유<br>
+      <strong>👤 연락처 QR코드</strong>: 이름·전화번호를 QR코드로 만들어 스캔 시 연락처 자동 저장<br>
+      <strong>📶 WiFi QR코드</strong>: 카페·사무실 WiFi 정보를 QR코드로 만들어 비밀번호 없이 연결
+    </div>
+
+    <h3>QR코드 스캔 방법</h3>
+    <p>아이폰은 기본 카메라 앱으로 QR코드를 스캔할 수 있습니다. 안드로이드는 기본 카메라 앱 또는 구글 렌즈를 사용하세요. 별도의 QR코드 앱을 설치하지 않아도 됩니다.</p>
+
+    <h3>QR코드 품질과 크기</h3>
+    <p>인쇄용으로 사용할 경우 400px 이상 크게 생성하는 것을 권장합니다. 웹이나 화면용은 200px로 충분합니다. QR코드가 너무 작으면 스캔이 어려울 수 있으니 최소 2cm × 2cm 이상 크기로 출력하세요.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/password-generator/">
+        <span class="related-icon">🔐</span>
+        <span>비밀번호 생성기</span>
+      </a>
+      <a class="related-item" href="/character-counter/">
+        <span class="related-icon">📝</span>
+        <span>글자수 세기</span>
+      </a>
+      <a class="related-item" href="/unit-converter/">
+        <span class="related-icon">📐</span>
+        <span>단위 변환기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">QR코드란 무엇인가요?</div>
+      <div class="faq-a">QR코드(Quick Response Code)는 스마트폰 카메라로 스캔하면 URL, 텍스트, 연락처 등의 정보를 즉시 확인할 수 있는 2차원 바코드입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">QR코드는 무료로 만들 수 있나요?</div>
+      <div class="faq-a">네, 완전 무료입니다. 회원가입 없이 URL, 텍스트 등을 QR코드로 즉시 변환하고 PNG 파일로 다운로드할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">QR코드 유효기간이 있나요?</div>
+      <div class="faq-a">이 생성기로 만든 QR코드는 유효기간이 없습니다. QR코드에 담긴 URL이 유효한 한 영구적으로 사용할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">QR코드를 스캔하려면 앱이 필요한가요?</div>
+      <div class="faq-a">아닙니다. 아이폰은 기본 카메라 앱, 안드로이드는 기본 카메라 또는 구글 렌즈로 바로 스캔할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">QR코드에 로고를 넣을 수 있나요?</div>
+      <div class="faq-a">이 기본 생성기는 로고 삽입 기능을 제공하지 않습니다. 색상과 크기 변경은 가능합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 툴은 브라우저에서만 작동하며 입력 데이터가 외부로 전송되지 않습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 툴</p>
+  </footer>
+</div>
+
+<script>
+let lang = 'ko';
+let currentType = 'url';
+let qrInstance = null;
+
+function setType(type, el) {
+  currentType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  ['url','text','contact','wifi'].forEach(t => {
+    document.getElementById('input-' + t).style.display = t === type ? 'block' : 'none';
+  });
+}
+
+function getContent() {
+  if (currentType === 'url') {
+    return document.getElementById('url-input').value.trim() || 'https://www.toptools365.com';
+  } else if (currentType === 'text') {
+    return document.getElementById('text-input').value.trim() || 'TopTools365';
+  } else if (currentType === 'contact') {
+    const name = document.getElementById('contact-name').value.trim();
+    const tel = document.getElementById('contact-tel').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${tel}\nEMAIL:${email}\nEND:VCARD`;
+  } else if (currentType === 'wifi') {
+    const ssid = document.getElementById('wifi-ssid').value.trim();
+    const pw = document.getElementById('wifi-pw').value.trim();
+    const type = document.getElementById('wifi-type').value;
+    return `WIFI:T:${type};S:${ssid};P:${pw};;`;
+  }
+  return '';
+}
+
+function generateQR() {
+  const content = getContent();
+  if (!content) return;
+
+  const size = parseInt(document.getElementById('qr-size').value);
+  const color = document.getElementById('qr-color').value;
+  const bg = document.getElementById('qr-bg').value;
+
+  const container = document.getElementById('qr-canvas');
+  container.innerHTML = '';
+
+  try {
+    qrInstance = new QRCode(container, {
+      text: content,
+      width: size,
+      height: size,
+      colorDark: color,
+      colorLight: bg,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    document.getElementById('qr-result').classList.add('show');
+    document.getElementById('qr-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    alert(lang === 'ko' ? 'QR코드 생성 중 오류가 발생했습니다. 입력 내용을 확인해주세요.' : 'Error generating QR code. Please check your input.');
+  }
+}
+
+function downloadQR() {
+  const canvas = document.getElementById('qr-canvas').querySelector('canvas');
+  if (!canvas) {
+    const img = document.getElementById('qr-canvas').querySelector('img');
+    if (img) {
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = 'qrcode-toptools365.png';
+      a.click();
+    }
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'qrcode-toptools365.png';
+  a.click();
+}
+
+const T = {
+  ko: {
+    title: 'QR코드 생성기', sub: 'URL, 텍스트, 연락처를 QR코드로 즉시 변환합니다. PNG 다운로드 지원.',
+    btnUrl: '🔗 URL', btnText: '📝 텍스트', btnContact: '👤 연락처', btnWifi: '📶 WiFi',
+    urlLabel: '웹사이트 URL', textLabel: '텍스트 내용',
+    contactName: '이름', contactTel: '전화번호', contactEmail: '이메일 (선택)',
+    wifiSsid: 'WiFi 이름 (SSID)', wifiPw: '비밀번호', wifiType: '보안 방식',
+    size: '크기', color: '색상', gen: 'QR코드 생성하기',
+    resultTitle: '생성된 QR코드', download: '⬇️ PNG 다운로드',
+    tipScan: '스마트폰 카메라로 스캔하거나 PNG로 저장하세요.'
+  },
+  en: {
+    title: 'QR Code Generator', sub: 'Instantly convert URL, text, and contacts to QR codes. PNG download supported.',
+    btnUrl: '🔗 URL', btnText: '📝 Text', btnContact: '👤 Contact', btnWifi: '📶 WiFi',
+    urlLabel: 'Website URL', textLabel: 'Text Content',
+    contactName: 'Name', contactTel: 'Phone', contactEmail: 'Email (optional)',
+    wifiSsid: 'WiFi Name (SSID)', wifiPw: 'Password', wifiType: 'Security Type',
+    size: 'Size', color: 'Color', gen: 'Generate QR Code',
+    resultTitle: 'Generated QR Code', download: '⬇️ Download PNG',
+    tipScan: 'Scan with your smartphone camera or save as PNG.'
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const map = {
+    't-title': 'title', 't-sub': 'sub',
+    'btn-url': 'btnUrl', 'btn-text': 'btnText', 'btn-contact': 'btnContact', 'btn-wifi': 'btnWifi',
+    't-url-label': 'urlLabel', 't-text-label': 'textLabel',
+    't-contact-name': 'contactName', 't-contact-tel': 'contactTel', 't-contact-email': 'contactEmail',
+    't-wifi-ssid': 'wifiSsid', 't-wifi-pw': 'wifiPw', 't-wifi-type': 'wifiType',
+    't-size': 'size', 't-color': 'color', 't-gen': 'gen',
+    't-result-title': 'resultTitle', 't-download': 'download', 't-tip-scan': 'tipScan'
+  };
+  Object.entries(map).forEach(([id, key]) => {
+    const e = document.getElementById(id);
+    if (e) e.textContent = t[key];
+  });
+}
+</script>
+</body>
+</html>
