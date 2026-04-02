@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>퇴직금 계산기 - 퇴직금 즉시 계산 | TopTools365</title>
-<meta name="description" content="입사일, 퇴사일, 평균임금을 입력하면 퇴직금을 즉시 계산합니다. 근속연수 자동 계산, 법정 퇴직금 공식 적용.">
+<meta name="description" content="입사일, 퇴사일, 평균임금을 입력하면 퇴직금을 즉시 계산합니다. 근속연수 자동 계산, 법정 퇴직금 공식 적용. 완전 무료.">
 <meta name="keywords" content="퇴직금계산기, 퇴직금계산, 퇴직금얼마, 퇴직금산정, severance pay calculator">
 <link rel="canonical" href="https://www.toptools365.com/severance-pay/">
 <script type="application/ld+json">
@@ -19,7 +19,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 .wrap{max-width:720px;margin:0 auto;padding:32px 16px 80px}
-.back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; }
+.back-link{display:inline-block;margin-bottom:20px;font-size:13px;color:var(--muted);text-decoration:none}
 .back-link:hover{color:var(--accent)}
 h1{font-size:26px;font-weight:700;margin-bottom:6px}
 .subtitle{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
@@ -64,6 +64,16 @@ h1{font-size:26px;font-weight:700;margin-bottom:6px}
 .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
 .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
 footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+
+  /* 관련 툴 */
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
 </style>
 </head>
 <body>
@@ -155,6 +165,25 @@ footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;paddi
     <div class="faq-item">
       <div class="faq-q">퇴직금을 못 받으면 어떻게 하나요?</div>
       <div class="faq-a">퇴직금을 14일 이내에 지급받지 못한 경우 고용노동부 고객상담센터(1350) 또는 가까운 고용노동청에 진정을 제기할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+    <a class="related-item" href="/loan-calculator/">
+      <span class="related-icon">🏦</span>
+      <span>대출 이자 계산기</span>
+    </a>
+    <a class="related-item" href="/salary-calculator/">
+      <span class="related-icon">💰</span>
+      <span>연봉 실수령액 계산기</span>
+    </a>
+    <a class="related-item" href="/dday-calculator/">
+      <span class="related-icon">📅</span>
+      <span>D-day 계산기</span>
+    </a>
     </div>
   </section>
 
