@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퍼센트 계산기 - 할인율 증가율 백분율 즉시 계산 | TopTools365</title>
+<meta name="description" content="퍼센트(%) 계산기. 할인율, 증가율, 감소율, 백분율을 즉시 계산합니다. 쇼핑 할인가, 연봉 인상률, 세율 계산까지. 완전 무료.">
+<meta name="keywords" content="퍼센트계산기,할인율계산기,퍼센트구하기,백분율계산기,증가율계산,감소율계산,할인가계산,퍼센트계산방법">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/percentage-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="퍼센트 계산기 - 할인율 증가율 백분율 즉시 계산 | TopTools365">
+<meta property="og:description" content="할인율·증가율·백분율 즉시 계산. 쇼핑 할인가, 연봉 인상률 계산. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"퍼센트 계산기","alternateName":"백분율 계산기","description":"할인율, 증가율, 감소율, 백분율을 즉시 계산하는 무료 온라인 계산기","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"퍼센트 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"A의 X%는 A × X ÷ 100으로 계산합니다. 예를 들어 10,000원의 30%는 10,000 × 30 ÷ 100 = 3,000원입니다."}},{"@type":"Question","name":"할인율 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"할인율(%) = (원래 가격 - 할인 가격) ÷ 원래 가격 × 100입니다. 예를 들어 10,000원짜리가 7,000원이면 할인율 = (10,000 - 7,000) ÷ 10,000 × 100 = 30%입니다."}},{"@type":"Question","name":"증가율 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"증가율(%) = (변화 후 값 - 변화 전 값) ÷ 변화 전 값 × 100입니다. 예를 들어 연봉이 3,000만원에서 3,300만원이 되면 증가율 = (3,300 - 3,000) ÷ 3,000 × 100 = 10%입니다."}},{"@type":"Question","name":"전체에서 부분이 차지하는 비율은?","acceptedAnswer":{"@type":"Answer","text":"비율(%) = 부분 ÷ 전체 × 100입니다. 예를 들어 전체 50명 중 30명이면 비율 = 30 ÷ 50 × 100 = 60%입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6b66;
+    --accent: #1a5c8a;
+    --accent-light: #e8f2f9;
+    --green: #1a6b4a;
+    --green-light: #e8f5ef;
+    --red: #c84b2a;
+    --red-light: #fdf0ec;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root {
+      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
+      --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --red: #e8704a; --red-light: #2a1510;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 모드 탭 */
+  .mode-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 24px; }
+  @media(max-width:480px) { .mode-row { grid-template-columns: 1fr 1fr; } }
+  .mode-btn { padding: 10px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.4; }
+  .mode-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .mode-title { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 48px 13px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 17px; font-weight: 600; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); pointer-events: none; font-weight: 500; }
+
+  .calc-btn { width: 100%; padding: 15px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .result-box { display: none; margin-top: 16px; }
+  .result-box.show { display: block; }
+  .result-main { text-align: center; padding: 28px; border-radius: 12px; border: 2px solid; }
+  .result-main.positive { background: var(--green-light); border-color: var(--green); }
+  .result-main.negative { background: var(--red-light); border-color: var(--red); }
+  .result-main.neutral { background: var(--accent-light); border-color: var(--accent); }
+  .result-main .rlabel { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .result-main.positive .rlabel { color: var(--green); }
+  .result-main.negative .rlabel { color: var(--red); }
+  .result-main.neutral .rlabel { color: var(--accent); }
+  .result-main .rval { font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 6px; letter-spacing: -1px; }
+  .result-main.positive .rval { color: var(--green); }
+  .result-main.negative .rval { color: var(--red); }
+  .result-main.neutral .rval { color: var(--accent); }
+  .result-main .rsub { font-size: 13px; color: var(--muted); }
+
+  .formula-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin-top: 12px; }
+  .formula-box strong { color: var(--text); }
+
+  /* 빠른 계산 */
+  .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media(max-width:480px) { .quick-grid { grid-template-columns: 1fr; } }
+  .quick-item { padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; display: flex; justify-content: space-between; align-items: center; }
+  .quick-item:hover { border-color: var(--accent); }
+  .quick-label { color: var(--muted); }
+  .quick-val { font-weight: 700; color: var(--accent); }
+
+  /* SEO 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  /* 관련 툴 */
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--green); color: var(--green); }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+
+  <h1 id="t-title">퍼센트 계산기</h1>
+  <p class="subtitle" id="t-sub">할인율, 증가율, 백분율을 즉시 계산합니다. 쇼핑 할인가, 연봉 인상률, 세율까지.</p>
+
+  <div class="card">
+    <!-- 모드 선택 -->
+    <div class="mode-row">
+      <button class="mode-btn on" onclick="setMode('pct-of',this)">A의 X%<br><small>할인액 계산</small></button>
+      <button class="mode-btn" onclick="setMode('what-pct',this)">A는 B의 몇%?<br><small>비율 계산</small></button>
+      <button class="mode-btn" onclick="setMode('change',this)">증가/감소율<br><small>인상률 계산</small></button>
+      <button class="mode-btn" onclick="setMode('reverse',this)">할인 전 가격<br><small>역산 계산</small></button>
+    </div>
+
+    <!-- 모드별 입력 -->
+    <div id="mode-pct-of">
+      <div class="mode-title" id="mt-pct-of">💡 A의 X% = ?</div>
+      <div class="input-grid">
+        <div class="field"><label id="t-base">기준 값 (A)</label><div class="input-wrap"><input type="number" id="po-base" placeholder="10000" oninput="calc()"><span class="unit" id="u-po-base">원</span></div></div>
+        <div class="field"><label id="t-pct">퍼센트 (X)</label><div class="input-wrap"><input type="number" id="po-pct" placeholder="30" oninput="calc()"><span class="unit">%</span></div></div>
+      </div>
+    </div>
+
+    <div id="mode-what-pct" style="display:none">
+      <div class="mode-title" id="mt-what-pct">💡 A는 B의 몇 %?</div>
+      <div class="input-grid">
+        <div class="field"><label id="t-part">부분 값 (A)</label><div class="input-wrap"><input type="number" id="wp-part" placeholder="30" oninput="calc()"><span class="unit" id="u-wp"></span></div></div>
+        <div class="field"><label id="t-whole">전체 값 (B)</label><div class="input-wrap"><input type="number" id="wp-whole" placeholder="50" oninput="calc()"><span class="unit" id="u-wp2"></span></div></div>
+      </div>
+    </div>
+
+    <div id="mode-change" style="display:none">
+      <div class="mode-title" id="mt-change">💡 A → B 증가/감소율</div>
+      <div class="input-grid">
+        <div class="field"><label id="t-before">변화 전 값</label><div class="input-wrap"><input type="number" id="ch-before" placeholder="3000" oninput="calc()"><span class="unit" id="u-ch"></span></div></div>
+        <div class="field"><label id="t-after">변화 후 값</label><div class="input-wrap"><input type="number" id="ch-after" placeholder="3300" oninput="calc()"><span class="unit" id="u-ch2"></span></div></div>
+      </div>
+    </div>
+
+    <div id="mode-reverse" style="display:none">
+      <div class="mode-title" id="mt-reverse">💡 X% 할인 후 가격이 A → 원래 가격은?</div>
+      <div class="input-grid">
+        <div class="field"><label id="t-disc-price">할인 후 가격</label><div class="input-wrap"><input type="number" id="rv-price" placeholder="7000" oninput="calc()"><span class="unit" id="u-rv">원</span></div></div>
+        <div class="field"><label id="t-disc-pct">할인율</label><div class="input-wrap"><input type="number" id="rv-pct" placeholder="30" oninput="calc()"><span class="unit">%</span></div></div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calc()" id="t-calc">계산하기</button>
+
+    <!-- 결과 -->
+    <div class="result-box" id="result-box">
+      <div class="result-main neutral" id="result-main">
+        <div class="rlabel" id="r-label">결과</div>
+        <div class="rval" id="r-val">-</div>
+        <div class="rsub" id="r-sub">-</div>
+      </div>
+      <div class="formula-box" id="r-formula"></div>
+    </div>
+  </div>
+
+  <!-- 빠른 할인 계산 -->
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:6px" id="t-quick">빠른 할인 계산</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px" id="t-quick-sub">기준 금액을 입력하면 각 할인율별 가격을 한눈에 확인</div>
+    <div class="input-wrap" style="margin-bottom:14px">
+      <input type="number" id="quick-base" placeholder="10000" oninput="calcQuick()" style="padding:12px 52px 12px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:16px;font-weight:600;outline:none;width:100%">
+      <span class="unit" id="u-quick">원</span>
+    </div>
+    <div class="quick-grid" id="quick-grid">
+      <div class="quick-item"><span class="quick-label">10% 할인</span><span class="quick-val" id="q-10">-</span></div>
+      <div class="quick-item"><span class="quick-label">20% 할인</span><span class="quick-val" id="q-20">-</span></div>
+      <div class="quick-item"><span class="quick-label">30% 할인</span><span class="quick-val" id="q-30">-</span></div>
+      <div class="quick-item"><span class="quick-label">50% 할인</span><span class="quick-val" id="q-50">-</span></div>
+      <div class="quick-item"><span class="quick-label">70% 할인</span><span class="quick-val" id="q-70">-</span></div>
+      <div class="quick-item"><span class="quick-label">VAT 10%</span><span class="quick-val" id="q-vat">-</span></div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 섹션 -->
+  <section class="seo-section">
+    <h2>퍼센트 계산기 사용 방법</h2>
+    <p>4가지 계산 모드를 지원합니다. 원하는 모드를 선택하고 값을 입력하면 즉시 결과를 확인할 수 있습니다. 빠른 할인 계산 기능으로 특정 금액의 다양한 할인율 결과를 한눈에 비교할 수도 있습니다.</p>
+
+    <h3>퍼센트 계산 방법</h3>
+    <div class="info-box">
+      <strong>A의 X%</strong> = A × X ÷ 100<br>
+      예) 10,000원의 30% = 10,000 × 30 ÷ 100 = <strong>3,000원</strong><br><br>
+      <strong>A는 B의 몇%?</strong> = A ÷ B × 100<br>
+      예) 30은 50의 몇%? = 30 ÷ 50 × 100 = <strong>60%</strong><br><br>
+      <strong>증가율</strong> = (변화 후 - 변화 전) ÷ 변화 전 × 100<br>
+      예) 3,000 → 3,300 = (3,300 - 3,000) ÷ 3,000 × 100 = <strong>10%</strong>
+    </div>
+
+    <h3>일상에서 퍼센트 계산이 필요한 상황</h3>
+    <p>쇼핑몰에서 30% 할인 상품의 실제 가격을 계산할 때, 연봉 협상에서 인상률을 확인할 때, 시험 점수에서 정답률을 계산할 때, 부가가치세(VAT 10%)가 포함된 가격을 계산할 때 퍼센트 계산이 필요합니다.</p>
+
+    <h3>할인율 vs 할인액</h3>
+    <p>할인율은 원래 가격 대비 얼마나 저렴한지를 퍼센트로 나타낸 것이고, 할인액은 실제로 얼마나 싸진지를 금액으로 나타낸 것입니다. 예를 들어 50,000원 상품이 30% 할인이면 할인액은 15,000원이고 실제 결제 금액은 35,000원입니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/loan-calculator/">
+        <span class="related-icon">🏦</span>
+        <span>대출 이자 계산기</span>
+      </a>
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+      <a class="related-item" href="/unit-converter/">
+        <span class="related-icon">📐</span>
+        <span>단위 변환기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">퍼센트 계산 방법은?</div>
+      <div class="faq-a">A의 X% = A × X ÷ 100입니다. 예를 들어 10,000원의 30%는 10,000 × 30 ÷ 100 = 3,000원입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">할인율 계산 방법은?</div>
+      <div class="faq-a">할인율(%) = (원래 가격 - 할인 가격) ÷ 원래 가격 × 100입니다. 10,000원이 7,000원이면 할인율 = (10,000 - 7,000) ÷ 10,000 × 100 = 30%입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">증가율 계산 방법은?</div>
+      <div class="faq-a">증가율(%) = (변화 후 - 변화 전) ÷ 변화 전 × 100입니다. 연봉이 3,000만원에서 3,300만원이 되면 증가율 = 300 ÷ 3,000 × 100 = 10%입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">부가가치세(VAT) 포함 가격은?</div>
+      <div class="faq-a">VAT 10% 포함 가격 = 원래 가격 × 1.1입니다. 10,000원 상품의 VAT 포함 가격은 11,000원입니다. 반대로 VAT 포함 가격에서 공급가액은 VAT 포함 가격 ÷ 1.1입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">할인 전 원래 가격은 어떻게 계산하나요?</div>
+      <div class="faq-a">원래 가격 = 할인 후 가격 ÷ (1 - 할인율/100)입니다. 30% 할인 후 7,000원이라면 원래 가격 = 7,000 ÷ 0.7 = 10,000원입니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 계산과 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let mode = 'pct-of';
+let lang = 'ko';
+
+function setMode(m, el) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  ['pct-of','what-pct','change','reverse'].forEach(id => {
+    document.getElementById('mode-' + id).style.display = id === m ? 'block' : 'none';
+  });
+  document.getElementById('result-box').classList.remove('show');
+  calc();
+}
+
+function fmt(n) {
+  if (Math.abs(n) >= 10000) return Math.round(n).toLocaleString('ko-KR') + (lang === 'ko' ? '원' : '');
+  return parseFloat(n.toFixed(2)).toLocaleString('ko-KR');
+}
+
+function setResult(label, val, sub, formula, type='neutral') {
+  const box = document.getElementById('result-main');
+  box.className = 'result-main ' + type;
+  document.getElementById('r-label').textContent = label;
+  document.getElementById('r-val').textContent = val;
+  document.getElementById('r-sub').textContent = sub;
+  document.getElementById('r-formula').innerHTML = formula;
+  document.getElementById('result-box').classList.add('show');
+}
+
+function calc() {
+  if (mode === 'pct-of') {
+    const base = parseFloat(document.getElementById('po-base').value);
+    const pct = parseFloat(document.getElementById('po-pct').value);
+    if (isNaN(base) || isNaN(pct)) return;
+    const result = base * pct / 100;
+    const after = base - result;
+    setResult(
+      lang === 'ko' ? `${base.toLocaleString()}의 ${pct}%` : `${pct}% of ${base.toLocaleString()}`,
+      fmt(result),
+      lang === 'ko' ? `할인 후 가격: ${after.toLocaleString()}원` : `Price after discount: ${after.toLocaleString()}`,
+      `<strong>${base.toLocaleString()}</strong> × <strong>${pct}%</strong> ÷ 100 = <strong>${fmt(result)}</strong>`,
+      'neutral'
+    );
+  } else if (mode === 'what-pct') {
+    const part = parseFloat(document.getElementById('wp-part').value);
+    const whole = parseFloat(document.getElementById('wp-whole').value);
+    if (isNaN(part) || isNaN(whole) || whole === 0) return;
+    const result = part / whole * 100;
+    setResult(
+      lang === 'ko' ? `${part.toLocaleString()}은 ${whole.toLocaleString()}의` : `${part.toLocaleString()} is`,
+      parseFloat(result.toFixed(2)) + '%',
+      lang === 'ko' ? `전체 대비 비율` : `of ${whole.toLocaleString()}`,
+      `<strong>${part.toLocaleString()}</strong> ÷ <strong>${whole.toLocaleString()}</strong> × 100 = <strong>${parseFloat(result.toFixed(2))}%</strong>`,
+      'neutral'
+    );
+  } else if (mode === 'change') {
+    const before = parseFloat(document.getElementById('ch-before').value);
+    const after = parseFloat(document.getElementById('ch-after').value);
+    if (isNaN(before) || isNaN(after) || before === 0) return;
+    const result = (after - before) / before * 100;
+    const isInc = result >= 0;
+    const label = lang === 'ko' ? (isInc ? '증가율' : '감소율') : (isInc ? 'Increase' : 'Decrease');
+    setResult(
+      label,
+      (isInc ? '+' : '') + parseFloat(result.toFixed(2)) + '%',
+      lang === 'ko' ? `변화량: ${isInc ? '+' : ''}${(after - before).toLocaleString()}` : `Change: ${isInc ? '+' : ''}${(after - before).toLocaleString()}`,
+      `(<strong>${after.toLocaleString()}</strong> - <strong>${before.toLocaleString()}</strong>) ÷ <strong>${before.toLocaleString()}</strong> × 100 = <strong>${parseFloat(result.toFixed(2))}%</strong>`,
+      isInc ? 'positive' : 'negative'
+    );
+  } else if (mode === 'reverse') {
+    const price = parseFloat(document.getElementById('rv-price').value);
+    const pct = parseFloat(document.getElementById('rv-pct').value);
+    if (isNaN(price) || isNaN(pct) || pct >= 100) return;
+    const original = price / (1 - pct / 100);
+    const discAmt = original - price;
+    setResult(
+      lang === 'ko' ? '할인 전 원래 가격' : 'Original Price',
+      fmt(original),
+      lang === 'ko' ? `할인액: ${fmt(discAmt)}` : `Discount amount: ${fmt(discAmt)}`,
+      `<strong>${price.toLocaleString()}</strong> ÷ (1 - <strong>${pct}%</strong> ÷ 100) = <strong>${fmt(original)}</strong>`,
+      'neutral'
+    );
+  }
+}
+
+function calcQuick() {
+  const base = parseFloat(document.getElementById('quick-base').value);
+  if (isNaN(base)) {
+    [10,20,30,50,70].forEach(p => { document.getElementById('q-' + p).textContent = '-'; });
+    document.getElementById('q-vat').textContent = '-';
+    return;
+  }
+  [10,20,30,50,70].forEach(p => {
+    document.getElementById('q-' + p).textContent = Math.round(base * (1 - p/100)).toLocaleString() + (lang === 'ko' ? '원' : '');
+  });
+  document.getElementById('q-vat').textContent = Math.round(base * 1.1).toLocaleString() + (lang === 'ko' ? '원' : '');
+}
+
+const T = {
+  ko: {
+    title: '퍼센트 계산기', sub: '할인율, 증가율, 백분율을 즉시 계산합니다. 쇼핑 할인가, 연봉 인상률, 세율까지.',
+    base: '기준 값 (A)', pct: '퍼센트 (X)', part: '부분 값 (A)', whole: '전체 값 (B)',
+    before: '변화 전 값', after: '변화 후 값', discPrice: '할인 후 가격', discPct: '할인율',
+    calc: '계산하기', quick: '빠른 할인 계산', quickSub: '기준 금액을 입력하면 각 할인율별 가격을 한눈에 확인',
+    uBase: '원', uPart: '', uWhole: '', uCh: '', uRv: '원', uQuick: '원',
+    mtPctOf: '💡 A의 X% = ?', mtWhatPct: '💡 A는 B의 몇 %?', mtChange: '💡 A → B 증가/감소율', mtReverse: '💡 X% 할인 후 가격이 A → 원래 가격은?'
+  },
+  en: {
+    title: 'Percentage Calculator', sub: 'Calculate discounts, percentage change, and more instantly.',
+    base: 'Base Value (A)', pct: 'Percentage (X)', part: 'Part (A)', whole: 'Whole (B)',
+    before: 'Before', after: 'After', discPrice: 'Discounted Price', discPct: 'Discount Rate',
+    calc: 'Calculate', quick: 'Quick Discount Calculator', quickSub: 'Enter a base amount to see various discount prices',
+    uBase: '', uPart: '', uWhole: '', uCh: '', uRv: '', uQuick: '',
+    mtPctOf: '💡 X% of A = ?', mtWhatPct: '💡 A is what % of B?', mtChange: '💡 % Change A → B', mtReverse: '💡 Find original price before discount'
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const map = {
+    't-title': 'title', 't-sub': 'sub', 't-base': 'base', 't-pct': 'pct',
+    't-part': 'part', 't-whole': 'whole', 't-before': 'before', 't-after': 'after',
+    't-disc-price': 'discPrice', 't-disc-pct': 'discPct', 't-calc': 'calc',
+    't-quick': 'quick', 't-quick-sub': 'quickSub',
+    'u-po-base': 'uBase', 'u-wp': 'uPart', 'u-wp2': 'uWhole',
+    'u-ch': 'uCh', 'u-ch2': 'uCh', 'u-rv': 'uRv', 'u-quick': 'uQuick',
+    'mt-pct-of': 'mtPctOf', 'mt-what-pct': 'mtWhatPct', 'mt-change': 'mtChange', 'mt-reverse': 'mtReverse'
+  };
+  Object.entries(map).forEach(([id, key]) => {
+    const e = document.getElementById(id);
+    if (e) e.textContent = t[key];
+  });
+  calcQuick();
+}
+
+// 초기화
+document.getElementById('po-base').value = '10000';
+document.getElementById('po-pct').value = '30';
+document.getElementById('quick-base').value = '10000';
+calcQuick();
+calc();
+</script>
+</body>
+</html>
