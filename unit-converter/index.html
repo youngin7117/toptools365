@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>단위 변환기 - 길이 무게 온도 넓이 부피 즉시 변환 | TopTools365</title>
+<meta name="description" content="cm↔인치, kg↔파운드, 섭씨↔화씨 등 길이·무게·온도·넓이·부피 단위를 즉시 변환합니다. 완전 무료.">
+<meta name="keywords" content="단위변환기,cm인치변환,kg파운드변환,섭씨화씨변환,길이변환,무게변환,온도변환,넓이변환,부피변환">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/unit-converter/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="단위 변환기 - 길이 무게 온도 넓이 부피 즉시 변환 | TopTools365">
+<meta property="og:description" content="cm↔인치, kg↔파운드, 섭씨↔화씨 등 모든 단위 즉시 변환. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"단위 변환기","alternateName":"Unit Converter","description":"길이, 무게, 온도, 넓이, 부피 단위를 즉시 변환하는 무료 온라인 툴","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1인치는 몇 cm인가요?","acceptedAnswer":{"@type":"Answer","text":"1인치는 2.54cm입니다. 반대로 1cm는 약 0.3937인치입니다."}},{"@type":"Question","name":"1파운드는 몇 kg인가요?","acceptedAnswer":{"@type":"Answer","text":"1파운드(lb)는 약 0.4536kg입니다. 반대로 1kg은 약 2.2046파운드입니다."}},{"@type":"Question","name":"섭씨와 화씨 변환 방법은?","acceptedAnswer":{"@type":"Answer","text":"화씨(°F) = 섭씨(°C) × 9/5 + 32입니다. 예를 들어 20°C는 68°F입니다. 반대로 섭씨(°C) = (화씨(°F) - 32) × 5/9입니다."}},{"@type":"Question","name":"1평은 몇 제곱미터인가요?","acceptedAnswer":{"@type":"Answer","text":"1평은 약 3.3058㎡입니다. 반대로 1㎡는 약 0.3025평입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6b66;
+    --accent: #7c3aed;
+    --accent-light: #f3e8ff;
+    --accent2: #1a6b4a;
+    --accent2-light: #e8f5ef;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root {
+      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
+      --text: #f0efe8; --muted: #9a9a92;
+      --accent: #a78bfa; --accent-light: #1e1030;
+      --accent2: #2daa72; --accent2-light: #0e2a1e;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent2); text-decoration: none; background: var(--accent2-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 카테고리 탭 */
+  .cat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .cat-btn { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .cat-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 변환기 */
+  .converter-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: end; }
+  @media(max-width:480px) { .converter-grid { grid-template-columns: 1fr; } }
+
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; outline: none; transition: border-color .15s; margin-bottom: 8px; cursor: pointer; }
+  .field select:focus { border-color: var(--accent); }
+  .field input { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .field input:focus { border-color: var(--accent); }
+  .field input.result { background: var(--accent-light); border-color: var(--accent); color: var(--accent); cursor: default; }
+
+  .swap-btn { padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 20px; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; margin-bottom: 0; }
+  .swap-btn:hover { border-color: var(--accent); color: var(--accent); transform: rotate(180deg); }
+  @media(max-width:480px) { .swap-btn { width: 48px; margin: 0 auto; } }
+
+  /* 빠른 변환 참고표 */
+  .ref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
+  @media(max-width:480px) { .ref-grid { grid-template-columns: 1fr; } }
+  .ref-item { padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; display: flex; justify-content: space-between; }
+  .ref-from { color: var(--muted); }
+  .ref-to { font-weight: 600; color: var(--accent); }
+
+  /* SEO 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .conv-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .conv-table th { background: var(--accent-light); color: var(--accent); padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; }
+  .conv-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--muted); }
+  .conv-table tr:last-child td { border-bottom: none; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent2); color: var(--accent2); }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+
+  <h1 id="t-title">단위 변환기</h1>
+  <p class="subtitle" id="t-sub">길이·무게·온도·넓이·부피 단위를 즉시 변환합니다.</p>
+
+  <div class="card">
+    <!-- 카테고리 탭 -->
+    <div class="cat-row">
+      <button class="cat-btn on" onclick="setCat('length',this)" id="btn-length">📏 길이</button>
+      <button class="cat-btn" onclick="setCat('weight',this)" id="btn-weight">⚖️ 무게</button>
+      <button class="cat-btn" onclick="setCat('temp',this)" id="btn-temp">🌡️ 온도</button>
+      <button class="cat-btn" onclick="setCat('area',this)" id="btn-area">📐 넓이</button>
+      <button class="cat-btn" onclick="setCat('volume',this)" id="btn-volume">🧪 부피</button>
+    </div>
+
+    <!-- 변환기 -->
+    <div class="converter-grid">
+      <div class="field">
+        <label id="t-from">변환 전</label>
+        <select id="fromUnit" onchange="convert()"></select>
+        <input type="number" id="fromVal" value="1" oninput="convert()">
+      </div>
+      <button class="swap-btn" onclick="swapUnits()" title="단위 교체">⇄</button>
+      <div class="field">
+        <label id="t-to">변환 후</label>
+        <select id="toUnit" onchange="convert()"></select>
+        <input type="number" id="toVal" class="result" readonly>
+      </div>
+    </div>
+  </div>
+
+  <!-- 빠른 참고표 -->
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-ref">자주 쓰는 변환</div>
+    <div class="ref-grid" id="ref-grid"></div>
+  </div>
+
+  <!-- SEO 설명 섹션 -->
+  <section class="seo-section">
+    <h2>단위 변환기 사용 방법</h2>
+    <p>변환할 카테고리(길이·무게·온도·넓이·부피)를 선택하고, 변환 전 단위와 숫자를 입력하면 즉시 변환 결과를 확인할 수 있습니다. ⇄ 버튼을 누르면 단위를 빠르게 교체할 수 있습니다.</p>
+
+    <h3>길이 단위 변환표</h3>
+    <table class="conv-table">
+      <thead><tr><th>단위</th><th>미터(m)</th><th>cm</th><th>인치</th><th>피트</th></tr></thead>
+      <tbody>
+        <tr><td>1미터(m)</td><td>1</td><td>100</td><td>39.37</td><td>3.281</td></tr>
+        <tr><td>1센티미터(cm)</td><td>0.01</td><td>1</td><td>0.3937</td><td>0.03281</td></tr>
+        <tr><td>1인치(in)</td><td>0.0254</td><td>2.54</td><td>1</td><td>0.0833</td></tr>
+        <tr><td>1피트(ft)</td><td>0.3048</td><td>30.48</td><td>12</td><td>1</td></tr>
+      </tbody>
+    </table>
+
+    <h3>무게 단위 변환표</h3>
+    <table class="conv-table">
+      <thead><tr><th>단위</th><th>kg</th><th>g</th><th>파운드(lb)</th><th>온스(oz)</th></tr></thead>
+      <tbody>
+        <tr><td>1킬로그램(kg)</td><td>1</td><td>1000</td><td>2.2046</td><td>35.274</td></tr>
+        <tr><td>1그램(g)</td><td>0.001</td><td>1</td><td>0.002205</td><td>0.03527</td></tr>
+        <tr><td>1파운드(lb)</td><td>0.4536</td><td>453.6</td><td>1</td><td>16</td></tr>
+        <tr><td>1온스(oz)</td><td>0.02835</td><td>28.35</td><td>0.0625</td><td>1</td></tr>
+      </tbody>
+    </table>
+
+    <h3>온도 변환 공식</h3>
+    <p>섭씨(°C)와 화씨(°F) 변환: °F = °C × 9/5 + 32 / °C = (°F - 32) × 5/9. 켈빈(K) = °C + 273.15입니다. 일상에서 자주 쓰이는 온도 기준점은 물의 어는점 0°C(32°F), 끓는점 100°C(212°F), 체온 36.5°C(97.7°F)입니다.</p>
+
+    <h3>넓이 단위 — 평과 제곱미터</h3>
+    <p>한국에서 부동산 면적 단위로 자주 쓰이는 평(坪)은 1평 = 약 3.3058㎡입니다. 아파트 면적 표기 시 공급면적(㎡)을 3.3058로 나누면 평수가 나옵니다. 예를 들어 84㎡는 약 25.4평입니다.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">1인치는 몇 cm인가요?</div>
+      <div class="faq-a">1인치는 정확히 2.54cm입니다. 반대로 1cm는 약 0.3937인치입니다. TV·모니터 화면 크기는 보통 인치로 표시되는데, 55인치는 약 139.7cm입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">1파운드는 몇 kg인가요?</div>
+      <div class="faq-a">1파운드(lb)는 약 0.4536kg입니다. 반대로 1kg은 약 2.2046파운드입니다. 미국 레시피나 체중 단위로 자주 쓰입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">섭씨 화씨 변환 방법은?</div>
+      <div class="faq-a">화씨(°F) = 섭씨(°C) × 9/5 + 32입니다. 예를 들어 체온 36.5°C는 97.7°F입니다. 반대로 섭씨(°C) = (화씨 - 32) × 5/9입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">1평은 몇 제곱미터인가요?</div>
+      <div class="faq-a">1평은 약 3.3058㎡입니다. 반대로 1㎡는 약 0.3025평입니다. 아파트 84㎡는 약 25.4평, 59㎡는 약 17.8평입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">1갤런은 몇 리터인가요?</div>
+      <div class="faq-a">미국 갤런 기준으로 1갤런은 약 3.785리터입니다. 자동차 연비를 mpg(마일/갤런)에서 km/L로 변환할 때 자주 사용됩니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 변환기는 참고용이며 정밀 계측이 필요한 경우 전문 도구를 사용하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 툴</p>
+  </footer>
+</div>
+
+<script>
+const UNITS = {
+  length: {
+    label: { ko: '길이', en: 'Length' },
+    units: [
+      { ko: '킬로미터 (km)', en: 'Kilometer (km)', key: 'km', toBase: 1000 },
+      { ko: '미터 (m)', en: 'Meter (m)', key: 'm', toBase: 1 },
+      { ko: '센티미터 (cm)', en: 'Centimeter (cm)', key: 'cm', toBase: 0.01 },
+      { ko: '밀리미터 (mm)', en: 'Millimeter (mm)', key: 'mm', toBase: 0.001 },
+      { ko: '인치 (in)', en: 'Inch (in)', key: 'in', toBase: 0.0254 },
+      { ko: '피트 (ft)', en: 'Foot (ft)', key: 'ft', toBase: 0.3048 },
+      { ko: '야드 (yd)', en: 'Yard (yd)', key: 'yd', toBase: 0.9144 },
+      { ko: '마일 (mi)', en: 'Mile (mi)', key: 'mi', toBase: 1609.344 },
+    ],
+    refs: { ko: [
+      { from: '1 인치', to: '2.54 cm' }, { from: '1 피트', to: '30.48 cm' },
+      { from: '1 마일', to: '1.609 km' }, { from: '1 미터', to: '3.281 피트' }
+    ], en: [
+      { from: '1 inch', to: '2.54 cm' }, { from: '1 foot', to: '30.48 cm' },
+      { from: '1 mile', to: '1.609 km' }, { from: '1 meter', to: '3.281 ft' }
+    ]}
+  },
+  weight: {
+    label: { ko: '무게', en: 'Weight' },
+    units: [
+      { ko: '킬로그램 (kg)', en: 'Kilogram (kg)', key: 'kg', toBase: 1 },
+      { ko: '그램 (g)', en: 'Gram (g)', key: 'g', toBase: 0.001 },
+      { ko: '밀리그램 (mg)', en: 'Milligram (mg)', key: 'mg', toBase: 0.000001 },
+      { ko: '파운드 (lb)', en: 'Pound (lb)', key: 'lb', toBase: 0.453592 },
+      { ko: '온스 (oz)', en: 'Ounce (oz)', key: 'oz', toBase: 0.028349 },
+      { ko: '톤 (t)', en: 'Ton (t)', key: 't', toBase: 1000 },
+    ],
+    refs: { ko: [
+      { from: '1 kg', to: '2.205 파운드' }, { from: '1 파운드', to: '0.4536 kg' },
+      { from: '1 온스', to: '28.35 g' }, { from: '1 톤', to: '1,000 kg' }
+    ], en: [
+      { from: '1 kg', to: '2.205 lbs' }, { from: '1 pound', to: '0.4536 kg' },
+      { from: '1 ounce', to: '28.35 g' }, { from: '1 ton', to: '1,000 kg' }
+    ]}
+  },
+  temp: {
+    label: { ko: '온도', en: 'Temperature' },
+    units: [
+      { ko: '섭씨 (°C)', en: 'Celsius (°C)', key: 'c' },
+      { ko: '화씨 (°F)', en: 'Fahrenheit (°F)', key: 'f' },
+      { ko: '켈빈 (K)', en: 'Kelvin (K)', key: 'k' },
+    ],
+    refs: { ko: [
+      { from: '0°C (어는점)', to: '32°F' }, { from: '100°C (끓는점)', to: '212°F' },
+      { from: '36.5°C (체온)', to: '97.7°F' }, { from: '20°C (실온)', to: '68°F' }
+    ], en: [
+      { from: '0°C (freezing)', to: '32°F' }, { from: '100°C (boiling)', to: '212°F' },
+      { from: '36.5°C (body temp)', to: '97.7°F' }, { from: '20°C (room temp)', to: '68°F' }
+    ]}
+  },
+  area: {
+    label: { ko: '넓이', en: 'Area' },
+    units: [
+      { ko: '제곱미터 (㎡)', en: 'Square meter (㎡)', key: 'm2', toBase: 1 },
+      { ko: '평 (坪)', en: 'Pyeong (坪)', key: 'pyeong', toBase: 3.30579 },
+      { ko: '제곱센티미터 (cm²)', en: 'Square centimeter', key: 'cm2', toBase: 0.0001 },
+      { ko: '제곱킬로미터 (km²)', en: 'Square kilometer', key: 'km2', toBase: 1000000 },
+      { ko: '헥타르 (ha)', en: 'Hectare (ha)', key: 'ha', toBase: 10000 },
+      { ko: '제곱피트 (ft²)', en: 'Square foot (ft²)', key: 'ft2', toBase: 0.092903 },
+      { ko: '제곱인치 (in²)', en: 'Square inch (in²)', key: 'in2', toBase: 0.00064516 },
+      { ko: '에이커 (acre)', en: 'Acre', key: 'acre', toBase: 4046.86 },
+    ],
+    refs: { ko: [
+      { from: '1 평', to: '3.306 ㎡' }, { from: '84 ㎡', to: '약 25.4 평' },
+      { from: '59 ㎡', to: '약 17.8 평' }, { from: '1 헥타르', to: '10,000 ㎡' }
+    ], en: [
+      { from: '1 pyeong', to: '3.306 ㎡' }, { from: '1 acre', to: '4,047 ㎡' },
+      { from: '1 hectare', to: '10,000 ㎡' }, { from: '1 ft²', to: '0.0929 ㎡' }
+    ]}
+  },
+  volume: {
+    label: { ko: '부피', en: 'Volume' },
+    units: [
+      { ko: '리터 (L)', en: 'Liter (L)', key: 'l', toBase: 1 },
+      { ko: '밀리리터 (mL)', en: 'Milliliter (mL)', key: 'ml', toBase: 0.001 },
+      { ko: '세제곱미터 (m³)', en: 'Cubic meter (m³)', key: 'm3', toBase: 1000 },
+      { ko: '갤런 (gal)', en: 'Gallon (gal)', key: 'gal', toBase: 3.78541 },
+      { ko: '파인트 (pt)', en: 'Pint (pt)', key: 'pt', toBase: 0.473176 },
+      { ko: '컵 (cup)', en: 'Cup', key: 'cup', toBase: 0.236588 },
+      { ko: '테이블스푼 (tbsp)', en: 'Tablespoon', key: 'tbsp', toBase: 0.014787 },
+      { ko: '티스푼 (tsp)', en: 'Teaspoon', key: 'tsp', toBase: 0.004929 },
+    ],
+    refs: { ko: [
+      { from: '1 갤런', to: '3.785 L' }, { from: '1 컵', to: '236.6 mL' },
+      { from: '1 리터', to: '1,000 mL' }, { from: '1 테이블스푼', to: '14.79 mL' }
+    ], en: [
+      { from: '1 gallon', to: '3.785 L' }, { from: '1 cup', to: '236.6 mL' },
+      { from: '1 liter', to: '1,000 mL' }, { from: '1 tbsp', to: '14.79 mL' }
+    ]}
+  }
+};
+
+let currentCat = 'length';
+let lang = 'ko';
+
+function setCat(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  renderUnits();
+  renderRefs();
+  convert();
+}
+
+function renderUnits() {
+  const data = UNITS[currentCat];
+  const fromSel = document.getElementById('fromUnit');
+  const toSel = document.getElementById('toUnit');
+  const fromVal = parseFloat(document.getElementById('fromVal').value) || 1;
+
+  const prevFrom = fromSel.value;
+  const prevTo = toSel.value;
+
+  fromSel.innerHTML = '';
+  toSel.innerHTML = '';
+
+  data.units.forEach((u, i) => {
+    const label = lang === 'ko' ? u.ko : u.en;
+    fromSel.add(new Option(label, u.key));
+    toSel.add(new Option(label, u.key));
+  });
+
+  // 기본 선택값 설정
+  if (currentCat === 'length') { fromSel.value = 'cm'; toSel.value = 'in'; }
+  else if (currentCat === 'weight') { fromSel.value = 'kg'; toSel.value = 'lb'; }
+  else if (currentCat === 'temp') { fromSel.value = 'c'; toSel.value = 'f'; }
+  else if (currentCat === 'area') { fromSel.value = 'm2'; toSel.value = 'pyeong'; }
+  else if (currentCat === 'volume') { fromSel.value = 'l'; toSel.value = 'gal'; }
+}
+
+function convertTemp(val, from, to) {
+  let celsius;
+  if (from === 'c') celsius = val;
+  else if (from === 'f') celsius = (val - 32) * 5 / 9;
+  else celsius = val - 273.15;
+
+  if (to === 'c') return celsius;
+  if (to === 'f') return celsius * 9 / 5 + 32;
+  return celsius + 273.15;
+}
+
+function convert() {
+  const fromUnit = document.getElementById('fromUnit').value;
+  const toUnit = document.getElementById('toUnit').value;
+  const fromVal = parseFloat(document.getElementById('fromVal').value);
+
+  if (isNaN(fromVal)) { document.getElementById('toVal').value = ''; return; }
+
+  let result;
+  if (currentCat === 'temp') {
+    result = convertTemp(fromVal, fromUnit, toUnit);
+  } else {
+    const units = UNITS[currentCat].units;
+    const fromData = units.find(u => u.key === fromUnit);
+    const toData = units.find(u => u.key === toUnit);
+    if (!fromData || !toData) return;
+    const baseVal = fromVal * fromData.toBase;
+    result = baseVal / toData.toBase;
+  }
+
+  const formatted = Math.abs(result) >= 0.001
+    ? parseFloat(result.toFixed(6)).toLocaleString('ko-KR', { maximumFractionDigits: 6 })
+    : result.toExponential(4);
+  document.getElementById('toVal').value = formatted;
+}
+
+function swapUnits() {
+  const fromSel = document.getElementById('fromUnit');
+  const toSel = document.getElementById('toUnit');
+  const fromVal = document.getElementById('fromVal');
+  const toVal = document.getElementById('toVal');
+
+  const tmp = fromSel.value;
+  fromSel.value = toSel.value;
+  toSel.value = tmp;
+
+  fromVal.value = toVal.value.replace(/,/g, '');
+  convert();
+}
+
+function renderRefs() {
+  const refs = UNITS[currentCat].refs[lang];
+  const grid = document.getElementById('ref-grid');
+  grid.innerHTML = '';
+  refs.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'ref-item';
+    div.innerHTML = `<span class="ref-from">${r.from}</span><span class="ref-to">= ${r.to}</span>`;
+    grid.appendChild(div);
+  });
+}
+
+const T = {
+  ko: { title: '단위 변환기', sub: '길이·무게·온도·넓이·부피 단위를 즉시 변환합니다.',
+    from: '변환 전', to: '변환 후', ref: '자주 쓰는 변환',
+    cats: { length: '📏 길이', weight: '⚖️ 무게', temp: '🌡️ 온도', area: '📐 넓이', volume: '🧪 부피' }
+  },
+  en: { title: 'Unit Converter', sub: 'Instantly convert length, weight, temperature, area and volume.',
+    from: 'From', to: 'To', ref: 'Quick Reference',
+    cats: { length: '📏 Length', weight: '⚖️ Weight', temp: '🌡️ Temp', area: '📐 Area', volume: '🧪 Volume' }
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-from').textContent = t.from;
+  document.getElementById('t-to').textContent = t.to;
+  document.getElementById('t-ref').textContent = t.ref;
+  Object.entries(t.cats).forEach(([key, label]) => {
+    const btn = document.getElementById('btn-' + key);
+    if (btn) btn.textContent = label;
+  });
+  renderUnits();
+  renderRefs();
+  convert();
+}
+
+// 초기화
+renderUnits();
+renderRefs();
+convert();
+</script>
+</body>
+</html>
