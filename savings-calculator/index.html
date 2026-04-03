@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>적금 계산기 - 복리 단리 만기금액 즉시 계산 | TopTools365</title>
+<meta name="description" content="적금 만기금액과 이자를 즉시 계산합니다. 단리·복리 선택, 이자소득세 공제 포함. 월 납입금액과 기간 입력으로 실수령액까지 계산. 완전 무료.">
+<meta name="keywords" content="적금계산기,복리계산기,단리계산기,적금이자계산,만기금액계산,예금계산기,복리단리비교,이자계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/savings-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="적금 계산기 - 복리 단리 만기금액 즉시 계산 | TopTools365">
+<meta property="og:description" content="적금 만기금액·이자 즉시 계산. 단리·복리 선택. 이자소득세 공제. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"적금 계산기","alternateName":"복리 계산기","description":"적금 만기금액과 이자를 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"단리와 복리의 차이는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 기간이 길수록 복리가 단리보다 훨씬 유리합니다."}},{"@type":"Question","name":"적금 이자에 세금이 붙나요?","acceptedAnswer":{"@type":"Answer","text":"네, 적금 이자에는 이자소득세 15.4%(소득세 14% + 지방소득세 1.4%)가 부과됩니다. 단, 비과세 적금(청년우대형 등)은 세금이 면제됩니다."}},{"@type":"Question","name":"복리 계산 공식은 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"복리 계산 공식은 원금 × (1 + 이자율/n)^(n×기간)입니다. 여기서 n은 이자 계산 횟수(월 복리면 12)입니다."}},{"@type":"Question","name":"적금과 예금의 차이는?","acceptedAnswer":{"@type":"Answer","text":"적금은 매월 일정 금액을 납입하는 방식이고, 예금은 목돈을 한 번에 맡기는 방식입니다. 같은 금액이라도 예금이 적금보다 이자가 더 많습니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 탭 */
+  .mode-row { display: flex; gap: 8px; margin-bottom: 24px; }
+  .mode-btn { flex: 1; padding: 11px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .mode-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 60px 13px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); pointer-events: none; font-weight: 500; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 이자 방식 선택 */
+  .interest-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .interest-btn { flex: 1; padding: 10px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; text-align: center; }
+  .interest-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 세금 토글 */
+  .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .toggle-label { font-size: 13px; font-weight: 500; }
+  .toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: .2s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: .2s; }
+  .toggle input:checked + .toggle-slider { background: var(--accent); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  .result-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .result-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 22px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box.main { background: var(--accent-light); border-color: var(--accent); }
+  .hero-box.sub { background: var(--orange-light); border-color: var(--orange); }
+  .hero-box .hlabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .hero-box.main .hlabel { color: var(--accent); }
+  .hero-box.sub .hlabel { color: var(--orange); }
+  .hero-box .hval { font-size: 26px; font-weight: 800; line-height: 1.1; }
+  .hero-box.main .hval { color: var(--accent); }
+  .hero-box.sub .hval { color: var(--orange); }
+  .hero-box .hsub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 연도별 표 */
+  .year-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .year-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: right; font-size: 12px; font-weight: 600; }
+  .year-table th:first-child { text-align: left; }
+  .year-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: right; }
+  .year-table td:first-child { text-align: left; color: var(--muted); }
+  .year-table tr:last-child td { border-bottom: none; font-weight: 700; }
+
+  /* SEO 섹션 */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>적금·복리 계산기</h1>
+  <p class="subtitle">적금 만기금액과 이자를 즉시 계산합니다. 단리·복리 선택, 세금 공제 포함.</p>
+
+  <div class="card">
+    <!-- 모드 탭 -->
+    <div class="mode-row">
+      <button class="mode-btn on" onclick="setMode('savings',this)">💰 적금 계산</button>
+      <button class="mode-btn" onclick="setMode('deposit',this)">🏦 예금 계산</button>
+      <button class="mode-btn" onclick="setMode('compound',this)">📈 복리 계산</button>
+    </div>
+
+    <!-- 적금 -->
+    <div id="mode-savings">
+      <div class="input-grid">
+        <div class="field">
+          <label>월 납입금액</label>
+          <div class="input-wrap"><input type="number" id="sv-monthly" placeholder="500000" value="500000"><span class="unit">원</span></div>
+        </div>
+        <div class="field">
+          <label>기간</label>
+          <div class="input-wrap"><input type="number" id="sv-months" placeholder="12" value="12" min="1" max="120"><span class="unit">개월</span></div>
+        </div>
+        <div class="field">
+          <label>연이율</label>
+          <div class="input-wrap"><input type="number" id="sv-rate" placeholder="3.5" value="3.5" step="0.01"><span class="unit">%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 예금 -->
+    <div id="mode-deposit" style="display:none">
+      <div class="input-grid">
+        <div class="field">
+          <label>원금</label>
+          <div class="input-wrap"><input type="number" id="dp-principal" placeholder="10000000" value="10000000"><span class="unit">원</span></div>
+        </div>
+        <div class="field">
+          <label>기간</label>
+          <div class="input-wrap"><input type="number" id="dp-months" placeholder="12" value="12" min="1" max="120"><span class="unit">개월</span></div>
+        </div>
+        <div class="field">
+          <label>연이율</label>
+          <div class="input-wrap"><input type="number" id="dp-rate" placeholder="3.5" value="3.5" step="0.01"><span class="unit">%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 복리 -->
+    <div id="mode-compound" style="display:none">
+      <div class="input-grid">
+        <div class="field">
+          <label>원금</label>
+          <div class="input-wrap"><input type="number" id="cp-principal" placeholder="10000000" value="10000000"><span class="unit">원</span></div>
+        </div>
+        <div class="field">
+          <label>연이율</label>
+          <div class="input-wrap"><input type="number" id="cp-rate" placeholder="5" value="5" step="0.01"><span class="unit">%</span></div>
+        </div>
+        <div class="field">
+          <label>기간</label>
+          <div class="input-wrap"><input type="number" id="cp-years" placeholder="10" value="10" min="1" max="50"><span class="unit">년</span></div>
+        </div>
+        <div class="field">
+          <label>복리 주기</label>
+          <select style="width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px;outline:none" id="cp-period">
+            <option value="1">연복리</option>
+            <option value="4">분기복리</option>
+            <option value="12" selected>월복리</option>
+            <option value="365">일복리</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이자 방식 (적금·예금만) -->
+    <div id="interest-mode-row">
+      <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">이자 방식</div>
+      <div class="interest-row">
+        <button class="interest-btn on" onclick="setInterest('simple',this)">단리</button>
+        <button class="interest-btn" onclick="setInterest('compound',this)">복리</button>
+      </div>
+    </div>
+
+    <!-- 세금 -->
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">이자소득세 공제</div>
+        <div class="toggle-sub">15.4% (소득세 14% + 지방소득세 1.4%)</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="opt-tax" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results"></div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>적금·복리 계산기 사용 방법</h2>
+    <p>적금은 매월 납입금액과 기간, 이율을 입력하면 만기 수령액을 계산합니다. 예금은 원금을 한 번에 예치하는 방식이고, 복리 계산은 장기 투자 시 복리 효과를 확인할 수 있습니다.</p>
+
+    <h3>단리 vs 복리</h3>
+    <div class="info-box">
+      <strong>단리</strong>: 원금에만 이자가 붙는 방식<br>
+      이자 = 원금 × 이자율 × 기간<br><br>
+      <strong>복리</strong>: 이자에도 이자가 붙는 방식<br>
+      만기금액 = 원금 × (1 + 이자율/n)^(n×기간)<br><br>
+      기간이 길수록 복리가 단리보다 훨씬 유리해요!
+    </div>
+
+    <h3>이자소득세란?</h3>
+    <p>적금·예금 이자에는 이자소득세 15.4%(소득세 14% + 지방소득세 1.4%)가 부과됩니다. 단, 청년우대형 청약저축, 개인종합자산관리계좌(ISA) 등 비과세 상품은 세금이 면제됩니다.</p>
+
+    <h3>72의 법칙</h3>
+    <p>복리로 원금이 2배가 되는 기간을 빠르게 계산하는 방법이에요. 72 ÷ 연이율(%) = 원금이 2배가 되는 기간(년)입니다. 예를 들어 연이율 6%라면 72 ÷ 6 = 12년 후 원금이 2배가 됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/loan-calculator/">
+        <span class="related-icon">🏦</span>
+        <span>대출 이자 계산기</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">단리와 복리의 차이는 무엇인가요?</div>
+      <div class="faq-a">단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 기간이 길수록 복리가 단리보다 훨씬 유리합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">적금 이자에 세금이 붙나요?</div>
+      <div class="faq-a">네, 이자소득세 15.4%(소득세 14% + 지방소득세 1.4%)가 부과됩니다. 비과세 상품(청년우대형 등)은 세금이 면제됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">적금과 예금의 차이는?</div>
+      <div class="faq-a">적금은 매월 일정 금액을 납입하는 방식이고, 예금은 목돈을 한 번에 맡기는 방식입니다. 같은 금액이라도 예금이 적금보다 이자가 더 많습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">복리 계산 공식은 무엇인가요?</div>
+      <div class="faq-a">만기금액 = 원금 × (1 + 이자율/n)^(n×기간)입니다. n은 이자 계산 횟수(월복리면 12)입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">72의 법칙이란?</div>
+      <div class="faq-a">72 ÷ 연이율(%) = 원금이 2배가 되는 기간(년)입니다. 연이율 6%라면 72 ÷ 6 = 12년 후 원금이 2배가 됩니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 금융상품 조건에 따라 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let mode = 'savings';
+let interestMode = 'simple';
+
+function setMode(m, el) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  ['savings','deposit','compound'].forEach(id => {
+    document.getElementById('mode-' + id).style.display = id === m ? 'block' : 'none';
+  });
+  document.getElementById('interest-mode-row').style.display = m === 'compound' ? 'none' : 'block';
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('results').classList.remove('show');
+}
+
+function setInterest(m, el) {
+  interestMode = m;
+  document.querySelectorAll('.interest-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n / 100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n / 10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+
+function calculate() {
+  const tax = document.getElementById('opt-tax').checked ? 0.154 : 0;
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+
+  if (mode === 'savings') {
+    const monthly = parseFloat(document.getElementById('sv-monthly').value) || 0;
+    const months = parseInt(document.getElementById('sv-months').value) || 12;
+    const rate = parseFloat(document.getElementById('sv-rate').value) / 100;
+    if (!monthly) return;
+
+    const monthlyRate = rate / 12;
+    let total = 0, interest = 0;
+
+    if (interestMode === 'simple') {
+      // 단리 적금
+      for (let i = 1; i <= months; i++) {
+        interest += monthly * monthlyRate * (months - i + 1);
+      }
+      total = monthly * months + interest;
+    } else {
+      // 복리 적금
+      for (let i = 1; i <= months; i++) {
+        total += monthly * Math.pow(1 + monthlyRate, months - i + 1);
+      }
+      interest = total - monthly * months;
+    }
+
+    const taxAmt = interest * tax;
+    const netInterest = interest - taxAmt;
+    const netTotal = monthly * months + netInterest;
+
+    results.innerHTML = getResultHTML(
+      monthly * months, interest, taxAmt, netInterest, netTotal,
+      `월 ${fmt(monthly)} × ${months}개월`, months + '개월 적금'
+    );
+
+  } else if (mode === 'deposit') {
+    const principal = parseFloat(document.getElementById('dp-principal').value) || 0;
+    const months = parseInt(document.getElementById('dp-months').value) || 12;
+    const rate = parseFloat(document.getElementById('dp-rate').value) / 100;
+    if (!principal) return;
+
+    let total, interest;
+    if (interestMode === 'simple') {
+      interest = principal * rate * (months / 12);
+      total = principal + interest;
+    } else {
+      total = principal * Math.pow(1 + rate / 12, months);
+      interest = total - principal;
+    }
+
+    const taxAmt = interest * tax;
+    const netInterest = interest - taxAmt;
+    const netTotal = principal + netInterest;
+
+    results.innerHTML = getResultHTML(
+      principal, interest, taxAmt, netInterest, netTotal,
+      `원금 ${fmtW(principal)}`, months + '개월 예금'
+    );
+
+  } else if (mode === 'compound') {
+    const principal = parseFloat(document.getElementById('cp-principal').value) || 0;
+    const rate = parseFloat(document.getElementById('cp-rate').value) / 100;
+    const years = parseInt(document.getElementById('cp-years').value) || 10;
+    const n = parseInt(document.getElementById('cp-period').value);
+    if (!principal) return;
+
+    // 연도별 표
+    let rows = '';
+    for (let y = 1; y <= years; y++) {
+      const total = principal * Math.pow(1 + rate / n, n * y);
+      const interest = total - principal;
+      const taxAmt = interest * tax;
+      const net = principal + interest - taxAmt;
+      rows += `<tr>
+        <td>${y}년 후</td>
+        <td>${fmtW(total)}</td>
+        <td>${fmtW(interest)}</td>
+        <td>${fmtW(net)}</td>
+      </tr>`;
+    }
+
+    const finalTotal = principal * Math.pow(1 + rate / n, n * years);
+    const finalInterest = finalTotal - principal;
+    const finalTax = finalInterest * tax;
+    const finalNet = principal + finalInterest - finalTax;
+
+    results.innerHTML = `
+      <div class="result-hero">
+        <div class="hero-box main">
+          <div class="hlabel">${years}년 후 원리금</div>
+          <div class="hval">${fmtW(finalTotal)}</div>
+          <div class="hsub">세전</div>
+        </div>
+        <div class="hero-box sub">
+          <div class="hlabel">세후 수령액</div>
+          <div class="hval">${fmtW(finalNet)}</div>
+          <div class="hsub">이자소득세 ${tax > 0 ? '15.4%' : '0%'} 공제</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:14px;font-weight:600;margin-bottom:14px">연도별 복리 계산</div>
+        <table class="year-table">
+          <thead><tr><th>기간</th><th>원리금(세전)</th><th>이자</th><th>세후 수령액</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function getResultHTML(principal, interest, taxAmt, netInterest, netTotal, sub1, sub2) {
+  return `
+    <div class="result-hero">
+      <div class="hero-box main">
+        <div class="hlabel">세후 만기 수령액</div>
+        <div class="hval">${fmtW(netTotal)}</div>
+        <div class="hsub">${sub2}</div>
+      </div>
+      <div class="hero-box sub">
+        <div class="hlabel">세후 이자</div>
+        <div class="hval">${fmtW(netInterest)}</div>
+        <div class="hsub">${sub1}</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">납입 원금</span><span class="detail-val">${fmt(principal)}</span></div>
+      <div class="detail-row"><span class="detail-label">세전 이자</span><span class="detail-val">${fmt(interest)}</span></div>
+      <div class="detail-row"><span class="detail-label">이자소득세 (15.4%)</span><span class="detail-val" style="color:var(--orange)">-${fmt(taxAmt)}</span></div>
+      <div class="detail-row"><span class="detail-label">세후 이자</span><span class="detail-val" style="color:var(--accent)">${fmt(netInterest)}</span></div>
+      <div class="detail-row"><span class="detail-label">세후 만기 수령액</span><span class="detail-val" style="color:var(--accent);font-size:16px">${fmt(netTotal)}</span></div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
