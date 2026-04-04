@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>원단위 절사 계산기 - 10원 100원 1000원 단위 반올림 버림 올림 | TopTools365</title>
+<meta name="description" content="금액의 원단위를 절사(버림), 반올림, 올림 처리합니다. 1원, 10원, 100원, 1000원, 10000원 단위 선택 가능. 급여·세금·거스름돈 계산. 완전 무료.">
+<meta name="keywords" content="원단위절사,10원단위절사,원단위반올림,원단위올림,급여원단위,세금원단위,절사계산기,반올림계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/rounding-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="원단위 절사 계산기 - 10원 100원 1000원 단위 반올림 버림 올림 | TopTools365">
+<meta property="og:description" content="원단위 절사·반올림·올림 즉시 계산. 1·10·100·1000원 단위 선택. 급여·세금 계산. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"원단위 절사 계산기","description":"금액의 원단위를 절사, 반올림, 올림 처리하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"원단위 절사란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"원단위 절사는 금액의 특정 단위 미만을 버리는 것입니다. 예를 들어 10원 단위 절사 시 2,567원은 2,560원이 됩니다."}},{"@type":"Question","name":"급여 원단위 절사는 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"급여 계산 시 원 단위(1원 미만)는 절사하는 것이 일반적입니다. 시급 × 근무시간 계산 시 소수점이 나오면 원 단위 미만을 버립니다."}},{"@type":"Question","name":"세금 계산 시 원단위 처리는?","acceptedAnswer":{"@type":"Answer","text":"소득세, 부가가치세 등 세금 계산 시 원 단위 미만(소수점)은 절사합니다. 국세청 규정에 따라 세금은 원 단위 미만을 버립니다."}},{"@type":"Question","name":"반올림과 절사의 차이는?","acceptedAnswer":{"@type":"Answer","text":"절사(버림)는 특정 단위 미만을 무조건 버리고, 반올림은 5 이상이면 올리고 5 미만이면 버립니다. 올림은 1 이상이면 무조건 올립니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 단위 선택 */
+  .unit-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .unit-btn { padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .unit-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 처리 방식 선택 */
+  .method-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+  .method-btn { padding: 11px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.4; }
+  .method-btn.on { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 14px 52px 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 22px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); pointer-events: none; font-weight: 500; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  .result-hero { text-align: center; padding: 28px; border-radius: 14px; border: 2px solid var(--accent); background: var(--accent-light); margin-bottom: 16px; }
+  .result-hero .rlabel { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .result-hero .rval { font-size: 52px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .result-hero .rsub { font-size: 14px; color: var(--muted); }
+
+  .compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .compare-grid { grid-template-columns: 1fr; } }
+  .compare-item { padding: 16px 12px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .compare-item.floor { background: var(--blue-light); border-color: var(--blue); }
+  .compare-item.round { background: var(--accent-light); border-color: var(--accent); }
+  .compare-item.ceil { background: var(--orange-light); border-color: var(--orange); }
+  .compare-item .clabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .compare-item.floor .clabel { color: var(--blue); }
+  .compare-item.round .clabel { color: var(--accent); }
+  .compare-item.ceil .clabel { color: var(--orange); }
+  .compare-item .cval { font-size: 18px; font-weight: 800; }
+  .compare-item.floor .cval { color: var(--blue); }
+  .compare-item.round .cval { color: var(--accent); }
+  .compare-item.ceil .cval { color: var(--orange); }
+  .compare-item .cdiff { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* 단위별 일괄 계산 */
+  .all-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .all-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: right; font-size: 12px; font-weight: 600; }
+  .all-table th:first-child { text-align: left; }
+  .all-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: right; }
+  .all-table td:first-child { text-align: left; color: var(--muted); }
+  .all-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+  .all-table tr:last-child td { border-bottom: none; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>원단위 절사 계산기</h1>
+  <p class="subtitle">금액의 원단위를 절사(버림), 반올림, 올림 처리합니다. 급여·세금·거스름돈 계산에 활용하세요.</p>
+
+  <div class="card">
+    <!-- 단위 선택 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">단위 선택</div>
+    <div class="unit-row">
+      <button class="unit-btn" onclick="setUnit(1,this)">1원</button>
+      <button class="unit-btn on" onclick="setUnit(10,this)">10원</button>
+      <button class="unit-btn" onclick="setUnit(100,this)">100원</button>
+      <button class="unit-btn" onclick="setUnit(1000,this)">1,000원</button>
+      <button class="unit-btn" onclick="setUnit(10000,this)">10,000원</button>
+    </div>
+
+    <!-- 처리 방식 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">처리 방식</div>
+    <div class="method-row">
+      <button class="method-btn on" onclick="setMethod('floor',this)">절사 (버림)<br><small>무조건 내림</small></button>
+      <button class="method-btn" onclick="setMethod('round',this)">반올림<br><small>5 이상 올림</small></button>
+      <button class="method-btn" onclick="setMethod('ceil',this)">올림<br><small>무조건 올림</small></button>
+    </div>
+
+    <!-- 금액 입력 -->
+    <div class="field">
+      <label>금액</label>
+      <div class="input-wrap">
+        <input type="number" id="amount" placeholder="12345.67" value="12345.67" step="0.01" oninput="calculate()">
+        <span class="unit">원</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <div class="result-hero">
+      <div class="rlabel" id="r-label">10원 단위 절사 결과</div>
+      <div class="rval" id="r-val">-</div>
+      <div class="rsub" id="r-sub">-</div>
+    </div>
+
+    <!-- 절사·반올림·올림 비교 -->
+    <div class="compare-grid">
+      <div class="compare-item floor">
+        <div class="clabel">절사 (버림)</div>
+        <div class="cval" id="c-floor">-</div>
+        <div class="cdiff" id="c-floor-diff">-</div>
+      </div>
+      <div class="compare-item round">
+        <div class="clabel">반올림</div>
+        <div class="cval" id="c-round">-</div>
+        <div class="cdiff" id="c-round-diff">-</div>
+      </div>
+      <div class="compare-item ceil">
+        <div class="clabel">올림</div>
+        <div class="cval" id="c-ceil">-</div>
+        <div class="cdiff" id="c-ceil-diff">-</div>
+      </div>
+    </div>
+
+    <!-- 단위별 일괄 결과 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">단위별 절사 결과 한눈에 보기</div>
+      <table class="all-table" id="all-table"></table>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>원단위 절사 계산기 사용 방법</h2>
+    <p>계산할 금액을 입력하고 원하는 단위(1·10·100·1000·10000원)와 처리 방식(절사·반올림·올림)을 선택하면 즉시 계산됩니다. 아래 단위별 결과표에서 모든 단위의 결과를 한눈에 확인할 수 있습니다.</p>
+
+    <h3>절사·반올림·올림의 차이</h3>
+    <div class="info-box">
+      <strong>절사 (버림)</strong>: 해당 단위 미만을 무조건 버림<br>
+      예) 2,567원 → 10원 단위 절사 → <strong>2,560원</strong><br><br>
+      <strong>반올림</strong>: 해당 자리가 5 이상이면 올리고, 미만이면 버림<br>
+      예) 2,567원 → 10원 단위 반올림 → <strong>2,570원</strong><br><br>
+      <strong>올림</strong>: 해당 단위 미만이 1 이상이면 무조건 올림<br>
+      예) 2,561원 → 10원 단위 올림 → <strong>2,570원</strong>
+    </div>
+
+    <h3>언제 원단위 절사를 사용하나요?</h3>
+    <p>급여 계산 시 시급×시간의 결과에서 원 단위 미만을 절사합니다. 세금(소득세·부가가치세) 계산 시 원 단위 미만은 절사합니다. 현금 거래에서 동전 거스름돈을 없애기 위해 10원 단위 절사를 사용하기도 합니다.</p>
+
+    <h3>세금 계산 원단위 처리</h3>
+    <p>국세청 규정에 따르면 소득세·부가가치세 등 세금은 원 단위 미만(소수점 이하)을 절사합니다. 예를 들어 소득세가 125,432.7원이면 125,432원으로 처리합니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+      <a class="related-item" href="/vat-calculator/">
+        <span class="related-icon">🧾</span>
+        <span>부가세 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">원단위 절사란 무엇인가요?</div>
+      <div class="faq-a">특정 단위 미만을 무조건 버리는 것입니다. 10원 단위 절사 시 2,567원은 2,560원이 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">급여 원단위 절사는 어떻게 하나요?</div>
+      <div class="faq-a">시급×시간 계산 결과에서 원 단위 미만(소수점)을 버립니다. 예를 들어 10,030원×8.5시간=85,255원이면 85,255원이 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">세금 계산 시 원단위 처리는?</div>
+      <div class="faq-a">소득세·부가가치세 등은 원 단위 미만을 절사합니다. 국세청 규정에 따라 세금은 소수점 이하를 버립니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">반올림과 절사의 차이는?</div>
+      <div class="faq-a">절사(버림)는 무조건 버리고, 반올림은 5 이상이면 올리고 미만이면 버립니다. 올림은 1 이상이면 무조건 올립니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">현금 영수증에서 10원 단위 절사가 필요한 이유는?</div>
+      <div class="faq-a">현금 거래에서 1원짜리 동전을 없애기 위해 10원 단위로 절사하는 경우가 있습니다. 일부 마트·편의점에서 10원 단위 반올림을 적용합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 급여·세금 계산은 전문가에게 확인하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let selectedUnit = 10;
+let selectedMethod = 'floor';
+
+function setUnit(u, el) {
+  selectedUnit = u;
+  document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  calculate();
+}
+
+function setMethod(m, el) {
+  selectedMethod = m;
+  document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  calculate();
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function applyRound(val, unit, method) {
+  if (method === 'floor') return Math.floor(val / unit) * unit;
+  if (method === 'round') return Math.round(val / unit) * unit;
+  if (method === 'ceil') return Math.ceil(val / unit) * unit;
+}
+
+function calculate() {
+  const amount = parseFloat(document.getElementById('amount').value);
+  if (isNaN(amount)) return;
+
+  const result = applyRound(amount, selectedUnit, selectedMethod);
+  const diff = result - amount;
+
+  const methodNames = { floor: '절사 (버림)', round: '반올림', ceil: '올림' };
+  const unitNames = { 1: '1원', 10: '10원', 100: '100원', 1000: '1,000원', 10000: '10,000원' };
+
+  document.getElementById('r-label').textContent = `${unitNames[selectedUnit]} 단위 ${methodNames[selectedMethod]} 결과`;
+  document.getElementById('r-val').textContent = fmt(result);
+  document.getElementById('r-sub').textContent = `원래 금액 ${fmt(amount)} → ${diff >= 0 ? '+' : ''}${fmt(diff)}`;
+
+  // 비교
+  const floor = applyRound(amount, selectedUnit, 'floor');
+  const round = applyRound(amount, selectedUnit, 'round');
+  const ceil = applyRound(amount, selectedUnit, 'ceil');
+
+  document.getElementById('c-floor').textContent = fmt(floor);
+  document.getElementById('c-floor-diff').textContent = `${floor - amount >= 0 ? '+' : ''}${fmt(floor - amount)}`;
+  document.getElementById('c-round').textContent = fmt(round);
+  document.getElementById('c-round-diff').textContent = `${round - amount >= 0 ? '+' : ''}${fmt(round - amount)}`;
+  document.getElementById('c-ceil').textContent = fmt(ceil);
+  document.getElementById('c-ceil-diff').textContent = `${ceil - amount >= 0 ? '+' : ''}${fmt(ceil - amount)}`;
+
+  // 단위별 일괄 표
+  const units = [1, 10, 100, 1000, 10000];
+  const table = document.getElementById('all-table');
+  table.innerHTML = '';
+  const thead = document.createElement('thead');
+  thead.innerHTML = '<tr><th>단위</th><th>절사</th><th>반올림</th><th>올림</th></tr>';
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  units.forEach(u => {
+    const tr = document.createElement('tr');
+    if (u === selectedUnit) tr.className = 'highlight';
+    tr.innerHTML = `
+      <td>${unitNames[u]}</td>
+      <td>${fmt(applyRound(amount, u, 'floor'))}</td>
+      <td>${fmt(applyRound(amount, u, 'round'))}</td>
+      <td>${fmt(applyRound(amount, u, 'ceil'))}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기 계산
+calculate();
+</script>
+</body>
+</html>
