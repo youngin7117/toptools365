@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부가세 계산기 - 공급가액 부가가치세 즉시 계산 | TopTools365</title>
+<meta name="description" content="금액을 입력하면 부가세(VAT 10%)를 즉시 계산합니다. 공급가액 계산, 세금계산서 발행 금액 계산, 부가세 포함/제외 변환. 완전 무료.">
+<meta name="keywords" content="부가세계산기,VAT계산기,부가가치세계산,공급가액계산,세금계산서,부가세10%,부가세포함,부가세제외">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/vat-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="부가세 계산기 - 공급가액 부가가치세 즉시 계산 | TopTools365">
+<meta property="og:description" content="부가세(VAT 10%) 즉시 계산. 공급가액·부가세·합계금액. 세금계산서 금액 계산. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"부가세 계산기","alternateName":"VAT Calculator","description":"부가가치세(VAT)를 즉시 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"부가세란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"부가가치세(VAT)는 재화나 용역의 공급에 부과되는 세금으로, 한국의 표준 세율은 10%입니다. 소비자가 최종 부담하며 사업자가 국가에 납부합니다."}},{"@type":"Question","name":"부가세 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"부가세 = 공급가액 × 10%입니다. 공급가액이 100,000원이면 부가세는 10,000원, 합계금액은 110,000원입니다. 반대로 부가세 포함 금액에서 공급가액을 구하려면 합계금액 ÷ 1.1을 하면 됩니다."}},{"@type":"Question","name":"세금계산서란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"세금계산서는 사업자가 재화·용역을 공급할 때 발행하는 세금 영수증입니다. 공급가액과 부가세가 구분 표시됩니다. 전자세금계산서는 발행일 다음날까지 전송해야 합니다."}},{"@type":"Question","name":"프리랜서도 부가세를 내야 하나요?","acceptedAnswer":{"@type":"Answer","text":"연 매출 8,000만원 이상 사업자(일반과세자)는 부가세를 신고·납부해야 합니다. 연 매출 8,000만원 미만 소규모 사업자(간이과세자)는 간이 방식으로 납부합니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 모드 탭 */
+  .mode-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+  .mode-btn { padding: 11px 6px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.5; }
+  .mode-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 세율 선택 */
+  .rate-row { display: flex; gap: 8px; margin-bottom: 20px; }
+  .rate-btn { flex: 1; padding: 9px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .rate-btn.on { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 14px 52px 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); pointer-events: none; font-weight: 500; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 결과 카드 */
+  .result-main { border: 2px solid var(--accent); border-radius: 14px; overflow: hidden; margin-bottom: 16px; }
+  .result-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .result-row:last-child { border-bottom: none; background: var(--accent-light); }
+  .result-row .rlabel { font-size: 14px; color: var(--muted); }
+  .result-row .rval { font-size: 18px; font-weight: 800; }
+  .result-row:last-child .rlabel { color: var(--accent); font-weight: 600; }
+  .result-row:last-child .rval { color: var(--accent); font-size: 22px; }
+
+  /* 세금계산서 형식 */
+  .invoice-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; font-size: 13px; }
+  .invoice-title { font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 16px; color: var(--text); }
+  .invoice-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .invoice-row:last-child { border-bottom: none; font-weight: 700; font-size: 14px; }
+  .invoice-row .il { color: var(--muted); }
+  .invoice-row .ir { font-weight: 600; font-family: 'Courier New', monospace; }
+
+  /* 빠른 계산표 */
+  .quick-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .quick-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: right; font-size: 12px; font-weight: 600; }
+  .quick-table th:first-child { text-align: left; }
+  .quick-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: right; }
+  .quick-table td:first-child { text-align: left; color: var(--muted); }
+  .quick-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+  .quick-table tr:last-child td { border-bottom: none; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>부가세 계산기</h1>
+  <p class="subtitle">공급가액, 부가세, 합계금액을 즉시 계산합니다. 세금계산서 발행 시 활용하세요.</p>
+
+  <div class="card">
+    <!-- 계산 모드 -->
+    <div class="mode-row">
+      <button class="mode-btn on" onclick="setMode('supply',this)">공급가액 입력<br><small>부가세 별도</small></button>
+      <button class="mode-btn" onclick="setMode('total',this)">합계금액 입력<br><small>부가세 포함</small></button>
+      <button class="mode-btn" onclick="setMode('vat',this)">부가세 입력<br><small>공급가액 역산</small></button>
+    </div>
+
+    <!-- 세율 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">부가세율</div>
+    <div class="rate-row">
+      <button class="rate-btn on" onclick="setRate(10,this)">10% (일반)</button>
+      <button class="rate-btn" onclick="setRate(0,this)">0% (영세율)</button>
+      <button class="rate-btn" onclick="setRate('custom',this)">직접 입력</button>
+    </div>
+    <div id="custom-rate-wrap" style="display:none;margin-bottom:16px">
+      <div class="field">
+        <label>세율 직접 입력</label>
+        <div class="input-wrap">
+          <input type="number" id="custom-rate" value="10" min="0" max="100" step="0.1" oninput="calculate()">
+          <span class="unit">%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 금액 입력 -->
+    <div class="field" id="input-field">
+      <label id="input-label">공급가액</label>
+      <div class="input-wrap">
+        <input type="number" id="amount-input" placeholder="100000" value="100000" oninput="calculate()">
+        <span class="unit">원</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">부가세 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <div class="result-main">
+      <div class="result-row">
+        <span class="rlabel">공급가액</span>
+        <span class="rval" id="r-supply">-</span>
+      </div>
+      <div class="result-row">
+        <span class="rlabel" id="r-vat-label">부가세 (10%)</span>
+        <span class="rval" id="r-vat" style="color:var(--orange)">-</span>
+      </div>
+      <div class="result-row">
+        <span class="rlabel">합계금액 (공급대가)</span>
+        <span class="rval" id="r-total">-</span>
+      </div>
+    </div>
+
+    <!-- 세금계산서 형식 -->
+    <div class="card">
+      <div class="invoice-box">
+        <div class="invoice-title">[ 세금계산서 금액 ]</div>
+        <div class="invoice-row"><span class="il">공급가액</span><span class="ir" id="inv-supply">-</span></div>
+        <div class="invoice-row"><span class="il">세액 (부가세)</span><span class="ir" id="inv-vat">-</span></div>
+        <div class="invoice-row"><span class="il">합계금액</span><span class="ir" id="inv-total">-</span></div>
+      </div>
+    </div>
+
+    <!-- 단위별 빠른 계산표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">단위별 부가세 계산표</div>
+      <table class="quick-table" id="quick-table"></table>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>부가세 계산기 사용 방법</h2>
+    <p>공급가액(부가세 제외 금액), 합계금액(부가세 포함 금액), 또는 부가세 금액 중 하나를 입력하면 나머지 두 값을 즉시 계산합니다. 세금계산서 발행 시 공급가액과 세액을 확인하는 데 활용하세요.</p>
+
+    <h3>부가세 계산 공식</h3>
+    <div class="info-box">
+      <strong>공급가액 → 부가세·합계금액</strong><br>
+      부가세 = 공급가액 × 10%<br>
+      합계금액 = 공급가액 × 1.1<br><br>
+      <strong>합계금액 → 공급가액·부가세</strong><br>
+      공급가액 = 합계금액 ÷ 1.1<br>
+      부가세 = 합계금액 - 공급가액<br><br>
+      예) 공급가액 100,000원 → 부가세 10,000원 → 합계 110,000원
+    </div>
+
+    <h3>세금계산서란?</h3>
+    <p>세금계산서는 사업자가 재화·용역을 공급할 때 발행하는 세금 영수증입니다. 공급가액과 부가세가 구분 표시됩니다. 전자세금계산서는 발행일 다음날까지 국세청에 전송해야 합니다.</p>
+
+    <h3>일반과세자 vs 간이과세자</h3>
+    <p>연 매출 8,000만원 이상 사업자(일반과세자)는 부가세(10%)를 신고·납부해야 합니다. 연 매출 8,000만원 미만 소규모 사업자(간이과세자)는 간이 방식으로 납부하며 세금계산서 발행이 제한됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+      <a class="related-item" href="/loan-calculator/">
+        <span class="related-icon">🏦</span>
+        <span>대출 이자 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">부가세란 무엇인가요?</div>
+      <div class="faq-a">부가가치세(VAT)는 재화나 용역에 부과되는 세금으로 한국 표준 세율은 10%입니다. 소비자가 최종 부담하며 사업자가 국가에 납부합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">부가세 계산 방법은?</div>
+      <div class="faq-a">부가세 = 공급가액 × 10%입니다. 합계금액에서 공급가액을 구하려면 합계금액 ÷ 1.1을 하면 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">세금계산서란 무엇인가요?</div>
+      <div class="faq-a">사업자가 재화·용역 공급 시 발행하는 세금 영수증입니다. 공급가액과 부가세가 구분 표시되며, 전자세금계산서는 발행일 다음날까지 전송해야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">프리랜서도 부가세를 내야 하나요?</div>
+      <div class="faq-a">연 매출 8,000만원 이상 일반과세자는 부가세를 신고·납부해야 합니다. 그 미만 간이과세자는 간이 방식으로 납부합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">영세율이란 무엇인가요?</div>
+      <div class="faq-a">수출 재화, 국제 운송 등에 적용되는 0% 세율입니다. 부가세가 0원이 되어 사업자가 납부한 매입 부가세를 환급받을 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 정확한 세금 계산은 세무사에게 문의하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let mode = 'supply';
+let vatRate = 10;
+
+function setMode(m, el) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const labels = { supply: '공급가액', total: '합계금액 (부가세 포함)', vat: '부가세 금액' };
+  document.getElementById('input-label').textContent = labels[m];
+  calculate();
+}
+
+function setRate(r, el) {
+  document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  if (r === 'custom') {
+    document.getElementById('custom-rate-wrap').style.display = 'block';
+    vatRate = parseFloat(document.getElementById('custom-rate').value) || 10;
+  } else {
+    document.getElementById('custom-rate-wrap').style.display = 'none';
+    vatRate = r;
+  }
+  calculate();
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(1) + '억원';
+  if (n >= 10000) return Math.floor(n/10000) + '만 ' + String(n%10000).padStart(4,'0') + '원';
+  return n.toLocaleString() + '원';
+}
+
+function calculate() {
+  const amount = parseFloat(document.getElementById('amount-input').value) || 0;
+  if (!amount) return;
+
+  const rate = vatRate / 100;
+  let supply, vat, total;
+
+  if (mode === 'supply') {
+    supply = amount;
+    vat = Math.round(amount * rate);
+    total = supply + vat;
+  } else if (mode === 'total') {
+    supply = Math.round(amount / (1 + rate));
+    vat = amount - supply;
+    total = amount;
+  } else {
+    vat = amount;
+    supply = Math.round(amount / rate);
+    total = supply + vat;
+  }
+
+  // 결과 표시
+  document.getElementById('r-supply').textContent = fmt(supply);
+  document.getElementById('r-vat-label').textContent = `부가세 (${vatRate}%)`;
+  document.getElementById('r-vat').textContent = fmt(vat);
+  document.getElementById('r-total').textContent = fmt(total);
+
+  // 세금계산서
+  document.getElementById('inv-supply').textContent = fmt(supply);
+  document.getElementById('inv-vat').textContent = fmt(vat);
+  document.getElementById('inv-total').textContent = fmt(total);
+
+  // 단위별 표
+  const multiples = [0.1, 0.5, 1, 2, 5, 10, 50, 100];
+  const table = document.getElementById('quick-table');
+  table.innerHTML = `<thead><tr><th>공급가액</th><th>부가세</th><th>합계금액</th></tr></thead><tbody>`;
+  const tbody = document.createElement('tbody');
+  multiples.forEach(m => {
+    const s = Math.round(supply * m);
+    const v = Math.round(vat * m);
+    const t = s + v;
+    const tr = document.createElement('tr');
+    if (m === 1) tr.className = 'highlight';
+    tr.innerHTML = `<td>${fmtW(s)}</td><td>${fmtW(v)}</td><td>${fmtW(t)}</td>`;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기 계산
+calculate();
+</script>
+</body>
+</html>
