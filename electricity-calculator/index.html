@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전기요금 계산기 - 가정용 전기세 누진제 즉시 계산 | TopTools365</title>
+<meta name="description" content="월 사용량(kWh)을 입력하면 가정용 전기요금을 즉시 계산합니다. 누진제 요금 적용, 기본요금·전력량요금·부가세 포함. 2026년 한전 요금 기준. 완전 무료.">
+<meta name="keywords" content="전기요금계산기,전기세계산기,누진제계산기,전기요금계산,가정용전기요금,한전요금계산,전기세누진제,월전기요금">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/electricity-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="전기요금 계산기 - 가정용 전기세 누진제 즉시 계산 | TopTools365">
+<meta property="og:description" content="월 사용량 입력 → 전기요금 즉시 계산. 누진제 적용. 기본요금·부가세 포함. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"전기요금 계산기","description":"월 전기 사용량을 입력하면 누진제가 적용된 전기요금을 계산하는 무료 온라인 계산기","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"전기요금 누진제란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"누진제는 전기 사용량이 많을수록 높은 단가가 적용되는 요금 체계입니다. 한국 가정용 전기는 3단계 누진제가 적용됩니다. 1단계(200kWh 이하), 2단계(201~400kWh), 3단계(400kWh 초과)로 나뉩니다."}},{"@type":"Question","name":"전기요금은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"전기요금 = 기본요금 + 전력량요금 + 기후환경요금 + 연료비조정액. 여기에 부가세 10%와 전력산업기반기금 3.7%가 추가됩니다."}},{"@type":"Question","name":"전기 절약 방법은?","acceptedAnswer":{"@type":"Answer","text":"누진제 2단계(200kWh)를 넘지 않도록 관리하면 요금을 크게 줄일 수 있습니다. 에어컨 사용을 줄이고, LED 조명 교체, 대기전력 차단 등이 효과적입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 16px 60px 16px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 24px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); font-weight: 500; }
+
+  /* 슬라이더 */
+  .slider-wrap { margin-top: 12px; }
+  input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .slider-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* 누진 단계 표시 */
+  .step-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 12px 0 4px; }
+  .step-1 { background: var(--accent); }
+  .step-2 { background: var(--orange); }
+  .step-3 { background: var(--red); }
+  .step-labels { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 16px; }
+  .step-labels span { display: flex; align-items: center; gap: 4px; }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  .total-hero { text-align: center; padding: 28px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 14px; margin-bottom: 16px; }
+  .total-hero .tlabel { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .total-hero .tval { font-size: 56px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .total-hero .tsub { font-size: 14px; color: var(--muted); }
+
+  /* 단계별 요금 */
+  .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .step-grid { grid-template-columns: 1fr; } }
+  .step-box { padding: 16px 12px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .step-box.s1 { background: var(--accent-light); border-color: var(--accent); }
+  .step-box.s2 { background: var(--orange-light); border-color: var(--orange); }
+  .step-box.s3 { background: var(--red-light); border-color: var(--red); }
+  .step-box .slabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .step-box.s1 .slabel { color: var(--accent); }
+  .step-box.s2 .slabel { color: var(--orange); }
+  .step-box.s3 .slabel { color: var(--red); }
+  .step-box .sval { font-size: 16px; font-weight: 800; }
+  .step-box.s1 .sval { color: var(--accent); }
+  .step-box.s2 .sval { color: var(--orange); }
+  .step-box.s3 .sval { color: var(--red); }
+  .step-box .ssub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 절약 팁 */
+  .tip-box { background: var(--blue-light); border: 1px solid var(--blue); border-radius: 10px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .tip-box strong { color: var(--blue); }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+  .rate-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .rate-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .rate-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .rate-table tr:last-child td { border-bottom: none; }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>전기요금 계산기</h1>
+  <p class="subtitle">월 전기 사용량을 입력하면 누진제가 적용된 전기요금을 즉시 계산합니다. 2026년 한전 요금 기준.</p>
+
+  <div class="card">
+    <div class="field">
+      <label>월 전기 사용량</label>
+      <div class="input-wrap">
+        <input type="number" id="kwh" placeholder="300" value="300" min="0" max="2000" oninput="onInput()">
+        <span class="unit">kWh</span>
+      </div>
+    </div>
+
+    <!-- 슬라이더 -->
+    <div class="slider-wrap">
+      <input type="range" id="kwh-slider" min="0" max="1000" value="300" oninput="onSlider()">
+      <div class="slider-labels">
+        <span>0 kWh</span>
+        <span>200 kWh</span>
+        <span>400 kWh</span>
+        <span>1,000 kWh</span>
+      </div>
+    </div>
+
+    <!-- 누진 단계 표시 -->
+    <div class="step-bar" id="step-bar">
+      <div class="step-1" style="width:60%"></div>
+      <div class="step-2" style="width:30%"></div>
+      <div class="step-3" style="width:10%"></div>
+    </div>
+    <div class="step-labels">
+      <span><span class="step-dot" style="background:var(--accent)"></span>1단계 ~200kWh</span>
+      <span><span class="step-dot" style="background:var(--orange)"></span>2단계 201~400kWh</span>
+      <span><span class="step-dot" style="background:var(--red)"></span>3단계 400kWh~</span>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">전기요금 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <div class="total-hero">
+      <div class="tlabel">이번 달 전기요금 (부가세 포함)</div>
+      <div class="tval" id="r-total">-</div>
+      <div class="tsub" id="r-total-sub">-</div>
+    </div>
+
+    <!-- 단계별 -->
+    <div class="step-grid">
+      <div class="step-box s1">
+        <div class="slabel">1단계</div>
+        <div class="sval" id="r-s1">-</div>
+        <div class="ssub" id="r-s1-sub">-</div>
+      </div>
+      <div class="step-box s2">
+        <div class="slabel">2단계</div>
+        <div class="sval" id="r-s2">-</div>
+        <div class="ssub" id="r-s2-sub">-</div>
+      </div>
+      <div class="step-box s3">
+        <div class="slabel">3단계</div>
+        <div class="sval" id="r-s3">-</div>
+        <div class="ssub" id="r-s3-sub">-</div>
+      </div>
+    </div>
+
+    <!-- 요금 상세 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">사용량</span><span class="detail-val" id="r-kwh">-</span></div>
+      <div class="detail-row"><span class="detail-label">기본요금</span><span class="detail-val" id="r-base">-</span></div>
+      <div class="detail-row"><span class="detail-label">전력량요금</span><span class="detail-val" id="r-usage">-</span></div>
+      <div class="detail-row"><span class="detail-label">기후환경요금</span><span class="detail-val" id="r-climate">-</span></div>
+      <div class="detail-row"><span class="detail-label">연료비조정액</span><span class="detail-val" id="r-fuel">-</span></div>
+      <div class="detail-row"><span class="detail-label">부가세 (10%)</span><span class="detail-val" id="r-vat">-</span></div>
+      <div class="detail-row"><span class="detail-label">전력산업기반기금 (3.7%)</span><span class="detail-val" id="r-fund">-</span></div>
+      <div class="detail-row" style="border-top:2px solid var(--accent);margin-top:4px;padding-top:14px">
+        <span class="detail-label" style="font-weight:700;color:var(--accent)">청구 요금 합계</span>
+        <span class="detail-val" style="color:var(--accent);font-size:18px" id="r-final">-</span>
+      </div>
+    </div>
+
+    <!-- 절약 팁 -->
+    <div class="tip-box" id="tip-box"></div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>전기요금 계산기 사용 방법</h2>
+    <p>월 전기 사용량(kWh)을 입력하거나 슬라이더를 조절하면 누진제가 적용된 전기요금을 즉시 계산합니다. 기본요금·전력량요금·부가세·전력산업기반기금이 모두 포함된 실제 청구 금액을 확인할 수 있습니다.</p>
+
+    <h3>2026년 가정용 전기요금 누진제</h3>
+    <table class="rate-table">
+      <thead><tr><th>단계</th><th>사용량</th><th>기본요금</th><th>전력량요금</th></tr></thead>
+      <tbody>
+        <tr><td>1단계</td><td>200kWh 이하</td><td>910원</td><td>120.0원/kWh</td></tr>
+        <tr><td>2단계</td><td>201~400kWh</td><td>1,600원</td><td>214.6원/kWh</td></tr>
+        <tr><td>3단계</td><td>400kWh 초과</td><td>7,300원</td><td>307.3원/kWh</td></tr>
+      </tbody>
+    </table>
+
+    <h3>전기요금 구성</h3>
+    <div class="info-box">
+      <strong>기본요금</strong>: 사용량 단계에 따른 고정 요금<br>
+      <strong>전력량요금</strong>: 사용량 × 단계별 단가<br>
+      <strong>기후환경요금</strong>: kWh당 9.0원<br>
+      <strong>연료비조정액</strong>: kWh당 5.0원<br>
+      <strong>부가세</strong>: 위 합계의 10%<br>
+      <strong>전력산업기반기금</strong>: 위 합계의 3.7%
+    </div>
+
+    <h3>전기요금 절약 방법</h3>
+    <p>누진제 2단계 진입 기준인 200kWh를 넘지 않도록 관리하면 요금을 크게 줄일 수 있습니다. 에어컨 대신 선풍기 활용, LED 조명 교체, 대기전력 차단 플러그 사용, 냉장고 적정 온도 유지 등이 효과적입니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/vat-calculator/">
+        <span class="related-icon">🧾</span>
+        <span>부가세 계산기</span>
+      </a>
+      <a class="related-item" href="/unit-converter/">
+        <span class="related-icon">📐</span>
+        <span>단위 변환기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">전기요금 누진제란 무엇인가요?</div>
+      <div class="faq-a">사용량이 많을수록 높은 단가가 적용되는 요금 체계입니다. 1단계(200kWh 이하), 2단계(201~400kWh), 3단계(400kWh 초과)로 나뉩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">전기요금은 어떻게 계산하나요?</div>
+      <div class="faq-a">기본요금 + 전력량요금 + 기후환경요금 + 연료비조정액에 부가세 10%와 전력산업기반기금 3.7%를 더하면 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">평균 가정의 월 전기 사용량은?</div>
+      <div class="faq-a">한국 평균 가구의 월 전기 사용량은 약 300~350kWh입니다. 여름·겨울 냉난방 시즌에는 400kWh를 넘는 경우도 많습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">전기 사용량은 어디서 확인하나요?</div>
+      <div class="faq-a">한전 홈페이지(kepco.co.kr) 또는 한전 앱에서 월별 사용량을 확인할 수 있습니다. 고지서에도 기재되어 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">전기요금 절약 방법은?</div>
+      <div class="faq-a">200kWh 이하로 유지하면 1단계 요금만 적용돼 크게 절약됩니다. LED 조명, 대기전력 차단, 에어컨 사용 절제가 효과적입니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 2026년 한전 요금 기준 참고용이며 실제 요금과 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 2024년 한전 가정용 요금 기준
+const RATES = [
+  { limit: 200, base: 910, rate: 120.0 },
+  { limit: 400, base: 1600, rate: 214.6 },
+  { limit: Infinity, base: 7300, rate: 307.3 },
+];
+const CLIMATE = 9.0; // 기후환경요금 원/kWh
+const FUEL = 5.0;    // 연료비조정액 원/kWh
+const VAT = 0.1;
+const FUND = 0.037;
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function onInput() {
+  const v = parseInt(document.getElementById('kwh').value) || 0;
+  document.getElementById('kwh-slider').value = Math.min(v, 1000);
+  updateBar(v);
+}
+
+function onSlider() {
+  const v = parseInt(document.getElementById('kwh-slider').value);
+  document.getElementById('kwh').value = v;
+  updateBar(v);
+}
+
+function updateBar(kwh) {
+  const max = Math.max(kwh, 400);
+  const s1 = Math.min(kwh, 200) / max * 100;
+  const s2 = Math.max(0, Math.min(kwh - 200, 200)) / max * 100;
+  const s3 = Math.max(0, kwh - 400) / max * 100;
+  document.querySelector('.step-1').style.width = s1 + '%';
+  document.querySelector('.step-2').style.width = s2 + '%';
+  document.querySelector('.step-3').style.width = s3 + '%';
+}
+
+function calculate() {
+  const kwh = parseInt(document.getElementById('kwh').value) || 0;
+
+  // 누진 단계 계산
+  let step = 0;
+  if (kwh <= 200) step = 0;
+  else if (kwh <= 400) step = 1;
+  else step = 2;
+
+  const { base, rate } = RATES[step];
+
+  // 단계별 사용량
+  const s1kwh = Math.min(kwh, 200);
+  const s2kwh = Math.max(0, Math.min(kwh - 200, 200));
+  const s3kwh = Math.max(0, kwh - 400);
+
+  // 전력량요금 (각 단계 단가 적용)
+  const s1charge = s1kwh * RATES[0].rate;
+  const s2charge = s2kwh * RATES[1].rate;
+  const s3charge = s3kwh * RATES[2].rate;
+  const usageCharge = s1charge + s2charge + s3charge;
+
+  const climateCharge = kwh * CLIMATE;
+  const fuelCharge = kwh * FUEL;
+  const subtotal = base + usageCharge + climateCharge + fuelCharge;
+  const vat = Math.round(subtotal * VAT);
+  const fund = Math.round(subtotal * FUND);
+  const total = Math.round(subtotal) + vat + fund;
+
+  // kWh당 단가
+  const perKwh = kwh > 0 ? Math.round(total / kwh) : 0;
+
+  // 히어로
+  document.getElementById('r-total').textContent = fmt(total);
+  document.getElementById('r-total-sub').textContent = `${kwh}kWh · kWh당 약 ${perKwh}원 · ${step+1}단계 누진 적용`;
+
+  // 단계별
+  document.getElementById('r-s1').textContent = s1kwh > 0 ? fmt(s1charge) : '-';
+  document.getElementById('r-s1-sub').textContent = s1kwh > 0 ? `${s1kwh}kWh × 120원` : '해당없음';
+  document.getElementById('r-s2').textContent = s2kwh > 0 ? fmt(s2charge) : '-';
+  document.getElementById('r-s2-sub').textContent = s2kwh > 0 ? `${s2kwh}kWh × 214.6원` : '해당없음';
+  document.getElementById('r-s3').textContent = s3kwh > 0 ? fmt(s3charge) : '-';
+  document.getElementById('r-s3-sub').textContent = s3kwh > 0 ? `${s3kwh}kWh × 307.3원` : '해당없음';
+
+  // 상세
+  document.getElementById('r-kwh').textContent = kwh + ' kWh';
+  document.getElementById('r-base').textContent = fmt(base);
+  document.getElementById('r-usage').textContent = fmt(usageCharge);
+  document.getElementById('r-climate').textContent = fmt(climateCharge);
+  document.getElementById('r-fuel').textContent = fmt(fuelCharge);
+  document.getElementById('r-vat').textContent = fmt(vat);
+  document.getElementById('r-fund').textContent = fmt(fund);
+  document.getElementById('r-final').textContent = fmt(total);
+
+  // 절약 팁
+  const tip = document.getElementById('tip-box');
+  if (kwh > 400) {
+    const saving = kwh - 400;
+    tip.innerHTML = `<strong>절약 팁</strong>: 현재 3단계 누진 요금이 적용중이에요. ${saving}kWh만 줄이면 2단계로 내려가 요금을 크게 절약할 수 있어요.`;
+  } else if (kwh > 200) {
+    const saving = kwh - 200;
+    tip.innerHTML = `<strong>절약 팁</strong>: 현재 2단계 누진 요금이 적용중이에요. ${saving}kWh만 줄이면 1단계로 내려가 요금을 크게 절약할 수 있어요.`;
+  } else {
+    tip.innerHTML = `<strong>잘 하고 있어요!</strong> 1단계 요금 구간(200kWh 이하)이에요. 현재 가장 저렴한 요금이 적용되고 있습니다.`;
+  }
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기화
+updateBar(300);
+calculate();
+</script>
+</body>
+</html>
