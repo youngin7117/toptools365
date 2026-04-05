@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>종합소득세 계산기 - 2026년 소득세 즉시 계산 | TopTools365</title>
+<meta name="description" content="2026년 종합소득세를 즉시 계산합니다. 근로소득·사업소득·프리랜서 소득 입력, 기본공제·인적공제 반영, 세율 구간별 세액 계산. 완전 무료.">
+<meta name="keywords" content="종합소득세계산기,소득세계산기,2026년종합소득세,프리랜서세금계산,사업소득세계산,종합소득세율,소득세율표,세금계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/income-tax-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="종합소득세 계산기 - 2026년 소득세 즉시 계산 | TopTools365">
+<meta property="og:description" content="2026년 종합소득세 즉시 계산. 근로·사업·프리랜서 소득. 기본공제 반영. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"종합소득세 계산기","description":"2026년 기준 종합소득세를 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"종합소득세란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"종합소득세는 개인이 1년간 얻은 모든 소득(근로·사업·이자·배당·연금·기타소득)을 합산해서 신고·납부하는 세금입니다. 매년 5월에 신고합니다."}},{"@type":"Question","name":"2026년 종합소득세율은?","acceptedAnswer":{"@type":"Answer","text":"2026년 종합소득세율은 과세표준에 따라 6%~45%의 8단계 누진세율이 적용됩니다. 1,400만원 이하 6%, 5,000만원 이하 15%, 8,800만원 이하 24%, 1.5억원 이하 35%, 3억원 이하 38%, 5억원 이하 40%, 10억원 이하 42%, 10억원 초과 45%입니다."}},{"@type":"Question","name":"프리랜서도 종합소득세를 내야 하나요?","acceptedAnswer":{"@type":"Answer","text":"네, 프리랜서는 사업소득으로 분류되어 종합소득세를 신고·납부해야 합니다. 매년 5월 종합소득세 신고 기간에 신고하며, 중간에 원천징수된 세금이 있으면 정산됩니다."}},{"@type":"Question","name":"종합소득세 신고는 언제 하나요?","acceptedAnswer":{"@type":"Answer","text":"매년 5월 1일~31일이 종합소득세 신고 기간입니다. 성실신고확인 대상자는 6월 30일까지입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+
+  .notice { background: var(--blue-light); border: 1px solid var(--blue); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--blue); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 12px 52px 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 17px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 소득 유형 탭 */
+  .type-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .type-btn { padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .type-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 인적공제 */
+  .deduct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:480px) { .deduct-grid { grid-template-columns: 1fr; } }
+  .deduct-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .deduct-label { font-size: 13px; font-weight: 500; }
+  .deduct-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .num-ctrl { display: flex; align-items: center; gap: 6px; }
+  .num-btn { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+  .num-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .num-val { font-size: 14px; font-weight: 700; min-width: 20px; text-align: center; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  .tax-hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .tax-hero { grid-template-columns: 1fr 1fr; } }
+  .hero-box { padding: 18px 12px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box.tax { background: var(--red-light); border-color: var(--red); }
+  .hero-box.local { background: var(--orange-light); border-color: var(--orange); }
+  .hero-box.total-tax { background: var(--accent-light); border-color: var(--accent); }
+  .hero-box .hlabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .hero-box.tax .hlabel { color: var(--red); }
+  .hero-box.local .hlabel { color: var(--orange); }
+  .hero-box.total-tax .hlabel { color: var(--accent); }
+  .hero-box .hval { font-size: 20px; font-weight: 800; line-height: 1.1; }
+  .hero-box.tax .hval { color: var(--red); }
+  .hero-box.local .hval { color: var(--orange); }
+  .hero-box.total-tax .hval { color: var(--accent); }
+  .hero-box .hsub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 세율 구간 */
+  .bracket-list { display: flex; flex-direction: column; gap: 6px; }
+  .bracket-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+  .bracket-item.active { background: var(--red-light); border-color: var(--red); }
+  .bracket-pct { font-weight: 700; min-width: 36px; color: var(--muted); }
+  .bracket-item.active .bracket-pct { color: var(--red); }
+  .bracket-range { flex: 1; color: var(--muted); }
+  .bracket-item.active .bracket-range { color: var(--text); font-weight: 600; }
+  .bracket-tax { font-weight: 600; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+  .tax-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .tax-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .tax-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .tax-table tr:last-child td { border-bottom: none; }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>종합소득세 계산기</h1>
+  <p class="subtitle">2026년 기준 종합소득세를 즉시 계산합니다. 근로·사업·프리랜서 소득 모두 지원.</p>
+
+  <div class="notice">
+    <strong>참고용 안내</strong>: 이 계산기는 간편 추정 계산기입니다. 실제 세액은 개인 상황에 따라 다르므로 정확한 신고는 국세청 홈택스 또는 세무사에게 문의하세요.
+  </div>
+
+  <!-- 소득 유형 -->
+  <div class="card">
+    <div class="section-label">① 소득 유형 선택</div>
+    <div class="type-row">
+      <button class="type-btn on" onclick="setType('employee',this)">직장인 (근로소득)</button>
+      <button class="type-btn" onclick="setType('freelancer',this)">프리랜서·N잡러</button>
+      <button class="type-btn" onclick="setType('business',this)">자영업자 (사업소득)</button>
+    </div>
+
+    <!-- 직장인 -->
+    <div id="input-employee">
+      <div class="field">
+        <label>연 총급여액</label>
+        <div class="input-wrap"><input type="number" id="salary" placeholder="50000000" value="50000000"><span class="unit">원</span></div>
+        <p class="tip">세전 연봉 (상여·수당 포함 총액)</p>
+      </div>
+    </div>
+
+    <!-- 프리랜서 -->
+    <div id="input-freelancer" style="display:none">
+      <div class="input-grid">
+        <div class="field">
+          <label>연 총수입금액</label>
+          <div class="input-wrap"><input type="number" id="fl-income" placeholder="50000000" value="50000000"><span class="unit">원</span></div>
+          <p class="tip">1년간 총 수입</p>
+        </div>
+        <div class="field">
+          <label>필요경비율</label>
+          <div class="input-wrap"><input type="number" id="fl-expense" placeholder="60" value="60" step="1"><span class="unit">%</span></div>
+          <p class="tip">단순경비율 60~80% (업종별 상이)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 자영업자 -->
+    <div id="input-business" style="display:none">
+      <div class="input-grid">
+        <div class="field">
+          <label>연 매출액</label>
+          <div class="input-wrap"><input type="number" id="biz-revenue" placeholder="100000000" value="100000000"><span class="unit">원</span></div>
+        </div>
+        <div class="field">
+          <label>연 비용(경비)</label>
+          <div class="input-wrap"><input type="number" id="biz-expense" placeholder="60000000" value="60000000"><span class="unit">원</span></div>
+          <p class="tip">실제 사업 비용</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 공제 항목 -->
+  <div class="card">
+    <div class="section-label">② 공제 항목 (선택)</div>
+    <div class="deduct-grid">
+      <div class="deduct-item">
+        <div>
+          <div class="deduct-label">부양가족</div>
+          <div class="deduct-sub">1인당 150만원 공제</div>
+        </div>
+        <div class="num-ctrl">
+          <button class="num-btn" onclick="changeNum('family',-1)">−</button>
+          <span class="num-val" id="family-val">0</span>
+          <button class="num-btn" onclick="changeNum('family',1)">+</button>
+        </div>
+      </div>
+      <div class="deduct-item">
+        <div>
+          <div class="deduct-label">경로우대 (70세 이상)</div>
+          <div class="deduct-sub">1인당 100만원 추가 공제</div>
+        </div>
+        <div class="num-ctrl">
+          <button class="num-btn" onclick="changeNum('senior',-1)">−</button>
+          <span class="num-val" id="senior-val">0</span>
+          <button class="num-btn" onclick="changeNum('senior',1)">+</button>
+        </div>
+      </div>
+      <div class="deduct-item">
+        <div>
+          <div class="deduct-label">장애인</div>
+          <div class="deduct-sub">1인당 200만원 공제</div>
+        </div>
+        <div class="num-ctrl">
+          <button class="num-btn" onclick="changeNum('disabled',-1)">−</button>
+          <span class="num-val" id="disabled-val">0</span>
+          <button class="num-btn" onclick="changeNum('disabled',1)">+</button>
+        </div>
+      </div>
+      <div class="deduct-item">
+        <div>
+          <div class="deduct-label">한부모가족</div>
+          <div class="deduct-sub">100만원 공제</div>
+        </div>
+        <div class="num-ctrl">
+          <button class="num-btn" onclick="changeNum('single',-1)">−</button>
+          <span class="num-val" id="single-val">0</span>
+          <button class="num-btn" onclick="changeNum('single',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>기타 공제 금액 (의료비·교육비·기부금 등)</label>
+      <div class="input-wrap"><input type="number" id="extra-deduct" placeholder="0" value="0"><span class="unit">원</span></div>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">종합소득세 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+    <div class="tax-hero">
+      <div class="hero-box tax">
+        <div class="hlabel">산출 세액</div>
+        <div class="hval" id="r-tax">-</div>
+        <div class="hsub">종합소득세</div>
+      </div>
+      <div class="hero-box local">
+        <div class="hlabel">지방소득세</div>
+        <div class="hval" id="r-local">-</div>
+        <div class="hsub">세액의 10%</div>
+      </div>
+      <div class="hero-box total-tax">
+        <div class="hlabel">총 납부세액</div>
+        <div class="hval" id="r-total-tax">-</div>
+        <div class="hsub">종합소득세 + 지방세</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">총 소득금액</span><span class="detail-val" id="r-gross">-</span></div>
+      <div class="detail-row"><span class="detail-label">소득공제 합계</span><span class="detail-val" id="r-deduct" style="color:var(--accent)">-</span></div>
+      <div class="detail-row"><span class="detail-label">과세표준</span><span class="detail-val" id="r-taxable">-</span></div>
+      <div class="detail-row"><span class="detail-label">적용 세율 구간</span><span class="detail-val" id="r-bracket">-</span></div>
+      <div class="detail-row"><span class="detail-label">산출 세액</span><span class="detail-val" style="color:var(--red)" id="r-tax-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">지방소득세 (10%)</span><span class="detail-val" id="r-local-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">총 납부세액</span><span class="detail-val" style="color:var(--accent);font-size:16px" id="r-total-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">실효세율</span><span class="detail-val" id="r-effective">-</span></div>
+    </div>
+
+    <!-- 세율 구간 표시 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">2026년 세율 구간 (적용 구간 강조)</div>
+      <div class="bracket-list" id="bracket-list"></div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>종합소득세 계산기 사용 방법</h2>
+    <p>소득 유형(직장인·프리랜서·자영업자)을 선택하고 소득금액을 입력하면 2026년 기준 종합소득세를 즉시 계산합니다. 부양가족·장애인·경로우대 등 인적공제도 반영됩니다.</p>
+
+    <h3>2026년 종합소득세율표</h3>
+    <table class="tax-table">
+      <thead><tr><th>과세표준</th><th>세율</th><th>누진공제</th></tr></thead>
+      <tbody>
+        <tr><td>1,400만원 이하</td><td>6%</td><td>-</td></tr>
+        <tr><td>1,400만원 ~ 5,000만원</td><td>15%</td><td>126만원</td></tr>
+        <tr><td>5,000만원 ~ 8,800만원</td><td>24%</td><td>576만원</td></tr>
+        <tr><td>8,800만원 ~ 1.5억원</td><td>35%</td><td>1,544만원</td></tr>
+        <tr><td>1.5억원 ~ 3억원</td><td>38%</td><td>1,994만원</td></tr>
+        <tr><td>3억원 ~ 5억원</td><td>40%</td><td>2,594만원</td></tr>
+        <tr><td>5억원 ~ 10억원</td><td>42%</td><td>3,594만원</td></tr>
+        <tr><td>10억원 초과</td><td>45%</td><td>6,594만원</td></tr>
+      </tbody>
+    </table>
+
+    <h3>종합소득세 신고 기간</h3>
+    <div class="info-box">
+      <strong>일반 신고</strong>: 매년 5월 1일 ~ 5월 31일<br>
+      <strong>성실신고확인 대상자</strong>: 6월 30일까지<br>
+      <strong>신고 방법</strong>: 국세청 홈택스(hometax.go.kr) 또는 세무사<br>
+      <strong>납부 기한</strong>: 신고 기한과 동일
+    </div>
+
+    <h3>프리랜서 종합소득세 계산 방법</h3>
+    <p>프리랜서는 수입금액에서 필요경비를 차감한 사업소득이 과세대상입니다. 단순경비율 적용 대상자는 업종별 경비율(60~80%)을 적용할 수 있습니다. 원천징수(3.3%)로 납부한 세금은 종합소득세 신고 시 기납부세액으로 공제됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+      <a class="related-item" href="/vat-calculator/">
+        <span class="related-icon">🧾</span>
+        <span>부가세 계산기</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">종합소득세란 무엇인가요?</div>
+      <div class="faq-a">개인이 1년간 얻은 모든 소득을 합산해서 신고·납부하는 세금입니다. 매년 5월에 신고합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">2026년 종합소득세율은?</div>
+      <div class="faq-a">과세표준에 따라 6%~45%의 8단계 누진세율이 적용됩니다. 1,400만원 이하 6%, 5,000만원 이하 15%, 8,800만원 이하 24%, 1.5억원 이하 35% 등입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">프리랜서도 종합소득세를 내야 하나요?</div>
+      <div class="faq-a">네, 프리랜서는 사업소득으로 분류되어 매년 5월에 종합소득세를 신고·납부해야 합니다. 원천징수(3.3%)된 세금은 기납부세액으로 공제됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">종합소득세 신고는 언제 하나요?</div>
+      <div class="faq-a">매년 5월 1일~31일이 신고 기간입니다. 성실신고확인 대상자는 6월 30일까지입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">기본공제란 무엇인가요?</div>
+      <div class="faq-a">본인 150만원, 배우자 150만원, 부양가족 1인당 150만원이 기본공제로 소득에서 차감됩니다. 공제 금액이 클수록 납부세액이 줄어듭니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 세액은 세무사·국세청 홈택스에서 확인하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let incomeType = 'employee';
+let familyCount = 0, seniorCount = 0, disabledCount = 0, singleCount = 0;
+
+// 2026년 세율 구간
+const BRACKETS = [
+  { min: 0, max: 14000000, rate: 0.06, deduct: 0, label: '1,400만원 이하' },
+  { min: 14000000, max: 50000000, rate: 0.15, deduct: 1260000, label: '1,400만~5,000만원' },
+  { min: 50000000, max: 88000000, rate: 0.24, deduct: 5760000, label: '5,000만~8,800만원' },
+  { min: 88000000, max: 150000000, rate: 0.35, deduct: 15440000, label: '8,800만~1.5억원' },
+  { min: 150000000, max: 300000000, rate: 0.38, deduct: 19940000, label: '1.5억~3억원' },
+  { min: 300000000, max: 500000000, rate: 0.40, deduct: 25940000, label: '3억~5억원' },
+  { min: 500000000, max: 1000000000, rate: 0.42, deduct: 35940000, label: '5억~10억원' },
+  { min: 1000000000, max: Infinity, rate: 0.45, deduct: 65940000, label: '10억원 초과' },
+];
+
+function setType(t, el) {
+  incomeType = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  ['employee','freelancer','business'].forEach(id => {
+    document.getElementById('input-' + id).style.display = id === t ? 'block' : 'none';
+  });
+}
+
+function changeNum(type, delta) {
+  const map = { family: 'familyCount', senior: 'seniorCount', disabled: 'disabledCount', single: 'singleCount' };
+  const varName = map[type];
+  if (type === 'family') familyCount = Math.max(0, familyCount + delta);
+  if (type === 'senior') seniorCount = Math.max(0, seniorCount + delta);
+  if (type === 'disabled') disabledCount = Math.max(0, disabledCount + delta);
+  if (type === 'single') singleCount = Math.max(0, Math.min(1, singleCount + delta));
+  document.getElementById(type + '-val').textContent = type === 'family' ? familyCount : type === 'senior' ? seniorCount : type === 'disabled' ? disabledCount : singleCount;
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+
+function getGrossIncome() {
+  if (incomeType === 'employee') {
+    const salary = parseFloat(document.getElementById('salary').value) || 0;
+    // 근로소득공제 계산
+    let deduction = 0;
+    if (salary <= 5000000) deduction = salary * 0.7;
+    else if (salary <= 15000000) deduction = 3500000 + (salary - 5000000) * 0.4;
+    else if (salary <= 45000000) deduction = 7500000 + (salary - 15000000) * 0.15;
+    else if (salary <= 100000000) deduction = 12000000 + (salary - 45000000) * 0.05;
+    else deduction = 14750000 + (salary - 100000000) * 0.02;
+    deduction = Math.min(deduction, 20000000); // 최대 2천만원
+    return { gross: salary - deduction, rawIncome: salary, workDeduct: deduction };
+  } else if (incomeType === 'freelancer') {
+    const income = parseFloat(document.getElementById('fl-income').value) || 0;
+    const expenseRate = parseFloat(document.getElementById('fl-expense').value) / 100 || 0.6;
+    const expense = income * expenseRate;
+    return { gross: income - expense, rawIncome: income, workDeduct: expense };
+  } else {
+    const revenue = parseFloat(document.getElementById('biz-revenue').value) || 0;
+    const expense = parseFloat(document.getElementById('biz-expense').value) || 0;
+    return { gross: revenue - expense, rawIncome: revenue, workDeduct: expense };
+  }
+}
+
+function calculate() {
+  const { gross, rawIncome, workDeduct } = getGrossIncome();
+  if (!rawIncome) return;
+
+  // 인적공제
+  const basicDeduct = 1500000; // 본인
+  const familyDeduct = familyCount * 1500000;
+  const seniorDeduct = seniorCount * 1000000;
+  const disabledDeduct = disabledCount * 2000000;
+  const singleDeduct = singleCount * 1000000;
+  const extraDeduct = parseFloat(document.getElementById('extra-deduct').value) || 0;
+  const totalPersonalDeduct = basicDeduct + familyDeduct + seniorDeduct + disabledDeduct + singleDeduct + extraDeduct;
+
+  // 과세표준
+  const taxable = Math.max(0, gross - totalPersonalDeduct);
+
+  // 산출세액
+  const bracket = BRACKETS.find(b => taxable <= b.max) || BRACKETS[BRACKETS.length - 1];
+  const tax = Math.max(0, taxable * bracket.rate - bracket.deduct);
+  const localTax = tax * 0.1;
+  const totalTax = tax + localTax;
+  const effectiveRate = rawIncome > 0 ? (totalTax / rawIncome * 100).toFixed(2) : 0;
+
+  // 히어로
+  document.getElementById('r-tax').textContent = fmtW(tax);
+  document.getElementById('r-local').textContent = fmtW(localTax);
+  document.getElementById('r-total-tax').textContent = fmtW(totalTax);
+
+  // 상세
+  document.getElementById('r-gross').textContent = fmt(gross);
+  document.getElementById('r-deduct').textContent = '-' + fmt(totalPersonalDeduct);
+  document.getElementById('r-taxable').textContent = fmt(taxable);
+  document.getElementById('r-bracket').textContent = bracket.label + ' (' + (bracket.rate * 100) + '%)';
+  document.getElementById('r-tax-detail').textContent = fmt(tax);
+  document.getElementById('r-local-detail').textContent = fmt(localTax);
+  document.getElementById('r-total-detail').textContent = fmt(totalTax);
+  document.getElementById('r-effective').textContent = effectiveRate + '%';
+
+  // 세율 구간
+  const list = document.getElementById('bracket-list');
+  list.innerHTML = '';
+  BRACKETS.forEach((b, i) => {
+    const isActive = taxable > b.min && taxable <= b.max;
+    const div = document.createElement('div');
+    div.className = 'bracket-item' + (isActive ? ' active' : '');
+    div.innerHTML = `
+      <span class="bracket-pct">${(b.rate * 100).toFixed(0)}%</span>
+      <span class="bracket-range">${b.label}</span>
+      ${isActive ? '<span class="bracket-tax" style="color:var(--red)">현재 구간</span>' : ''}
+    `;
+    list.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
