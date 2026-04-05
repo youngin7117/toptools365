@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>택배 계산기 - 택배 사이즈 요금 즉시 계산 | TopTools365</title>
+<meta name="description" content="가로·세로·높이·무게를 입력하면 택배 사이즈와 요금을 즉시 계산합니다. CJ대한통운·한진·롯데·로젠 요금 비교. 부피무게 계산 포함. 완전 무료.">
+<meta name="keywords" content="택배계산기,택배요금계산기,택배사이즈계산,택배무게계산,CJ대한통운요금,한진택배요금,부피무게계산,택배비계산">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/parcel-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="택배 계산기 - 택배 사이즈 요금 즉시 계산 | TopTools365">
+<meta property="og:description" content="가로·세로·높이·무게 입력 → 택배 사이즈·요금 즉시 계산. 주요 택배사 비교. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"택배 계산기","description":"택배 사이즈와 요금을 계산하는 무료 온라인 계산기","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"택배 사이즈는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"택배 사이즈는 가로+세로+높이의 합(cm)으로 결정됩니다. 예를 들어 30+20+15=65cm이면 70사이즈에 해당합니다."}},{"@type":"Question","name":"부피무게란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"부피무게는 가로×세로×높이÷6000으로 계산합니다. 실제 무게와 부피무게 중 큰 값이 적용됩니다. 가볍지만 부피가 큰 물건에 적용됩니다."}},{"@type":"Question","name":"택배 최대 크기는?","acceptedAnswer":{"@type":"Answer","text":"일반 택배의 최대 크기는 가로+세로+높이 합이 160cm 이하, 한 변의 최대 길이 100cm 이하, 무게 30kg 이하입니다. 초과 시 특수화물로 처리됩니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  .input-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 16px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr 1fr; } }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 48px 13px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 사이즈 히어로 */
+  .size-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .size-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 20px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box.size { background: var(--accent-light); border-color: var(--accent); }
+  .hero-box.weight { background: var(--green-light); border-color: var(--green); }
+  .hero-box .hlabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .hero-box.size .hlabel { color: var(--accent); }
+  .hero-box.weight .hlabel { color: var(--green); }
+  .hero-box .hval { font-size: 40px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+  .hero-box.size .hval { color: var(--accent); }
+  .hero-box.weight .hval { color: var(--green); }
+  .hero-box .hsub { font-size: 12px; color: var(--muted); }
+
+  /* 택배사 요금 비교 */
+  .carrier-grid { display: flex; flex-direction: column; gap: 10px; }
+  .carrier-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+  .carrier-item.best { background: var(--green-light); border-color: var(--green); }
+  .carrier-left { display: flex; align-items: center; gap: 10px; }
+  .carrier-name { font-size: 14px; font-weight: 700; }
+  .carrier-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+  .badge-best { background: var(--green); color: #fff; }
+  .carrier-price { font-size: 20px; font-weight: 800; color: var(--accent); }
+  .carrier-item.best .carrier-price { color: var(--green); }
+
+  /* 상세 정보 */
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 경고 박스 */
+  .warn-box { background: var(--red-light); border: 1px solid var(--red); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--red); margin-bottom: 16px; font-weight: 600; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+  .size-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  .size-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .size-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .size-table tr:last-child td { border-bottom: none; }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>택배 계산기</h1>
+  <p class="subtitle">가로·세로·높이·무게를 입력하면 택배 사이즈와 요금을 즉시 계산합니다.</p>
+
+  <div class="card">
+    <div class="input-grid">
+      <div class="field">
+        <label>가로</label>
+        <div class="input-wrap"><input type="number" id="w" placeholder="30" value="30" min="1"><span class="unit">cm</span></div>
+      </div>
+      <div class="field">
+        <label>세로</label>
+        <div class="input-wrap"><input type="number" id="h" placeholder="20" value="20" min="1"><span class="unit">cm</span></div>
+      </div>
+      <div class="field">
+        <label>높이</label>
+        <div class="input-wrap"><input type="number" id="d" placeholder="15" value="15" min="1"><span class="unit">cm</span></div>
+      </div>
+      <div class="field">
+        <label>무게</label>
+        <div class="input-wrap"><input type="number" id="kg" placeholder="2" value="2" min="0.1" step="0.1"><span class="unit">kg</span></div>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculate()">택배 요금 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <div id="warn-area"></div>
+
+    <div class="size-hero">
+      <div class="hero-box size">
+        <div class="hlabel">택배 사이즈</div>
+        <div class="hval" id="r-size">-</div>
+        <div class="hsub" id="r-size-sub">-</div>
+      </div>
+      <div class="hero-box weight">
+        <div class="hlabel">적용 무게</div>
+        <div class="hval" id="r-weight">-</div>
+        <div class="hsub" id="r-weight-sub">-</div>
+      </div>
+    </div>
+
+    <!-- 상세 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">가로+세로+높이 합</span><span class="detail-val" id="r-sum">-</span></div>
+      <div class="detail-row"><span class="detail-label">실제 무게</span><span class="detail-val" id="r-real-w">-</span></div>
+      <div class="detail-row"><span class="detail-label">부피무게 (가로×세로×높이÷6000)</span><span class="detail-val" id="r-vol-w">-</span></div>
+      <div class="detail-row"><span class="detail-label">적용 무게 (큰 값)</span><span class="detail-val" id="r-apply-w" style="color:var(--accent)">-</span></div>
+    </div>
+
+    <!-- 택배사 요금 비교 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">택배사별 요금 비교</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">* 개인 발송 기준 참고 요금이며 실제 요금과 다를 수 있습니다. 편의점 택배는 최대 80사이즈·10kg까지만 가능합니다.</div>
+      <div class="carrier-grid" id="carrier-grid"></div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>택배 계산기 사용 방법</h2>
+    <p>박스의 가로·세로·높이(cm)와 무게(kg)를 입력하면 택배 사이즈와 주요 택배사 요금을 즉시 계산합니다. 부피무게와 실제 무게 중 큰 값이 적용됩니다.</p>
+
+    <h3>택배 사이즈 기준표</h3>
+    <table class="size-table">
+      <thead><tr><th>사이즈</th><th>가로+세로+높이 합</th><th>최대 무게</th></tr></thead>
+      <tbody>
+        <tr><td>50사이즈</td><td>50cm 이하</td><td>2kg</td></tr>
+        <tr><td>60사이즈</td><td>60cm 이하</td><td>3kg</td></tr>
+        <tr><td>70사이즈</td><td>70cm 이하</td><td>5kg</td></tr>
+        <tr><td>80사이즈</td><td>80cm 이하</td><td>10kg</td></tr>
+        <tr><td>90사이즈</td><td>90cm 이하</td><td>15kg</td></tr>
+        <tr><td>100사이즈</td><td>100cm 이하</td><td>20kg</td></tr>
+        <tr><td>120사이즈</td><td>120cm 이하</td><td>25kg</td></tr>
+        <tr><td>140사이즈</td><td>140cm 이하</td><td>30kg</td></tr>
+        <tr><td>160사이즈</td><td>160cm 이하</td><td>30kg</td></tr>
+      </tbody>
+    </table>
+
+    <h3>부피무게란?</h3>
+    <div class="info-box">
+      <strong>부피무게 = 가로(cm) × 세로(cm) × 높이(cm) ÷ 6000</strong><br><br>
+      가볍지만 부피가 큰 물건(예: 이불, 쿠션)은 부피무게가 실제 무게보다 크게 나올 수 있습니다. 실제 무게와 부피무게 중 <strong>큰 값</strong>이 요금 계산에 적용됩니다.
+    </div>
+
+    <h3>택배 발송 시 주의사항</h3>
+    <p>가로+세로+높이 합이 160cm를 초과하거나 한 변이 100cm를 넘으면 일반 택배로 발송이 어렵습니다. 무게가 30kg를 초과해도 특수화물로 처리됩니다. 이 경우 화물 서비스를 이용하세요.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/unit-converter/">
+        <span class="related-icon">📐</span>
+        <span>단위 변환기</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/rounding-calculator/">
+        <span class="related-icon">🔢</span>
+        <span>원단위 절사 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">택배 사이즈는 어떻게 계산하나요?</div>
+      <div class="faq-a">가로+세로+높이의 합(cm)으로 결정됩니다. 30+20+15=65cm이면 70사이즈에 해당합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">부피무게란 무엇인가요?</div>
+      <div class="faq-a">가로×세로×높이÷6000으로 계산합니다. 실제 무게와 부피무게 중 큰 값이 요금에 적용됩니다. 부피가 큰 가벼운 물건에 불리할 수 있어요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">택배 최대 크기는?</div>
+      <div class="faq-a">가로+세로+높이 합 160cm 이하, 한 변 최대 100cm 이하, 무게 30kg 이하가 일반 택배 기준입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">택배 요금이 다른 이유는?</div>
+      <div class="faq-a">계약 방식(개인/기업), 발송 지역, 사이즈, 무게에 따라 달라집니다. 이 계산기는 개인 발송 기준 참고 요금을 제공합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">제주도·도서산간 추가 요금은?</div>
+      <div class="faq-a">제주도와 도서산간 지역은 일반적으로 3,000~5,000원의 추가 요금이 발생합니다. 택배사마다 다르니 확인하세요.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 요금은 택배사에 문의하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 2026년 기준 참고 요금 (개인 발송)
+const CARRIERS = [
+  {
+    name: 'CJ대한통운', color: '#e31837',
+    rates: [
+      { size: 50, maxKg: 2, price: 4000 },
+      { size: 60, maxKg: 3, price: 5000 },
+      { size: 70, maxKg: 5, price: 6000 },
+      { size: 80, maxKg: 10, price: 7000 },
+      { size: 90, maxKg: 15, price: 8000 },
+      { size: 100, maxKg: 20, price: 9000 },
+      { size: 120, maxKg: 25, price: 11000 },
+      { size: 140, maxKg: 30, price: 13000 },
+      { size: 160, maxKg: 30, price: 15000 },
+    ]
+  },
+  {
+    name: '한진택배', color: '#003087',
+    rates: [
+      { size: 50, maxKg: 2, price: 4000 },
+      { size: 60, maxKg: 3, price: 5000 },
+      { size: 70, maxKg: 5, price: 6000 },
+      { size: 80, maxKg: 10, price: 7000 },
+      { size: 90, maxKg: 15, price: 8000 },
+      { size: 100, maxKg: 20, price: 9500 },
+      { size: 120, maxKg: 25, price: 11500 },
+      { size: 140, maxKg: 30, price: 13500 },
+      { size: 160, maxKg: 30, price: 15500 },
+    ]
+  },
+  {
+    name: '롯데택배', color: '#e8000d',
+    rates: [
+      { size: 50, maxKg: 2, price: 4000 },
+      { size: 60, maxKg: 3, price: 5000 },
+      { size: 70, maxKg: 5, price: 6000 },
+      { size: 80, maxKg: 10, price: 7000 },
+      { size: 90, maxKg: 15, price: 8000 },
+      { size: 100, maxKg: 20, price: 9000 },
+      { size: 120, maxKg: 25, price: 11000 },
+      { size: 140, maxKg: 30, price: 13000 },
+      { size: 160, maxKg: 30, price: 15000 },
+    ]
+  },
+  {
+    name: '로젠택배', color: '#00a651',
+    rates: [
+      { size: 50, maxKg: 2, price: 3800 },
+      { size: 60, maxKg: 3, price: 4800 },
+      { size: 70, maxKg: 5, price: 5800 },
+      { size: 80, maxKg: 10, price: 6800 },
+      { size: 90, maxKg: 15, price: 7800 },
+      { size: 100, maxKg: 20, price: 8800 },
+      { size: 120, maxKg: 25, price: 10800 },
+      { size: 140, maxKg: 30, price: 12800 },
+      { size: 160, maxKg: 30, price: 14800 },
+    ]
+  },
+  {
+    name: 'CU 편의점택배', color: '#8b0082',
+    rates: [
+      { size: 50, maxKg: 2, price: 3500 },
+      { size: 60, maxKg: 3, price: 4500 },
+      { size: 70, maxKg: 5, price: 5500 },
+      { size: 80, maxKg: 10, price: 6500 },
+      { size: 90, maxKg: 15, price: null },
+      { size: 100, maxKg: 20, price: null },
+      { size: 120, maxKg: 25, price: null },
+      { size: 140, maxKg: 30, price: null },
+      { size: 160, maxKg: 30, price: null },
+    ]
+  },
+  {
+    name: 'GS25 편의점택배', color: '#0068b7',
+    rates: [
+      { size: 50, maxKg: 2, price: 3500 },
+      { size: 60, maxKg: 3, price: 4500 },
+      { size: 70, maxKg: 5, price: 5500 },
+      { size: 80, maxKg: 10, price: 6500 },
+      { size: 90, maxKg: 15, price: null },
+      { size: 100, maxKg: 20, price: null },
+      { size: 120, maxKg: 25, price: null },
+      { size: 140, maxKg: 30, price: null },
+      { size: 160, maxKg: 30, price: null },
+    ]
+  },
+];
+
+const SIZE_STEPS = [50,60,70,80,90,100,120,140,160];
+
+function fmt(n) { return n.toLocaleString('ko-KR') + '원'; }
+
+function getSize(sum, kg) {
+  for (const step of SIZE_STEPS) {
+    if (sum <= step) {
+      // 무게 체크
+      const maxKg = CARRIERS[0].rates.find(r => r.size === step)?.maxKg || 30;
+      if (kg <= maxKg) return step;
+    }
+  }
+  return null; // 초과
+}
+
+function getPrice(carrier, size, kg) {
+  const rate = carrier.rates.find(r => r.size === size);
+  if (!rate) return null;
+  return rate.price;
+}
+
+function calculate() {
+  const w = parseFloat(document.getElementById('w').value) || 0;
+  const h = parseFloat(document.getElementById('h').value) || 0;
+  const d = parseFloat(document.getElementById('d').value) || 0;
+  const kg = parseFloat(document.getElementById('kg').value) || 0;
+
+  const sum = w + h + d;
+  const volWeight = parseFloat((w * h * d / 6000).toFixed(2));
+  const applyWeight = Math.max(kg, volWeight);
+
+  // 경고
+  const warnArea = document.getElementById('warn-area');
+  warnArea.innerHTML = '';
+  if (sum > 160 || Math.max(w, h, d) > 100 || kg > 30) {
+    warnArea.innerHTML = `<div class="warn-box">⚠️ 일반 택배 한도 초과! 가로+세로+높이 합 ${Math.round(sum)}cm, 무게 ${kg}kg — 화물 서비스를 이용하세요.</div>`;
+    document.getElementById('results').classList.add('show');
+    return;
+  }
+
+  const size = getSize(sum, applyWeight);
+
+  // 히어로
+  document.getElementById('r-size').textContent = size ? size + '사이즈' : '초과';
+  document.getElementById('r-size-sub').textContent = `가로+세로+높이 = ${Math.round(sum)}cm`;
+  document.getElementById('r-weight').textContent = applyWeight + 'kg';
+  document.getElementById('r-weight-sub').textContent = volWeight > kg ? '부피무게 적용' : '실제 무게 적용';
+
+  // 상세
+  document.getElementById('r-sum').textContent = Math.round(sum) + 'cm';
+  document.getElementById('r-real-w').textContent = kg + 'kg';
+  document.getElementById('r-vol-w').textContent = volWeight + 'kg';
+  document.getElementById('r-apply-w').textContent = applyWeight + 'kg ' + (volWeight > kg ? '(부피무게)' : '(실제무게)');
+
+  // 택배사 요금
+  const grid = document.getElementById('carrier-grid');
+  grid.innerHTML = '';
+
+  const prices = CARRIERS.map(c => {
+    const price = size ? getPrice(c, size, applyWeight) : null;
+    return { ...c, price };
+  }).sort((a, b) => {
+    if (a.price === null) return 1;
+    if (b.price === null) return -1;
+    return a.price - b.price;
+  });
+
+  const minPrice = prices[0]?.price;
+
+  prices.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'carrier-item' + (i === 0 ? ' best' : '');
+    div.innerHTML = `
+      <div class="carrier-left">
+        <span class="carrier-name" style="color:${c.color}">${c.name}</span>
+        ${i === 0 ? '<span class="carrier-badge badge-best">최저가</span>' : ''}
+      </div>
+      <span class="carrier-price" style="${c.price === null ? 'color:var(--muted);font-size:14px' : ''}">${c.price !== null ? fmt(c.price) : '취급불가'}</span>
+    `;
+    grid.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+calculate();
+</script>
+</body>
+</html>
