@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수능 등급 계산기 - 2026년 수능 원점수 등급 즉시 계산 | TopTools365</title>
+<meta name="description" content="수능 원점수를 입력하면 등급을 즉시 계산합니다. 국어·수학·영어·탐구 과목별 등급컷 안내. 2025년 수능 등급컷 참고. 완전 무료.">
+<meta name="keywords" content="수능등급계산기,수능원점수등급,수능등급컷,수능등급표,국어등급,수학등급,영어등급,수능점수계산">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/csat-grade-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="수능 등급 계산기 - 수능 원점수 등급 즉시 계산 | TopTools365">
+<meta property="og:description" content="수능 원점수 입력 → 등급 즉시 계산. 과목별 등급컷 안내. 국어·수학·영어·탐구. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"수능 등급 계산기","description":"수능 원점수를 입력하면 등급을 계산하는 무료 온라인 계산기","applicationCategory":"EducationApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"수능 등급은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"수능 등급은 표준점수 기준으로 상위 4%, 11%, 23%, 40%, 60%, 77%, 89%, 96% 구간으로 1~9등급을 나눕니다. 원점수로 등급을 직접 계산하기 어렵기 때문에 과목별 등급컷을 참고합니다."}},{"@type":"Question","name":"수능 1등급 기준은?","acceptedAnswer":{"@type":"Answer","text":"수능 1등급은 전체 수험생 상위 4%(표준점수 기준)에 해당합니다. 과목별로 등급컷이 다르며, 국어·수학은 매년 난이도에 따라 등급컷이 변동됩니다."}},{"@type":"Question","name":"영어 1등급 기준은?","acceptedAnswer":{"@type":"Answer","text":"영어는 절대평가로, 원점수 90점 이상이 1등급, 80점 이상이 2등급입니다. 상대평가 과목과 달리 몇 명이 1등급을 받든 90점 이상이면 모두 1등급입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --gold: #b45309;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  .notice { background: var(--orange-light); border: 1px solid var(--orange); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--orange); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 과목 탭 */
+  .subject-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 20px; }
+  @media(max-width:480px) { .subject-tabs { grid-template-columns: repeat(2, 1fr); } }
+  .sub-tab { padding: 10px 6px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .sub-tab.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 입력 */
+  .score-input-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .score-input-box { flex: 1; }
+  .score-input-box label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .score-input-box input { width: 100%; padding: 16px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 28px; font-weight: 800; text-align: center; outline: none; transition: border-color .15s; }
+  .score-input-box input:focus { border-color: var(--accent); }
+  .score-arrow { font-size: 28px; color: var(--muted); flex-shrink: 0; }
+  .grade-display { flex: 1; text-align: center; }
+  .grade-display label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .grade-box { width: 100%; padding: 16px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg); font-size: 28px; font-weight: 900; text-align: center; min-height: 64px; display: flex; align-items: center; justify-content: center; transition: all .3s; }
+
+  /* 등급 색상 */
+  .g1 { background: #fef9c3 !important; border-color: #eab308 !important; color: #854d0e !important; }
+  .g2 { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
+  .g3 { background: #dbeafe !important; border-color: #3b82f6 !important; color: #1e40af !important; }
+  .g4 { background: var(--accent-light) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+  .g5 { background: var(--bg) !important; border-color: var(--border) !important; color: var(--muted) !important; }
+  .g6, .g7 { background: var(--orange-light) !important; border-color: var(--orange) !important; color: var(--orange) !important; }
+  .g8, .g9 { background: var(--red-light) !important; border-color: var(--red) !important; color: var(--red) !important; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 등급컷 테이블 */
+  .cut-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .cut-table th { padding: 10px 12px; text-align: center; font-size: 12px; font-weight: 600; background: var(--accent-light); color: var(--accent); }
+  .cut-table th:first-child { text-align: left; }
+  .cut-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: center; font-weight: 600; }
+  .cut-table td:first-child { text-align: left; font-weight: 700; }
+  .cut-table tr:last-child td { border-bottom: none; }
+  .cut-table tr.my-grade td { outline: 2px solid var(--accent); background: var(--accent-light); }
+
+  /* 전과목 요약 */
+  .all-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media(max-width:480px) { .all-summary { grid-template-columns: 1fr; } }
+  .summary-item { padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .si-name { font-size: 13px; font-weight: 600; }
+  .si-score { font-size: 12px; color: var(--muted); }
+  .si-grade { font-size: 22px; font-weight: 900; min-width: 36px; text-align: center; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>수능 등급 계산기</h1>
+  <p class="subtitle">수능 원점수를 입력하면 등급을 즉시 계산합니다. 과목별 등급컷 참고 포함.</p>
+
+  <div class="notice">
+    <strong>안내</strong>: 등급컷은 매년 달라집니다. 이 계산기의 등급컷은 <strong>2025학년도 수능 기준</strong> 참고값이며, 실제 등급은 한국교육과정평가원(KICE) 성적표 기준입니다.
+  </div>
+
+  <div class="card">
+    <!-- 과목 탭 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">과목 선택</div>
+    <div class="subject-tabs" id="subject-tabs"></div>
+
+    <!-- 점수 입력 + 등급 표시 -->
+    <div class="score-input-wrap">
+      <div class="score-input-box">
+        <label id="score-label">원점수</label>
+        <input type="number" id="score-input" placeholder="90" min="0" max="100" oninput="liveCalc()">
+      </div>
+      <span class="score-arrow">→</span>
+      <div class="grade-display">
+        <label>등급</label>
+        <div class="grade-box" id="grade-box">-</div>
+      </div>
+    </div>
+
+    <!-- 등급컷 표 -->
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px" id="cut-title">등급컷 (2025학년도 수능 참고)</div>
+    <table class="cut-table" id="cut-table"></table>
+
+    <button class="calc-btn" style="margin-top:16px" onclick="addToSummary()">전과목 요약에 추가하기</button>
+  </div>
+
+  <!-- 전과목 요약 -->
+  <div class="card" id="summary-card" style="display:none">
+    <div style="font-size:14px;font-weight:600;margin-bottom:14px">내 수능 등급 요약</div>
+    <div class="all-summary" id="all-summary"></div>
+    <button style="width:100%;margin-top:14px;padding:10px;border:1px solid var(--red);border-radius:8px;background:none;color:var(--red);font-size:13px;font-weight:600;cursor:pointer" onclick="clearSummary()">초기화</button>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>수능 등급 계산기 사용 방법</h2>
+    <p>과목을 선택하고 원점수를 입력하면 등급을 즉시 계산합니다. 과목별 등급컷을 참고해 내 점수가 몇 등급인지 확인하고, 전과목 요약에 추가하면 전체 등급을 한눈에 볼 수 있습니다.</p>
+
+    <h3>수능 등급 기준</h3>
+    <div class="info-box">
+      <strong>상대평가 과목 (국어·수학·탐구·직업)</strong><br>
+      1등급: 상위 4% / 2등급: 상위 11% / 3등급: 상위 23%<br>
+      4등급: 상위 40% / 5등급: 상위 60% / 6등급: 상위 77%<br>
+      7등급: 상위 89% / 8등급: 상위 96% / 9등급: 나머지<br><br>
+      <strong>절대평가 과목 (영어·한국사)</strong><br>
+      영어: 90점 이상 1등급, 80점 이상 2등급, 10점 단위로 구분<br>
+      한국사: 40점 이상 1등급 (응시 의무, 최저학력기준 적용)
+    </div>
+
+    <h3>영어 절대평가란?</h3>
+    <p>영어는 2018년부터 절대평가를 적용합니다. 몇 명이 시험을 보든 90점 이상이면 모두 1등급입니다. 상대평가 과목과 달리 경쟁이 없고 내 점수로 등급이 결정됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/gpa-calculator/">
+        <span class="related-icon">📚</span>
+        <span>학점 계산기 (GPA)</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/dday-calculator/">
+        <span class="related-icon">📅</span>
+        <span>D-day 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">수능 등급은 어떻게 계산하나요?</div>
+      <div class="faq-a">상위 4%가 1등급, 11%가 2등급, 23%가 3등급, 40%가 4등급, 60%가 5등급, 77%가 6등급, 89%가 7등급, 96%가 8등급, 나머지가 9등급입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">영어 1등급 기준은?</div>
+      <div class="faq-a">영어는 절대평가로 원점수 90점 이상이면 1등급, 80점 이상 2등급, 10점 단위로 구분됩니다. 몇 명이 받든 90점 이상이면 모두 1등급입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">수능 1등급 기준은?</div>
+      <div class="faq-a">상위 4% 이내입니다. 수험생 수가 약 50만 명이면 2만 명 정도가 1등급을 받습니다. 과목별 난이도에 따라 등급컷이 매년 달라집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">원점수와 표준점수의 차이는?</div>
+      <div class="faq-a">원점수는 맞힌 문제의 배점 합계입니다. 표준점수는 원점수를 과목별 평균·표준편차로 환산한 점수로, 수능 성적표에 표준점수가 함께 표기됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">한국사 등급은 어떻게 나뉘나요?</div>
+      <div class="faq-a">한국사는 절대평가로 50점 만점에 40점 이상 1등급, 35점 이상 2등급, 30점 이상 3등급, 25점 이상 4등급, 20점 이상 5등급으로 나뉩니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>등급컷은 2025학년도 수능 기준 참고값이며 실제 등급은 KICE 성적표를 확인하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 2025학년도 수능 등급컷 (원점수 기준, 참고값)
+const SUBJECTS = {
+  '국어': {
+    type: 'relative',
+    maxScore: 100,
+    cuts: { 1: 84, 2: 79, 3: 72, 4: 63, 5: 53, 6: 40, 7: 28, 8: 17 },
+    year: '2025학년도'
+  },
+  '수학(공통)': {
+    type: 'relative',
+    maxScore: 100,
+    cuts: { 1: 88, 2: 80, 3: 72, 4: 62, 5: 49, 6: 35, 7: 22, 8: 14 },
+    year: '2025학년도'
+  },
+  '영어': {
+    type: 'absolute',
+    maxScore: 100,
+    cuts: { 1: 90, 2: 80, 3: 70, 4: 60, 5: 50, 6: 40, 7: 30, 8: 20 },
+    year: '절대평가'
+  },
+  '한국사': {
+    type: 'absolute_hankuksa',
+    maxScore: 50,
+    cuts: { 1: 40, 2: 35, 3: 30, 4: 25, 5: 20 },
+    year: '절대평가'
+  },
+  '사탐/과탐': {
+    type: 'relative',
+    maxScore: 50,
+    cuts: { 1: 47, 2: 44, 3: 41, 4: 37, 5: 32, 6: 27, 7: 22, 8: 17 },
+    year: '2025학년도 참고'
+  },
+};
+
+let currentSubject = '국어';
+let summary = {};
+
+const GRADE_COLORS = ['', 'g1','g2','g3','g4','g5','g6','g7','g8','g9'];
+
+function getGrade(subject, score) {
+  const s = SUBJECTS[subject];
+  if (!s) return '-';
+  const cuts = s.cuts;
+  const grades = Object.keys(cuts).map(Number).sort((a,b)=>a-b);
+  for (const g of grades) {
+    if (score >= cuts[g]) return g;
+  }
+  const maxGrade = s.type === 'absolute_hankuksa' ? 5 : 9;
+  return maxGrade;
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('subject-tabs');
+  tabs.innerHTML = '';
+  Object.keys(SUBJECTS).forEach(sub => {
+    const btn = document.createElement('button');
+    btn.className = 'sub-tab' + (sub === currentSubject ? ' on' : '');
+    btn.textContent = sub;
+    btn.onclick = () => {
+      currentSubject = sub;
+      document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('score-input').value = '';
+      document.getElementById('grade-box').textContent = '-';
+      document.getElementById('grade-box').className = 'grade-box';
+      renderCutTable();
+    };
+    tabs.appendChild(btn);
+  });
+}
+
+function renderCutTable() {
+  const s = SUBJECTS[currentSubject];
+  const table = document.getElementById('cut-table');
+  const score = parseInt(document.getElementById('score-input').value);
+  const myGrade = isNaN(score) ? -1 : getGrade(currentSubject, score);
+
+  document.getElementById('cut-title').textContent = `등급컷 (${s.year})`;
+  document.getElementById('score-label').textContent = `원점수 (만점 ${s.maxScore}점)`;
+
+  table.innerHTML = '';
+  const thead = document.createElement('thead');
+  thead.innerHTML = '<tr><th>등급</th><th>원점수 기준</th><th>비율</th></tr>';
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  const ratios = ['상위 4%','상위 11%','상위 23%','상위 40%','상위 60%','상위 77%','상위 89%','상위 96%','하위 4%'];
+  const maxGrade = s.type === 'absolute_hankuksa' ? 5 : (s.type === 'absolute' ? 9 : 9);
+
+  for (let g = 1; g <= maxGrade; g++) {
+    const cut = s.cuts[g];
+    const nextCut = s.cuts[g - 1] ? s.cuts[g - 1] - 1 : s.maxScore;
+    const tr = document.createElement('tr');
+    if (g === myGrade) tr.className = 'my-grade';
+    const cutText = cut !== undefined
+      ? (g === 1 ? `${cut}점 이상` : `${cut}점 ~ ${nextCut}점`)
+      : '-';
+    const ratio = s.type === 'relative' ? ratios[g-1] : (s.type === 'absolute' ? `${cut}점 이상` : `${cut}점 이상`);
+    tr.innerHTML = `
+      <td><span style="font-size:16px;font-weight:900;color:${getGradeColor(g)}">${g}등급</span></td>
+      <td>${cutText}</td>
+      <td style="color:var(--muted)">${s.type === 'relative' ? ratios[g-1] : '절대평가'}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+}
+
+function getGradeColor(g) {
+  const colors = ['','#854d0e','#166534','#1e40af','var(--accent)','var(--muted)','var(--orange)','var(--orange)','var(--red)','var(--red)'];
+  return colors[g] || 'var(--muted)';
+}
+
+function liveCalc() {
+  const score = parseInt(document.getElementById('score-input').value);
+  const box = document.getElementById('grade-box');
+  if (isNaN(score) || score < 0) {
+    box.textContent = '-';
+    box.className = 'grade-box';
+    renderCutTable();
+    return;
+  }
+  const grade = getGrade(currentSubject, score);
+  box.textContent = grade + '등급';
+  box.className = 'grade-box g' + grade;
+  renderCutTable();
+}
+
+function addToSummary() {
+  const score = parseInt(document.getElementById('score-input').value);
+  if (isNaN(score)) { alert('점수를 입력해주세요.'); return; }
+  const grade = getGrade(currentSubject, score);
+  summary[currentSubject] = { score, grade };
+  renderSummary();
+}
+
+function renderSummary() {
+  const card = document.getElementById('summary-card');
+  const grid = document.getElementById('all-summary');
+  if (Object.keys(summary).length === 0) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  grid.innerHTML = '';
+  Object.entries(summary).forEach(([sub, { score, grade }]) => {
+    const div = document.createElement('div');
+    div.className = 'summary-item';
+    div.innerHTML = `
+      <div>
+        <div class="si-name">${sub}</div>
+        <div class="si-score">${score}점</div>
+      </div>
+      <div class="si-grade" style="color:${getGradeColor(grade)}">${grade}등급</div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function clearSummary() {
+  summary = {};
+  renderSummary();
+}
+
+// 초기화
+renderTabs();
+renderCutTable();
+</script>
+</body>
+</html>
