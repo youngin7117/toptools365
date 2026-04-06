@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>운동 칼로리 계산기 - 운동별 소모 칼로리 즉시 계산 | TopTools365</title>
+<meta name="description" content="운동 종류·시간·체중을 입력하면 소모 칼로리를 즉시 계산합니다. 달리기·걷기·수영·자전거·헬스 등 40여 종 운동 지원. 체중 감량 목표 계산. 완전 무료.">
+<meta name="keywords" content="운동칼로리계산기,달리기칼로리,운동소모칼로리,칼로리소모계산,걷기칼로리,수영칼로리,헬스칼로리,운동별칼로리">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/exercise-calorie-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="운동 칼로리 계산기 - 운동별 소모 칼로리 즉시 계산 | TopTools365">
+<meta property="og:description" content="운동 종류·시간·체중 입력 → 소모 칼로리 즉시 계산. 40여 종 운동. 체중 감량 목표. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"운동 칼로리 계산기","description":"운동 종류와 시간, 체중을 입력하면 소모 칼로리를 계산하는 무료 온라인 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"운동 칼로리 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"소모 칼로리 = MET × 체중(kg) × 운동 시간(시간)으로 계산합니다. MET(Metabolic Equivalent of Task)는 운동 강도를 나타내는 지수입니다."}},{"@type":"Question","name":"1kg 감량하려면 칼로리를 얼마나 소모해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"지방 1kg은 약 7,700kcal에 해당합니다. 1kg을 감량하려면 7,700kcal를 추가로 소모하거나 식이를 줄여야 합니다."}},{"@type":"Question","name":"달리기 1시간에 칼로리가 얼마나 소모되나요?","acceptedAnswer":{"@type":"Answer","text":"체중 70kg 기준 달리기(시속 8km) 1시간에 약 490~560kcal가 소모됩니다. 속도가 빠를수록, 체중이 많을수록 더 많이 소모됩니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --purple: #6d28d9; --purple-light: #ede9fe;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510;
+      --purple: #a78bfa; --purple-light: #1e1030; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 카테고리 탭 */
+  .cat-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .cat-btn { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .cat-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 운동 선택 그리드 */
+  .exercise-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; max-height: 300px; overflow-y: auto; }
+  @media(max-width:480px) { .exercise-grid { grid-template-columns: 1fr; } }
+  .ex-btn { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; transition: all .15s; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+  .ex-btn.on { border-color: var(--accent); background: var(--accent-light); }
+  .ex-btn .ex-name { font-weight: 600; }
+  .ex-btn.on .ex-name { color: var(--accent); }
+  .ex-btn .ex-met { font-size: 11px; color: var(--muted); }
+  .ex-btn.on .ex-met { color: var(--accent); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 60px 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 시간 프리셋 */
+  .time-preset { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .time-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .time-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 칼로리 히어로 */
+  .calorie-hero { text-align: center; padding: 32px 24px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 14px; margin-bottom: 16px; }
+  .calorie-hero .clabel { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .calorie-hero .cval { font-size: 72px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .calorie-hero .cunit { font-size: 20px; color: var(--accent); font-weight: 700; }
+  .calorie-hero .csub { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+  /* 비교 그리드 */
+  .compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .compare-grid { grid-template-columns: 1fr 1fr; } }
+  .compare-box { padding: 14px 10px; border-radius: 10px; text-align: center; background: var(--bg); border: 1px solid var(--border); }
+  .compare-box .cbl { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .compare-box .cbv { font-size: 16px; font-weight: 800; }
+  .compare-box .cbs { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 운동별 비교표 */
+  .ex-compare { display: flex; flex-direction: column; gap: 8px; }
+  .ex-compare-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .ex-compare-item.selected { background: var(--accent-light); border-color: var(--accent); }
+  .ecl { font-size: 13px; font-weight: 600; flex: 1; }
+  .ex-compare-item.selected .ecl { color: var(--accent); }
+  .ec-bar-wrap { width: 120px; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .ec-bar { height: 100%; background: var(--accent); border-radius: 4px; }
+  .ecv { font-size: 13px; font-weight: 700; min-width: 70px; text-align: right; color: var(--accent); }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>운동 칼로리 계산기</h1>
+  <p class="subtitle">운동 종류·시간·체중을 입력하면 소모 칼로리를 즉시 계산합니다. 40여 종 운동 지원.</p>
+
+  <div class="card">
+    <!-- 카테고리 -->
+    <div class="field">
+      <label>운동 카테고리</label>
+      <div class="cat-row" id="cat-row"></div>
+    </div>
+
+    <!-- 운동 선택 -->
+    <div class="field">
+      <label>운동 선택</label>
+      <div class="exercise-grid" id="exercise-grid"></div>
+    </div>
+
+    <!-- 체중 + 시간 -->
+    <div class="input-grid">
+      <div class="field">
+        <label>체중</label>
+        <div class="input-wrap">
+          <input type="number" id="weight" placeholder="70" value="70" min="30" max="200">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>운동 시간</label>
+        <div class="input-wrap">
+          <input type="number" id="duration" placeholder="30" value="30" min="1" max="300">
+          <span class="unit">분</span>
+        </div>
+        <div class="time-preset">
+          <button class="time-btn" onclick="setTime(15)">15분</button>
+          <button class="time-btn" onclick="setTime(30)">30분</button>
+          <button class="time-btn" onclick="setTime(45)">45분</button>
+          <button class="time-btn" onclick="setTime(60)">1시간</button>
+          <button class="time-btn" onclick="setTime(90)">90분</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">칼로리 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <div class="calorie-hero">
+      <div class="clabel">소모 칼로리</div>
+      <div><span class="cval" id="r-cal">-</span><span class="cunit"> kcal</span></div>
+      <div class="csub" id="r-cal-sub">-</div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-box">
+        <div class="cbl">1kg 감량까지</div>
+        <div class="cbv" id="r-to-1kg">-</div>
+        <div class="cbs">7,700kcal 기준</div>
+      </div>
+      <div class="compare-box">
+        <div class="cbl">시간당 칼로리</div>
+        <div class="cbv" id="r-per-hour">-</div>
+        <div class="cbs">kcal/시간</div>
+      </div>
+      <div class="compare-box">
+        <div class="cbl">밥 한 공기</div>
+        <div class="cbv" id="r-rice">-</div>
+        <div class="cbs">300kcal 기준</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">선택 운동</span><span class="detail-val" id="r-exercise">-</span></div>
+      <div class="detail-row"><span class="detail-label">MET 값</span><span class="detail-val" id="r-met">-</span></div>
+      <div class="detail-row"><span class="detail-label">체중</span><span class="detail-val" id="r-weight">-</span></div>
+      <div class="detail-row"><span class="detail-label">운동 시간</span><span class="detail-val" id="r-duration">-</span></div>
+      <div class="detail-row"><span class="detail-label">소모 칼로리</span><span class="detail-val" style="color:var(--accent)" id="r-cal-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">계산식</span><span class="detail-val" id="r-formula">-</span></div>
+    </div>
+
+    <!-- 같은 시간 운동 비교 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">같은 시간 운동별 비교</div>
+      <div class="ex-compare" id="ex-compare"></div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>운동 칼로리 계산기 사용 방법</h2>
+    <p>카테고리에서 운동 종류를 선택하고 체중과 운동 시간을 입력하면 소모 칼로리를 즉시 계산합니다. 같은 시간에 다른 운동을 하면 칼로리가 얼마나 차이나는지도 비교할 수 있습니다.</p>
+
+    <h3>운동 칼로리 계산 방법 (MET 공식)</h3>
+    <div class="info-box">
+      <strong>소모 칼로리 = MET × 체중(kg) × 운동 시간(시간)</strong><br><br>
+      MET(Metabolic Equivalent of Task)는 안정 시 대비 운동 강도를 나타내는 지수입니다.<br><br>
+      예) 달리기(MET 8.3) × 70kg × 0.5시간 = <strong>290.5 kcal</strong><br><br>
+      체중이 많을수록, 운동 강도가 높을수록 더 많은 칼로리가 소모됩니다.
+    </div>
+
+    <h3>1kg 감량하려면?</h3>
+    <p>지방 1kg은 약 7,700kcal에 해당합니다. 매일 30분 달리기(70kg 기준 약 290kcal)를 하면 약 26일 후 1kg 감량이 가능합니다. 운동과 함께 식이 조절을 병행하면 더 효과적입니다.</p>
+
+    <h3>효과적인 체중 감량 운동은?</h3>
+    <p>칼로리 소모가 많은 운동은 달리기·수영·사이클·줄넘기 등 유산소 운동입니다. 근력 운동은 칼로리 소모가 적지만 근육량 증가로 기초대사량을 높여 장기적으로 체중 감량에 유리합니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🍽️</span>
+        <span>칼로리 계산기</span>
+      </a>
+      <a class="related-item" href="/bmi-calculator/">
+        <span class="related-icon">⚖️</span>
+        <span>BMI 계산기</span>
+      </a>
+      <a class="related-item" href="/body-fat-calculator/">
+        <span class="related-icon">💪</span>
+        <span>체지방률 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">운동 칼로리 계산 방법은?</div>
+      <div class="faq-a">소모 칼로리 = MET × 체중(kg) × 운동 시간(시간)으로 계산합니다. MET는 운동 강도를 나타내는 지수입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">1kg 감량하려면 칼로리를 얼마나 소모해야 하나요?</div>
+      <div class="faq-a">지방 1kg은 약 7,700kcal입니다. 매일 500kcal씩 소모하면 약 15일 후 1kg 감량이 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">달리기 1시간에 칼로리가 얼마나 소모되나요?</div>
+      <div class="faq-a">체중 70kg 기준 달리기(시속 8km) 1시간에 약 580kcal가 소모됩니다. 속도와 체중에 따라 달라집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">걷기와 달리기 중 어느 것이 칼로리 소모가 더 많나요?</div>
+      <div class="faq-a">같은 시간 기준으로는 달리기가 훨씬 많이 소모됩니다. 하지만 같은 거리 기준으로는 소모량이 비슷합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">체중이 많을수록 칼로리가 더 소모되나요?</div>
+      <div class="faq-a">네, 체중이 많을수록 같은 운동을 해도 더 많은 칼로리가 소모됩니다. MET 공식에 체중이 비례하기 때문입니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 MET 기준 참고용이며 실제 소모 칼로리는 개인차가 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// MET 데이터 (운동 종류별)
+const EXERCISES = {
+  '유산소': [
+    { name: '걷기 (느리게, 4km/h)', met: 2.8 },
+    { name: '걷기 (보통, 5.5km/h)', met: 3.5 },
+    { name: '빠른 걷기 (6.5km/h)', met: 4.3 },
+    { name: '달리기 (8km/h)', met: 8.3 },
+    { name: '달리기 (10km/h)', met: 10.0 },
+    { name: '달리기 (12km/h)', met: 11.8 },
+    { name: '줄넘기', met: 11.8 },
+    { name: '계단 오르기', met: 8.0 },
+    { name: '에어로빅', met: 6.5 },
+    { name: '댄스', met: 5.5 },
+  ],
+  '수영': [
+    { name: '수영 (천천히)', met: 6.0 },
+    { name: '수영 (보통)', met: 8.3 },
+    { name: '수영 (빠르게)', met: 10.0 },
+    { name: '자유형', met: 9.8 },
+    { name: '평영', met: 10.3 },
+    { name: '접영', met: 13.8 },
+    { name: '수중 에어로빅', met: 4.0 },
+  ],
+  '자전거': [
+    { name: '자전거 (느리게, 16km/h)', met: 4.0 },
+    { name: '자전거 (보통, 22km/h)', met: 8.0 },
+    { name: '자전거 (빠르게, 32km/h)', met: 12.0 },
+    { name: '실내 자전거 (가볍게)', met: 5.5 },
+    { name: '실내 자전거 (보통)', met: 8.8 },
+    { name: '실내 자전거 (강하게)', met: 14.0 },
+  ],
+  '헬스': [
+    { name: '웨이트 (가볍게)', met: 3.0 },
+    { name: '웨이트 (보통)', met: 5.0 },
+    { name: '웨이트 (강하게)', met: 6.0 },
+    { name: '스쿼트', met: 5.0 },
+    { name: '푸시업', met: 3.8 },
+    { name: '플랭크', met: 4.0 },
+    { name: '크로스핏', met: 12.0 },
+    { name: '요가', met: 2.5 },
+    { name: '필라테스', met: 3.0 },
+  ],
+  '구기': [
+    { name: '축구', met: 8.0 },
+    { name: '농구', met: 8.0 },
+    { name: '배드민턴 (레저)', met: 5.5 },
+    { name: '배드민턴 (경기)', met: 7.0 },
+    { name: '테니스 (단식)', met: 8.0 },
+    { name: '탁구', met: 4.0 },
+    { name: '배구', met: 4.0 },
+    { name: '골프 (걸어서)', met: 4.8 },
+  ],
+  '기타': [
+    { name: '등산', met: 7.8 },
+    { name: '태권도·격투기', met: 10.0 },
+    { name: '롤러블레이드', met: 7.5 },
+    { name: '스키', met: 7.0 },
+    { name: '하이킹', met: 6.0 },
+    { name: '청소 (가볍게)', met: 2.5 },
+    { name: '계단 청소', met: 3.5 },
+  ],
+};
+
+let selectedCat = '유산소';
+let selectedEx = null;
+
+function renderCategories() {
+  const row = document.getElementById('cat-row');
+  row.innerHTML = '';
+  Object.keys(EXERCISES).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === selectedCat ? ' on' : '');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      selectedCat = cat;
+      selectedEx = null;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      renderExercises();
+    };
+    row.appendChild(btn);
+  });
+}
+
+function renderExercises() {
+  const grid = document.getElementById('exercise-grid');
+  grid.innerHTML = '';
+  EXERCISES[selectedCat].forEach((ex, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ex-btn' + (selectedEx && selectedEx.name === ex.name ? ' on' : '');
+    btn.innerHTML = `<span class="ex-name">${ex.name}</span><span class="ex-met">MET ${ex.met}</span>`;
+    btn.onclick = () => {
+      selectedEx = ex;
+      document.querySelectorAll('.ex-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    };
+    grid.appendChild(btn);
+    // 첫 번째 항목 기본 선택
+    if (i === 0 && !selectedEx) {
+      selectedEx = ex;
+      btn.classList.add('on');
+    }
+  });
+}
+
+function setTime(min) {
+  document.getElementById('duration').value = min;
+}
+
+function calculate() {
+  if (!selectedEx) return;
+  const weight = parseFloat(document.getElementById('weight').value) || 70;
+  const duration = parseFloat(document.getElementById('duration').value) || 30;
+  const met = selectedEx.met;
+
+  // 소모 칼로리 = MET × 체중 × 시간(시간)
+  const calories = Math.round(met * weight * (duration / 60));
+  const perHour = Math.round(met * weight);
+  const to1kg = Math.ceil(7700 / calories * duration); // 몇 분 운동해야 1kg
+  const riceCount = (calories / 300).toFixed(1);
+
+  // 히어로
+  document.getElementById('r-cal').textContent = calories.toLocaleString();
+  document.getElementById('r-cal-sub').textContent = `${selectedEx.name} · ${weight}kg · ${duration}분`;
+
+  // 비교
+  const sessionsTo1kg = Math.ceil(7700 / calories);
+  document.getElementById('r-to-1kg').textContent = `${sessionsTo1kg}회`;
+  document.getElementById('r-per-hour').textContent = perHour.toLocaleString();
+  document.getElementById('r-rice').textContent = riceCount + '공기';
+
+  // 상세
+  document.getElementById('r-exercise').textContent = selectedEx.name;
+  document.getElementById('r-met').textContent = `MET ${met} (안정시의 ${met}배)`;
+  document.getElementById('r-weight').textContent = weight + 'kg';
+  document.getElementById('r-duration').textContent = duration + '분';
+  document.getElementById('r-cal-detail').textContent = calories + ' kcal';
+  document.getElementById('r-formula').textContent = `${met} × ${weight} × ${(duration/60).toFixed(2)} = ${calories}`;
+
+  // 운동 비교 (현재 카테고리의 모든 운동)
+  const compareData = EXERCISES[selectedCat].map(ex => ({
+    ...ex,
+    cal: Math.round(ex.met * weight * (duration / 60))
+  })).sort((a, b) => b.cal - a.cal);
+  const maxCal = compareData[0].cal;
+
+  const compareDiv = document.getElementById('ex-compare');
+  compareDiv.innerHTML = '';
+  compareData.forEach(ex => {
+    const isSelected = ex.name === selectedEx.name;
+    const div = document.createElement('div');
+    div.className = 'ex-compare-item' + (isSelected ? ' selected' : '');
+    div.innerHTML = `
+      <span class="ecl">${ex.name}</span>
+      <div class="ec-bar-wrap"><div class="ec-bar" style="width:${(ex.cal/maxCal*100).toFixed(0)}%;background:${isSelected ? 'var(--accent)' : 'var(--border)'}"></div></div>
+      <span class="ecv" style="color:${isSelected ? 'var(--accent)' : 'var(--muted)'}">${ex.cal} kcal</span>
+    `;
+    div.onclick = () => {
+      selectedEx = { name: ex.name, met: ex.met };
+      renderExercises();
+      calculate();
+    };
+    compareDiv.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기화
+renderCategories();
+renderExercises();
+</script>
+</body>
+</html>
