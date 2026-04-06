@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>혈중알코올농도 계산기 - 음주 후 운전 가능 시간 계산 | TopTools365</title>
+<meta name="description" content="체중·음주량·시간을 입력하면 혈중알코올농도(BAC)를 계산합니다. 음주운전 단속 기준(0.03%) 비교, 운전 가능 시간 계산. 2026년 기준. 완전 무료.">
+<meta name="keywords" content="혈중알코올농도계산기,BAC계산기,음주운전계산기,술마시고운전,음주후운전가능시간,혈중알코올농도기준,음주단속기준">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/bac-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="혈중알코올농도 계산기 - 음주 후 운전 가능 시간 계산 | TopTools365">
+<meta property="og:description" content="체중·음주량 입력 → 혈중알코올농도 즉시 계산. 음주운전 단속 기준 비교. 운전 가능 시간. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"혈중알코올농도 계산기","description":"혈중알코올농도(BAC)를 계산하는 무료 온라인 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"음주운전 단속 기준은?","acceptedAnswer":{"@type":"Answer","text":"2026년 기준 혈중알코올농도 0.03% 이상이면 음주운전으로 처벌받습니다. 0.08% 이상은 면허 취소, 0.2% 이상은 가중처벌 대상입니다."}},{"@type":"Question","name":"혈중알코올농도는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"혈중알코올농도(%) = 음주량(mL) × 알코올 도수 × 0.7894 ÷ (체중(kg) × 성별계수 × 10)으로 계산합니다. 남성 계수 0.7, 여성 계수 0.6을 사용합니다."}},{"@type":"Question","name":"술 한 잔 마시면 혈중알코올농도가 얼마나 되나요?","acceptedAnswer":{"@type":"Answer","text":"소주 한 잔(50mL, 16도) 기준 체중 70kg 남성의 혈중알코올농도는 약 0.024%입니다. 음주 후 시간이 지나면 시간당 약 0.012~0.015%씩 감소합니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+
+  /* 경고 배너 */
+  .warning-banner { background: var(--red-light); border: 2px solid var(--red); border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; font-size: 13px; color: var(--red); font-weight: 600; line-height: 1.7; }
+  .warning-banner strong { font-size: 14px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 성별 선택 */
+  .gender-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .gender-btn { flex: 1; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .gender-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 60px 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 음주량 추가 버튼 */
+  .drink-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .drink-item { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .drink-name { flex: 1; font-size: 13px; font-weight: 600; }
+  .drink-ctrl { display: flex; align-items: center; gap: 8px; }
+  .drink-count { font-size: 16px; font-weight: 800; min-width: 24px; text-align: center; color: var(--accent); }
+  .d-btn { width: 28px; height: 28px; border: 1.5px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; transition: all .15s; }
+  .d-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .drink-ml { font-size: 11px; color: var(--muted); min-width: 60px; text-align: right; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* BAC 히어로 */
+  .bac-hero { text-align: center; padding: 28px; border-radius: 14px; border: 2px solid; margin-bottom: 16px; }
+  .bac-hero .blabel { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .bac-hero .bval { font-size: 64px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+  .bac-hero .bgrade { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .bac-hero .bsub { font-size: 13px; opacity: .7; }
+
+  /* BAC 게이지 */
+  .bac-gauge { margin: 8px 0; }
+  .bac-track { height: 20px; border-radius: 10px; overflow: hidden; display: flex; position: relative; }
+  .bac-seg { height: 100%; }
+  .bac-marker { position: relative; margin-top: 4px; }
+  .bac-marker-arrow { position: absolute; top: 0; font-size: 18px; transform: translateX(-50%); transition: left .4s; }
+  .bac-labels { display: flex; font-size: 11px; color: var(--muted); margin-top: 20px; }
+  .bac-labels span { position: absolute; transform: translateX(-50%); }
+
+  /* 운전 가능 시간 */
+  .drive-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .drive-grid { grid-template-columns: 1fr; } }
+  .drive-box { padding: 16px 12px; border-radius: 12px; text-align: center; border: 1px solid; }
+  .drive-box .dl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .drive-box .dv { font-size: 20px; font-weight: 800; }
+  .drive-box .ds { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* 기준표 */
+  .std-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .std-table th { padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; background: var(--accent-light); color: var(--accent); }
+  .std-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .std-table tr:last-child td { border-bottom: none; }
+  .std-table tr.current td { font-weight: 700; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>혈중알코올농도 계산기</h1>
+  <p class="subtitle">체중·음주량을 입력하면 혈중알코올농도(BAC)와 운전 가능 시간을 계산합니다.</p>
+
+  <!-- 경고 배너 -->
+  <div class="warning-banner">
+    <strong>안전 안내</strong><br>
+    이 계산기는 참고용입니다. 음주 후에는 절대 운전하지 마세요. 계산 결과와 실제 혈중알코올농도는 개인차가 있으며, 0.03% 미만이라도 음주 상태에서의 운전은 위험합니다.
+  </div>
+
+  <div class="card">
+    <!-- 성별 -->
+    <div class="gender-row">
+      <button class="gender-btn on" onclick="setGender('male',this)">남성</button>
+      <button class="gender-btn" onclick="setGender('female',this)">여성</button>
+    </div>
+
+    <!-- 체중 + 음주 후 경과시간 -->
+    <div class="input-grid">
+      <div class="field">
+        <label>체중</label>
+        <div class="input-wrap">
+          <input type="number" id="weight" placeholder="70" value="70" min="30" max="200">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>음주 후 경과 시간</label>
+        <div class="input-wrap">
+          <input type="number" id="elapsed" placeholder="0" value="0" min="0" max="24" step="0.5">
+          <span class="unit">시간</span>
+        </div>
+        <p class="tip">마지막 음주 후 현재까지 경과한 시간</p>
+      </div>
+    </div>
+
+    <!-- 음주량 입력 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">음주량</div>
+    <div class="drink-list" id="drink-list"></div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">혈중알코올농도 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+    <!-- BAC 히어로 -->
+    <div class="bac-hero" id="bac-hero">
+      <div class="blabel">혈중알코올농도 (BAC)</div>
+      <div class="bval" id="r-bac">-</div>
+      <div class="bgrade" id="r-grade">-</div>
+      <div class="bsub" id="r-sub">-</div>
+    </div>
+
+    <!-- BAC 게이지 -->
+    <div class="card">
+      <div class="bac-gauge">
+        <div class="bac-track">
+          <div class="bac-seg" style="flex:3;background:#22c55e"></div>
+          <div class="bac-seg" style="flex:5;background:#eab308"></div>
+          <div class="bac-seg" style="flex:7;background:#f97316"></div>
+          <div class="bac-seg" style="flex:5;background:#ef4444"></div>
+        </div>
+        <div style="position:relative;height:28px">
+          <span id="bac-marker" style="position:absolute;top:2px;font-size:18px;transform:translateX(-50%);transition:left .4s">▲</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px">
+          <span>0%</span><span>0.03%</span><span>0.08%</span><span>0.2%</span><span>0.35%+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 운전 가능 시간 -->
+    <div class="drive-grid">
+      <div class="drive-box" id="d-box-1" style="background:var(--red-light);border-color:var(--red)">
+        <div class="dl" style="color:var(--red)">단속 기준 (0.03%)</div>
+        <div class="dv" id="d-time-1" style="color:var(--red)">-</div>
+        <div class="ds">면허정지 이하</div>
+      </div>
+      <div class="drive-box" id="d-box-2" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="dl" style="color:var(--orange)">면허취소 (0.08%)</div>
+        <div class="dv" id="d-time-2" style="color:var(--orange)">-</div>
+        <div class="ds">면허취소 이상</div>
+      </div>
+      <div class="drive-box" id="d-box-3" style="background:var(--green-light);border-color:var(--green)">
+        <div class="dl" style="color:var(--green)">완전 해소</div>
+        <div class="dv" id="d-time-3" style="color:var(--green)">-</div>
+        <div class="ds">BAC 0% 도달</div>
+      </div>
+    </div>
+
+    <!-- 단속 기준표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">2026년 음주운전 단속 기준</div>
+      <table class="std-table" id="std-table">
+        <thead><tr><th>혈중알코올농도</th><th>처벌</th><th>현재 상태</th></tr></thead>
+        <tbody>
+          <tr id="std-0"><td>0.03% 미만</td><td>처벌 없음 (안전)</td><td id="std-0-status">-</td></tr>
+          <tr id="std-1"><td>0.03% ~ 0.08%</td><td>면허정지 + 벌금/징역</td><td id="std-1-status">-</td></tr>
+          <tr id="std-2"><td>0.08% ~ 0.2%</td><td>면허취소 + 징역/벌금</td><td id="std-2-status">-</td></tr>
+          <tr id="std-3"><td>0.2% 이상</td><td>가중처벌 (징역 2~5년)</td><td id="std-3-status">-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>혈중알코올농도 계산기 사용 방법</h2>
+    <p>성별·체중·음주량·경과 시간을 입력하면 현재 혈중알코올농도(BAC)를 계산합니다. 음주운전 단속 기준(0.03%)까지 몇 시간이 필요한지도 확인할 수 있습니다.</p>
+
+    <h3>혈중알코올농도 계산 방법 (위드마크 공식)</h3>
+    <div class="info-box">
+      <strong>BAC = 알코올 섭취량(g) ÷ (체중(kg) × 성별계수 × 10)</strong><br>
+      · 남성 계수: 0.7 / 여성 계수: 0.6<br>
+      · 알코올 섭취량 = 음주량(mL) × 도수(%) × 0.7894 ÷ 100<br><br>
+      <strong>시간 경과에 따른 감소</strong><br>
+      · 음주 후 시간당 약 0.015% 감소 (개인차 있음)
+    </div>
+
+    <h3>2026년 음주운전 처벌 기준</h3>
+    <p>혈중알코올농도 0.03% 이상이면 음주운전으로 처벌받습니다. 0.03~0.08%는 면허정지, 0.08% 이상은 면허취소, 0.2% 이상은 징역 2~5년 가중처벌 대상입니다. 음주 후에는 반드시 대중교통이나 대리운전을 이용하세요.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/bmi-calculator/">
+        <span class="related-icon">⚖️</span>
+        <span>BMI 계산기</span>
+      </a>
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🔥</span>
+        <span>칼로리 계산기</span>
+      </a>
+      <a class="related-item" href="/sleep-calculator/">
+        <span class="related-icon">😴</span>
+        <span>수면 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">음주운전 단속 기준은?</div>
+      <div class="faq-a">2026년 기준 혈중알코올농도 0.03% 이상이면 음주운전입니다. 0.08% 이상 면허취소, 0.2% 이상 가중처벌입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">소주 한 병을 마시면 혈중알코올농도가 얼마나 되나요?</div>
+      <div class="faq-a">체중 70kg 남성 기준 소주 한 병(360mL, 16도)을 마시면 약 0.10~0.13% 수준입니다. 0.03% 이하로 내려가는 데 약 5~7시간이 필요합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">혈중알코올농도는 시간당 얼마나 감소하나요?</div>
+      <div class="faq-a">일반적으로 시간당 약 0.012~0.018% 감소합니다. 개인차가 크므로 이 계산기는 참고용으로만 활용하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">다음날 아침 운전해도 되나요?</div>
+      <div class="faq-a">전날 과음했다면 다음날 아침에도 혈중알코올농도가 남아 있을 수 있습니다. 소주 2병 기준 약 12시간 후에도 0.03% 이상일 수 있으므로 반드시 확인하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">물을 많이 마시거나 커피를 마시면 빨리 깨나요?</div>
+      <div class="faq-a">혈중알코올농도를 빠르게 낮추는 방법은 없습니다. 물·커피·해장국은 숙취 완화에 도움이 될 수 있지만 알코올 분해 속도에는 영향을 주지 않습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 혈중알코올농도와 다를 수 있습니다. 음주 후 운전은 절대 하지 마세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let gender = 'male';
+
+// 주요 술 종류 (이름, mL/잔, 도수)
+const DRINKS = [
+  { name: '소주 (한 잔, 50mL, 16도)', ml: 50, pct: 16, count: 0 },
+  { name: '소주 (한 병, 360mL)', ml: 360, pct: 16, count: 0 },
+  { name: '맥주 (캔 500mL, 5도)', ml: 500, pct: 5, count: 0 },
+  { name: '맥주 (생맥주 500mL)', ml: 500, pct: 4.5, count: 0 },
+  { name: '막걸리 (한 잔, 200mL, 6도)', ml: 200, pct: 6, count: 0 },
+  { name: '와인 (한 잔, 150mL, 13도)', ml: 150, pct: 13, count: 0 },
+  { name: '위스키 (한 잔, 30mL, 40도)', ml: 30, pct: 40, count: 0 },
+  { name: '사케/청주 (한 잔, 180mL, 15도)', ml: 180, pct: 15, count: 0 },
+];
+
+function setGender(g, el) {
+  gender = g;
+  document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function renderDrinks() {
+  const list = document.getElementById('drink-list');
+  list.innerHTML = '';
+  DRINKS.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'drink-item';
+    const totalMl = d.ml * d.count;
+    div.innerHTML = `
+      <span class="drink-name">${d.name}</span>
+      <div class="drink-ctrl">
+        <button class="d-btn" onclick="changeDrink(${i},-1)">−</button>
+        <span class="drink-count" id="dc-${i}">${d.count}</span>
+        <button class="d-btn" onclick="changeDrink(${i},1)">+</button>
+      </div>
+      <span class="drink-ml" id="dm-${i}">${totalMl > 0 ? totalMl + 'mL' : ''}</span>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function changeDrink(i, delta) {
+  DRINKS[i].count = Math.max(0, DRINKS[i].count + delta);
+  document.getElementById('dc-' + i).textContent = DRINKS[i].count;
+  const totalMl = DRINKS[i].ml * DRINKS[i].count;
+  document.getElementById('dm-' + i).textContent = totalMl > 0 ? totalMl + 'mL' : '';
+}
+
+function calculate() {
+  const weight = parseFloat(document.getElementById('weight').value) || 70;
+  const elapsed = parseFloat(document.getElementById('elapsed').value) || 0;
+  const coeff = gender === 'male' ? 0.7 : 0.6;
+  const decreasePerHour = 0.015;
+
+  // 총 알코올 섭취량 (g)
+  let totalAlcohol = 0;
+  DRINKS.forEach(d => {
+    totalAlcohol += d.ml * d.count * (d.pct / 100) * 0.7894;
+  });
+
+  if (totalAlcohol === 0) {
+    alert('음주량을 입력해주세요.');
+    return;
+  }
+
+  // 최고 BAC (위드마크 공식)
+  const peakBAC = totalAlcohol / (weight * coeff * 10);
+  // 현재 BAC (경과 시간 적용)
+  const currentBAC = Math.max(0, peakBAC - decreasePerHour * elapsed);
+
+  // 등급
+  let grade, heroBg, heroColor;
+  if (currentBAC < 0.03) {
+    grade = '안전 (단속 기준 미만)'; heroBg = 'var(--green-light)'; heroColor = 'var(--green)';
+  } else if (currentBAC < 0.08) {
+    grade = '위험 (면허정지 구간)'; heroBg = 'var(--orange-light)'; heroColor = 'var(--orange)';
+  } else if (currentBAC < 0.2) {
+    grade = '매우 위험 (면허취소 구간)'; heroBg = 'var(--red-light)'; heroColor = 'var(--red)';
+  } else {
+    grade = '극도로 위험 (가중처벌 구간)'; heroBg = 'var(--red-light)'; heroColor = 'var(--red)';
+  }
+
+  // 히어로
+  const hero = document.getElementById('bac-hero');
+  hero.style.background = heroBg;
+  hero.style.borderColor = heroColor;
+  document.getElementById('r-bac').textContent = (currentBAC * 100).toFixed(3) + '%';
+  document.getElementById('r-bac').style.color = heroColor;
+  document.getElementById('r-grade').textContent = grade;
+  document.getElementById('r-grade').style.color = heroColor;
+  document.getElementById('r-sub').textContent = `음주 후 ${elapsed}시간 경과 기준`;
+
+  // 게이지 마커
+  const maxBac = 0.35;
+  const pct = Math.min(100, (currentBAC / maxBac) * 100);
+  document.getElementById('bac-marker').style.left = pct + '%';
+  document.getElementById('bac-marker').style.color = heroColor;
+
+  // 운전 가능 시간
+  function hoursUntil(targetBAC) {
+    if (currentBAC <= targetBAC) return null; // 이미 해당 기준 이하
+    return ((peakBAC - targetBAC) / decreasePerHour - elapsed);
+  }
+
+  function formatHours(h) {
+    if (h === null) return '현재 가능';
+    if (h <= 0) return '현재 가능';
+    const hh = Math.floor(h);
+    const mm = Math.round((h - hh) * 60);
+    return `약 ${hh}시간 ${mm}분 후`;
+  }
+
+  document.getElementById('d-time-1').textContent = formatHours(hoursUntil(0.03));
+  document.getElementById('d-time-2').textContent = formatHours(hoursUntil(0.08));
+  document.getElementById('d-time-3').textContent = formatHours(hoursUntil(0));
+
+  // 단속 기준표 상태
+  const statuses = ['안전', '해당 없음', '해당 없음', '해당 없음'];
+  if (currentBAC >= 0.2) statuses[3] = '⚠️ 현재 해당';
+  if (currentBAC >= 0.08) statuses[2] = '⚠️ 현재 해당';
+  if (currentBAC >= 0.03) statuses[1] = '⚠️ 현재 해당';
+  if (currentBAC < 0.03) statuses[0] = '✅ 현재 해당';
+
+  ['0','1','2','3'].forEach((i) => {
+    const el = document.getElementById('std-' + i);
+    const statusEl = document.getElementById('std-' + i + '-status');
+    el.style.background = statuses[i].includes('현재') ? (i === '0' ? 'var(--green-light)' : 'var(--red-light)') : '';
+    statusEl.textContent = statuses[i];
+    statusEl.style.color = statuses[i].includes('✅') ? 'var(--green)' : statuses[i].includes('⚠️') ? 'var(--red)' : '';
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기화
+renderDrinks();
+</script>
+</body>
+</html>
