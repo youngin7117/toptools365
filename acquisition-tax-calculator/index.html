@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부동산 취득세 계산기 - 2026년 아파트 주택 취득세 즉시 계산 | TopTools365</title>
+<meta name="description" content="주택 가격과 보유 주택 수, 조정대상지역 여부를 입력하면 2026년 기준 취득세를 즉시 계산합니다. 1주택·2주택·3주택 세율 자동 적용. 농어촌특별세·지방교육세 포함. 완전 무료.">
+<meta name="keywords" content="취득세계산기,부동산취득세,아파트취득세,주택취득세계산,2026년취득세,조정대상지역취득세,2주택취득세,3주택취득세">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/acquisition-tax-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="부동산 취득세 계산기 - 2026년 아파트 주택 취득세 즉시 계산 | TopTools365">
+<meta property="og:description" content="주택 가격·보유 수·조정지역 입력 → 취득세 즉시 계산. 농특세·지방교육세 포함. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"부동산 취득세 계산기","description":"2026년 기준 부동산 취득세를 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"주택 취득세율은?","acceptedAnswer":{"@type":"Answer","text":"1주택은 6억원 이하 1%, 6~9억원 1~3% 구간세율, 9억원 초과 3%입니다. 2주택은 조정대상지역 8%, 비조정 1~3%입니다. 3주택 이상은 조정대상지역 12%, 비조정 8%입니다."}},{"@type":"Question","name":"취득세 외에 추가로 내는 세금은?","acceptedAnswer":{"@type":"Answer","text":"취득세 외에 농어촌특별세(취득세의 10%)와 지방교육세(취득세의 20%)가 추가됩니다. 단, 85㎡ 이하 주택은 농어촌특별세가 면제됩니다."}},{"@type":"Question","name":"조정대상지역이란?","acceptedAnswer":{"@type":"Answer","text":"주택 가격 상승률이 높아 정부가 지정한 규제 지역입니다. 조정대상지역에서 2주택 이상을 취득하면 취득세가 중과됩니다. 지역 지정 여부는 국토교통부 홈페이지에서 확인할 수 있습니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  .notice { background: var(--orange-light); border: 1px solid var(--orange); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--orange); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* 부동산 유형 */
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+  @media(max-width:480px) { .type-grid { grid-template-columns: repeat(2, 1fr); } }
+  .type-btn { padding: 12px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.4; }
+  .type-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .type-btn .ts { font-size: 11px; font-weight: 400; margin-top: 2px; opacity: .8; }
+
+  /* 주택 수 선택 */
+  .home-row { display: flex; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+  .home-btn { padding: 10px 18px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .home-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 토글 스위치 */
+  .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; }
+  .toggle-label { font-size: 14px; font-weight: 600; }
+  .toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: .2s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: .2s; }
+  .toggle input:checked + .toggle-slider { background: var(--accent); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; background: var(--bg); padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--border); }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 14px 60px 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .formatted { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 6px; }
+
+  /* 가격 프리셋 */
+  .preset-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .preset-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 세금 히어로 */
+  .tax-total { text-align: center; padding: 28px; background: var(--red-light); border: 2px solid var(--red); border-radius: 14px; margin-bottom: 16px; }
+  .tax-total .tl { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .tax-total .tv { font-size: 60px; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 6px; }
+  .tax-total .ts { font-size: 14px; color: var(--muted); }
+
+  /* 세금 분해 */
+  .tax-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .tax-breakdown { grid-template-columns: 1fr; } }
+  .tb-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .tb-box .tbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .tb-box .tbv { font-size: 16px; font-weight: 800; }
+  .tb-box .tbs { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 세율표 */
+  .rate-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rate-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .rate-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .rate-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+  .rate-table tr:last-child td { border-bottom: none; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>부동산 취득세 계산기</h1>
+  <p class="subtitle">주택 가격·보유 주택 수·조정대상지역 여부를 입력하면 2026년 기준 취득세를 즉시 계산합니다.</p>
+
+  <div class="notice">
+    <strong>참고 안내</strong>: 취득세율은 정부 정책에 따라 변경될 수 있습니다. 실제 세액은 관할 시·군·구청 또는 세무사에게 확인하세요.
+  </div>
+
+  <div class="card">
+    <div class="section-label">① 부동산 유형 선택</div>
+    <div class="type-grid">
+      <button class="type-btn on" onclick="setType('house',this)">
+        🏠 주택
+        <div class="ts">아파트·빌라·단독주택</div>
+      </button>
+      <button class="type-btn" onclick="setType('land',this)">
+        🌍 토지
+        <div class="ts">일반 세율 4%</div>
+      </button>
+      <button class="type-btn" onclick="setType('commercial',this)">
+        🏢 상가·오피스텔
+        <div class="ts">일반 세율 4%</div>
+      </button>
+    </div>
+
+    <!-- 주택 전용 옵션 -->
+    <div id="house-options">
+      <div class="section-label" style="margin-top:4px">② 현재 보유 주택 수 (취득 후 기준)</div>
+      <div class="home-row" id="home-row">
+        <button class="home-btn on" onclick="setHomes(1,this)">1주택</button>
+        <button class="home-btn" onclick="setHomes(2,this)">2주택</button>
+        <button class="home-btn" onclick="setHomes(3,this)">3주택 이상</button>
+        <button class="home-btn" onclick="setHomes(0,this)">법인</button>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin:6px 0 16px;line-height:1.6">취득 후 보유 주택 수 기준입니다. 예) 현재 1주택자가 1채 더 사면 → 2주택 선택</p>
+
+      <!-- 조정대상지역 토글 -->
+      <div class="section-label">③ 지역 및 주택 정보</div>
+      <div class="toggle-row" onclick="toggleAdjusted()">
+        <div>
+          <div class="toggle-label">조정대상지역</div>
+          <div class="toggle-sub">서울 전역·일부 수도권 등 (국토부 지정 지역)</div>
+        </div>
+        <label class="toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="is-adjusted" onchange="updateRateInfo()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row" onclick="toggleSmall()">
+        <div>
+          <div class="toggle-label">전용면적 85㎡ 이하</div>
+          <div class="toggle-sub">85㎡ 이하면 농어촌특별세 면제</div>
+        </div>
+        <label class="toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="is-small" checked onchange="updateRateInfo()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <!-- 적용 세율 미리보기 -->
+      <div id="rate-preview" style="font-size:13px;font-weight:700;color:var(--accent);padding:10px 14px;background:var(--accent-light);border-radius:8px;margin-top:4px"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label" id="price-label">④ 취득 가격 (실거래가)</div>
+    <div class="field">
+      <label>취득 가격</label>
+      <div class="input-wrap">
+        <input type="number" id="price" placeholder="500000000" oninput="onPriceInput()">
+        <span class="unit">원</span>
+      </div>
+      <div class="formatted" id="price-fmt"></div>
+      <div class="preset-row">
+        <button class="preset-btn" onclick="setPrice(200000000)">2억</button>
+        <button class="preset-btn" onclick="setPrice(300000000)">3억</button>
+        <button class="preset-btn" onclick="setPrice(500000000)">5억</button>
+        <button class="preset-btn" onclick="setPrice(600000000)">6억</button>
+        <button class="preset-btn" onclick="setPrice(900000000)">9억</button>
+        <button class="preset-btn" onclick="setPrice(1000000000)">10억</button>
+        <button class="preset-btn" onclick="setPrice(2000000000)">20억</button>
+      </div>
+      <p class="tip" style="margin-top:10px">실거래가(분양가) 기준. 부동산은 시가·공시가격 중 높은 금액으로 계산합니다.</p>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">취득세 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+    <div class="tax-total">
+      <div class="tl">총 납부세액 (취득세 + 부가세금)</div>
+      <div class="tv" id="r-total">-</div>
+      <div class="ts" id="r-total-sub">-</div>
+    </div>
+
+    <div class="tax-breakdown">
+      <div class="tb-box" style="background:var(--red-light);border-color:var(--red)">
+        <div class="tbl" style="color:var(--red)">취득세</div>
+        <div class="tbv" style="color:var(--red)" id="r-acq">-</div>
+        <div class="tbs" id="r-acq-rate">-</div>
+      </div>
+      <div class="tb-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="tbl" style="color:var(--orange)">농어촌특별세</div>
+        <div class="tbv" style="color:var(--orange)" id="r-rural">-</div>
+        <div class="tbs" id="r-rural-sub">취득세의 10%</div>
+      </div>
+      <div class="tb-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="tbl" style="color:var(--accent)">지방교육세</div>
+        <div class="tbv" style="color:var(--accent)" id="r-edu">-</div>
+        <div class="tbs">취득세의 20%</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">취득 가격</span><span class="detail-val" id="r-price">-</span></div>
+      <div class="detail-row"><span class="detail-label">적용 취득세율</span><span class="detail-val" id="r-rate">-</span></div>
+      <div class="detail-row"><span class="detail-label">취득세</span><span class="detail-val" id="r-acq-detail" style="color:var(--red)">-</span></div>
+      <div class="detail-row"><span class="detail-label">농어촌특별세</span><span class="detail-val" id="r-rural-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">지방교육세</span><span class="detail-val" id="r-edu-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">총 납부세액</span><span class="detail-val" style="color:var(--red);font-size:16px" id="r-total-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">취득 가격 대비 실효세율</span><span class="detail-val" id="r-effective">-</span></div>
+    </div>
+
+    <!-- 주택 세율표 -->
+    <div class="card" id="rate-table-card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="rate-table-title">2026년 주택 취득세율표</div>
+      <table class="rate-table" id="rate-table">
+        <thead><tr><th>구분</th><th>취득세율</th><th>농특세</th><th>지방교육세</th></tr></thead>
+        <tbody id="rate-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>부동산 취득세 계산기 사용 방법</h2>
+    <p>부동산 유형(주택·토지·상가)을 선택하고 보유 주택 수, 조정대상지역 여부, 전용면적, 취득 가격을 입력하면 취득세와 농어촌특별세, 지방교육세를 한번에 계산합니다.</p>
+
+    <h3>2026년 주택 취득세율</h3>
+    <div class="info-box">
+      <strong>1주택 (비조정·조정 동일)</strong><br>
+      · 6억원 이하: 1%<br>
+      · 6억~9억원: 구간 세율 (1~3%)<br>
+      · 9억원 초과: 3%<br><br>
+      <strong>2주택</strong><br>
+      · 조정대상지역: 8%<br>
+      · 비조정대상지역: 1~3% (1주택과 동일)<br><br>
+      <strong>3주택 이상</strong><br>
+      · 조정대상지역: 12%<br>
+      · 비조정대상지역: 8%<br><br>
+      <strong>법인</strong>: 12% (중과세)
+    </div>
+
+    <h3>취득세 외 추가 세금</h3>
+    <p>취득세 외에 농어촌특별세(취득세의 10%)와 지방교육세(취득세의 20%)가 추가됩니다. 전용면적 85㎡ 이하 주택은 농어촌특별세가 면제됩니다. 따라서 실제 납부 금액은 취득세의 최대 1.3배까지 될 수 있습니다.</p>
+
+    <h3>취득세 신고·납부 기한</h3>
+    <p>취득일(잔금 지급일 또는 등기일 중 빠른 날)로부터 60일 이내에 신고·납부해야 합니다. 기한을 초과하면 가산세(20%)가 부과됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/jeonse-calculator/">
+        <span class="related-icon">🏠</span>
+        <span>전월세 계산기</span>
+      </a>
+      <a class="related-item" href="/pyeong-calculator/">
+        <span class="related-icon">📐</span>
+        <span>평수 계산기</span>
+      </a>
+      <a class="related-item" href="/loan-calculator/">
+        <span class="related-icon">🏦</span>
+        <span>대출 이자 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">주택 취득세율은?</div>
+      <div class="faq-a">1주택은 6억 이하 1%, 6~9억 구간세율, 9억 초과 3%입니다. 2주택 조정대상지역 8%, 3주택 이상 조정대상지역 12%입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">취득세 외 추가 세금은?</div>
+      <div class="faq-a">농어촌특별세(취득세의 10%)와 지방교육세(취득세의 20%)가 추가됩니다. 85㎡ 이하는 농특세 면제입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">조정대상지역이란?</div>
+      <div class="faq-a">주택 가격 상승률이 높아 정부가 지정한 규제 지역입니다. 지정 여부는 국토교통부 홈페이지에서 확인하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">취득세 신고 기한은?</div>
+      <div class="faq-a">취득일로부터 60일 이내입니다. 초과 시 가산세 20%가 부과됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">생애최초 주택 취득세 감면은?</div>
+      <div class="faq-a">생애최초 주택 구입 시 12억원 이하 주택에 대해 취득세를 최대 200만원까지 감면받을 수 있습니다. 실제 감면 여부는 관할 구청에서 확인하세요.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 세액은 관할 시·군·구청 또는 세무사에게 확인하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let propType = 'house';
+let homes = 1;
+
+function setType(t, el) {
+  propType = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('house-options').style.display = t === 'house' ? 'block' : 'none';
+  document.getElementById('price-label').textContent =
+    t === 'house' ? '④ 취득 가격 (실거래가)' : '② 취득 가격 (실거래가)';
+  updateRateInfo();
+}
+
+function setHomes(n, el) {
+  homes = n;
+  document.querySelectorAll('.home-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  updateRateInfo();
+}
+
+function toggleAdjusted() { document.getElementById('is-adjusted').click(); }
+function toggleSmall() { document.getElementById('is-small').click(); }
+
+function getHouseRate(price, homes, adjusted) {
+  if (homes === 0) return 0.12; // 법인
+  if (homes >= 3) return adjusted ? 0.12 : 0.08;
+  if (homes === 2) return adjusted ? 0.08 : getOneHouseRate(price);
+  return getOneHouseRate(price); // 1주택
+}
+
+function getOneHouseRate(price) {
+  if (price <= 600000000) return 0.01;
+  if (price <= 900000000) {
+    // 구간 세율: (취득가액 × 2/3억 - 3) / 100
+    return (price / 100000000 * 2 / 3 - 3) / 100;
+  }
+  return 0.03;
+}
+
+function updateRateInfo() {
+  if (propType !== 'house') {
+    document.getElementById('rate-preview').textContent = '';
+    return;
+  }
+  const adjusted = document.getElementById('is-adjusted').checked;
+  const price = parseFloat(document.getElementById('price').value) || 500000000;
+  const rate = getHouseRate(price, homes, adjusted);
+  const rateLabel = (rate * 100).toFixed(2) + '%';
+  const preview = document.getElementById('rate-preview');
+  preview.textContent = `현재 조건 적용 취득세율: ${rateLabel}`;
+}
+
+function setPrice(p) {
+  document.getElementById('price').value = p;
+  onPriceInput();
+  updateRateInfo();
+}
+
+function onPriceInput() {
+  const v = parseFloat(document.getElementById('price').value) || 0;
+  const fmt = document.getElementById('price-fmt');
+  if (v >= 100000000) fmt.textContent = '→ ' + (v/100000000).toFixed(2) + '억원';
+  else if (v >= 10000) fmt.textContent = '→ ' + (v/10000).toFixed(0) + '만원';
+  else fmt.textContent = v > 0 ? '→ ' + v.toLocaleString() + '원' : '';
+  updateRateInfo();
+}
+
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function calculate() {
+  const price = parseFloat(document.getElementById('price').value) || 0;
+  if (!price) { alert('취득 가격을 입력해주세요.'); return; }
+
+  const adjusted = document.getElementById('is-adjusted')?.checked || false;
+  const isSmall = document.getElementById('is-small')?.checked || false;
+
+  let rate, ruralRate, eduRate;
+
+  if (propType === 'house') {
+    rate = getHouseRate(price, homes, adjusted);
+    ruralRate = isSmall ? 0 : 0.001; // 85㎡ 이하 농특세 면제
+    eduRate = 0.002; // 지방교육세 = 취득세율의 20% → 간이계산
+  } else {
+    rate = 0.04;
+    ruralRate = 0.002;
+    eduRate = 0.004;
+  }
+
+  const acqTax = Math.round(price * rate);
+  // 농특세·지방교육세는 취득세의 10%, 20%
+  const ruralTax = isSmall && propType === 'house' ? 0 : Math.round(acqTax * 0.1);
+  const eduTax = Math.round(acqTax * 0.2);
+  const total = acqTax + ruralTax + eduTax;
+  const effectiveRate = (total / price * 100).toFixed(3);
+
+  // 히어로
+  document.getElementById('r-total').textContent = fmtW(total);
+  document.getElementById('r-total-sub').textContent = `취득가 ${fmtW(price)} · 취득세율 ${(rate*100).toFixed(2)}%`;
+
+  // 분해
+  document.getElementById('r-acq').textContent = fmt(acqTax);
+  document.getElementById('r-acq-rate').textContent = (rate*100).toFixed(2) + '%';
+  document.getElementById('r-rural').textContent = isSmall && propType === 'house' ? '면제' : fmt(ruralTax);
+  document.getElementById('r-rural-sub').textContent = isSmall && propType === 'house' ? '85㎡ 이하 면제' : '취득세의 10%';
+  document.getElementById('r-edu').textContent = fmt(eduTax);
+
+  // 상세
+  document.getElementById('r-price').textContent = fmt(price);
+  document.getElementById('r-rate').textContent = (rate*100).toFixed(2) + '%';
+  document.getElementById('r-acq-detail').textContent = fmt(acqTax);
+  document.getElementById('r-rural-detail').textContent = isSmall && propType === 'house' ? '0원 (면제)' : fmt(ruralTax);
+  document.getElementById('r-edu-detail').textContent = fmt(eduTax);
+  document.getElementById('r-total-detail').textContent = fmt(total);
+  document.getElementById('r-effective').textContent = effectiveRate + '%';
+
+  // 세율표
+  renderRateTable(rate);
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderRateTable(currentRate) {
+  const tbody = document.getElementById('rate-tbody');
+  tbody.innerHTML = '';
+  const rows = [
+    { label: '1주택 · 6억 이하', rate: '1%', rural: '면제(85㎡↓)/0.1%', edu: '0.1%' },
+    { label: '1주택 · 6~9억', rate: '1~3%', rural: '면제(85㎡↓)/0.1%', edu: '0.2%' },
+    { label: '1주택 · 9억 초과', rate: '3%', rural: '면제(85㎡↓)/0.3%', edu: '0.6%' },
+    { label: '2주택 · 비조정', rate: '1~3%', rural: '면제(85㎡↓)/0.3%', edu: '0.2~0.6%' },
+    { label: '2주택 · 조정대상', rate: '8%', rural: '0.8%', edu: '1.6%' },
+    { label: '3주택+ · 비조정', rate: '8%', rural: '0.8%', edu: '1.6%' },
+    { label: '3주택+ · 조정대상', rate: '12%', rural: '1.2%', edu: '2.4%' },
+    { label: '법인', rate: '12%', rural: '1.2%', edu: '2.4%' },
+    { label: '토지·상가·오피스텔', rate: '4%', rural: '0.4%', edu: '0.8%' },
+  ];
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.label}</td><td style="font-weight:700">${r.rate}</td><td>${r.rural}</td><td>${r.edu}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// 초기화
+updateRateInfo();
+renderRateTable(0.01);
+</script>
+</body>
+</html>
