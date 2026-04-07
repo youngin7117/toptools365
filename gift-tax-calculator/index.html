@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>증여세 계산기 - 2026년 증여세 즉시 계산 | TopTools365</title>
+<meta name="description" content="증여 금액과 관계를 입력하면 2026년 기준 증여세를 즉시 계산합니다. 부모·자녀·배우자 공제 한도 자동 반영. 세율표 포함. 완전 무료.">
+<meta name="keywords" content="증여세계산기,2026년증여세,증여세율,증여세공제,부모자녀증여세,현금증여세계산,증여세면제한도,증여세계산방법">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/gift-tax-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="증여세 계산기 - 2026년 증여세 즉시 계산 | TopTools365">
+<meta property="og:description" content="증여 금액·관계 입력 → 증여세 즉시 계산. 공제 한도 자동 반영. 부모·자녀·배우자. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"증여세 계산기","description":"2026년 기준 증여세를 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"증여세 공제 한도는?","acceptedAnswer":{"@type":"Answer","text":"배우자는 6억원, 직계존속(부모·조부모)은 5,000만원(미성년자 2,000만원), 직계비속(자녀)은 5,000만원, 기타 친족은 1,000만원, 타인은 공제 없음입니다. 10년 합산 기준입니다."}},{"@type":"Question","name":"증여세율은?","acceptedAnswer":{"@type":"Answer","text":"과세표준 1억원 이하 10%, 5억원 이하 20%(누진공제 1,000만원), 10억원 이하 30%(6,000만원), 30억원 이하 40%(1억6,000만원), 30억원 초과 50%(4억6,000만원)입니다."}},{"@type":"Question","name":"증여세 신고 기한은?","acceptedAnswer":{"@type":"Answer","text":"증여받은 날이 속하는 달의 말일부터 3개월 이내에 신고해야 합니다. 기한 내 신고 시 3% 세액공제 혜택이 있습니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  .notice { background: var(--orange-light); border: 1px solid var(--orange); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--orange); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* 관계 선택 */
+  .relation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+  @media(max-width:480px) { .relation-grid { grid-template-columns: repeat(2,1fr); } }
+  .rel-btn { padding: 12px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.4; }
+  .rel-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .rel-btn .rd { font-size: 11px; font-weight: 400; margin-top: 3px; opacity: .8; }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; background: var(--bg); padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--border); }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 14px 60px 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .formatted { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 6px; }
+
+  /* 미성년자 토글 */
+  .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .toggle-label { font-size: 13px; font-weight: 600; }
+  .toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: .2s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: .2s; }
+  .toggle input:checked + .toggle-slider { background: var(--accent); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 면세 메시지 */
+  .free-box { background: var(--green-light); border: 2px solid var(--green); border-radius: 14px; padding: 28px; text-align: center; margin-bottom: 16px; }
+  .free-box .fl { font-size: 18px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+  .free-box .fs { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* 세액 히어로 */
+  .tax-hero { text-align: center; padding: 28px; background: var(--red-light); border: 2px solid var(--red); border-radius: 14px; margin-bottom: 16px; }
+  .tax-hero .tl { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .tax-hero .tv { font-size: 60px; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 6px; }
+  .tax-hero .ts { font-size: 14px; color: var(--muted); }
+
+  /* 3분할 */
+  .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .three-grid { grid-template-columns: 1fr; } }
+  .t-box { padding: 16px 12px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .t-box .tbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .t-box .tbv { font-size: 18px; font-weight: 800; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 세율표 */
+  .rate-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rate-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .rate-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .rate-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+  .rate-table tr:last-child td { border-bottom: none; }
+
+  /* 공제 한도표 */
+  .deduct-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .deduct-table th { background: var(--green-light); color: var(--green); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .deduct-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .deduct-table tr:last-child td { border-bottom: none; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>증여세 계산기</h1>
+  <p class="subtitle">증여 금액과 증여자와의 관계를 입력하면 2026년 기준 증여세를 즉시 계산합니다.</p>
+
+  <div class="notice">
+    <strong>참고 안내</strong>: 이 계산기는 간편 추정용입니다. 공제 한도는 10년 합산 기준이며, 실제 세액은 세무사·국세청 홈택스에서 확인하세요.
+  </div>
+
+  <div class="card">
+    <div class="section-label">① 증여자와의 관계</div>
+    <div class="relation-grid" id="relation-grid">
+      <button class="rel-btn on" onclick="setRelation('spouse',this)">
+        배우자
+        <div class="rd">공제 6억원</div>
+      </button>
+      <button class="rel-btn" onclick="setRelation('parent',this)">
+        부모·조부모
+        <div class="rd">공제 5,000만원</div>
+      </button>
+      <button class="rel-btn" onclick="setRelation('child',this)">
+        자녀·손자녀
+        <div class="rd">공제 5,000만원</div>
+      </button>
+      <button class="rel-btn" onclick="setRelation('relative',this)">
+        기타 친족
+        <div class="rd">공제 1,000만원</div>
+      </button>
+      <button class="rel-btn" onclick="setRelation('other',this)">
+        타인
+        <div class="rd">공제 없음</div>
+      </button>
+    </div>
+
+    <!-- 미성년자 토글 (부모·조부모에서만 표시) -->
+    <div class="toggle-row" id="minor-toggle" style="display:none;margin-top:12px">
+      <div>
+        <div class="toggle-label">수증자(받는 사람)가 미성년자</div>
+        <div class="toggle-sub">미성년자는 공제 한도 2,000만원으로 감소</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="is-minor" onchange="updateDeductionInfo()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div id="deduction-info" style="font-size:13px;color:var(--accent);font-weight:600;margin-top:10px;padding:10px 14px;background:var(--accent-light);border-radius:8px;display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">② 증여 금액 입력</div>
+    <div class="field">
+      <label>증여 금액</label>
+      <div class="input-wrap">
+        <input type="number" id="gift-amount" placeholder="100000000" value="" oninput="onAmountInput()">
+        <span class="unit">원</span>
+      </div>
+      <div class="formatted" id="amount-fmt"></div>
+      <p class="tip">현금·부동산·주식 등 모든 증여 재산의 시가 기준 금액을 입력하세요.</p>
+    </div>
+
+    <div class="field">
+      <label>10년 내 동일인에게 받은 이전 증여액 (없으면 0)</label>
+      <div class="input-wrap">
+        <input type="number" id="prev-amount" placeholder="0" value="0" oninput="onAmountInput()">
+        <span class="unit">원</span>
+      </div>
+      <p class="tip">같은 증여자로부터 10년 내 받은 금액이 있으면 합산해야 합니다.</p>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">증여세 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+
+    <!-- 면세 -->
+    <div class="free-box" id="free-box" style="display:none">
+      <div class="fl">🎉 증여세 없음 (면세)</div>
+      <div class="fs" id="free-sub">-</div>
+    </div>
+
+    <!-- 과세 -->
+    <div id="tax-result" style="display:none">
+      <div class="tax-hero">
+        <div class="tl">납부 증여세</div>
+        <div class="tv" id="r-tax">-</div>
+        <div class="ts" id="r-tax-sub">-</div>
+      </div>
+
+      <div class="three-grid">
+        <div class="t-box" style="background:var(--accent-light);border-color:var(--accent)">
+          <div class="tbl" style="color:var(--accent)">과세표준</div>
+          <div class="tbv" style="color:var(--accent)" id="r-taxable">-</div>
+        </div>
+        <div class="t-box" style="background:var(--orange-light);border-color:var(--orange)">
+          <div class="tbl" style="color:var(--orange)">적용 세율</div>
+          <div class="tbv" style="color:var(--orange)" id="r-rate">-</div>
+        </div>
+        <div class="t-box" style="background:var(--green-light);border-color:var(--green)">
+          <div class="tbl" style="color:var(--green)">신고 공제 (3%)</div>
+          <div class="tbv" style="color:var(--green)" id="r-early">-</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="detail-row"><span class="detail-label">증여 금액</span><span class="detail-val" id="r-gift">-</span></div>
+        <div class="detail-row"><span class="detail-label">이전 증여액 (10년 합산)</span><span class="detail-val" id="r-prev">-</span></div>
+        <div class="detail-row"><span class="detail-label">합산 증여액</span><span class="detail-val" id="r-total-gift">-</span></div>
+        <div class="detail-row"><span class="detail-label">증여재산 공제</span><span class="detail-val" style="color:var(--green)" id="r-deduction">-</span></div>
+        <div class="detail-row"><span class="detail-label">과세표준</span><span class="detail-val" id="r-taxable-detail">-</span></div>
+        <div class="detail-row"><span class="detail-label">산출 세액</span><span class="detail-val" id="r-raw-tax">-</span></div>
+        <div class="detail-row"><span class="detail-label">신고 세액공제 (3%, 기한 내 신고 시)</span><span class="detail-val" style="color:var(--green)" id="r-credit">-</span></div>
+        <div class="detail-row"><span class="detail-label">최종 납부세액</span><span class="detail-val" style="color:var(--red);font-size:16px" id="r-final">-</span></div>
+      </div>
+
+      <div class="card" style="background:var(--orange-light);border:1px solid var(--orange)">
+        <div style="font-size:13px;color:var(--orange);font-weight:700;margin-bottom:6px">💡 절세 팁</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8" id="tax-tip">-</div>
+      </div>
+    </div>
+
+    <!-- 세율표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">2026년 증여세율표</div>
+      <table class="rate-table" id="rate-table">
+        <thead><tr><th>과세표준</th><th>세율</th><th>누진공제</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- 공제 한도표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">증여재산 공제 한도 (10년 합산)</div>
+      <table class="deduct-table">
+        <thead><tr><th>관계</th><th>공제 한도</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>배우자</td><td>6억원</td><td>법률혼 배우자</td></tr>
+          <tr><td>직계존속 (부모·조부모)</td><td>5,000만원</td><td>미성년자 수증 시 2,000만원</td></tr>
+          <tr><td>직계비속 (자녀·손자녀)</td><td>5,000만원</td><td></td></tr>
+          <tr><td>기타 친족 (형제·삼촌 등)</td><td>1,000만원</td><td>6촌 이내 혈족, 4촌 이내 인척</td></tr>
+          <tr><td>타인</td><td>없음</td><td>공제 적용 안 됨</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>증여세 계산기 사용 방법</h2>
+    <p>증여자와의 관계를 선택하고 증여 금액을 입력하면 공제 한도를 자동 반영해 증여세를 계산합니다. 10년 내 이전에 받은 증여액이 있으면 함께 입력하면 합산 계산됩니다.</p>
+
+    <h3>증여세 계산 방법</h3>
+    <div class="info-box">
+      <strong>과세표준 = 증여 금액 - 증여재산 공제액</strong><br>
+      <strong>산출세액 = 과세표준 × 세율 - 누진공제</strong><br>
+      <strong>납부세액 = 산출세액 - 신고세액공제(3%)</strong><br><br>
+      예) 부모에게 1억원 증여 시:<br>
+      과세표준 = 1억 - 5,000만 = 5,000만원<br>
+      산출세액 = 5,000만 × 10% = 500만원<br>
+      신고공제 = 500만 × 3% = 15만원<br>
+      <strong>납부세액 = 485만원</strong>
+    </div>
+
+    <h3>증여세 절세 방법</h3>
+    <p>공제 한도를 활용하면 증여세를 줄일 수 있습니다. 10년마다 공제 한도가 리셋되므로 자녀에게 5,000만원씩 10년 주기로 증여하면 증여세 없이 증여할 수 있습니다. 또한 기한 내 신고 시 3% 세액공제 혜택도 챙기세요.</p>
+
+    <h3>증여세 신고 기한</h3>
+    <p>증여받은 날이 속하는 달의 말일부터 3개월 이내에 신고해야 합니다. 기한 내 신고 시 산출세액의 3%를 공제해줍니다. 신고하지 않으면 무신고 가산세(20%)가 부과될 수 있습니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/income-tax-calculator/">
+        <span class="related-icon">📋</span>
+        <span>종합소득세 계산기</span>
+      </a>
+      <a class="related-item" href="/vat-calculator/">
+        <span class="related-icon">🧾</span>
+        <span>부가세 계산기</span>
+      </a>
+      <a class="related-item" href="/pyeong-calculator/">
+        <span class="related-icon">🏠</span>
+        <span>평수 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">증여세 공제 한도는?</div>
+      <div class="faq-a">배우자 6억원, 직계존속·비속 5,000만원(미성년자 2,000만원), 기타 친족 1,000만원입니다. 10년 합산 기준입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">현금을 부모에게 받으면 증여세를 내야 하나요?</div>
+      <div class="faq-a">10년 내 합산 금액이 5,000만원을 초과하면 증여세를 내야 합니다. 5,000만원 이하면 신고 없이 면세입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">증여세 신고 기한은?</div>
+      <div class="faq-a">증여받은 달의 말일부터 3개월 이내입니다. 기한 내 신고 시 3% 세액공제 혜택이 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">증여세를 안 내면 어떻게 되나요?</div>
+      <div class="faq-a">무신고 가산세 20%, 납부지연 가산세가 부과됩니다. 국세청이 자금 출처 조사를 통해 증여 사실을 파악할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">부동산 증여세는 어떻게 계산하나요?</div>
+      <div class="faq-a">부동산은 시가(실거래가·공시지가 등)를 기준으로 증여 금액을 산정합니다. 이 계산기에 시가 금액을 입력하면 됩니다. 정확한 금액은 세무사에게 문의하세요.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 세액은 국세청 홈택스 또는 세무사에게 확인하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 2026년 증여세율
+const TAX_BRACKETS = [
+  { limit: 100000000,   rate: 0.10, deduct: 0 },
+  { limit: 500000000,   rate: 0.20, deduct: 10000000 },
+  { limit: 1000000000,  rate: 0.30, deduct: 60000000 },
+  { limit: 3000000000,  rate: 0.40, deduct: 160000000 },
+  { limit: Infinity,    rate: 0.50, deduct: 460000000 },
+];
+const BRACKET_LABELS = [
+  '1억원 이하', '1억~5억원', '5억~10억원', '10억~30억원', '30억원 초과'
+];
+
+// 관계별 공제 한도
+const DEDUCTIONS = {
+  spouse:   600000000,
+  parent:   50000000,
+  child:    50000000,
+  relative: 10000000,
+  other:    0,
+};
+const RELATION_LABELS = {
+  spouse: '배우자', parent: '직계존속(부모·조부모)', child: '직계비속(자녀·손자녀)',
+  relative: '기타 친족', other: '타인',
+};
+
+let relation = 'spouse';
+
+function setRelation(r, el) {
+  relation = r;
+  document.querySelectorAll('.rel-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  // 미성년자 토글
+  const minorToggle = document.getElementById('minor-toggle');
+  minorToggle.style.display = r === 'parent' ? 'flex' : 'none';
+  if (r !== 'parent') document.getElementById('is-minor').checked = false;
+  updateDeductionInfo();
+}
+
+function updateDeductionInfo() {
+  const info = document.getElementById('deduction-info');
+  const isMinor = document.getElementById('is-minor').checked;
+  let deduct = DEDUCTIONS[relation];
+  if (relation === 'parent' && isMinor) deduct = 20000000;
+  if (deduct === 0) {
+    info.textContent = '공제 없음 — 증여 금액 전액이 과세표준';
+    info.style.display = 'block';
+  } else {
+    info.textContent = `적용 공제: ${deduct.toLocaleString()}원 (10년 합산 기준)`;
+    info.style.display = 'block';
+  }
+}
+
+function onAmountInput() {
+  const v = parseFloat(document.getElementById('gift-amount').value) || 0;
+  const fmt = document.getElementById('amount-fmt');
+  if (v > 0) {
+    let s = '';
+    if (v >= 100000000) s = (v/100000000).toFixed(2) + '억원';
+    else if (v >= 10000) s = (v/10000).toFixed(0) + '만원';
+    else s = v.toLocaleString() + '원';
+    fmt.textContent = '→ ' + s;
+  } else {
+    fmt.textContent = '';
+  }
+}
+
+function calcTax(taxable) {
+  if (taxable <= 0) return { rawTax: 0, rate: 0, bracket: 0 };
+  const b = TAX_BRACKETS.find(b => taxable <= b.limit) || TAX_BRACKETS[TAX_BRACKETS.length-1];
+  const rawTax = Math.round(taxable * b.rate - b.deduct);
+  return { rawTax, rate: b.rate, deduct: b.deduct };
+}
+
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function calculate() {
+  const gift = parseFloat(document.getElementById('gift-amount').value) || 0;
+  const prev = parseFloat(document.getElementById('prev-amount').value) || 0;
+  const isMinor = document.getElementById('is-minor').checked;
+
+  if (!gift) { alert('증여 금액을 입력해주세요.'); return; }
+
+  let deduction = DEDUCTIONS[relation];
+  if (relation === 'parent' && isMinor) deduction = 20000000;
+
+  const totalGift = gift + prev;
+  const taxable = Math.max(0, totalGift - deduction);
+
+  const results = document.getElementById('results');
+  const freeBox = document.getElementById('free-box');
+  const taxResult = document.getElementById('tax-result');
+
+  // 면세
+  if (taxable === 0) {
+    freeBox.style.display = 'block';
+    taxResult.style.display = 'none';
+    document.getElementById('free-sub').textContent =
+      `${RELATION_LABELS[relation]} 공제 한도(${fmt(deduction)}) 이내 · 증여세 없음`;
+    renderRateTable(-1);
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  freeBox.style.display = 'none';
+  taxResult.style.display = 'block';
+
+  const { rawTax, rate } = calcTax(taxable);
+  const credit = Math.round(rawTax * 0.03);
+  const finalTax = rawTax - credit;
+
+  // 히어로
+  document.getElementById('r-tax').textContent = fmtW(finalTax);
+  document.getElementById('r-tax-sub').textContent = `과세표준 ${fmtW(taxable)} · 세율 ${(rate*100).toFixed(0)}%`;
+
+  // 3분할
+  document.getElementById('r-taxable').textContent = fmtW(taxable);
+  document.getElementById('r-rate').textContent = (rate*100).toFixed(0) + '%';
+  document.getElementById('r-early').textContent = '-' + fmt(credit);
+
+  // 상세
+  document.getElementById('r-gift').textContent = fmt(gift);
+  document.getElementById('r-prev').textContent = fmt(prev);
+  document.getElementById('r-total-gift').textContent = fmt(totalGift);
+  document.getElementById('r-deduction').textContent = '-' + fmt(deduction);
+  document.getElementById('r-taxable-detail').textContent = fmt(taxable);
+  document.getElementById('r-raw-tax').textContent = fmt(rawTax);
+  document.getElementById('r-credit').textContent = '-' + fmt(credit);
+  document.getElementById('r-final').textContent = fmt(finalTax);
+
+  // 절세 팁
+  const tip = document.getElementById('tax-tip');
+  const tips = [];
+  if (relation === 'parent' || relation === 'child') {
+    const remaining = deduction - (totalGift - gift);
+    if (remaining > 0 && gift > deduction)
+      tips.push(`10년 주기로 나눠 증여하면 매번 ${fmt(deduction)} 공제 혜택을 받을 수 있어요.`);
+  }
+  tips.push('기한 내 신고(3개월 이내) 시 세액의 3%를 추가 공제받을 수 있어요.');
+  if (finalTax > 5000000)
+    tips.push('증여세가 1,000만원 초과 시 분납 신청이 가능합니다.');
+  tip.textContent = tips.join(' / ');
+
+  // 세율표
+  renderRateTable(rate);
+
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderRateTable(currentRate) {
+  const tbody = document.querySelector('#rate-table tbody');
+  tbody.innerHTML = '';
+  TAX_BRACKETS.forEach((b, i) => {
+    const tr = document.createElement('tr');
+    if (b.rate === currentRate) tr.className = 'highlight';
+    tr.innerHTML = `<td>${BRACKET_LABELS[i]}</td><td>${(b.rate*100).toFixed(0)}%</td><td>${b.deduct > 0 ? fmt(b.deduct) : '-'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// 초기화
+setRelation('spouse', document.querySelector('.rel-btn.on'));
+updateDeductionInfo();
+renderRateTable(-1);
+</script>
+</body>
+</html>
