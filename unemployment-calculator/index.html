@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실업급여 계산기 - 2026년 구직급여 금액 기간 즉시 계산 | TopTools365</title>
+<meta name="description" content="고용보험 가입 기간과 나이, 평균 임금을 입력하면 실업급여(구직급여) 금액과 수급 기간을 즉시 계산합니다. 2026년 기준. 완전 무료.">
+<meta name="keywords" content="실업급여계산기,구직급여계산기,실업급여금액,실업급여수급기간,고용보험실업급여,실업급여조건,실업급여신청,2026년실업급여">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/unemployment-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="실업급여 계산기 - 2026년 구직급여 금액 기간 즉시 계산 | TopTools365">
+<meta property="og:description" content="고용보험 가입기간·나이·평균임금 입력 → 실업급여 금액·기간 즉시 계산. 2026년 기준. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"실업급여 계산기","description":"고용보험 가입 기간과 나이, 평균 임금을 입력하면 실업급여 금액과 수급 기간을 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"실업급여 조건은?","acceptedAnswer":{"@type":"Answer","text":"이직일 이전 18개월 중 고용보험 피보험 단위기간이 180일 이상이어야 합니다. 비자발적 이직(권고사직·계약만료·폐업 등)이어야 하며, 재취업 활동을 해야 합니다."}},{"@type":"Question","name":"실업급여 금액은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"구직급여 = 퇴직 전 평균임금의 60%. 2026년 상한액은 1일 66,000원, 하한액은 최저임금의 80%입니다."}},{"@type":"Question","name":"실업급여 수급 기간은?","acceptedAnswer":{"@type":"Answer","text":"고용보험 가입 기간과 나이에 따라 120~270일입니다. 가입 기간이 길고 나이가 많을수록 더 오래 받을 수 있습니다."}},{"@type":"Question","name":"자발적 퇴사는 실업급여를 받을 수 없나요?","acceptedAnswer":{"@type":"Answer","text":"원칙적으로 자발적 퇴사는 실업급여를 받을 수 없습니다. 단, 임금 체불, 직장 내 괴롭힘, 부당한 전직 등 정당한 사유가 있는 경우에는 예외적으로 수급할 수 있습니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  /* 수급 조건 체크 */
+  .condition-box { background: var(--blue-light); border: 1px solid var(--blue); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .condition-title { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 12px; }
+  .condition-list { display: flex; flex-direction: column; gap: 8px; }
+  .condition-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .c-check { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .c-check.ok { background: var(--accent); color: #fff; }
+  .c-check.warn { background: var(--orange); color: #fff; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; background: var(--bg); padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--border); }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 60px 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 20px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 이직 사유 선택 */
+  .reason-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 4px; }
+  @media(max-width:480px) { .reason-grid { grid-template-columns: 1fr; } }
+  .reason-btn { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: left; line-height: 1.4; }
+  .reason-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .reason-btn.disabled { border-color: var(--red); background: var(--red-light); color: var(--red); cursor: default; }
+  .reason-btn .rb-sub { font-size: 11px; font-weight: 400; margin-top: 2px; opacity: .8; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 불가 메시지 */
+  .ineligible-box { background: var(--red-light); border: 2px solid var(--red); border-radius: 14px; padding: 28px; text-align: center; margin-bottom: 16px; }
+  .ineligible-box .il { font-size: 18px; font-weight: 800; color: var(--red); margin-bottom: 8px; }
+  .ineligible-box .is { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* 결과 히어로 */
+  .result-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .result-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 22px 16px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box.daily { background: var(--accent-light); border-color: var(--accent); }
+  .hero-box.period { background: var(--blue-light); border-color: var(--blue); }
+  .hero-box .hlabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .hero-box.daily .hlabel { color: var(--accent); }
+  .hero-box.period .hlabel { color: var(--blue); }
+  .hero-box .hval { font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+  .hero-box.daily .hval { color: var(--accent); }
+  .hero-box.period .hval { color: var(--blue); }
+  .hero-box .hsub { font-size: 12px; color: var(--muted); }
+
+  /* 총액 강조 */
+  .total-box { background: var(--orange-light); border: 2px solid var(--orange); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 16px; }
+  .total-box .tl { font-size: 12px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .total-box .tv { font-size: 48px; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 4px; }
+  .total-box .ts { font-size: 13px; color: var(--muted); }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 수급 기간표 */
+  .period-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .period-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: center; font-size: 12px; font-weight: 600; }
+  .period-table th:first-child { text-align: left; }
+  .period-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: center; }
+  .period-table td:first-child { text-align: left; color: var(--muted); }
+  .period-table tr.highlight td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+  .period-table tr:last-child td { border-bottom: none; }
+
+  /* 신청 절차 */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step-item { display: flex; gap: 14px; align-items: flex-start; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-info { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .step-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>실업급여 계산기</h1>
+  <p class="subtitle">고용보험 가입 기간·나이·평균 임금을 입력하면 실업급여(구직급여) 금액과 수급 기간을 즉시 계산합니다. 2026년 기준.</p>
+
+  <!-- 수급 조건 안내 -->
+  <div class="condition-box">
+    <div class="condition-title">실업급여 수급 조건 (모두 충족해야 함)</div>
+    <div class="condition-list">
+      <div class="condition-item"><span class="c-check ok">✓</span><span>이직일 이전 18개월 중 고용보험 피보험 단위기간 <strong>180일 이상</strong></span></div>
+      <div class="condition-item"><span class="c-check ok">✓</span><span>비자발적 이직 (권고사직·계약만료·폐업·정리해고 등)</span></div>
+      <div class="condition-item"><span class="c-check ok">✓</span><span>근로 의사와 능력이 있음에도 취업하지 못한 상태</span></div>
+      <div class="condition-item"><span class="c-check warn">!</span><span>자발적 퇴사는 원칙적으로 불가 (임금체불·직장내괴롭힘 등 정당한 사유 예외)</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">① 이직 사유 선택</div>
+    <div class="reason-grid" id="reason-grid">
+      <button class="reason-btn on" onclick="setReason('eligible', this)">
+        권고사직·해고
+        <div class="rb-sub">회사 사정으로 퇴사</div>
+      </button>
+      <button class="reason-btn on" onclick="setReason('eligible', this)">
+        계약만료
+        <div class="rb-sub">기간제·계약직 만료</div>
+      </button>
+      <button class="reason-btn on" onclick="setReason('eligible', this)">
+        사업장 폐업·도산
+        <div class="rb-sub">회사 폐업으로 퇴사</div>
+      </button>
+      <button class="reason-btn on" onclick="setReason('eligible', this)">
+        임금체불·부당처우
+        <div class="rb-sub">정당한 사유 있는 퇴사</div>
+      </button>
+      <button class="reason-btn disabled" onclick="setReason('ineligible', this)">
+        자발적 퇴사
+        <div class="rb-sub">본인 희망 퇴사 (원칙 불가)</div>
+      </button>
+      <button class="reason-btn on" onclick="setReason('eligible', this)">
+        기타 (고용센터 확인 필요)
+        <div class="rb-sub">고용센터에서 수급 자격 확인</div>
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">② 기본 정보 입력</div>
+    <div class="input-grid">
+      <div class="field">
+        <label>나이 (만)</label>
+        <div class="input-wrap">
+          <input type="number" id="age" placeholder="35" value="35" min="18" max="65">
+          <span class="unit">세</span>
+        </div>
+        <p class="tip">만 50세 이상·장애인은 수급 기간이 더 길어요.</p>
+      </div>
+      <div class="field">
+        <label>고용보험 가입 기간</label>
+        <div class="input-wrap">
+          <input type="number" id="insured-months" placeholder="24" value="24" min="1">
+          <span class="unit">개월</span>
+        </div>
+        <p class="tip">현 직장 + 이전 직장 고용보험 가입 기간 합산 가능</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>퇴직 전 3개월 평균 월급 (세전)</label>
+      <div class="input-wrap">
+        <input type="number" id="monthly-wage" placeholder="3000000" value="3000000" oninput="showDailyWage()">
+        <span class="unit">원</span>
+      </div>
+      <div id="daily-wage-preview" style="font-size:13px;color:var(--accent);font-weight:600;margin-top:6px"></div>
+      <p class="tip">상여금 포함 세전 월 평균 급여. 일급 = 월급 ÷ 30일로 계산합니다.</p>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">실업급여 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+
+    <!-- 수급 불가 메시지 -->
+    <div class="ineligible-box" id="ineligible-box" style="display:none">
+      <div class="il">실업급여 수급이 어려울 수 있습니다</div>
+      <div class="is">자발적 퇴사는 원칙적으로 실업급여를 받을 수 없습니다.<br>단, 임금체불·직장 내 괴롭힘·부당한 전직 등 정당한 사유가 있는 경우<br>고용센터에서 수급 자격을 확인받을 수 있습니다.</div>
+    </div>
+
+    <!-- 수급 가능 결과 -->
+    <div id="eligible-result">
+      <!-- 총 수령액 -->
+      <div class="total-box">
+        <div class="tl">예상 실업급여 총액</div>
+        <div class="tv" id="r-total">-</div>
+        <div class="ts" id="r-total-sub">-</div>
+      </div>
+
+      <!-- 일급·기간 히어로 -->
+      <div class="result-hero">
+        <div class="hero-box daily">
+          <div class="hlabel">1일 구직급여</div>
+          <div class="hval" id="r-daily">-</div>
+          <div class="hsub" id="r-daily-sub">-</div>
+        </div>
+        <div class="hero-box period">
+          <div class="hlabel">수급 기간</div>
+          <div class="hval" id="r-period">-</div>
+          <div class="hsub">일 (약 <span id="r-period-months">-</span>개월)</div>
+        </div>
+      </div>
+
+      <!-- 상세 계산 내역 -->
+      <div class="card">
+        <div class="detail-row"><span class="detail-label">퇴직 전 평균 월급</span><span class="detail-val" id="r-wage">-</span></div>
+        <div class="detail-row"><span class="detail-label">퇴직 전 평균 일급</span><span class="detail-val" id="r-daily-wage">-</span></div>
+        <div class="detail-row"><span class="detail-label">구직급여 지급률</span><span class="detail-val">60%</span></div>
+        <div class="detail-row"><span class="detail-label">1일 구직급여 (60% 적용)</span><span class="detail-val" id="r-calc-daily">-</span></div>
+        <div class="detail-row"><span class="detail-label">상한액 (1일 66,000원)</span><span class="detail-val" id="r-upper">-</span></div>
+        <div class="detail-row"><span class="detail-label">하한액 (최저임금의 80%)</span><span class="detail-val">67,040원/일 (2026년)</span></div>
+        <div class="detail-row"><span class="detail-label">최종 1일 구직급여</span><span class="detail-val" style="color:var(--accent)" id="r-final-daily">-</span></div>
+        <div class="detail-row"><span class="detail-label">수급 기간</span><span class="detail-val" id="r-period-detail">-</span></div>
+        <div class="detail-row"><span class="detail-label">예상 총 수령액</span><span class="detail-val" style="color:var(--orange);font-size:16px" id="r-total-detail">-</span></div>
+      </div>
+
+      <!-- 수급 기간표 -->
+      <div class="card">
+        <div style="font-size:14px;font-weight:600;margin-bottom:14px">고용보험 가입 기간별 수급 기간 (2026년)</div>
+        <table class="period-table" id="period-table">
+          <thead>
+            <tr>
+              <th>가입 기간</th>
+              <th>50세 미만</th>
+              <th>50세 이상·장애인</th>
+            </tr>
+          </thead>
+          <tbody id="period-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- 신청 절차 -->
+      <div class="card">
+        <div style="font-size:14px;font-weight:600;margin-bottom:16px">실업급여 신청 절차</div>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-info">
+              <div class="step-title">이직확인서 발급 요청</div>
+              <div class="step-desc">퇴사 후 전 직장에 이직확인서 발급을 요청하세요. 고용보험 홈페이지에서 확인 가능합니다.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-info">
+              <div class="step-title">워크넷 구직 등록</div>
+              <div class="step-desc">워크넷(work.go.kr)에 구직 신청을 합니다.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-info">
+              <div class="step-title">고용센터 방문 수급자격 신청</div>
+              <div class="step-desc">퇴직 후 12개월 이내에 거주지 관할 고용센터를 방문해 수급자격을 신청합니다.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-info">
+              <div class="step-title">온라인 취업특강 수강</div>
+              <div class="step-desc">수급자격 인정 후 온라인 취업특강을 수강합니다.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-info">
+              <div class="step-title">실업 인정 신청 (격주)</div>
+              <div class="step-desc">2주마다 고용센터 방문 또는 온라인으로 실업 인정을 신청하고 구직급여를 받습니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>실업급여 계산기 사용 방법</h2>
+    <p>이직 사유를 선택하고 나이, 고용보험 가입 기간, 퇴직 전 평균 월급을 입력하면 1일 구직급여와 수급 기간, 총 수령액을 즉시 계산합니다.</p>
+
+    <h3>2026년 실업급여 계산 방법</h3>
+    <div class="info-box">
+      <strong>1일 구직급여 = 퇴직 전 평균임금의 60%</strong><br><br>
+      · <strong>상한액</strong>: 1일 66,000원 (월 약 198만원)<br>
+      · <strong>하한액</strong>: 최저임금의 80% = 1일 67,040원 (2026년 기준)<br><br>
+      ※ 하한액이 상한액보다 높아진 경우 하한액 적용<br><br>
+      예) 월급 300만원 퇴사자<br>
+      일급 = 300만 ÷ 30 = 100,000원<br>
+      구직급여 = 100,000 × 60% = 60,000원<br>
+      → 하한액(67,040원) 적용 → <strong>1일 67,040원</strong>
+    </div>
+
+    <h3>고용보험 가입 기간별 수급 기간</h3>
+    <p>1년 미만 가입 시 120일, 1~3년은 150일, 3~5년은 180일, 5~10년은 210일, 10년 이상은 240일을 받을 수 있습니다. 50세 이상 또는 장애인은 각각 30일씩 더 받습니다.</p>
+
+    <h3>자발적 퇴사도 실업급여를 받을 수 있는 경우</h3>
+    <p>임금 체불(2개월 이상), 최저임금 위반, 직장 내 괴롭힘, 사업장 이전으로 통근 2시간 이상 소요, 건강 악화로 계속 근무 곤란 등 정당한 사유가 있는 경우 자발적 퇴사도 실업급여를 받을 수 있습니다. 고용센터에서 확인하세요.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/severance-pay/">
+        <span class="related-icon">💼</span>
+        <span>퇴직금 계산기</span>
+      </a>
+      <a class="related-item" href="/salary-calculator/">
+        <span class="related-icon">💰</span>
+        <span>연봉 실수령액 계산기</span>
+      </a>
+      <a class="related-item" href="/annual-leave-calculator/">
+        <span class="related-icon">🏖️</span>
+        <span>연차 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">실업급여 조건은?</div>
+      <div class="faq-a">18개월 중 고용보험 피보험 기간 180일 이상, 비자발적 이직, 재취업 의사가 있어야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">실업급여 금액은 어떻게 계산하나요?</div>
+      <div class="faq-a">퇴직 전 평균임금의 60%입니다. 2026년 상한액은 1일 66,000원, 하한액은 67,040원입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">자발적 퇴사는 실업급여를 받을 수 없나요?</div>
+      <div class="faq-a">원칙적으로 불가하지만 임금체불·직장 내 괴롭힘·사업장 이전 등 정당한 사유가 있으면 예외적으로 수급 가능합니다. 고용센터에서 확인하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">실업급여 신청 기한은?</div>
+      <div class="faq-a">퇴직 후 12개월 이내에 신청해야 합니다. 기한을 넘기면 수급 기간이 남아있어도 받을 수 없습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">재취업하면 실업급여가 중단되나요?</div>
+      <div class="faq-a">재취업하면 실업급여가 중단됩니다. 단, 조기 재취업 시 남은 수급 기간의 절반을 조기재취업수당으로 받을 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 수급 자격과 금액은 고용센터(1350)에서 확인하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 2026년 기준
+const DAILY_UPPER = 66000;     // 상한액
+const DAILY_LOWER = 67040;     // 하한액 (최저임금 10,030원 × 8시간 × 80% = 64,192원 → 실제 2026 하한액)
+const MIN_WAGE_DAILY = 10030 * 8; // 최저임금 일급
+
+// 수급 기간표 (일)
+const PERIODS = [
+  { label: '1년 미만', months: [0, 12], under50: 120, over50: 120 },
+  { label: '1년 이상 ~ 3년 미만', months: [12, 36], under50: 150, over50: 180 },
+  { label: '3년 이상 ~ 5년 미만', months: [36, 60], under50: 180, over50: 210 },
+  { label: '5년 이상 ~ 10년 미만', months: [60, 120], under50: 210, over50: 240 },
+  { label: '10년 이상', months: [120, 9999], under50: 240, over50: 270 },
+];
+
+let isEligible = true;
+
+function setReason(type, el) {
+  isEligible = type === 'eligible';
+  document.querySelectorAll('.reason-btn').forEach(b => {
+    b.style.opacity = '0.5';
+    b.style.transform = 'none';
+  });
+  el.style.opacity = '1';
+  el.style.transform = 'scale(1.02)';
+}
+
+function getPeriod(months, age) {
+  const row = PERIODS.find(p => months >= p.months[0] && months < p.months[1]) || PERIODS[PERIODS.length - 1];
+  return age >= 50 ? row.over50 : row.under50;
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+
+function showDailyWage() {
+  const monthly = parseFloat(document.getElementById('monthly-wage').value) || 0;
+  const daily = Math.round(monthly / 30);
+  const el = document.getElementById('daily-wage-preview');
+  el.textContent = monthly > 0 ? `→ 일평균임금: ${fmt(daily)}` : '';
+}
+
+function calculate() {
+  const age = parseInt(document.getElementById('age').value) || 35;
+  const months = parseInt(document.getElementById('insured-months').value) || 24;
+  const monthlyWage = parseFloat(document.getElementById('monthly-wage').value) || 3000000;
+
+  const results = document.getElementById('results');
+  const ineligibleBox = document.getElementById('ineligible-box');
+  const eligibleResult = document.getElementById('eligible-result');
+
+  // 수급 불가
+  if (!isEligible) {
+    ineligibleBox.style.display = 'block';
+    eligibleResult.style.display = 'none';
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  // 180일 미만 체크
+  if (months < 6) {
+    ineligibleBox.style.display = 'block';
+    ineligibleBox.querySelector('.il').textContent = '고용보험 가입 기간이 부족합니다';
+    ineligibleBox.querySelector('.is').textContent = '이직일 이전 18개월 중 고용보험 피보험 단위기간이 180일(약 6개월) 이상이어야 합니다.';
+    eligibleResult.style.display = 'none';
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  ineligibleBox.style.display = 'none';
+  eligibleResult.style.display = 'block';
+
+  const dailyWage = Math.round(monthlyWage / 30);
+  const calcDaily = Math.round(dailyWage * 0.6);
+  const finalDaily = Math.min(Math.max(calcDaily, DAILY_LOWER), DAILY_UPPER);
+  // 실제로 하한이 상한보다 높으면 하한 적용
+  const actualDaily = calcDaily < DAILY_LOWER ? DAILY_LOWER : Math.min(calcDaily, DAILY_UPPER);
+  const period = getPeriod(months, age);
+  const total = actualDaily * period;
+
+  // 총액
+  document.getElementById('r-total').textContent = fmtW(total);
+  document.getElementById('r-total-sub').textContent = `1일 ${fmt(actualDaily)} × ${period}일`;
+
+  // 히어로
+  document.getElementById('r-daily').textContent = fmt(actualDaily);
+  document.getElementById('r-daily-sub').textContent = `월 약 ${fmtW(actualDaily * 30)}`;
+  document.getElementById('r-period').textContent = period + '일';
+  document.getElementById('r-period-months').textContent = (period / 30).toFixed(1);
+
+  // 상세
+  document.getElementById('r-wage').textContent = fmt(monthlyWage);
+  document.getElementById('r-daily-wage').textContent = fmt(dailyWage);
+  document.getElementById('r-calc-daily').textContent = fmt(calcDaily);
+  document.getElementById('r-upper').textContent = calcDaily > DAILY_UPPER ? `적용 (${fmt(DAILY_UPPER)})` : `미적용 (${fmt(DAILY_UPPER)})`;
+  document.getElementById('r-final-daily').textContent = fmt(actualDaily);
+  document.getElementById('r-period-detail').textContent = `${period}일 (약 ${(period/30).toFixed(1)}개월)`;
+  document.getElementById('r-total-detail').textContent = fmtW(total);
+
+  // 수급 기간표
+  const tbody = document.getElementById('period-tbody');
+  tbody.innerHTML = '';
+  PERIODS.forEach(p => {
+    const isCurrent = months >= p.months[0] && months < p.months[1];
+    const tr = document.createElement('tr');
+    if (isCurrent) tr.className = 'highlight';
+    tr.innerHTML = `<td>${p.label}</td><td>${p.under50}일</td><td>${p.over50}일</td>`;
+    tbody.appendChild(tr);
+  });
+
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+showDailyWage();
+</script>
+</body>
+</html>
