@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>텍스트 정리기 - 줄바꿈 공백 제거 특수문자 변환 | TopTools365</title>
+<meta name="description" content="텍스트의 줄바꿈, 공백, 특수문자를 즉시 정리합니다. 복붙 후 공백 제거, 줄바꿈 통일, 앞뒤 공백 제거, 중복 공백 정리, 대소문자 변환. 완전 무료.">
+<meta name="keywords" content="텍스트정리기,줄바꿈제거,공백제거,특수문자제거,텍스트변환,공백정리,줄바꿈정리,텍스트편집기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/text-cleaner/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="텍스트 정리기 - 줄바꿈 공백 제거 특수문자 변환 | TopTools365">
+<meta property="og:description" content="줄바꿈·공백·특수문자 즉시 정리. 복붙 텍스트 깔끔하게. 대소문자 변환. 완전 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"텍스트 정리기","description":"텍스트의 줄바꿈, 공백, 특수문자를 정리하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+  /* 기능 버튼 그리드 */
+  .func-section { margin-bottom: 16px; }
+  .func-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .func-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .func-btn { padding: 9px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 6px; }
+  .func-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .func-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .func-btn .fb-icon { font-size: 16px; }
+
+  /* 메인 레이아웃 */
+  .editor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  @media(max-width:680px) { .editor-wrap { grid-template-columns: 1fr; } }
+
+  .editor-box { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .editor-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .editor-label { font-size: 13px; font-weight: 700; }
+  .editor-stats { font-size: 11px; color: var(--muted); }
+  textarea { width: 100%; height: 320px; padding: 16px; border: none; background: var(--card); color: var(--text); font-size: 14px; line-height: 1.7; resize: vertical; outline: none; font-family: inherit; }
+
+  /* 중앙 변환 버튼 */
+  .convert-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .convert-btn { padding: 14px 32px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity .15s; display: flex; align-items: center; gap: 8px; }
+  .convert-btn:hover { opacity: .88; }
+  .convert-btn.secondary { background: var(--bg); color: var(--accent); border: 1.5px solid var(--accent); }
+
+  /* 액션 버튼 */
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .action-btn { flex: 1; min-width: 100px; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .action-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .action-btn.copy { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .action-btn.copy:hover { opacity: .88; }
+
+  /* 찾기·바꾸기 */
+  .replace-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+  @media(max-width:480px) { .replace-row { grid-template-columns: 1fr; } }
+  .replace-row input { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; outline: none; }
+  .replace-row input:focus { border-color: var(--accent); }
+  .replace-btn { padding: 10px 18px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+  /* 카운터 박스 */
+  .count-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .count-grid { grid-template-columns: repeat(2, 1fr); } }
+  .count-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; box-shadow: var(--shadow); }
+  .count-box .cl { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .count-box .cv { font-size: 22px; font-weight: 900; color: var(--accent); }
+
+  /* 구분선 */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* SEO */
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>텍스트 정리기</h1>
+  <p class="subtitle">복붙 텍스트의 공백·줄바꿈·특수문자를 즉시 정리합니다. 원하는 기능을 선택하고 변환하세요.</p>
+
+  <!-- 기능 선택 -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px">
+
+    <!-- 공백 정리 -->
+    <div class="func-section">
+      <div class="func-title">공백 정리</div>
+      <div class="func-grid">
+        <button class="func-btn active" id="btn-trim" onclick="toggleFunc('trim',this)">
+          <span class="fb-icon">✂️</span>앞뒤 공백 제거
+        </button>
+        <button class="func-btn active" id="btn-multi-space" onclick="toggleFunc('multiSpace',this)">
+          <span class="fb-icon">🔤</span>중복 공백 정리
+        </button>
+        <button class="func-btn" id="btn-all-space" onclick="toggleFunc('allSpace',this)">
+          <span class="fb-icon">🚫</span>모든 공백 제거
+        </button>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:14px 0"></div>
+
+    <!-- 줄바꿈 정리 -->
+    <div class="func-section">
+      <div class="func-title">줄바꿈 정리</div>
+      <div class="func-grid">
+        <button class="func-btn" id="btn-remove-newline" onclick="toggleFunc('removeNewline',this)">
+          <span class="fb-icon">↩️</span>줄바꿈 모두 제거
+        </button>
+        <button class="func-btn active" id="btn-multi-newline" onclick="toggleFunc('multiNewline',this)">
+          <span class="fb-icon">📄</span>연속 빈 줄 정리
+        </button>
+        <button class="func-btn" id="btn-newline-space" onclick="toggleFunc('newlineToSpace',this)">
+          <span class="fb-icon">↔️</span>줄바꿈→공백 변환
+        </button>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:14px 0"></div>
+
+    <!-- 대소문자 변환 -->
+    <div class="func-section">
+      <div class="func-title">대소문자 변환</div>
+      <div class="func-grid">
+        <button class="func-btn" onclick="convertCase('upper')">
+          <span class="fb-icon">🔠</span>대문자로
+        </button>
+        <button class="func-btn" onclick="convertCase('lower')">
+          <span class="fb-icon">🔡</span>소문자로
+        </button>
+        <button class="func-btn" onclick="convertCase('title')">
+          <span class="fb-icon">📝</span>첫글자 대문자
+        </button>
+        <button class="func-btn" onclick="convertCase('toggle')">
+          <span class="fb-icon">🔄</span>대소문자 반전
+        </button>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:14px 0"></div>
+
+    <!-- 특수 정리 -->
+    <div class="func-section">
+      <div class="func-title">특수 정리</div>
+      <div class="func-grid">
+        <button class="func-btn" id="btn-special" onclick="toggleFunc('special',this)">
+          <span class="fb-icon">🔣</span>특수문자 제거
+        </button>
+        <button class="func-btn" id="btn-emoji" onclick="toggleFunc('emoji',this)">
+          <span class="fb-icon">😀</span>이모지 제거
+        </button>
+        <button class="func-btn" id="btn-number" onclick="toggleFunc('number',this)">
+          <span class="fb-icon">🔢</span>숫자 제거
+        </button>
+        <button class="func-btn" id="btn-html" onclick="toggleFunc('html',this)">
+          <span class="fb-icon">🌐</span>HTML 태그 제거
+        </button>
+        <button class="func-btn" id="btn-url" onclick="toggleFunc('url',this)">
+          <span class="fb-icon">🔗</span>URL 제거
+        </button>
+        <button class="func-btn" id="btn-dup-line" onclick="toggleFunc('dupLine',this)">
+          <span class="fb-icon">📋</span>중복 줄 제거
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 텍스트 에디터 -->
+  <div class="editor-wrap">
+    <div class="editor-box">
+      <div class="editor-header">
+        <span class="editor-label">입력 텍스트</span>
+        <span class="editor-stats" id="input-stats">0자</span>
+      </div>
+      <textarea id="input-text" placeholder="여기에 정리할 텍스트를 붙여넣으세요..." oninput="updateStats()"></textarea>
+    </div>
+    <div class="editor-box">
+      <div class="editor-header">
+        <span class="editor-label">정리된 텍스트</span>
+        <span class="editor-stats" id="output-stats">0자</span>
+      </div>
+      <textarea id="output-text" placeholder="정리된 텍스트가 여기에 표시됩니다." readonly></textarea>
+    </div>
+  </div>
+
+  <!-- 변환 버튼 -->
+  <div class="convert-row">
+    <button class="convert-btn" onclick="processText()">⚡ 텍스트 정리하기</button>
+    <button class="convert-btn secondary" onclick="swapText()">↔️ 결과를 입력으로</button>
+    <button class="convert-btn secondary" onclick="clearAll()">🗑️ 초기화</button>
+  </div>
+
+  <!-- 글자 수 카운터 -->
+  <div class="count-grid" id="count-grid">
+    <div class="count-box"><div class="cl">전체 글자</div><div class="cv" id="cnt-total">0</div></div>
+    <div class="count-box"><div class="cl">공백 제외</div><div class="cv" id="cnt-nospace">0</div></div>
+    <div class="count-box"><div class="cl">단어 수</div><div class="cv" id="cnt-words">0</div></div>
+    <div class="count-box"><div class="cl">줄 수</div><div class="cv" id="cnt-lines">0</div></div>
+  </div>
+
+  <!-- 액션 버튼 -->
+  <div class="action-row">
+    <button class="action-btn copy" onclick="copyOutput()">📋 결과 복사</button>
+    <button class="action-btn" onclick="downloadOutput()">💾 텍스트 파일로 저장</button>
+    <button class="action-btn" onclick="clearInput()">입력 지우기</button>
+    <button class="action-btn" onclick="clearOutput()">결과 지우기</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 찾기·바꾸기 -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">
+    <div style="font-size:14px;font-weight:700;margin-bottom:14px">🔍 찾기 · 바꾸기</div>
+    <div class="replace-row">
+      <input type="text" id="find-text" placeholder="찾을 텍스트">
+      <input type="text" id="replace-text" placeholder="바꿀 텍스트 (비우면 삭제)">
+      <button class="replace-btn" onclick="findReplace()">바꾸기</button>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
+      <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="regex-mode"> 정규식 사용
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="case-sensitive"> 대소문자 구분
+      </label>
+      <span id="replace-result" style="font-size:12px;color:var(--accent);font-weight:600"></span>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2>텍스트 정리기 사용 방법</h2>
+    <p>정리할 텍스트를 붙여넣고 원하는 기능을 선택한 후 텍스트 정리하기 버튼을 누르면 즉시 정리됩니다. 여러 기능을 동시에 선택해 한 번에 적용할 수 있습니다.</p>
+
+    <h3>주요 기능 설명</h3>
+    <div class="info-box">
+      <strong>앞뒤 공백 제거</strong>: 각 줄의 앞뒤에 있는 불필요한 공백을 제거합니다.<br>
+      <strong>중복 공백 정리</strong>: 연속된 여러 개의 공백을 하나로 합칩니다.<br>
+      <strong>연속 빈 줄 정리</strong>: 2줄 이상 연속된 빈 줄을 1줄로 줄입니다.<br>
+      <strong>줄바꿈 모두 제거</strong>: 모든 줄바꿈을 제거해 한 줄로 만듭니다.<br>
+      <strong>HTML 태그 제거</strong>: &lt;div&gt;, &lt;p&gt; 등 HTML 태그를 모두 제거합니다.<br>
+      <strong>중복 줄 제거</strong>: 같은 내용의 중복된 줄을 하나만 남깁니다.
+    </div>
+
+    <h3>이런 경우 유용해요</h3>
+    <p>PDF·웹페이지에서 복사한 텍스트의 불필요한 줄바꿈 정리, 엑셀·스프레드시트 데이터 정리, 블로그·문서 작성 시 공백 정리, 코드나 데이터에서 특수문자 제거 등에 활용할 수 있습니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/character-counter/">
+        <span class="related-icon">🔢</span>
+        <span>글자수 세기</span>
+      </a>
+      <a class="related-item" href="/password-generator/">
+        <span class="related-icon">🔐</span>
+        <span>비밀번호 생성기</span>
+      </a>
+      <a class="related-item" href="/number-to-korean/">
+        <span class="related-icon">🔤</span>
+        <span>숫자 한글 변환기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">PDF에서 복사한 텍스트 줄바꿈을 없애려면?</div>
+      <div class="faq-a">줄바꿈→공백 변환 또는 줄바꿈 모두 제거 기능을 선택하면 됩니다. PDF 복사 시 생기는 불필요한 줄바꿈을 한 번에 정리할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">여러 기능을 동시에 사용할 수 있나요?</div>
+      <div class="faq-a">네, 여러 기능을 선택해 한 번에 적용할 수 있습니다. 선택된 기능은 파란색으로 표시됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">특정 단어만 바꾸려면?</div>
+      <div class="faq-a">찾기·바꾸기 기능을 사용하세요. 정규식도 지원하므로 패턴 기반 치환도 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">입력한 텍스트가 저장되나요?</div>
+      <div class="faq-a">아니요, 이 도구는 브라우저에서만 동작하며 입력한 텍스트는 서버에 저장되지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">HTML 태그만 제거하고 내용은 유지하려면?</div>
+      <div class="faq-a">HTML 태그 제거 기능을 선택하면 &lt;div&gt;, &lt;p&gt;, &lt;span&gt; 등 모든 HTML 태그를 제거하고 텍스트 내용만 남깁니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 TopTools365 · 무료 온라인 텍스트 도구</p>
+  </footer>
+</div>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
+<script>
+// 활성화된 기능 상태
+const funcs = {
+  trim: true,
+  multiSpace: true,
+  allSpace: false,
+  removeNewline: false,
+  multiNewline: true,
+  newlineToSpace: false,
+  special: false,
+  emoji: false,
+  number: false,
+  html: false,
+  url: false,
+  dupLine: false,
+};
+
+function toggleFunc(name, el) {
+  // 상호 배타적 그룹 처리
+  const spaceGroup = ['allSpace'];
+  const newlineGroup = ['removeNewline', 'newlineToSpace'];
+
+  // allSpace 켜면 trim, multiSpace 끄기
+  if (name === 'allSpace' && !funcs[name]) {
+    funcs.trim = false;
+    funcs.multiSpace = false;
+    document.getElementById('btn-trim')?.classList.remove('active');
+    document.getElementById('btn-multi-space')?.classList.remove('active');
+  }
+  // trim/multiSpace 켜면 allSpace 끄기
+  if ((name === 'trim' || name === 'multiSpace') && !funcs[name]) {
+    funcs.allSpace = false;
+    document.getElementById('btn-all-space')?.classList.remove('active');
+  }
+  // removeNewline 켜면 multiNewline, newlineToSpace 끄기
+  if (name === 'removeNewline' && !funcs[name]) {
+    funcs.multiNewline = false;
+    funcs.newlineToSpace = false;
+    document.getElementById('btn-multi-newline')?.classList.remove('active');
+    document.getElementById('btn-newline-space')?.classList.remove('active');
+  }
+  // newlineToSpace 켜면 removeNewline, multiNewline 끄기
+  if (name === 'newlineToSpace' && !funcs[name]) {
+    funcs.removeNewline = false;
+    funcs.multiNewline = false;
+    document.getElementById('btn-remove-newline')?.classList.remove('active');
+    document.getElementById('btn-multi-newline')?.classList.remove('active');
+  }
+  if (name === 'multiNewline' && !funcs[name]) {
+    funcs.removeNewline = false;
+    document.getElementById('btn-remove-newline')?.classList.remove('active');
+  }
+
+  funcs[name] = !funcs[name];
+  el.classList.toggle('active', funcs[name]);
+}
+
+function convertCase(type) {
+  const input = document.getElementById('input-text').value;
+  if (!input) { showToast('텍스트를 입력해주세요.'); return; }
+  let result;
+  switch(type) {
+    case 'upper': result = input.toUpperCase(); break;
+    case 'lower': result = input.toLowerCase(); break;
+    case 'title': result = input.replace(/\b\w/g, c => c.toUpperCase()); break;
+    case 'toggle': result = input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join(''); break;
+  }
+  document.getElementById('output-text').value = result;
+  updateOutputStats(result);
+  showToast('변환 완료!');
+}
+
+function processText() {
+  let text = document.getElementById('input-text').value;
+  if (!text) { showToast('텍스트를 입력해주세요.'); return; }
+
+  let result = text;
+
+  // HTML 태그 제거
+  if (funcs.html) result = result.replace(/<[^>]+>/g, '');
+  // URL 제거
+  if (funcs.url) result = result.replace(/https?:\/\/[^\s]+/g, '');
+  // 이모지 제거
+  if (funcs.emoji) result = result.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F000}-\u{1FFFF}]/gu, '');
+  // 특수문자 제거 (한글·영문·숫자·기본 공백·줄바꿈 제외)
+  if (funcs.special) result = result.replace(/[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9 \t\n\r]/g, '');
+  // 숫자 제거
+  if (funcs.number) result = result.replace(/[0-9]/g, '');
+
+  // 줄바꿈 처리
+  if (funcs.removeNewline) {
+    result = result.replace(/\n+/g, ' ').replace(/\r/g, '');
+  } else if (funcs.newlineToSpace) {
+    result = result.replace(/\n/g, ' ').replace(/\r/g, '');
+  } else if (funcs.multiNewline) {
+    result = result.replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n');
+  }
+
+  // 공백 처리
+  if (funcs.allSpace) {
+    result = result.replace(/ /g, '');
+  } else {
+    if (funcs.multiSpace) result = result.replace(/[ \t]{2,}/g, ' ');
+    if (funcs.trim) {
+      result = result.split('\n').map(line => line.trim()).join('\n');
+    }
+  }
+
+  // 중복 줄 제거
+  if (funcs.dupLine) {
+    const seen = new Set();
+    result = result.split('\n').filter(line => {
+      if (seen.has(line)) return false;
+      seen.add(line);
+      return true;
+    }).join('\n');
+  }
+
+  document.getElementById('output-text').value = result;
+  updateOutputStats(result);
+  updateCounters(document.getElementById('input-text').value, result);
+  showToast('정리 완료!');
+}
+
+function findReplace() {
+  const find = document.getElementById('find-text').value;
+  const replace = document.getElementById('replace-text').value;
+  const isRegex = document.getElementById('regex-mode').checked;
+  const caseSensitive = document.getElementById('case-sensitive').checked;
+
+  if (!find) { showToast('찾을 텍스트를 입력해주세요.'); return; }
+
+  let text = document.getElementById('output-text').value || document.getElementById('input-text').value;
+  if (!text) { showToast('텍스트를 입력해주세요.'); return; }
+
+  let count = 0;
+  let result;
+
+  try {
+    let pattern;
+    if (isRegex) {
+      pattern = new RegExp(find, caseSensitive ? 'g' : 'gi');
+    } else {
+      const escaped = find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      pattern = new RegExp(escaped, caseSensitive ? 'g' : 'gi');
+    }
+    result = text.replace(pattern, (match) => { count++; return replace; });
+    document.getElementById('output-text').value = result;
+    document.getElementById('replace-result').textContent = `${count}개 바꿈`;
+    updateOutputStats(result);
+    updateCounters(result);
+  } catch(e) {
+    showToast('정규식 오류: ' + e.message);
+  }
+}
+
+function updateStats() {
+  const text = document.getElementById('input-text').value;
+  const chars = text.length;
+  document.getElementById('input-stats').textContent = chars.toLocaleString() + '자';
+  updateCounters(text, undefined);
+}
+
+function updateOutputStats(text) {
+  document.getElementById('output-stats').textContent = text.length.toLocaleString() + '자';
+}
+
+function updateCounters(inputText, outputText) {
+  const text = outputText !== undefined ? outputText : inputText;
+  document.getElementById('cnt-total').textContent = text.length.toLocaleString();
+  document.getElementById('cnt-nospace').textContent = text.replace(/\s/g, '').length.toLocaleString();
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('cnt-words').textContent = words.toLocaleString();
+  const lines = text ? text.split('\n').length : 0;
+  document.getElementById('cnt-lines').textContent = lines.toLocaleString();
+}
+
+function swapText() {
+  const output = document.getElementById('output-text').value;
+  if (!output) { showToast('정리된 텍스트가 없습니다.'); return; }
+  document.getElementById('input-text').value = output;
+  document.getElementById('output-text').value = '';
+  updateStats();
+  showToast('결과를 입력으로 이동했습니다.');
+}
+
+function clearAll() {
+  document.getElementById('input-text').value = '';
+  document.getElementById('output-text').value = '';
+  updateStats();
+  updateOutputStats('');
+  updateCounters('');
+  showToast('초기화 완료');
+}
+function clearInput() { document.getElementById('input-text').value = ''; updateStats(); }
+function clearOutput() { document.getElementById('output-text').value = ''; updateOutputStats(''); }
+
+async function copyOutput() {
+  const text = document.getElementById('output-text').value;
+  if (!text) { showToast('복사할 텍스트가 없습니다.'); return; }
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('✅ 복사 완료!');
+  } catch {
+    document.getElementById('output-text').select();
+    document.execCommand('copy');
+    showToast('✅ 복사 완료!');
+  }
+}
+
+function downloadOutput() {
+  const text = document.getElementById('output-text').value;
+  if (!text) { showToast('저장할 텍스트가 없습니다.'); return; }
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'text_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>
