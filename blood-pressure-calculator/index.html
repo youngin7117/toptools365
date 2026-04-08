@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>혈압 계산기 - 혈압 판정 정상 고혈압 즉시 확인 | TopTools365</title>
+<meta name="description" content="수축기·이완기 혈압을 입력하면 혈압 단계를 즉시 판정합니다. 정상·주의·고혈압 1·2단계 판정. 2026년 대한고혈압학회 기준. 완전 무료.">
+<meta name="keywords" content="혈압계산기,혈압판정,정상혈압,고혈압기준,혈압단계,수축기혈압,이완기혈압,혈압측정">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/blood-pressure-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="혈압 계산기 - 혈압 판정 정상 고혈압 즉시 확인 | TopTools365">
+<meta property="og:description" content="수축기·이완기 혈압 입력 → 혈압 단계 즉시 판정. 정상·주의·고혈압. 2026년 기준. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"혈압 계산기","description":"혈압 수치를 입력하면 혈압 단계를 판정하는 무료 온라인 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"정상 혈압 기준은?","acceptedAnswer":{"@type":"Answer","text":"수축기 혈압 120mmHg 미만, 이완기 혈압 80mmHg 미만이 정상입니다. 수축기 120~129mmHg는 주의 혈압, 130mmHg 이상은 고혈압 전단계로 분류됩니다."}},{"@type":"Question","name":"고혈압 기준은?","acceptedAnswer":{"@type":"Answer","text":"수축기 혈압 140mmHg 이상 또는 이완기 혈압 90mmHg 이상이면 고혈압으로 진단됩니다. 단, 병원에서 2회 이상 측정해야 합니다."}},{"@type":"Question","name":"혈압을 낮추는 방법은?","acceptedAnswer":{"@type":"Answer","text":"저염식(하루 나트륨 2g 이하), 규칙적인 유산소 운동, 체중 감량, 금연, 절주, 스트레스 관리가 혈압을 낮추는 데 효과적입니다."}}]}
+</script>
+<style>
+  :root {
+    --bg: #f7f6f3; --card: #fff; --border: #e5e2d9; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --yellow: #854d0e; --yellow-light: #fefce8;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --darkred: #7f1d1d; --darkred-light: #fee2e2;
+    --radius: 14px; --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --yellow: #e8d832; --yellow-light: #2a2a0a;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510;
+      --darkred: #f87171; --darkred-light: #3a1010; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  .notice { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--accent); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 혈압 입력 */
+  .bp-input-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  @media(max-width:480px) { .bp-input-wrap { flex-direction: column; gap: 12px; } }
+  .bp-field { flex: 1; }
+  .bp-field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .bp-field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .bp-input-box { position: relative; }
+  .bp-input-box input { width: 100%; padding: 16px 60px 16px 20px; border: 2px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); font-size: 32px; font-weight: 900; text-align: center; outline: none; transition: border-color .2s; }
+  .bp-input-box input:focus { border-color: var(--accent); }
+  .bp-input-box .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); font-weight: 600; pointer-events: none; }
+  .bp-divider { font-size: 36px; font-weight: 900; color: var(--muted); padding-top: 24px; flex-shrink: 0; }
+  @media(max-width:480px) { .bp-divider { display: none; } }
+
+  /* 빠른 입력 */
+  .quick-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .quick-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 판정 히어로 */
+  .bp-hero { text-align: center; padding: 32px 24px; border-radius: 16px; border: 2px solid; margin-bottom: 16px; }
+  .bp-hero .bh-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .bp-hero .bh-stage { font-size: 32px; font-weight: 900; margin-bottom: 8px; }
+  .bp-hero .bh-reading { font-size: 52px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+  .bp-hero .bh-desc { font-size: 14px; opacity: .8; line-height: 1.6; }
+
+  /* 혈압 게이지 */
+  .gauge-section { margin-bottom: 16px; }
+  .gauge-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+  .gauge-track { height: 24px; border-radius: 12px; overflow: hidden; display: flex; position: relative; }
+  .gauge-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.9); white-space: nowrap; overflow: hidden; }
+  .gauge-marker-wrap { position: relative; height: 32px; margin-top: 4px; }
+  .gauge-marker { position: absolute; transform: translateX(-50%); font-size: 20px; transition: left .5s; }
+  .gauge-labels { display: flex; font-size: 10px; color: var(--muted); margin-top: 4px; position: relative; }
+  .gauge-label-item { position: absolute; transform: translateX(-50%); }
+
+  /* 단계표 */
+  .stage-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .stage-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .stage-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .stage-table tr:last-child td { border-bottom: none; }
+  .stage-table tr.current td { font-weight: 700; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 생활습관 팁 */
+  .tip-list { display: flex; flex-direction: column; gap: 8px; }
+  .tip-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); font-size: 13px; line-height: 1.6; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>혈압 계산기</h1>
+  <p class="subtitle">수축기·이완기 혈압을 입력하면 혈압 단계를 즉시 판정합니다. 대한고혈압학회 기준.</p>
+
+  <div class="notice">
+    <strong>안내</strong>: 이 계산기는 참고용입니다. 정확한 진단은 병원에서 2회 이상 측정 후 의사에게 확인받으세요. 혈압은 측정 시간·자세·긴장 상태에 따라 달라질 수 있습니다.
+  </div>
+
+  <div class="card">
+    <div class="bp-input-wrap">
+      <div class="bp-field">
+        <label>수축기 혈압 (최고)</label>
+        <div class="bp-input-box">
+          <input type="number" id="systolic" placeholder="120" min="60" max="250" oninput="liveJudge()">
+          <span class="unit">mmHg</span>
+        </div>
+        <p class="bp-field tip">심장이 수축할 때의 혈압</p>
+      </div>
+      <div class="bp-divider">/</div>
+      <div class="bp-field">
+        <label>이완기 혈압 (최저)</label>
+        <div class="bp-input-box">
+          <input type="number" id="diastolic" placeholder="80" min="40" max="150" oninput="liveJudge()">
+          <span class="unit">mmHg</span>
+        </div>
+        <p class="bp-field tip">심장이 이완할 때의 혈압</p>
+      </div>
+    </div>
+
+    <!-- 빠른 입력 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px">예시 값으로 빠르게 확인</div>
+    <div class="quick-row">
+      <button class="quick-btn" onclick="setReading(115,75)">정상 (115/75)</button>
+      <button class="quick-btn" onclick="setReading(125,78)">주의 (125/78)</button>
+      <button class="quick-btn" onclick="setReading(135,85)">고혈압전단계 (135/85)</button>
+      <button class="quick-btn" onclick="setReading(150,95)">고혈압 1단계 (150/95)</button>
+      <button class="quick-btn" onclick="setReading(170,105)">고혈압 2단계 (170/105)</button>
+    </div>
+
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+
+    <!-- 판정 히어로 -->
+    <div class="bp-hero" id="bp-hero">
+      <div class="bh-label" id="bh-label">혈압 판정</div>
+      <div class="bh-stage" id="bh-stage">-</div>
+      <div class="bh-reading" id="bh-reading">-</div>
+      <div class="bh-desc" id="bh-desc">-</div>
+    </div>
+
+    <!-- 혈압 게이지 -->
+    <div class="card">
+      <div class="gauge-title">수축기 혈압 위치</div>
+      <div class="gauge-track">
+        <div class="gauge-seg" style="flex:20;background:#22c55e">정상</div>
+        <div class="gauge-seg" style="flex:10;background:#84cc16">주의</div>
+        <div class="gauge-seg" style="flex:10;background:#eab308">전단계</div>
+        <div class="gauge-seg" style="flex:20;background:#f97316">1단계</div>
+        <div class="gauge-seg" style="flex:20;background:#ef4444">2단계</div>
+        <div class="gauge-seg" style="flex:20;background:#7f1d1d">위기</div>
+      </div>
+      <div class="gauge-marker-wrap">
+        <span class="gauge-marker" id="sys-marker">▲</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px">
+        <span>90</span><span>120</span><span>130</span><span>140</span><span>160</span><span>180</span><span>220+</span>
+      </div>
+    </div>
+
+    <!-- 상세 판정 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">수축기 혈압</span><span class="detail-val" id="r-sys">-</span></div>
+      <div class="detail-row"><span class="detail-label">이완기 혈압</span><span class="detail-val" id="r-dia">-</span></div>
+      <div class="detail-row"><span class="detail-label">수축기 판정</span><span class="detail-val" id="r-sys-stage">-</span></div>
+      <div class="detail-row"><span class="detail-label">이완기 판정</span><span class="detail-val" id="r-dia-stage">-</span></div>
+      <div class="detail-row"><span class="detail-label">최종 판정</span><span class="detail-val" style="font-size:15px" id="r-final">-</span></div>
+      <div class="detail-row"><span class="detail-label">맥압 (수축기-이완기)</span><span class="detail-val" id="r-pp">-</span></div>
+    </div>
+
+    <!-- 혈압 단계표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">혈압 단계 기준표 (대한고혈압학회)</div>
+      <table class="stage-table" id="stage-table">
+        <thead><tr><th>단계</th><th>수축기 (mmHg)</th><th>이완기 (mmHg)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- 생활습관 개선 팁 -->
+    <div class="card" id="tips-card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="tips-title">생활습관 개선 팁</div>
+      <div class="tip-list" id="tip-list"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2>혈압 계산기 사용 방법</h2>
+    <p>수축기 혈압(최고 혈압)과 이완기 혈압(최저 혈압)을 입력하면 혈압 단계를 즉시 판정합니다. 빠른 입력 버튼으로 단계별 기준도 확인할 수 있습니다.</p>
+
+    <h3>혈압 단계 기준 (대한고혈압학회 2026년)</h3>
+    <div class="info-box">
+      <strong>정상</strong>: 수축기 120 미만 AND 이완기 80 미만<br>
+      <strong>주의 혈압</strong>: 수축기 120~129 AND 이완기 80 미만<br>
+      <strong>고혈압 전단계</strong>: 수축기 130~139 OR 이완기 80~89<br>
+      <strong>고혈압 1단계</strong>: 수축기 140~159 OR 이완기 90~99<br>
+      <strong>고혈압 2단계</strong>: 수축기 160 이상 OR 이완기 100 이상<br>
+      <strong>고혈압 위기</strong>: 수축기 180 이상 OR 이완기 120 이상 → 즉시 병원
+    </div>
+
+    <h3>정확한 혈압 측정 방법</h3>
+    <p>측정 30분 전 담배·커피를 삼가고, 5분 이상 안정 후 측정합니다. 등받이 있는 의자에 앉아 발바닥을 바닥에 붙이고 팔을 심장 높이로 유지합니다. 1~2분 간격으로 2회 측정해 평균값을 사용합니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/bmi-calculator/">
+        <span class="related-icon">⚖️</span>
+        <span>BMI 계산기</span>
+      </a>
+      <a class="related-item" href="/heart-rate-calculator/">
+        <span class="related-icon">❤️</span>
+        <span>심박수 계산기</span>
+      </a>
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🍽️</span>
+        <span>칼로리 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">정상 혈압 기준은?</div>
+      <div class="faq-a">수축기 120mmHg 미만, 이완기 80mmHg 미만이 정상입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">고혈압 기준은?</div>
+      <div class="faq-a">수축기 140mmHg 이상 또는 이완기 90mmHg 이상이면 고혈압입니다. 병원에서 2회 이상 확인이 필요합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">혈압이 높을 때 즉시 해야 할 일은?</div>
+      <div class="faq-a">수축기 180 이상 또는 이완기 120 이상(고혈압 위기)이면 즉시 병원 응급실을 방문하세요. 두통·흉통·시력 이상이 동반되면 더욱 위험합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">혈압을 낮추는 방법은?</div>
+      <div class="faq-a">저염식, 규칙적인 유산소 운동, 체중 감량, 금연, 절주, 스트레스 관리가 효과적입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">가정 혈압과 병원 혈압이 다른 이유는?</div>
+      <div class="faq-a">병원에서는 긴장으로 혈압이 올라가는 '백의 고혈압'이 생길 수 있습니다. 가정에서 아침·저녁으로 규칙적으로 측정하는 것이 더 정확할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 정확한 진단은 의사에게 확인받으세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+// 혈압 단계 기준 (대한고혈압학회)
+const STAGES = [
+  { key:'normal',    label:'정상',         color:'#22c55e', bg:'#f0fdf4', sys:[0,120],   dia:[0,80],   desc:'이상적인 혈압입니다. 건강한 생활습관을 유지하세요.' },
+  { key:'elevated',  label:'주의 혈압',    color:'#84cc16', bg:'#f7fee7', sys:[120,130], dia:[0,80],   desc:'혈압 관리가 필요합니다. 생활습관 개선으로 정상화할 수 있습니다.' },
+  { key:'pre',       label:'고혈압 전단계',color:'#eab308', bg:'#fefce8', sys:[130,140], dia:[80,90],  desc:'고혈압으로 진행될 위험이 있습니다. 생활습관 개선이 필요합니다.' },
+  { key:'stage1',    label:'고혈압 1단계', color:'#f97316', bg:'#fff7ed', sys:[140,160], dia:[90,100], desc:'고혈압입니다. 의사 상담과 생활습관 개선이 필요합니다.' },
+  { key:'stage2',    label:'고혈압 2단계', color:'#ef4444', bg:'#fef2f2', sys:[160,180], dia:[100,120],desc:'중증 고혈압입니다. 약물 치료가 필요할 수 있습니다. 병원을 방문하세요.' },
+  { key:'crisis',    label:'고혈압 위기',  color:'#7f1d1d', bg:'#fee2e2', sys:[180,999], dia:[120,999],desc:'⚠️ 즉시 응급실을 방문하세요! 뇌졸중·심장마비 위험이 있습니다.' },
+];
+
+const TIPS = {
+  normal:  [
+    { icon:'✅', text:'정상 혈압을 유지하고 있습니다. 규칙적인 운동과 균형 잡힌 식단을 계속 유지하세요.' },
+    { icon:'🧂', text:'저염식을 유지하세요. 하루 나트륨 2g(소금 5g) 이하를 권장합니다.' },
+    { icon:'🏃', text:'주 3~5회, 30분 이상 유산소 운동을 꾸준히 하세요.' },
+  ],
+  elevated:[
+    { icon:'🧂', text:'나트륨 섭취를 줄이세요. 가공식품·외식을 줄이고 싱겁게 드세요.' },
+    { icon:'⚖️', text:'체중이 정상 범위를 벗어났다면 감량하세요. 체중 1kg 감소 시 혈압이 약 1mmHg 낮아집니다.' },
+    { icon:'🏃', text:'주 5일 이상 30분 걷기·자전거 타기 등 유산소 운동을 하세요.' },
+    { icon:'🚬', text:'흡연은 혈관을 수축시킵니다. 금연하면 혈압이 낮아집니다.' },
+  ],
+  pre:[
+    { icon:'👨‍⚕️', text:'고혈압 전단계입니다. 6개월 내 혈압 재측정을 권장합니다.' },
+    { icon:'🧂', text:'나트륨을 하루 1.5g(소금 4g) 이하로 제한하세요.' },
+    { icon:'🥗', text:'채소·과일·저지방 유제품 위주의 DASH 식이요법을 시도해보세요.' },
+    { icon:'🍺', text:'음주를 줄이세요. 남성 하루 2잔, 여성 1잔 이하로 제한합니다.' },
+    { icon:'🧘', text:'스트레스는 일시적으로 혈압을 올립니다. 명상·요가 등으로 관리하세요.' },
+  ],
+  stage1:[
+    { icon:'👨‍⚕️', text:'병원을 방문해 정확한 진단을 받으세요. 생활습관 개선만으로도 효과가 있을 수 있습니다.' },
+    { icon:'💊', text:'의사 처방에 따라 혈압약 복용을 고려하세요. 임의로 중단하지 마세요.' },
+    { icon:'📊', text:'매일 아침·저녁 혈압을 측정해 기록하세요.' },
+    { icon:'🧂', text:'나트륨을 하루 1.5g 이하로 엄격히 제한하세요.' },
+    { icon:'🏃', text:'의사와 상담 후 적절한 운동 강도를 정하세요.' },
+  ],
+  stage2:[
+    { icon:'🚨', text:'즉시 병원을 방문하세요. 약물 치료가 필요할 가능성이 높습니다.' },
+    { icon:'💊', text:'혈압약을 꾸준히 복용하고 임의로 중단하지 마세요.' },
+    { icon:'📊', text:'매일 혈압을 측정하고 기록해 의사에게 보여주세요.' },
+    { icon:'🧂', text:'극도로 짜게 드시지 마세요. 저염 식단이 필수입니다.' },
+  ],
+  crisis:[
+    { icon:'🚨', text:'즉시 119에 연락하거나 응급실을 방문하세요!' },
+    { icon:'💊', text:'혈압약이 있다면 즉시 복용하고 응급처치를 받으세요.' },
+    { icon:'🛋️', text:'안정을 취하고 움직임을 최소화하세요.' },
+  ],
+};
+
+function getStage(sys, dia) {
+  if (sys >= 180 || dia >= 120) return STAGES[5];
+  if (sys >= 160 || dia >= 100) return STAGES[4];
+  if (sys >= 140 || dia >= 90)  return STAGES[3];
+  if (sys >= 130 || dia >= 80)  return STAGES[2];
+  if (sys >= 120 && dia < 80)   return STAGES[1];
+  return STAGES[0];
+}
+
+function getSysStageLabel(sys) {
+  if (sys < 120) return '정상';
+  if (sys < 130) return '주의';
+  if (sys < 140) return '고혈압 전단계';
+  if (sys < 160) return '고혈압 1단계';
+  if (sys < 180) return '고혈압 2단계';
+  return '고혈압 위기';
+}
+
+function getDiaStageLabel(dia) {
+  if (dia < 80)  return '정상';
+  if (dia < 90)  return '주의~전단계';
+  if (dia < 100) return '고혈압 1단계';
+  if (dia < 120) return '고혈압 2단계';
+  return '고혈압 위기';
+}
+
+function setReading(sys, dia) {
+  document.getElementById('systolic').value = sys;
+  document.getElementById('diastolic').value = dia;
+  calculate();
+}
+
+function liveJudge() {
+  const sys = parseInt(document.getElementById('systolic').value);
+  const dia = parseInt(document.getElementById('diastolic').value);
+  if (sys >= 60 && dia >= 40 && sys > dia) calculate();
+}
+
+function calculate() {
+  const sys = parseInt(document.getElementById('systolic').value);
+  const dia = parseInt(document.getElementById('diastolic').value);
+
+  if (!sys || !dia || sys <= dia) return;
+  if (sys < 60 || sys > 250 || dia < 40 || dia > 150) return;
+
+  const stage = getStage(sys, dia);
+  const pp = sys - dia; // 맥압
+
+  // 히어로
+  const hero = document.getElementById('bp-hero');
+  hero.style.background = stage.bg;
+  hero.style.borderColor = stage.color;
+  document.getElementById('bh-label').style.color = stage.color;
+  document.getElementById('bh-stage').textContent = stage.label;
+  document.getElementById('bh-stage').style.color = stage.color;
+  document.getElementById('bh-reading').textContent = `${sys} / ${dia}`;
+  document.getElementById('bh-reading').style.color = stage.color;
+  document.getElementById('bh-desc').textContent = stage.desc;
+
+  // 게이지 마커 위치 (90~220+ 범위)
+  const minVal = 90, maxVal = 220;
+  const clampedSys = Math.min(Math.max(sys, minVal), maxVal);
+  const pct = ((clampedSys - minVal) / (maxVal - minVal) * 100).toFixed(1);
+  const marker = document.getElementById('sys-marker');
+  marker.style.left = pct + '%';
+  marker.style.color = stage.color;
+
+  // 상세
+  document.getElementById('r-sys').textContent = sys + ' mmHg';
+  document.getElementById('r-dia').textContent = dia + ' mmHg';
+  document.getElementById('r-sys-stage').textContent = getSysStageLabel(sys);
+  document.getElementById('r-dia-stage').textContent = getDiaStageLabel(dia);
+  document.getElementById('r-final').textContent = stage.label;
+  document.getElementById('r-final').style.color = stage.color;
+  document.getElementById('r-pp').textContent = `${pp} mmHg (${pp < 40 ? '좁음' : pp <= 60 ? '정상' : '넓음'})`;
+
+  // 단계표
+  const tbody = document.querySelector('#stage-table tbody');
+  tbody.innerHTML = '';
+  const tableData = [
+    { label:'정상',          color:'#22c55e', sys:'120 미만',    dia:'80 미만' },
+    { label:'주의 혈압',     color:'#84cc16', sys:'120~129',    dia:'80 미만' },
+    { label:'고혈압 전단계', color:'#eab308', sys:'130~139',    dia:'80~89' },
+    { label:'고혈압 1단계',  color:'#f97316', sys:'140~159',    dia:'90~99' },
+    { label:'고혈압 2단계',  color:'#ef4444', sys:'160~179',    dia:'100~119' },
+    { label:'고혈압 위기',   color:'#7f1d1d', sys:'180 이상',   dia:'120 이상' },
+  ];
+  tableData.forEach(r => {
+    const isCurrent = r.label === stage.label;
+    const tr = document.createElement('tr');
+    if (isCurrent) tr.className = 'current';
+    tr.style.background = isCurrent ? stage.bg : '';
+    tr.innerHTML = `
+      <td><span style="color:${r.color};font-weight:700">${r.label}</span>${isCurrent ? ' ◀ 현재' : ''}</td>
+      <td>${r.sys}</td>
+      <td>${r.dia}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // 생활습관 팁
+  const tipList = document.getElementById('tip-list');
+  tipList.innerHTML = '';
+  const tips = TIPS[stage.key] || TIPS.normal;
+  tips.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'tip-item';
+    div.innerHTML = `<span class="tip-icon">${t.icon}</span><span>${t.text}</span>`;
+    tipList.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
