@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물 섭취량 계산기 - 하루 물 권장량 즉시 계산 | TopTools365</title>
+<meta name="description" content="체중·활동량·기후를 입력하면 하루 물 권장 섭취량을 즉시 계산합니다. 운동량·날씨·임신 여부 반영. 시간대별 음수 스케줄 제공. 완전 무료.">
+<meta name="keywords" content="물섭취량계산기,하루물권장량,일일수분섭취량,물마시는양,체중별물섭취량,운동수분보충,하루물마시는양">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/water-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="물 섭취량 계산기 - 하루 물 권장량 즉시 계산 | TopTools365">
+<meta property="og:description" content="체중·활동량·기후 입력 → 하루 물 권장량 즉시 계산. 시간대별 음수 스케줄. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"물 섭취량 계산기","description":"체중과 활동량에 따른 하루 물 권장 섭취량을 계산하는 무료 온라인 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<style>
+  :root {
+    --bg: #f0f9ff; --card: #fff; --border: #bae6fd; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #0369a1; --accent-light: #e0f2fe;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --radius: 14px; --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #0c1a2e; --card: #0f2236; --border: #1e3a5f; --text: #e8f4fd; --muted: #7ab3d4;
+      --accent: #38bdf8; --accent-light: #0c2a40;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 성별 */
+  .gender-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .gender-btn { flex: 1; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
+  .gender-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 13px 56px 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 22px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
+
+  /* 활동량 선택 */
+  .activity-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .act-btn { padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; transition: all .15s; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+  .act-btn.on { border-color: var(--accent); background: var(--accent-light); }
+  .act-btn .an { font-weight: 700; }
+  .act-btn.on .an { color: var(--accent); }
+  .act-btn .ad { font-size: 11px; color: var(--muted); }
+  .act-btn .av { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .act-btn.on .av { color: var(--accent); }
+
+  /* 추가 요인 토글 */
+  .factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media(max-width:480px) { .factor-grid { grid-template-columns: 1fr; } }
+  .factor-btn { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: left; line-height: 1.4; }
+  .factor-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .factor-btn .fs { font-size: 11px; font-weight: 400; margin-top: 2px; opacity: .8; }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 히어로 */
+  .water-hero { text-align: center; padding: 32px 24px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 16px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .water-hero .wl { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .water-hero .wv { font-size: 80px; font-weight: 900; color: var(--accent); line-height: 1; }
+  .water-hero .wu { font-size: 24px; color: var(--accent); font-weight: 700; }
+  .water-hero .ws { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+  /* 컵/병 표시 */
+  .cup-display { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+  .cup-item { text-align: center; }
+  .cup-item .ci { font-size: 28px; }
+  .cup-item .cl { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+
+  /* 3분할 */
+  .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .three-grid { grid-template-columns: 1fr; } }
+  .t-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .t-box .tbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .t-box .tbv { font-size: 18px; font-weight: 800; }
+  .t-box .tbs { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* 시간대별 스케줄 */
+  .schedule-list { display: flex; flex-direction: column; gap: 6px; }
+  .sch-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); font-size: 13px; }
+  .sch-time { font-weight: 700; min-width: 60px; color: var(--accent); }
+  .sch-icon { font-size: 18px; flex-shrink: 0; }
+  .sch-desc { flex: 1; color: var(--muted); }
+  .sch-amount { font-weight: 700; color: var(--accent); }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>물 섭취량 계산기</h1>
+  <p class="subtitle">체중·활동량·기후를 입력하면 하루 물 권장 섭취량을 즉시 계산합니다.</p>
+
+  <div class="card">
+    <!-- 성별 -->
+    <div class="gender-row">
+      <button class="gender-btn on" onclick="setGender('male',this)">👨 남성</button>
+      <button class="gender-btn" onclick="setGender('female',this)">👩 여성</button>
+    </div>
+
+    <!-- 체중 -->
+    <div class="field">
+      <label>체중</label>
+      <div class="input-wrap">
+        <input type="number" id="weight" placeholder="70" value="70" min="20" max="200" step="0.1">
+        <span class="unit">kg</span>
+      </div>
+      <p class="tip">체중 1kg당 약 30~35mL가 기본 권장량입니다.</p>
+    </div>
+
+    <!-- 활동량 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">활동 수준</div>
+    <div class="activity-grid">
+      <button class="act-btn" onclick="setActivity(30, this)">
+        <div><div class="an">거의 운동 안 함</div><div class="ad">책상 업무 위주</div></div>
+        <span class="av">+0mL</span>
+      </button>
+      <button class="act-btn on" onclick="setActivity(350, this)">
+        <div><div class="an">가벼운 운동</div><div class="ad">주 1~3회, 30분 이하</div></div>
+        <span class="av">+350mL</span>
+      </button>
+      <button class="act-btn" onclick="setActivity(700, this)">
+        <div><div class="an">보통 운동</div><div class="ad">주 3~5회, 1시간</div></div>
+        <span class="av">+700mL</span>
+      </button>
+      <button class="act-btn" onclick="setActivity(1200, this)">
+        <div><div class="an">강도 높은 운동</div><div class="ad">매일 1시간 이상</div></div>
+        <span class="av">+1,200mL</span>
+      </button>
+    </div>
+
+    <!-- 추가 요인 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">추가 요인 (해당하는 것 선택)</div>
+    <div class="factor-grid" id="factor-grid">
+      <button class="factor-btn" id="f-hot" onclick="toggleFactor('hot',this)">
+        🌞 더운 날씨·여름
+        <div class="fs">+300~500mL</div>
+      </button>
+      <button class="factor-btn" id="f-pregnant" onclick="toggleFactor('pregnant',this)">
+        🤰 임신 중
+        <div class="fs">+300mL</div>
+      </button>
+      <button class="factor-btn" id="f-breastfeed" onclick="toggleFactor('breastfeed',this)">
+        🍼 모유 수유 중
+        <div class="fs">+700mL</div>
+      </button>
+      <button class="factor-btn" id="f-sick" onclick="toggleFactor('sick',this)">
+        🤒 발열·설사
+        <div class="fs">+500mL</div>
+      </button>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">물 섭취량 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+
+    <!-- 히어로 -->
+    <div class="water-hero">
+      <div class="wl">하루 물 권장 섭취량</div>
+      <div><span class="wv" id="r-water">-</span><span class="wu">mL</span></div>
+      <div class="ws" id="r-water-sub">-</div>
+    </div>
+
+    <!-- 컵/병 표시 -->
+    <div class="cup-display" id="cup-display"></div>
+
+    <!-- 3분할 -->
+    <div class="three-grid">
+      <div class="t-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="tbl" style="color:var(--accent)">200mL 컵</div>
+        <div class="tbv" style="color:var(--accent)" id="r-cups">-</div>
+        <div class="tbs">잔</div>
+      </div>
+      <div class="t-box" style="background:var(--green-light);border-color:var(--green)">
+        <div class="tbl" style="color:var(--green)">500mL 페트병</div>
+        <div class="tbv" style="color:var(--green)" id="r-bottles">-</div>
+        <div class="tbs">병</div>
+      </div>
+      <div class="t-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="tbl" style="color:var(--orange)">시간당</div>
+        <div class="tbv" style="color:var(--orange)" id="r-per-hour">-</div>
+        <div class="tbs">mL (깨어있는 시간)</div>
+      </div>
+    </div>
+
+    <!-- 상세 내역 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">기본 섭취량 (체중 기준)</span><span class="detail-val" id="r-base">-</span></div>
+      <div class="detail-row"><span class="detail-label">활동량 추가분</span><span class="detail-val" id="r-activity">-</span></div>
+      <div class="detail-row"><span class="detail-label">추가 요인</span><span class="detail-val" id="r-factors">-</span></div>
+      <div class="detail-row"><span class="detail-label">총 권장량</span><span class="detail-val" style="color:var(--accent);font-size:16px" id="r-total">-</span></div>
+    </div>
+
+    <!-- 시간대별 음수 스케줄 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">💧 시간대별 음수 스케줄</div>
+      <div class="schedule-list" id="schedule-list"></div>
+    </div>
+
+    <!-- 팁 -->
+    <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:10px;padding:16px;font-size:13px;color:var(--muted);line-height:1.8">
+      <strong style="color:var(--accent)">💡 수분 섭취 팁</strong><br>
+      · 아침 기상 직후 물 한 잔(200mL)으로 신진대사를 활성화하세요.<br>
+      · 식사 30분 전 물을 마시면 포만감이 생겨 식사량 조절에 도움됩니다.<br>
+      · 소변 색이 연한 노란색이면 수분이 충분한 상태입니다.<br>
+      · 커피·차·주스도 수분 보충에 도움되지만 순수한 물이 가장 좋습니다.
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2>물 섭취량 계산기 사용 방법</h2>
+    <p>성별·체중·활동량과 더운 날씨·임신 여부 등 추가 요인을 선택하면 하루 물 권장 섭취량을 즉시 계산합니다. 컵·페트병 환산과 시간대별 음수 스케줄도 제공합니다.</p>
+
+    <h3>하루 물 권장량 계산 방법</h3>
+    <div class="info-box">
+      <strong>기본 권장량</strong> = 체중(kg) × 30~35mL<br>
+      남성: 체중 × 35mL / 여성: 체중 × 31mL<br><br>
+      <strong>활동량별 추가</strong><br>
+      · 가벼운 운동: +350mL<br>
+      · 보통 운동: +700mL<br>
+      · 강도 높은 운동: +1,200mL<br><br>
+      <strong>상황별 추가</strong><br>
+      · 더운 날씨: +300~500mL / 임신: +300mL / 수유: +700mL / 발열·설사: +500mL
+    </div>
+
+    <h3>물을 충분히 마셔야 하는 이유</h3>
+    <p>우리 몸의 60~70%는 수분으로 이루어져 있습니다. 수분이 부족하면 피로감·두통·집중력 저하가 발생할 수 있으며, 체중의 1~2%만 탈수되어도 인지 능력이 떨어집니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/bmr-calculator/">
+        <span class="related-icon">🔥</span>
+        <span>기초대사량 계산기</span>
+      </a>
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🍽️</span>
+        <span>칼로리 계산기</span>
+      </a>
+      <a class="related-item" href="/bmi-calculator/">
+        <span class="related-icon">⚖️</span>
+        <span>BMI 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">하루에 물을 얼마나 마셔야 하나요?</div>
+      <div class="faq-a">일반적으로 체중 1kg당 30~35mL가 권장됩니다. 70kg 성인이라면 약 2,100~2,450mL입니다. 활동량과 날씨에 따라 더 필요할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">하루 8잔(2L)이 정말 맞나요?</div>
+      <div class="faq-a">8잔(2L)은 평균적인 기준이지만 체중·활동량·날씨에 따라 다릅니다. 이 계산기로 본인에게 맞는 양을 확인하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">물을 너무 많이 마시면 안 좋나요?</div>
+      <div class="faq-a">극단적으로 많이 마시면 저나트륨혈증이 생길 수 있지만, 일반적인 생활에서는 거의 없는 일입니다. 갈증을 느낄 때 마시는 것이 기본입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">커피나 차도 수분 보충이 되나요?</div>
+      <div class="faq-a">네, 커피·차·주스도 수분 보충에 도움됩니다. 다만 카페인이 이뇨 작용을 할 수 있어 순수한 물이 가장 좋습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">운동 후 물은 얼마나 마셔야 하나요?</div>
+      <div class="faq-a">운동 중 체중 감소분(땀)을 보충해야 합니다. 운동 후 체중이 0.5kg 줄었다면 약 500mL를 추가로 마시세요.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 정확한 수분 섭취량은 의사·영양사와 상담하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let gender = 'male';
+let activityExtra = 350;
+const factors = { hot: false, pregnant: false, breastfeed: false, sick: false };
+const factorAmounts = { hot: 400, pregnant: 300, breastfeed: 700, sick: 500 };
+
+function setGender(g, el) {
+  gender = g;
+  document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function setActivity(extra, el) {
+  activityExtra = extra;
+  document.querySelectorAll('.act-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function toggleFactor(key, el) {
+  factors[key] = !factors[key];
+  el.classList.toggle('on', factors[key]);
+}
+
+function calculate() {
+  const weight = parseFloat(document.getElementById('weight').value) || 70;
+  const baseRate = gender === 'male' ? 35 : 31;
+  const base = Math.round(weight * baseRate);
+  const factorTotal = Object.entries(factors).filter(([,v])=>v).reduce((s,[k])=>s+factorAmounts[k], 0);
+  const total = base + activityExtra + factorTotal;
+
+  // 히어로
+  document.getElementById('r-water').textContent = total.toLocaleString();
+  document.getElementById('r-water-sub').textContent = `${weight}kg ${gender==='male'?'남성':'여성'} · ${baseRate}mL/kg 기준`;
+
+  // 컵·병 환산
+  const cups = Math.ceil(total / 200);
+  const bottles = (total / 500).toFixed(1);
+  const perHour = Math.round(total / 16); // 깨어있는 16시간
+  document.getElementById('r-cups').textContent = cups;
+  document.getElementById('r-bottles').textContent = bottles;
+  document.getElementById('r-per-hour').textContent = perHour.toLocaleString();
+
+  // 컵 시각화
+  const cupDisplay = document.getElementById('cup-display');
+  cupDisplay.innerHTML = '';
+  const bottleCount = Math.floor(total / 500);
+  const remainCups = Math.ceil((total % 500) / 200);
+  for (let i = 0; i < Math.min(bottleCount, 6); i++) {
+    const div = document.createElement('div');
+    div.className = 'cup-item';
+    div.innerHTML = '<div class="ci">🍶</div><div class="cl">500mL</div>';
+    cupDisplay.appendChild(div);
+  }
+  for (let i = 0; i < Math.min(remainCups, 4); i++) {
+    const div = document.createElement('div');
+    div.className = 'cup-item';
+    div.innerHTML = '<div class="ci">🥛</div><div class="cl">200mL</div>';
+    cupDisplay.appendChild(div);
+  }
+
+  // 상세
+  document.getElementById('r-base').textContent = base.toLocaleString() + 'mL';
+  document.getElementById('r-activity').textContent = '+' + activityExtra.toLocaleString() + 'mL';
+  const factorNames = Object.entries(factors).filter(([,v])=>v).map(([k])=>({hot:'더운날씨',pregnant:'임신',breastfeed:'수유',sick:'발열·설사'}[k]));
+  document.getElementById('r-factors').textContent = factorNames.length > 0 ? '+' + factorTotal + 'mL (' + factorNames.join('·') + ')' : '없음';
+  document.getElementById('r-total').textContent = total.toLocaleString() + 'mL';
+
+  // 시간대별 스케줄
+  const portion = Math.round(total / 8);
+  const schedule = [
+    { time:'07:00', icon:'🌅', desc:'기상 직후 - 공복에 첫 번째 물', amount: 200 },
+    { time:'09:00', icon:'💼', desc:'업무·활동 시작 전', amount: portion },
+    { time:'11:00', icon:'☕', desc:'오전 중간', amount: portion },
+    { time:'12:30', icon:'🍽️', desc:'점심 식사 30분 전', amount: 200 },
+    { time:'14:00', icon:'🌤️', desc:'오후 시작', amount: portion },
+    { time:'16:00', icon:'🫖', desc:'오후 중간', amount: portion },
+    { time:'18:30', icon:'🍽️', desc:'저녁 식사 30분 전', amount: 200 },
+    { time:'20:00', icon:'🌙', desc:'저녁 활동 중', amount: portion },
+    { time:'21:30', icon:'😴', desc:'취침 1시간 전 (과다섭취 주의)', amount: 150 },
+  ];
+
+  const schedList = document.getElementById('schedule-list');
+  schedList.innerHTML = '';
+  schedule.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sch-item';
+    div.innerHTML = `<span class="sch-time">${s.time}</span><span class="sch-icon">${s.icon}</span><span class="sch-desc">${s.desc}</span><span class="sch-amount">${s.amount}mL</span>`;
+    schedList.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
