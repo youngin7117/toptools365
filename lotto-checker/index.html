@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로또 당첨 확인기 - 로또 번호 당첨 여부 즉시 확인 | TopTools365</title>
+<meta name="description" content="내 로또 번호와 당첨 번호를 입력하면 당첨 여부와 등수를 즉시 확인합니다. 최근 회차 당첨 번호 조회. 여러 게임 동시 확인. 완전 무료.">
+<meta name="keywords" content="로또당첨확인,로또당첨번호확인,로또번호확인,로또당첨여부,로또등수확인,로또645당첨확인,로또당첨기준">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/lotto-checker/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="로또 당첨 확인기 - 로또 번호 당첨 여부 즉시 확인 | TopTools365">
+<meta property="og:description" content="내 로또 번호 입력 → 당첨 여부·등수 즉시 확인. 여러 게임 동시. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"로또 당첨 확인기","description":"로또 번호 당첨 여부를 확인하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #b45309; --accent-light: #fef3e2;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --gold: #b45309;
+    --radius: 14px; --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #e8a832; --accent-light: #2a1f0a;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* 당첨 번호 입력 */
+  .win-nums { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+  .bonus-sep { font-size: 18px; font-weight: 700; color: var(--muted); padding: 0 4px; }
+
+  /* 번호 볼 */
+  .ball { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #fff; flex-shrink: 0; }
+  .ball.empty { background: var(--border); color: var(--muted); }
+  .ball.n1-9   { background: #f97316; }
+  .ball.n10-19 { background: #3b82f6; }
+  .ball.n20-29 { background: #ef4444; }
+  .ball.n30-39 { background: #6b7280; }
+  .ball.n40-45 { background: #22c55e; }
+  .ball.bonus  { position: relative; }
+  .ball.bonus::after { content: '+'; position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+
+  /* 번호 입력 그리드 */
+  .num-input-wrap { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .num-input { width: 52px; height: 52px; border: 2px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 700; text-align: center; outline: none; transition: all .15s; }
+  .num-input:focus { border-color: var(--accent); background: var(--accent-light); }
+  .num-input.matched { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .num-input.bonus-matched { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+  .num-sep { display: flex; align-items: center; font-size: 20px; font-weight: 700; color: var(--muted); }
+
+  /* 게임 행 */
+  .game-row { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 8px; }
+  .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; font-weight: 700; color: var(--muted); }
+  .game-result-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .badge-1 { background: #fef9c3; color: #854d0e; border: 1px solid #eab308; }
+  .badge-2 { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+  .badge-3 { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+  .badge-4 { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+  .badge-5 { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue); }
+  .badge-none { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+  .add-game-btn { width: 100%; padding: 11px; border: 1.5px dashed var(--border); border-radius: 10px; background: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .add-game-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; margin-top: 12px; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 요약 히어로 */
+  .result-summary { padding: 24px; border-radius: 14px; text-align: center; margin-bottom: 16px; border: 2px solid; }
+  .rs-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .rs-main { font-size: 32px; font-weight: 900; margin-bottom: 6px; }
+  .rs-sub { font-size: 14px; color: var(--muted); }
+
+  /* 게임별 결과 */
+  .game-result { padding: 14px 16px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--border); }
+  .gr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .gr-balls { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* 당첨 기준표 */
+  .prize-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .prize-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .prize-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .prize-table tr:last-child td { border-bottom: none; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>로또 당첨 확인기</h1>
+  <p class="subtitle">당첨 번호와 내 번호를 입력하면 등수와 당첨 여부를 즉시 확인합니다.</p>
+
+  <!-- ① 당첨 번호 입력 -->
+  <div class="card">
+    <div class="section-label">① 당첨 번호 입력</div>
+
+    <!-- 당첨 번호 볼 표시 -->
+    <div class="win-nums" id="win-balls"></div>
+
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;margin-top:6px">번호 1~6 입력 후 보너스 번호 입력 (1~45)</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <div style="display:flex;gap:6px;">
+        <input class="num-input" id="w1" type="number" min="1" max="45" placeholder="1" oninput="onWinInput(this,1)">
+        <input class="num-input" id="w2" type="number" min="1" max="45" placeholder="2" oninput="onWinInput(this,2)">
+        <input class="num-input" id="w3" type="number" min="1" max="45" placeholder="3" oninput="onWinInput(this,3)">
+        <input class="num-input" id="w4" type="number" min="1" max="45" placeholder="4" oninput="onWinInput(this,4)">
+        <input class="num-input" id="w5" type="number" min="1" max="45" placeholder="5" oninput="onWinInput(this,5)">
+        <input class="num-input" id="w6" type="number" min="1" max="45" placeholder="6" oninput="onWinInput(this,6)">
+      </div>
+      <div class="num-sep">+</div>
+      <input class="num-input" id="wb" type="number" min="1" max="45" placeholder="보너스" style="width:64px" oninput="onWinInput(this,'b')">
+    </div>
+
+    <!-- 최근 회차 예시 버튼 -->
+    <div style="margin-top:12px;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px">최근 당첨 번호 예시로 빠르게 확인</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button style="padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer" onclick="setWinNums([3,13,30,35,37,41],16)">예시 A (3·13·30·35·37·41+16)</button>
+      <button style="padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer" onclick="setWinNums([5,12,23,28,36,44],7)">예시 B (5·12·23·28·36·44+7)</button>
+      <button style="padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer" onclick="clearWin()">초기화</button>
+    </div>
+  </div>
+
+  <!-- ② 내 번호 입력 -->
+  <div class="card">
+    <div class="section-label">② 내 로또 번호 입력 (최대 5게임)</div>
+    <div id="my-games"></div>
+    <button class="add-game-btn" id="add-btn" onclick="addGame()">+ 게임 추가 (최대 5게임)</button>
+    <button class="calc-btn" onclick="check()">🎱 당첨 확인하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+
+    <!-- 요약 -->
+    <div class="result-summary" id="result-summary">
+      <div class="rs-label" id="rs-label">확인 결과</div>
+      <div class="rs-main" id="rs-main">-</div>
+      <div class="rs-sub" id="rs-sub">-</div>
+    </div>
+
+    <!-- 게임별 결과 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">게임별 결과</div>
+      <div id="game-results"></div>
+    </div>
+
+    <!-- 당첨 기준표 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">로또 645 당첨 기준</div>
+      <table class="prize-table">
+        <thead><tr><th>등수</th><th>조건</th><th>당첨 확률</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:#854d0e">🥇 1등</strong></td><td>6개 번호 일치</td><td>1/8,145,060</td></tr>
+          <tr><td><strong style="color:#1e40af">🥈 2등</strong></td><td>5개 일치 + 보너스</td><td>1/1,357,510</td></tr>
+          <tr><td><strong style="color:#166534">🥉 3등</strong></td><td>5개 번호 일치</td><td>1/35,724</td></tr>
+          <tr><td><strong style="color:var(--accent)">4등</strong></td><td>4개 번호 일치</td><td>1/733</td></tr>
+          <tr><td><strong style="color:var(--blue)">5등</strong></td><td>3개 번호 일치</td><td>1/45</td></tr>
+          <tr><td>낙첨</td><td>2개 이하 일치</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2>로또 당첨 확인기 사용 방법</h2>
+    <p>당첨 번호(6개 + 보너스 1개)를 입력하고 내 로또 번호를 입력하면 당첨 등수를 즉시 확인합니다. 게임 추가 버튼으로 최대 5게임을 한 번에 확인할 수 있습니다.</p>
+
+    <h3>로또 645 당첨 기준</h3>
+    <div class="info-box">
+      <strong>1등</strong>: 6개 번호 모두 일치 (당첨금 평균 20~30억원)<br>
+      <strong>2등</strong>: 5개 일치 + 보너스 번호 일치 (평균 5,000만~1억원)<br>
+      <strong>3등</strong>: 5개 번호 일치 (평균 150만원)<br>
+      <strong>4등</strong>: 4개 번호 일치 (고정 5만원)<br>
+      <strong>5등</strong>: 3개 번호 일치 (고정 5,000원)
+    </div>
+
+    <h3>로또 번호 색상 의미</h3>
+    <p>1~9는 노란색, 10~19는 파란색, 20~29는 빨간색, 30~39는 회색, 40~45는 초록색 볼이 사용됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/lotto-generator/">
+        <span class="related-icon">🎰</span>
+        <span>로또 번호 생성기</span>
+      </a>
+      <a class="related-item" href="/password-generator/">
+        <span class="related-icon">🔐</span>
+        <span>비밀번호 생성기</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span>퍼센트 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">로또 2등 조건은?</div>
+      <div class="faq-a">6개 번호 중 5개가 일치하고 보너스 번호도 일치하면 2등입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">4등·5등은 당첨금이 고정인가요?</div>
+      <div class="faq-a">네, 4등은 5만원, 5등은 5,000원으로 고정입니다. 1~3등은 판매액에 따라 달라집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">로또 당첨금은 어디서 수령하나요?</div>
+      <div class="faq-a">5등~3등은 판매 복권방 또는 은행에서, 2등·1등은 농협은행에서 수령합니다. 당첨 후 1년 이내에 청구해야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">로또 1등 당첨 확률은?</div>
+      <div class="faq-a">약 814만 분의 1입니다. 매주 1장씩 구매하면 평균 15만 7천 년이 걸리는 확률입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">당첨 번호는 어디서 확인하나요?</div>
+      <div class="faq-a">동행복권 홈페이지(dhlottery.co.kr), 복권 앱, 또는 구매한 복권방에서 확인할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let gameCount = 1;
+const MAX_GAMES = 5;
+
+// 볼 색상 클래스
+function ballClass(n) {
+  if (n <= 9)  return 'n1-9';
+  if (n <= 19) return 'n10-19';
+  if (n <= 29) return 'n20-29';
+  if (n <= 39) return 'n30-39';
+  return 'n40-45';
+}
+
+function makeBall(n, isBonus=false) {
+  return `<div class="ball ${ballClass(n)}${isBonus?' bonus':''}">${n}</div>`;
+}
+
+// 당첨 번호 실시간 볼 표시
+function onWinInput(el, idx) {
+  const v = parseInt(el.value);
+  if (v < 1 || v > 45) el.value = '';
+  updateWinBalls();
+}
+
+function updateWinBalls() {
+  const nums = [1,2,3,4,5,6].map(i => parseInt(document.getElementById('w'+i).value)||0).filter(n=>n>0&&n<=45);
+  const bonus = parseInt(document.getElementById('wb').value)||0;
+  const container = document.getElementById('win-balls');
+  let html = nums.map(n => makeBall(n)).join('');
+  if (bonus > 0 && bonus <= 45) {
+    html += '<span class="bonus-sep">+</span>' + makeBall(bonus, true);
+  }
+  container.innerHTML = html || '<span style="font-size:13px;color:var(--muted)">번호를 입력하면 볼이 표시됩니다</span>';
+}
+
+function setWinNums(nums, bonus) {
+  nums.forEach((n,i) => { document.getElementById('w'+(i+1)).value = n; });
+  document.getElementById('wb').value = bonus;
+  updateWinBalls();
+}
+
+function clearWin() {
+  [1,2,3,4,5,6].forEach(i => document.getElementById('w'+i).value = '');
+  document.getElementById('wb').value = '';
+  updateWinBalls();
+}
+
+// 게임 추가
+function addGame() {
+  if (gameCount >= MAX_GAMES) { showToast('최대 5게임까지 입력 가능합니다.'); return; }
+  gameCount++;
+  renderGames();
+}
+
+function removeGame(idx) {
+  if (gameCount <= 1) return;
+  // 해당 게임 번호를 뒤 게임들로 채우기
+  for (let i = idx; i < gameCount; i++) {
+    for (let j = 1; j <= 6; j++) {
+      const curr = document.getElementById(`m${i}n${j}`);
+      const next = document.getElementById(`m${i+1}n${j}`);
+      if (curr && next) curr.value = next ? next.value : '';
+    }
+  }
+  gameCount--;
+  renderGames();
+}
+
+function renderGames() {
+  const container = document.getElementById('my-games');
+  const values = [];
+  for (let i = 1; i <= gameCount + 1; i++) {
+    const row = [];
+    for (let j = 1; j <= 6; j++) {
+      const el = document.getElementById(`m${i}n${j}`);
+      row.push(el ? el.value : '');
+    }
+    values.push(row);
+  }
+
+  container.innerHTML = '';
+  for (let i = 1; i <= gameCount; i++) {
+    const div = document.createElement('div');
+    div.className = 'game-row';
+    const gameLabels = ['A','B','C','D','E'];
+    div.innerHTML = `
+      <div class="game-header">
+        <span>게임 ${gameLabels[i-1]}</span>
+        ${gameCount > 1 ? `<button onclick="removeGame(${i})" style="border:none;background:none;color:var(--muted);cursor:pointer;font-size:12px">✕ 삭제</button>` : ''}
+      </div>
+      <div class="num-input-wrap">
+        ${[1,2,3,4,5,6].map(j => `<input class="num-input" id="m${i}n${j}" type="number" min="1" max="45" placeholder="${j}" value="${values[i-1]?values[i-1][j-1]:''}">`).join('')}
+      </div>
+    `;
+    container.appendChild(div);
+  }
+  document.getElementById('add-btn').style.display = gameCount >= MAX_GAMES ? 'none' : 'block';
+}
+
+// 등수 판정
+function getGrade(myNums, winNums, bonusNum) {
+  const matched = myNums.filter(n => winNums.includes(n)).length;
+  const bonusMatched = myNums.includes(bonusNum);
+  if (matched === 6) return 1;
+  if (matched === 5 && bonusMatched) return 2;
+  if (matched === 5) return 3;
+  if (matched === 4) return 4;
+  if (matched === 3) return 5;
+  return 0;
+}
+
+function gradeLabel(g) {
+  return ['낙첨','🥇 1등','🥈 2등','🥉 3등','4등','5등'][g] || '낙첨';
+}
+
+function gradeBadgeClass(g) {
+  return ['badge-none','badge-1','badge-2','badge-3','badge-4','badge-5'][g] || 'badge-none';
+}
+
+function check() {
+  const winNums = [1,2,3,4,5,6].map(i => parseInt(document.getElementById('w'+i).value)||0);
+  const bonusNum = parseInt(document.getElementById('wb').value)||0;
+
+  if (winNums.some(n=>!n||n<1||n>45) || !bonusNum) {
+    showToast('당첨 번호 6개와 보너스 번호를 모두 입력해주세요.');
+    return;
+  }
+  // 중복 체크
+  const unique = new Set(winNums);
+  if (unique.size !== 6) { showToast('당첨 번호에 중복 번호가 있습니다.'); return; }
+  if (unique.has(bonusNum)) { showToast('보너스 번호는 당첨 번호와 달라야 합니다.'); return; }
+
+  const gameLabels = ['A','B','C','D','E'];
+  const gameResultsHtml = [];
+  let bestGrade = 0;
+  let winCount = 0;
+
+  for (let i = 1; i <= gameCount; i++) {
+    const myNums = [1,2,3,4,5,6].map(j => parseInt(document.getElementById(`m${i}n${j}`).value)||0);
+    if (myNums.some(n=>!n||n<1||n>45)) { showToast(`게임 ${gameLabels[i-1]}의 번호를 모두 입력해주세요.`); return; }
+    const myUnique = new Set(myNums);
+    if (myUnique.size !== 6) { showToast(`게임 ${gameLabels[i-1]}에 중복 번호가 있습니다.`); return; }
+
+    const grade = getGrade(myNums, winNums, bonusNum);
+    if (grade > 0) { winCount++; if (grade < bestGrade || bestGrade === 0) bestGrade = grade; }
+
+    // 볼 표시 (일치·불일치 구분)
+    const balls = myNums.map(n => {
+      const isWin = winNums.includes(n);
+      const isBonus = n === bonusNum && !isWin;
+      const cls = `ball ${ballClass(n)}${!isWin && !isBonus ? ' bonus' : ''}`;
+      // 불일치는 opacity 낮춤
+      const style = (!isWin && !isBonus) ? 'style="opacity:0.3"' : '';
+      return `<div class="ball ${ballClass(n)}" ${style}>${n}</div>`;
+    }).join('');
+
+    gameResultsHtml.push(`
+      <div class="game-result">
+        <div class="gr-header">
+          <span style="font-size:13px;font-weight:700">게임 ${gameLabels[i-1]}</span>
+          <span class="game-result-badge ${gradeBadgeClass(grade)}">${gradeLabel(grade)}</span>
+        </div>
+        <div class="gr-balls">${balls}</div>
+      </div>
+    `);
+  }
+
+  // 요약
+  const summary = document.getElementById('result-summary');
+  const rsMain = document.getElementById('rs-main');
+  const rsSub = document.getElementById('rs-sub');
+  const rsLabel = document.getElementById('rs-label');
+
+  if (winCount === 0) {
+    summary.style.background = 'var(--bg)';
+    summary.style.borderColor = 'var(--border)';
+    rsLabel.style.color = 'var(--muted)';
+    rsMain.style.color = 'var(--muted)';
+    rsMain.textContent = '😢 낙첨';
+    rsSub.textContent = `${gameCount}게임 모두 당첨 없음`;
+  } else {
+    const colors = {1:'#854d0e',2:'#1e40af',3:'#166534',4:'var(--accent)',5:'var(--blue)'};
+    const bgs = {1:'#fef9c3',2:'#dbeafe',3:'#dcfce7',4:'var(--accent-light)',5:'var(--blue-light)'};
+    summary.style.background = bgs[bestGrade] || 'var(--green-light)';
+    summary.style.borderColor = colors[bestGrade] || 'var(--green)';
+    rsLabel.style.color = colors[bestGrade] || 'var(--green)';
+    rsMain.style.color = colors[bestGrade] || 'var(--green)';
+    rsMain.textContent = `🎉 ${gradeLabel(bestGrade)} 당첨!`;
+    rsSub.textContent = `${gameCount}게임 중 ${winCount}게임 당첨`;
+  }
+
+  document.getElementById('game-results').innerHTML = gameResultsHtml.join('');
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// 초기화
+updateWinBalls();
+renderGames();
+</script>
+</body>
+</html>
