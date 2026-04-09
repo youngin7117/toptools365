@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연금저축 계산기 - 세액공제 수령액 즉시 계산 | TopTools365</title>
+<meta name="description" content="연금저축 납입액과 기간을 입력하면 세액공제 환급액과 예상 연금 수령액을 즉시 계산합니다. IRP 합산 한도·총급여별 공제율 자동 반영. 2026년 기준. 완전 무료.">
+<meta name="keywords" content="연금저축계산기,연금저축세액공제,IRP계산기,연금저축수령액,연금저축환급액,연금저축한도,퇴직연금계산기,노후준비계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/pension-savings-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="연금저축 계산기 - 세액공제 수령액 즉시 계산 | TopTools365">
+<meta property="og:description" content="연금저축 납입액·기간 → 세액공제 환급액·예상 수령액 즉시 계산. 2026년 기준. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"연금저축 계산기","description":"연금저축 세액공제와 예상 수령액을 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+</script>
+<style>
+  :root {
+    --bg: #f7f6f3; --card: #fff; --border: #e5e2d9; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #6d28d9; --accent-light: #ede9fe;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --radius: 14px; --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #a78bfa; --accent-light: #1e1030;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+  .notice { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .notice strong { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* 총급여 선택 */
+  .salary-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .salary-btn { padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.4; }
+  .salary-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .salary-btn .sr { font-size: 11px; font-weight: 400; margin-top: 2px; opacity: .8; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; background: var(--bg); padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--border); }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 12px 52px 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .formatted { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 4px; }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
+
+  /* 슬라이더 */
+  .slider-wrap { margin-top: 8px; }
+  input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .slider-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* 프리셋 */
+  .preset-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .preset-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 세액공제 히어로 */
+  .refund-hero { text-align: center; padding: 28px; background: var(--green-light); border: 2px solid var(--green); border-radius: 14px; margin-bottom: 16px; }
+  .refund-hero .rl { font-size: 12px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .refund-hero .rv { font-size: 60px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 6px; }
+  .refund-hero .rs { font-size: 14px; color: var(--muted); }
+
+  /* 연금 수령액 히어로 */
+  .pension-hero { text-align: center; padding: 24px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 14px; margin-bottom: 16px; }
+  .pension-hero .pl { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .pension-hero .pv { font-size: 48px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .pension-hero .ps { font-size: 13px; color: var(--muted); }
+
+  /* 3분할 */
+  .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .three-grid { grid-template-columns: 1fr; } }
+  .t-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .t-box .tbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .t-box .tbv { font-size: 16px; font-weight: 800; }
+  .t-box .tbs { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 연도별 적립금 차트 */
+  .chart-wrap { padding: 4px 0; }
+  .chart-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .chart-year { font-size: 12px; color: var(--muted); min-width: 40px; }
+  .chart-bar-wrap { flex: 1; height: 20px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .chart-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--blue)); border-radius: 4px; transition: width .5s; }
+  .chart-val { font-size: 12px; font-weight: 700; color: var(--accent); min-width: 70px; text-align: right; }
+
+  /* 팁 박스 */
+  .tip-box { background: var(--orange-light); border: 1px solid var(--orange); border-radius: 10px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .tip-box strong { color: var(--orange); }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <h1>연금저축 계산기</h1>
+  <p class="subtitle">연금저축 납입액과 기간을 입력하면 세액공제 환급액과 예상 연금 수령액을 즉시 계산합니다. 2026년 기준.</p>
+
+  <div class="notice">
+    <strong>2026년 기준</strong>: 연금저축+IRP 합산 최대 900만원까지 세액공제 가능. 총급여 5,500만원 이하 16.5%, 초과 13.2% 공제율 적용.
+  </div>
+
+  <!-- ① 소득 정보 -->
+  <div class="card">
+    <div class="section-label">① 총급여 구간 선택</div>
+    <div class="salary-row">
+      <button class="salary-btn on" onclick="setSalary('low',this)">
+        5,500만원 이하
+        <div class="sr">공제율 16.5%</div>
+      </button>
+      <button class="salary-btn" onclick="setSalary('high',this)">
+        5,500만원 초과
+        <div class="sr">공제율 13.2%</div>
+      </button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6">
+      총급여 = 근로소득 합계. 종합소득자는 종합소득금액 4,500만원 기준으로 구분됩니다.
+    </p>
+  </div>
+
+  <!-- ② 납입 정보 -->
+  <div class="card">
+    <div class="section-label">② 납입 정보</div>
+    <div class="input-grid">
+      <div class="field">
+        <label>연금저축 연 납입액</label>
+        <div class="input-wrap">
+          <input type="number" id="pension-amount" placeholder="600" value="600" min="0" max="1800" oninput="fmtPension()">
+          <span class="unit">만원</span>
+        </div>
+        <div class="formatted" id="pension-fmt"></div>
+        <div class="preset-row">
+          <button class="preset-btn" onclick="setPension(300)">300만</button>
+          <button class="preset-btn" onclick="setPension(600)">600만</button>
+          <button class="preset-btn" onclick="setPension(900)">900만</button>
+        </div>
+        <p class="tip">연금저축(펀드·보험·신탁) 연간 납입액. 세액공제 한도 연 600만원</p>
+      </div>
+      <div class="field">
+        <label>IRP 연 납입액 (선택)</label>
+        <div class="input-wrap">
+          <input type="number" id="irp-amount" placeholder="300" value="300" min="0" max="1800" oninput="fmtPension()">
+          <span class="unit">만원</span>
+        </div>
+        <div class="formatted" id="irp-fmt"></div>
+        <div class="preset-row">
+          <button class="preset-btn" onclick="setIRP(0)">없음</button>
+          <button class="preset-btn" onclick="setIRP(300)">300만</button>
+        </div>
+        <p class="tip">연금저축+IRP 합산 세액공제 한도 연 900만원</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 투자 정보 -->
+  <div class="card">
+    <div class="section-label">③ 투자 기간 및 수익률</div>
+    <div class="input-grid">
+      <div class="field">
+        <label>현재 나이</label>
+        <div class="input-wrap">
+          <input type="number" id="current-age" placeholder="35" value="35" min="18" max="65">
+          <span class="unit">세</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>연금 개시 나이</label>
+        <div class="input-wrap">
+          <input type="number" id="retire-age" placeholder="65" value="65" min="55" max="80">
+          <span class="unit">세</span>
+        </div>
+        <p class="tip">최소 만 55세부터 수령 가능</p>
+      </div>
+    </div>
+    <div class="field">
+      <label>예상 연 수익률</label>
+      <div class="input-wrap">
+        <input type="number" id="return-rate" placeholder="5" value="5" min="0" max="20" step="0.5" oninput="syncSlider()">
+        <span class="unit">%</span>
+      </div>
+      <div class="slider-wrap">
+        <input type="range" id="return-slider" min="0" max="15" step="0.5" value="5" oninput="syncInput()">
+        <div class="slider-labels"><span>0%</span><span>5%</span><span>10%</span><span>15%</span></div>
+      </div>
+      <div class="preset-row">
+        <button class="preset-btn" onclick="setReturn(3)">보수 3%</button>
+        <button class="preset-btn" onclick="setReturn(5)">중립 5%</button>
+        <button class="preset-btn" onclick="setReturn(7)">적극 7%</button>
+        <button class="preset-btn" onclick="setReturn(10)">고위험 10%</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>연금 수령 기간</label>
+      <div class="input-wrap">
+        <input type="number" id="pension-period" placeholder="20" value="20" min="5" max="40">
+        <span class="unit">년</span>
+      </div>
+      <p class="tip">연금 수령 기간 (종신 수령 시 참고용)</p>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">연금저축 계산하기</button>
+
+  <!-- 결과 -->
+  <div class="results" id="results" style="margin-top:16px">
+
+    <!-- 세액공제 히어로 -->
+    <div class="refund-hero">
+      <div class="rl">연간 세액공제 환급액</div>
+      <div class="rv" id="r-refund">-</div>
+      <div class="rs" id="r-refund-sub">-</div>
+    </div>
+
+    <!-- 적립금 히어로 -->
+    <div class="pension-hero">
+      <div class="pl">만기 예상 적립금 (세전)</div>
+      <div class="pv" id="r-total">-</div>
+      <div class="ps" id="r-total-sub">-</div>
+    </div>
+
+    <!-- 3분할: 월수령액·납입총액·수익 -->
+    <div class="three-grid">
+      <div class="t-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="tbl" style="color:var(--accent)">월 예상 연금</div>
+        <div class="tbv" style="color:var(--accent)" id="r-monthly">-</div>
+        <div class="tbs" id="r-monthly-sub">-</div>
+      </div>
+      <div class="t-box" style="background:var(--blue-light);border-color:var(--blue)">
+        <div class="tbl" style="color:var(--blue)">총 납입액</div>
+        <div class="tbv" style="color:var(--blue)" id="r-paid">-</div>
+        <div class="tbs">원금</div>
+      </div>
+      <div class="t-box" style="background:var(--green-light);border-color:var(--green)">
+        <div class="tbl" style="color:var(--green)">투자 수익</div>
+        <div class="tbv" style="color:var(--green)" id="r-profit">-</div>
+        <div class="tbs">복리 수익</div>
+      </div>
+    </div>
+
+    <!-- 상세 내역 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label">연금저축 납입액</span><span class="detail-val" id="r-pension-amount">-</span></div>
+      <div class="detail-row"><span class="detail-label">IRP 납입액</span><span class="detail-val" id="r-irp-amount">-</span></div>
+      <div class="detail-row"><span class="detail-label">합산 납입액</span><span class="detail-val" id="r-combined">-</span></div>
+      <div class="detail-row"><span class="detail-label">세액공제 적용 한도</span><span class="detail-val" id="r-limit">-</span></div>
+      <div class="detail-row"><span class="detail-label">세액공제율</span><span class="detail-val" id="r-rate">-</span></div>
+      <div class="detail-row"><span class="detail-label">연간 세액공제 환급액</span><span class="detail-val" style="color:var(--green)" id="r-refund-detail">-</span></div>
+      <div class="detail-row"><span class="detail-label">납입 기간</span><span class="detail-val" id="r-years">-</span></div>
+      <div class="detail-row"><span class="detail-label">예상 수익률</span><span class="detail-val" id="r-return">-</span></div>
+      <div class="detail-row"><span class="detail-label">만기 적립금 (세전)</span><span class="detail-val" style="color:var(--accent);font-size:15px" id="r-total-detail">-</span></div>
+    </div>
+
+    <!-- 절세 팁 -->
+    <div class="tip-box" id="tip-box"></div>
+
+    <!-- 연도별 적립금 추이 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px">연도별 예상 적립금 추이</div>
+      <div class="chart-wrap" id="chart-wrap"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2>연금저축 계산기 사용 방법</h2>
+    <p>총급여 구간, 연금저축·IRP 납입액, 현재 나이·연금 개시 나이, 예상 수익률을 입력하면 세액공제 환급액과 만기 적립금, 월 예상 연금을 즉시 계산합니다.</p>
+
+    <h3>2026년 연금저축 세액공제 한도</h3>
+    <div class="info-box">
+      <strong>연금저축 단독</strong>: 연 600만원 한도<br>
+      <strong>연금저축 + IRP 합산</strong>: 연 900만원 한도<br><br>
+      <strong>총급여 5,500만원 이하</strong>: 16.5% 공제 → 최대 148만5천원 환급<br>
+      <strong>총급여 5,500만원 초과</strong>: 13.2% 공제 → 최대 118만8천원 환급
+    </div>
+
+    <h3>연금 수령 시 세금</h3>
+    <p>연금 수령 시 연금소득세(3.3~5.5%)가 부과됩니다. 연금 수령액이 연 1,500만원 이하이면 분리과세(저율), 초과 시 종합소득세에 합산됩니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2>관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/pension-calculator/">
+        <span class="related-icon">👴</span>
+        <span>국민연금 계산기</span>
+      </a>
+      <a class="related-item" href="/savings-calculator/">
+        <span class="related-icon">🏦</span>
+        <span>적금 계산기</span>
+      </a>
+      <a class="related-item" href="/investment-calculator/">
+        <span class="related-icon">📈</span>
+        <span>투자 수익률 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">연금저축 세액공제 한도는?</div>
+      <div class="faq-a">연금저축 단독 600만원, IRP 포함 합산 900만원까지 세액공제 가능합니다. 총급여에 따라 13.2~16.5% 공제율이 적용됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">연금저축과 IRP의 차이는?</div>
+      <div class="faq-a">연금저축은 증권사·보험사에서 개인이 가입하고, IRP(개인형 퇴직연금)는 은행·증권사에서 가입합니다. 두 계좌를 합산해 900만원까지 세액공제 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">연금은 언제부터 받을 수 있나요?</div>
+      <div class="faq-a">최소 가입 5년 이후, 만 55세부터 수령 가능합니다. 10년 이상 수령해야 저율 분리과세(3.3~5.5%)가 적용됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">중도 해지하면 어떻게 되나요?</div>
+      <div class="faq-a">중도 해지 시 그동안 받은 세액공제분을 기타소득세 16.5%로 추징당합니다. 가급적 만 55세까지 유지하는 것이 좋습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">연금저축 납입 한도는?</div>
+      <div class="faq-a">납입 자체의 한도는 연 1,800만원(연금저축+IRP 합산)이지만 세액공제는 900만원까지만 적용됩니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>본 계산기는 참고용이며 실제 세액공제·수령액은 금융사·세무사에게 확인하세요. 2026년 기준.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let salaryLevel = 'low'; // low=16.5%, high=13.2%
+
+function setSalary(level, el) {
+  salaryLevel = level;
+  document.querySelectorAll('.salary-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function setPension(v) { document.getElementById('pension-amount').value = v; fmtPension(); }
+function setIRP(v) { document.getElementById('irp-amount').value = v; fmtPension(); }
+function setReturn(v) {
+  document.getElementById('return-rate').value = v;
+  document.getElementById('return-slider').value = v;
+}
+function syncSlider() { document.getElementById('return-slider').value = document.getElementById('return-rate').value; }
+function syncInput() { document.getElementById('return-rate').value = document.getElementById('return-slider').value; }
+
+function fmtPension() {
+  const p = parseFloat(document.getElementById('pension-amount').value) || 0;
+  const i = parseFloat(document.getElementById('irp-amount').value) || 0;
+  document.getElementById('pension-fmt').textContent = p > 0 ? `→ 월 ${Math.round(p/12*10000).toLocaleString()}원` : '';
+  document.getElementById('irp-fmt').textContent = i > 0 ? `→ 월 ${Math.round(i/12*10000).toLocaleString()}원` : '';
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function fmtW(n) {
+  n = Math.round(n);
+  if (n >= 100000000) return (n/100000000).toFixed(2) + '억원';
+  if (n >= 10000) return (n/10000).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
+
+function calculate() {
+  const pensionAmt = (parseFloat(document.getElementById('pension-amount').value) || 0) * 10000;
+  const irpAmt = (parseFloat(document.getElementById('irp-amount').value) || 0) * 10000;
+  const currentAge = parseInt(document.getElementById('current-age').value) || 35;
+  const retireAge = parseInt(document.getElementById('retire-age').value) || 65;
+  const returnRate = parseFloat(document.getElementById('return-rate').value) || 5;
+  const pensionPeriod = parseInt(document.getElementById('pension-period').value) || 20;
+
+  if (currentAge >= retireAge) { alert('연금 개시 나이는 현재 나이보다 커야 합니다.'); return; }
+
+  const years = retireAge - currentAge;
+  const annualContrib = pensionAmt + irpAmt;
+
+  // 세액공제
+  const deductRate = salaryLevel === 'low' ? 0.165 : 0.132;
+  const maxDeductLimit = 9000000; // 900만원
+  const deductible = Math.min(annualContrib, maxDeductLimit);
+  const annualRefund = Math.round(deductible * deductRate);
+  const totalRefund = annualRefund * years;
+
+  // 복리 적립금 계산 (연말 납입 기준)
+  const r = returnRate / 100;
+  let totalAmount = 0;
+  if (r === 0) {
+    totalAmount = annualContrib * years;
+  } else {
+    // 연금 미래가치: PMT × ((1+r)^n - 1) / r
+    totalAmount = Math.round(annualContrib * ((Math.pow(1 + r, years) - 1) / r));
+  }
+  const totalPaid = annualContrib * years;
+  const profit = totalAmount - totalPaid;
+
+  // 월 연금 수령액 (적립금을 연금 기간에 나눔 - 단순 계산)
+  const monthlyPension = Math.round(totalAmount / (pensionPeriod * 12));
+
+  // 히어로
+  document.getElementById('r-refund').textContent = fmtW(annualRefund);
+  document.getElementById('r-refund-sub').textContent = `연간 세액공제 환급액 (${(deductRate*100).toFixed(1)}% 공제율)`;
+  document.getElementById('r-total').textContent = fmtW(totalAmount);
+  document.getElementById('r-total-sub').textContent = `${years}년 납입 · 연 ${returnRate}% 수익률 기준`;
+
+  // 3분할
+  document.getElementById('r-monthly').textContent = fmtW(monthlyPension);
+  document.getElementById('r-monthly-sub').textContent = `${pensionPeriod}년 수령 기준`;
+  document.getElementById('r-paid').textContent = fmtW(totalPaid);
+  document.getElementById('r-profit').textContent = fmtW(profit);
+
+  // 상세
+  document.getElementById('r-pension-amount').textContent = fmt(pensionAmt) + '/년';
+  document.getElementById('r-irp-amount').textContent = irpAmt > 0 ? fmt(irpAmt) + '/년' : '없음';
+  document.getElementById('r-combined').textContent = fmt(annualContrib) + '/년';
+  document.getElementById('r-limit').textContent = fmt(deductible) + ' (한도 900만원)';
+  document.getElementById('r-rate').textContent = (deductRate*100).toFixed(1) + '%';
+  document.getElementById('r-refund-detail').textContent = fmt(annualRefund) + '/년 (총 ' + fmtW(totalRefund) + ')';
+  document.getElementById('r-years').textContent = years + '년 (' + currentAge + '세 → ' + retireAge + '세)';
+  document.getElementById('r-return').textContent = returnRate + '%/년';
+  document.getElementById('r-total-detail').textContent = fmtW(totalAmount);
+
+  // 절세 팁
+  const tips = [];
+  if (annualContrib < maxDeductLimit) {
+    const remaining = maxDeductLimit - annualContrib;
+    tips.push(`연금저축+IRP 납입액을 ${fmtW(remaining)} 더 늘리면 세액공제 한도(900만원)를 최대한 활용할 수 있어요.`);
+  }
+  if (irpAmt === 0) tips.push('IRP 계좌를 추가하면 연금저축 외 최대 300만원 추가 세액공제를 받을 수 있어요.');
+  tips.push(`세액공제 환급액을 재투자하면 ${years}년간 총 ${fmtW(totalRefund)}를 추가로 활용할 수 있어요.`);
+  document.getElementById('tip-box').innerHTML = '<strong>💡 절세 팁</strong><br>' + tips.map(t => '· ' + t).join('<br>');
+
+  // 연도별 차트
+  const chart = document.getElementById('chart-wrap');
+  chart.innerHTML = '';
+  const milestones = [5, 10, 15, 20, years].filter((y, i, a) => y <= years && a.indexOf(y) === i);
+  if (!milestones.includes(years)) milestones.push(years);
+  milestones.sort((a, b) => a - b);
+
+  const maxVal = totalAmount;
+  milestones.forEach(y => {
+    let amt = r === 0 ? annualContrib * y : Math.round(annualContrib * ((Math.pow(1+r, y)-1)/r));
+    const div = document.createElement('div');
+    div.className = 'chart-item';
+    div.innerHTML = `
+      <span class="chart-year">${currentAge + y}세</span>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:${(amt/maxVal*100).toFixed(0)}%"></div></div>
+      <span class="chart-val">${fmtW(amt)}</span>
+    `;
+    chart.appendChild(div);
+  });
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 초기화
+fmtPension();
+</script>
+</body>
+</html>
