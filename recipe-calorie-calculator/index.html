@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>레시피 칼로리 계산기 - 재료별 칼로리 합산 즉시 계산 | TopTools365</title>
+<meta name="description" content="재료와 양을 입력하면 레시피 전체 칼로리와 영양소를 즉시 계산합니다. 1인분 칼로리 자동 계산. 탄수화물·단백질·지방 분석. 완전 무료.">
+<meta name="keywords" content="레시피칼로리계산기,요리칼로리계산,재료칼로리합산,1인분칼로리,요리영양소계산,칼로리계산기,다이어트요리칼로리">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/recipe-calorie-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="레시피 칼로리 계산기 - 재료별 칼로리 합산 즉시 계산 | TopTools365">
+<meta property="og:description" content="재료·양 입력 → 레시피 전체·1인분 칼로리 즉시 계산. 탄수화물·단백질·지방 분석. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"레시피 칼로리 계산기","description":"레시피 재료별 칼로리를 합산하여 전체 및 1인분 칼로리를 계산하는 무료 온라인 도구","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --purple: #6d28d9; --purple-light: #ede9fe;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510;
+      --purple: #a78bfa; --purple-light: #1e1030; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 재료 검색 */
+  .search-wrap { position: relative; margin-bottom: 10px; }
+  .search-wrap input { width: 100%; padding: 12px 16px 12px 42px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 15px; outline: none; transition: border-color .15s; }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+  .search-result { background: var(--card); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); max-height: 220px; overflow-y: auto; display: none; }
+  .search-result.show { display: block; }
+  .search-item { padding: 10px 16px; cursor: pointer; font-size: 13px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); transition: background .1s; }
+  .search-item:last-child { border-bottom: none; }
+  .search-item:hover { background: var(--accent-light); }
+  .search-item .si-name { font-weight: 600; }
+  .search-item .si-cal { font-size: 12px; color: var(--muted); }
+
+  /* 재료 추가 행 */
+  .add-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; margin-bottom: 12px; }
+  @media(max-width:480px) { .add-row { grid-template-columns: 1fr 1fr; } }
+  .add-row input[type="number"] { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .add-row input:focus { border-color: var(--accent); }
+  .add-btn { padding: 10px 20px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .15s; white-space: nowrap; }
+  .add-btn:hover { opacity: .88; }
+
+  /* 재료 목록 */
+  .ingredient-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; min-height: 40px; }
+  .ing-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+  .ing-icon { font-size: 18px; flex-shrink: 0; }
+  .ing-name { flex: 1; font-weight: 600; }
+  .ing-amount { color: var(--muted); font-size: 12px; min-width: 60px; }
+  .ing-cal { font-weight: 700; color: var(--accent); min-width: 60px; text-align: right; }
+  .ing-del { width: 24px; height: 24px; border: none; border-radius: 50%; background: var(--border); color: var(--muted); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .15s; }
+  .ing-del:hover { background: var(--red); color: #fff; }
+  .empty-msg { text-align: center; padding: 20px; color: var(--muted); font-size: 13px; }
+
+  /* 인분 설정 */
+  .serving-row { display: flex; align-items: center; gap: 12px; }
+  .serving-row label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .serving-row input { width: 80px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 16px; font-weight: 700; outline: none; text-align: center; }
+  .serving-row input:focus { border-color: var(--accent); }
+
+  .calc-btn { width: 100%; margin-top: 16px; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 칼로리 히어로 */
+  .cal-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .cal-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 22px 16px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box .hl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .hero-box .hv { font-size: 48px; font-weight: 900; line-height: 1; }
+  .hero-box .hs { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* 영양소 */
+  .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .macro-grid { grid-template-columns: 1fr; } }
+  .macro-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .macro-box .ml { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .macro-box .mv { font-size: 20px; font-weight: 800; }
+  .macro-box .ms { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* 재료별 칼로리 바 */
+  .ing-bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+  .ib-name { min-width: 100px; font-weight: 600; }
+  .ib-bar-wrap { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+  .ib-bar { height: 100%; background: var(--accent); border-radius: 5px; }
+  .ib-val { min-width: 70px; text-align: right; font-weight: 700; color: var(--accent); }
+
+  /* 식품 빠른 추가 */
+  .quick-grid { display: flex; gap: 6px; flex-wrap: wrap; }
+  .quick-btn { padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">레시피 칼로리 계산기</h1>
+  <p class="subtitle" id="t-sub">재료와 양을 입력하면 레시피 전체 칼로리와 1인분 칼로리를 즉시 계산합니다.</p>
+
+  <!-- 재료 입력 카드 -->
+  <div class="card">
+    <!-- 빠른 추가 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px" id="t-quick">자주 쓰는 재료</div>
+    <div class="quick-grid" id="quick-grid"></div>
+
+    <div style="height:14px"></div>
+
+    <!-- 재료 검색 -->
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="food-search" placeholder="재료 검색 (예: 닭가슴살, 밥, 계란...)" oninput="searchFood()" autocomplete="off">
+    </div>
+    <div class="search-result" id="search-result"></div>
+
+    <!-- 수량 입력 및 추가 -->
+    <div style="font-size:11px;color:var(--muted);margin-bottom:6px" id="t-selected-food">검색에서 재료를 선택하세요</div>
+    <div class="add-row">
+      <input type="number" id="amount-input" placeholder="100" value="100" min="1" step="1">
+      <span style="font-size:13px;color:var(--muted)">g</span>
+      <button class="add-btn" id="t-add-btn" onclick="addIngredient()">+ 추가</button>
+    </div>
+
+    <!-- 재료 목록 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px" id="t-ing-list">재료 목록</div>
+    <div class="ingredient-list" id="ingredient-list">
+      <div class="empty-msg" id="empty-msg">아직 추가된 재료가 없습니다. 위에서 재료를 검색해 추가하세요.</div>
+    </div>
+
+    <!-- 인분 설정 -->
+    <div class="serving-row">
+      <label id="t-serving">인분 수:</label>
+      <input type="number" id="serving-input" value="2" min="1" max="100">
+      <span style="font-size:13px;color:var(--muted)" id="t-serving-unit">인분</span>
+    </div>
+
+    <button class="calc-btn" id="t-calc" onclick="calculate()">칼로리 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <!-- 히어로 -->
+    <div class="cal-hero">
+      <div class="hero-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="hl" style="color:var(--accent)" id="t-total-cal">전체 칼로리</div>
+        <div class="hv" style="color:var(--accent)" id="r-total-cal">-</div>
+        <div class="hs">kcal</div>
+      </div>
+      <div class="hero-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="hl" style="color:var(--orange)" id="t-per-serving">1인분 칼로리</div>
+        <div class="hv" style="color:var(--orange)" id="r-per-serving">-</div>
+        <div class="hs" id="r-per-serving-sub">kcal</div>
+      </div>
+    </div>
+
+    <!-- 영양소 -->
+    <div class="macro-grid">
+      <div class="macro-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="ml" style="color:var(--orange)" id="t-carb">탄수화물</div>
+        <div class="mv" style="color:var(--orange)" id="r-carb">-</div>
+        <div class="ms">g</div>
+      </div>
+      <div class="macro-box" style="background:var(--blue-light);border-color:var(--blue)">
+        <div class="ml" style="color:var(--blue)" id="t-protein">단백질</div>
+        <div class="mv" style="color:var(--blue)" id="r-protein">-</div>
+        <div class="ms">g</div>
+      </div>
+      <div class="macro-box" style="background:var(--purple-light);border-color:var(--purple)">
+        <div class="ml" style="color:var(--purple)" id="t-fat">지방</div>
+        <div class="mv" style="color:var(--purple)" id="r-fat">-</div>
+        <div class="ms">g</div>
+      </div>
+    </div>
+
+    <!-- 재료별 칼로리 기여도 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-breakdown">재료별 칼로리 기여도</div>
+      <div id="ing-breakdown"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2 id="t-seo-h">레시피 칼로리 계산기 사용 방법</h2>
+    <p id="t-seo-p">재료를 검색해 선택하고 그램(g) 단위로 양을 입력한 후 추가 버튼을 누르세요. 모든 재료를 추가한 뒤 인분 수를 설정하고 계산하면 전체 칼로리와 1인분 칼로리를 즉시 확인할 수 있습니다.</p>
+    <h3 id="t-seo-h2">1인분 칼로리 계산 방법</h3>
+    <div class="info-box">
+      <strong>1인분 칼로리 = 전체 칼로리 ÷ 인분 수</strong><br>
+      <span id="t-seo-formula">예) 재료 합계 800kcal ÷ 4인분 = 1인분 200kcal</span>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🍽️</span>
+        <span id="t-r1">칼로리 계산기</span>
+      </a>
+      <a class="related-item" href="/bmr-calculator/">
+        <span class="related-icon">🔥</span>
+        <span id="t-r2">기초대사량 계산기</span>
+      </a>
+      <a class="related-item" href="/protein-calculator/">
+        <span class="related-icon">💪</span>
+        <span id="t-r3">단백질 섭취량 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">g(그램) 단위로 입력해야 하나요?</div>
+      <div class="faq-a" id="fa1">네, 이 계산기는 100g 기준 칼로리를 기반으로 계산합니다. 큰술·컵 단위로 계량하셨다면 요리 단위 환산기로 그램으로 변환 후 입력하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">조리 후 칼로리가 달라지나요?</div>
+      <div class="faq-a" id="fa2">조리 방법에 따라 칼로리가 달라질 수 있습니다. 볶음 요리는 기름 칼로리가 추가되고, 삶거나 찌면 수분이 증가해 100g당 칼로리가 낮아질 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">원하는 재료가 없으면?</div>
+      <div class="faq-a" id="fa3">현재 100여 종의 식품 데이터를 제공합니다. 원하는 재료가 없으면 비슷한 재료로 대체하거나, 식품 포장지의 영양성분표를 참고해 비슷한 식품을 선택하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">다이어트 레시피 칼로리 기준은?</div>
+      <div class="faq-a" id="fa4">일반 성인 하루 권장 칼로리는 2,000~2,500kcal입니다. 다이어트 시 1인분 400~600kcal 이하 식사를 목표로 하면 효과적입니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 칼로리는 조리 방법과 식품에 따라 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let lang = 'ko';
+let ingredients = [];
+let selectedFoodItem = null;
+
+// 100g당 칼로리·영양소 데이터 (kcal, carb, protein, fat)
+const FOODS = [
+  // 곡류
+  { ko:'밥 (흰쌀)', en:'Cooked rice', icon:'🍚', cal:130, carb:28.2, protein:2.5, fat:0.3 },
+  { ko:'현미밥', en:'Brown rice', icon:'🍚', cal:111, carb:23.5, protein:2.6, fat:0.9 },
+  { ko:'빵 (식빵)', en:'White bread', icon:'🍞', cal:264, carb:50.6, protein:7.8, fat:3.1 },
+  { ko:'면 (삶은)', en:'Noodles (boiled)', icon:'🍜', cal:138, carb:28.6, protein:4.5, fat:0.7 },
+  { ko:'오트밀', en:'Oatmeal', icon:'🌾', cal:389, carb:66.3, protein:16.9, fat:6.9 },
+  // 육류
+  { ko:'닭가슴살', en:'Chicken breast', icon:'🍗', cal:109, carb:0, protein:23.1, fat:1.2 },
+  { ko:'닭다리살', en:'Chicken thigh', icon:'🍗', cal:175, carb:0, protein:18.6, fat:10.9 },
+  { ko:'소고기 (등심)', en:'Beef (sirloin)', icon:'🥩', cal:206, carb:0, protein:21.3, fat:13.0 },
+  { ko:'돼지고기 (삼겹살)', en:'Pork belly', icon:'🥩', cal:331, carb:0, protein:14.5, fat:29.8 },
+  { ko:'돼지고기 (앞다리)', en:'Pork shoulder', icon:'🥩', cal:143, carb:0, protein:19.2, fat:7.1 },
+  { ko:'계란', en:'Egg', icon:'🥚', cal:143, carb:0.7, protein:12.6, fat:9.5 },
+  // 해산물
+  { ko:'연어', en:'Salmon', icon:'🐟', cal:208, carb:0, protein:20.4, fat:13.4 },
+  { ko:'참치 (통조림)', en:'Canned tuna', icon:'🐟', cal:116, carb:0, protein:25.5, fat:1.0 },
+  { ko:'새우', en:'Shrimp', icon:'🦐', cal:85, carb:0.9, protein:17.3, fat:1.2 },
+  { ko:'고등어', en:'Mackerel', icon:'🐟', cal:205, carb:0, protein:19.0, fat:13.8 },
+  // 채소
+  { ko:'시금치', en:'Spinach', icon:'🥬', cal:23, carb:3.6, protein:2.9, fat:0.4 },
+  { ko:'브로콜리', en:'Broccoli', icon:'🥦', cal:34, carb:6.6, protein:2.8, fat:0.4 },
+  { ko:'당근', en:'Carrot', icon:'🥕', cal:41, carb:9.6, protein:0.9, fat:0.2 },
+  { ko:'양파', en:'Onion', icon:'🧅', cal:40, carb:9.3, protein:1.1, fat:0.1 },
+  { ko:'감자', en:'Potato', icon:'🥔', cal:77, carb:17.5, protein:2.0, fat:0.1 },
+  { ko:'고구마', en:'Sweet potato', icon:'🍠', cal:86, carb:20.0, protein:1.6, fat:0.1 },
+  { ko:'토마토', en:'Tomato', icon:'🍅', cal:18, carb:3.9, protein:0.9, fat:0.2 },
+  { ko:'양배추', en:'Cabbage', icon:'🥬', cal:25, carb:5.8, protein:1.3, fat:0.1 },
+  { ko:'버섯', en:'Mushroom', icon:'🍄', cal:22, carb:3.3, protein:3.1, fat:0.3 },
+  // 과일
+  { ko:'바나나', en:'Banana', icon:'🍌', cal:89, carb:22.8, protein:1.1, fat:0.3 },
+  { ko:'사과', en:'Apple', icon:'🍎', cal:52, carb:13.8, protein:0.3, fat:0.2 },
+  { ko:'딸기', en:'Strawberry', icon:'🍓', cal:32, carb:7.7, protein:0.7, fat:0.3 },
+  // 유제품
+  { ko:'우유', en:'Milk', icon:'🥛', cal:61, carb:4.8, protein:3.2, fat:3.3 },
+  { ko:'그릭요거트', en:'Greek yogurt', icon:'🫙', cal:97, carb:3.6, protein:9.0, fat:5.0 },
+  { ko:'버터', en:'Butter', icon:'🧈', cal:717, carb:0.1, protein:0.9, fat:81.1 },
+  { ko:'치즈', en:'Cheese', icon:'🧀', cal:402, carb:1.3, protein:25.2, fat:33.1 },
+  // 조미료·오일
+  { ko:'식용유', en:'Cooking oil', icon:'🫙', cal:884, carb:0, protein:0, fat:100 },
+  { ko:'올리브유', en:'Olive oil', icon:'🫙', cal:884, carb:0, protein:0, fat:100 },
+  { ko:'설탕', en:'Sugar', icon:'🍬', cal:387, carb:100, protein:0, fat:0 },
+  { ko:'간장', en:'Soy sauce', icon:'🧂', cal:53, carb:8.1, protein:5.7, fat:0.1 },
+  { ko:'고추장', en:'Gochujang', icon:'🌶️', cal:192, carb:36.8, protein:6.5, fat:2.8 },
+  { ko:'된장', en:'Doenjang', icon:'🧂', cal:187, carb:18.6, protein:13.2, fat:7.2 },
+  { ko:'참기름', en:'Sesame oil', icon:'🫙', cal:884, carb:0, protein:0, fat:100 },
+  // 두부·콩
+  { ko:'두부', en:'Tofu', icon:'⬜', cal:76, carb:1.9, protein:8.1, fat:4.2 },
+  { ko:'콩나물', en:'Bean sprouts', icon:'🌱', cal:30, carb:5.9, protein:3.2, fat:0.2 },
+  // 기타
+  { ko:'라면 (건면)', en:'Ramen (dry)', icon:'🍜', cal:438, carb:63.4, protein:10.6, fat:15.5 },
+  { ko:'두유', en:'Soy milk', icon:'🥛', cal:43, carb:3.5, protein:3.6, fat:1.8 },
+  { ko:'꿀', en:'Honey', icon:'🍯', cal:304, carb:82.4, protein:0.3, fat:0 },
+  { ko:'아보카도', en:'Avocado', icon:'🥑', cal:160, carb:8.5, protein:2.0, fat:14.7 },
+];
+
+const QUICK_FOODS_KO = ['닭가슴살','밥 (흰쌀)','계란','두부','브로콜리','참치 (통조림)'];
+const QUICK_FOODS_EN = ['Chicken breast','Cooked rice','Egg','Tofu','Broccoli','Canned tuna'];
+
+const T = {
+  ko: {
+    title:'레시피 칼로리 계산기', sub:'재료와 양을 입력하면 레시피 전체 칼로리와 1인분 칼로리를 즉시 계산합니다.',
+    quick:'자주 쓰는 재료', selectedFood:'검색에서 재료를 선택하세요',
+    addBtn:'+ 추가', ingList:'재료 목록', serving:'인분 수:', servingUnit:'인분',
+    calc:'칼로리 계산하기', totalCal:'전체 칼로리', perServing:'1인분 칼로리',
+    carb:'탄수화물', protein:'단백질', fat:'지방', breakdown:'재료별 칼로리 기여도',
+    related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'칼로리 계산기', r2:'기초대사량 계산기', r3:'단백질 섭취량 계산기',
+    emptyMsg:'아직 추가된 재료가 없습니다. 위에서 재료를 검색해 추가하세요.',
+    noResult:'검색 결과가 없습니다.',
+    searchPlaceholder:'재료 검색 (예: 닭가슴살, 밥, 계란...)',
+    seoFormula:'예) 재료 합계 800kcal ÷ 4인분 = 1인분 200kcal',
+  },
+  en: {
+    title:'Recipe Calorie Calculator', sub:'Enter ingredients and amounts to instantly calculate total and per-serving calories.',
+    quick:'Common Ingredients', selectedFood:'Select an ingredient from search',
+    addBtn:'+ Add', ingList:'Ingredient List', serving:'Servings:', servingUnit:'servings',
+    calc:'Calculate Calories', totalCal:'Total Calories', perServing:'Per Serving',
+    carb:'Carbohydrates', protein:'Protein', fat:'Fat', breakdown:'Calories by Ingredient',
+    related:'Related Tools', faq:'FAQ',
+    r1:'Calorie Calculator', r2:'BMR Calculator', r3:'Protein Calculator',
+    emptyMsg:'No ingredients added yet. Search and add ingredients above.',
+    noResult:'No results found.',
+    searchPlaceholder:'Search ingredients (e.g. chicken, rice, eggs...)',
+    seoFormula:'e.g. 800kcal total ÷ 4 servings = 200kcal per serving',
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-quick').textContent = t.quick;
+  document.getElementById('t-selected-food').textContent = t.selectedFood;
+  document.getElementById('t-add-btn').textContent = t.addBtn;
+  document.getElementById('t-ing-list').textContent = t.ingList;
+  document.getElementById('t-serving').textContent = t.serving;
+  document.getElementById('t-serving-unit').textContent = t.servingUnit;
+  document.getElementById('t-calc').textContent = t.calc;
+  document.getElementById('t-total-cal').textContent = t.totalCal;
+  document.getElementById('t-per-serving').textContent = t.perServing;
+  document.getElementById('t-carb').textContent = t.carb;
+  document.getElementById('t-protein').textContent = t.protein;
+  document.getElementById('t-fat').textContent = t.fat;
+  document.getElementById('t-breakdown').textContent = t.breakdown;
+  document.getElementById('t-related').textContent = t.related;
+  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-r1').textContent = t.r1;
+  document.getElementById('t-r2').textContent = t.r2;
+  document.getElementById('t-r3').textContent = t.r3;
+  document.getElementById('t-seo-formula').textContent = t.seoFormula;
+  document.getElementById('food-search').placeholder = t.searchPlaceholder;
+  document.getElementById('empty-msg').textContent = t.emptyMsg;
+  renderQuickFoods();
+  renderIngredientList();
+}
+
+function renderQuickFoods() {
+  const grid = document.getElementById('quick-grid');
+  grid.innerHTML = '';
+  const quickList = lang === 'ko' ? QUICK_FOODS_KO : QUICK_FOODS_EN;
+  quickList.forEach(name => {
+    const food = FOODS.find(f => (lang==='ko'?f.ko:f.en) === name);
+    if (!food) return;
+    const btn = document.createElement('button');
+    btn.className = 'quick-btn';
+    btn.textContent = food.icon + ' ' + (lang==='ko'?food.ko:food.en);
+    btn.onclick = () => { selectFood(food); document.getElementById('food-search').value = ''; closeSearch(); };
+    grid.appendChild(btn);
+  });
+}
+
+function searchFood() {
+  const q = document.getElementById('food-search').value.trim().toLowerCase();
+  const res = document.getElementById('search-result');
+  if (!q) { res.classList.remove('show'); return; }
+
+  const matched = FOODS.filter(f => {
+    const name = lang === 'ko' ? f.ko : f.en;
+    return name.toLowerCase().includes(q);
+  });
+
+  if (matched.length === 0) {
+    res.innerHTML = `<div class="search-item"><span class="si-name">${T[lang].noResult}</span></div>`;
+    res.classList.add('show');
+    return;
+  }
+
+  res.innerHTML = matched.slice(0, 10).map(f => {
+    const name = lang === 'ko' ? f.ko : f.en;
+    return `<div class="search-item" onclick="selectFood(${JSON.stringify(f).replace(/"/g,'&quot;')})">
+      <span class="si-name">${f.icon} ${name}</span>
+      <span class="si-cal">${f.cal}kcal/100g</span>
+    </div>`;
+  }).join('');
+  res.classList.add('show');
+}
+
+function selectFood(food) {
+  if (typeof food === 'string') food = JSON.parse(food);
+  selectedFoodItem = food;
+  const name = lang === 'ko' ? food.ko : food.en;
+  document.getElementById('t-selected-food').textContent = `✅ ${food.icon} ${name} (${food.cal}kcal/100g) 선택됨`;
+  document.getElementById('t-selected-food').style.color = 'var(--accent)';
+  document.getElementById('food-search').value = '';
+  closeSearch();
+}
+
+function closeSearch() {
+  document.getElementById('search-result').classList.remove('show');
+}
+
+function addIngredient() {
+  if (!selectedFoodItem) { alert(lang==='ko'?'재료를 먼저 선택해주세요.':'Please select an ingredient first.'); return; }
+  const amount = parseFloat(document.getElementById('amount-input').value) || 0;
+  if (amount <= 0) { alert(lang==='ko'?'양을 입력해주세요.':'Please enter an amount.'); return; }
+
+  // 중복 재료 합산
+  const existing = ingredients.find(i => i.food.ko === selectedFoodItem.ko);
+  if (existing) {
+    existing.amount += amount;
+  } else {
+    ingredients.push({ food: selectedFoodItem, amount });
+  }
+
+  renderIngredientList();
+  document.getElementById('amount-input').value = 100;
+  selectedFoodItem = null;
+  document.getElementById('t-selected-food').textContent = T[lang].selectedFood;
+  document.getElementById('t-selected-food').style.color = '';
+}
+
+function removeIngredient(idx) {
+  ingredients.splice(idx, 1);
+  renderIngredientList();
+}
+
+function renderIngredientList() {
+  const list = document.getElementById('ingredient-list');
+  if (ingredients.length === 0) {
+    list.innerHTML = `<div class="empty-msg" id="empty-msg">${T[lang].emptyMsg}</div>`;
+    return;
+  }
+  list.innerHTML = ingredients.map((item, i) => {
+    const name = lang === 'ko' ? item.food.ko : item.food.en;
+    const cal = Math.round(item.food.cal * item.amount / 100);
+    return `
+      <div class="ing-item">
+        <span class="ing-icon">${item.food.icon}</span>
+        <span class="ing-name">${name}</span>
+        <span class="ing-amount">${item.amount}g</span>
+        <span class="ing-cal">${cal}kcal</span>
+        <button class="ing-del" onclick="removeIngredient(${i})">×</button>
+      </div>`;
+  }).join('');
+}
+
+function calculate() {
+  if (ingredients.length === 0) {
+    alert(lang === 'ko' ? '재료를 추가해주세요.' : 'Please add ingredients.');
+    return;
+  }
+  const servings = parseInt(document.getElementById('serving-input').value) || 1;
+
+  let totalCal = 0, totalCarb = 0, totalProtein = 0, totalFat = 0;
+  ingredients.forEach(item => {
+    const ratio = item.amount / 100;
+    totalCal += item.food.cal * ratio;
+    totalCarb += item.food.carb * ratio;
+    totalProtein += item.food.protein * ratio;
+    totalFat += item.food.fat * ratio;
+  });
+
+  totalCal = Math.round(totalCal);
+  totalCarb = Math.round(totalCarb * 10) / 10;
+  totalProtein = Math.round(totalProtein * 10) / 10;
+  totalFat = Math.round(totalFat * 10) / 10;
+
+  const perCal = Math.round(totalCal / servings);
+
+  document.getElementById('r-total-cal').textContent = totalCal.toLocaleString();
+  document.getElementById('r-per-serving').textContent = perCal.toLocaleString();
+  document.getElementById('r-per-serving-sub').textContent = lang === 'ko' ? `kcal / ${servings}인분 기준` : `kcal / ${servings} serving(s)`;
+  document.getElementById('r-carb').textContent = totalCarb;
+  document.getElementById('r-protein').textContent = totalProtein;
+  document.getElementById('r-fat').textContent = totalFat;
+
+  // 재료별 기여도
+  const breakdown = document.getElementById('ing-breakdown');
+  const sorted = [...ingredients].sort((a, b) =>
+    (b.food.cal * b.amount / 100) - (a.food.cal * a.amount / 100)
+  );
+  breakdown.innerHTML = sorted.map(item => {
+    const name = lang === 'ko' ? item.food.ko : item.food.en;
+    const cal = Math.round(item.food.cal * item.amount / 100);
+    const pct = Math.round(cal / totalCal * 100);
+    return `
+      <div class="ing-bar-item">
+        <span class="ib-name">${item.food.icon} ${name}</span>
+        <div class="ib-bar-wrap"><div class="ib-bar" style="width:${pct}%"></div></div>
+        <span class="ib-val">${cal}kcal</span>
+      </div>`;
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// 검색창 외부 클릭 시 닫기
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap') && !e.target.closest('.search-result')) closeSearch();
+});
+
+// 초기화
+renderQuickFoods();
+</script>
+</body>
+</html>
