@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통계 계산기 - 평균 중앙값 표준편차 즉시 계산 | TopTools365</title>
+<meta name="description" content="숫자를 입력하면 평균·중앙값·최빈값·표준편차·분산·최대·최솟값을 즉시 계산합니다. 데이터 분포 시각화 포함. 완전 무료.">
+<meta name="keywords" content="통계계산기,평균계산기,표준편차계산기,중앙값계산,분산계산기,최빈값계산,통계분석,데이터통계">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/statistics-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="통계 계산기 - 평균 중앙값 표준편차 즉시 계산 | TopTools365">
+<meta property="og:description" content="숫자 입력 → 평균·중앙값·표준편차·분산 즉시 계산. 데이터 분포 시각화. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"통계 계산기","description":"평균·중앙값·표준편차 등 주요 통계값을 계산하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --purple: #6d28d9; --purple-light: #ede9fe;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --purple: #a78bfa; --purple-light: #1e1030;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 입력 */
+  textarea { width: 100%; height: 120px; padding: 14px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.8; resize: vertical; outline: none; font-family: 'Courier New', monospace; transition: border-color .15s; }
+  textarea:focus { border-color: var(--accent); }
+  .input-hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  /* 예시 버튼 */
+  .ex-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+  .ex-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .ex-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; margin-top: 12px; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 그리드 */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-box { padding: 16px 12px; border-radius: 10px; text-align: center; border: 1px solid; background: var(--card); cursor: pointer; transition: opacity .15s; }
+  .stat-box:hover { opacity: .85; }
+  .stat-box .sl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .stat-box .sv { font-size: 20px; font-weight: 800; }
+  .stat-box .ss { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* 도수분포 바 차트 */
+  .hist-wrap { display: flex; align-items: flex-end; gap: 4px; height: 120px; margin: 12px 0 6px; }
+  .hist-bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; }
+  .hist-bar { width: 100%; background: var(--accent); border-radius: 3px 3px 0 0; transition: height .4s; min-height: 2px; }
+  .hist-label { font-size: 10px; color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+  /* 정렬된 데이터 */
+  .sorted-data { font-family: 'Courier New', monospace; font-size: 13px; color: var(--muted); background: var(--bg); padding: 12px 14px; border-radius: 8px; line-height: 1.8; word-break: break-all; max-height: 100px; overflow-y: auto; }
+  .sorted-data .highlight { color: var(--accent); font-weight: 700; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; font-family: 'Courier New', monospace; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">통계 계산기</h1>
+  <p class="subtitle" id="t-sub">숫자를 입력하면 평균·중앙값·표준편차 등 주요 통계값을 즉시 계산합니다.</p>
+
+  <div class="card">
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px" id="t-input-label">숫자 입력 (쉼표, 공백, 줄바꿈으로 구분)</div>
+    <textarea id="data-input" placeholder="예: 10, 20, 30, 40, 50&#10;또는 한 줄에 하나씩 입력"></textarea>
+    <div class="input-hint" id="t-hint">쉼표(,) 공백 또는 줄바꿈으로 숫자를 구분하세요.</div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 6px" id="t-ex-label">예시 데이터</div>
+    <div class="ex-row">
+      <button class="ex-btn" onclick="loadEx('10,20,30,40,50')" id="ex1">간단 데이터</button>
+      <button class="ex-btn" onclick="loadEx('85,92,78,95,88,76,91,84,87,93')" id="ex2">시험 점수</button>
+      <button class="ex-btn" onclick="loadEx('2,4,4,4,5,5,7,9')" id="ex3">교과서 예제</button>
+      <button class="ex-btn" onclick="loadEx('170,172,168,175,165,180,163,177,171,169')" id="ex4">키 데이터</button>
+    </div>
+
+    <button class="calc-btn" id="t-calc" onclick="calculate()">통계 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div id="results" style="display:none">
+    <!-- 주요 통계값 -->
+    <div class="stat-grid" id="stat-grid"></div>
+
+    <!-- 도수분포 히스토그램 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px" id="t-hist">데이터 분포</div>
+      <div class="hist-wrap" id="hist-wrap"></div>
+      <div style="font-size:11px;color:var(--muted);text-align:center" id="t-hist-hint">막대 높이 = 해당 구간의 데이터 수</div>
+    </div>
+
+    <!-- 정렬된 데이터 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:10px" id="t-sorted">정렬된 데이터</div>
+      <div class="sorted-data" id="sorted-data"></div>
+    </div>
+
+    <!-- 상세 통계 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-detail">상세 통계</div>
+      <div id="detail-rows"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2 id="t-seo-h">통계 계산기 사용 방법</h2>
+    <p id="t-seo-p">숫자를 쉼표·공백·줄바꿈으로 구분해 입력하면 평균·중앙값·표준편차 등 주요 통계값을 즉시 계산합니다.</p>
+    <h3 id="t-seo-h2">주요 통계 용어</h3>
+    <div class="info-box">
+      <strong id="t-mean-desc-title">평균 (Mean)</strong>: <span id="t-mean-desc">모든 값의 합 ÷ 데이터 수</span><br>
+      <strong id="t-median-desc-title">중앙값 (Median)</strong>: <span id="t-median-desc">정렬 후 가운데 값. 이상값 영향을 덜 받음</span><br>
+      <strong id="t-mode-desc-title">최빈값 (Mode)</strong>: <span id="t-mode-desc">가장 자주 나타나는 값</span><br>
+      <strong id="t-std-desc-title">표준편차 (Std Dev)</strong>: <span id="t-std-desc">데이터가 평균에서 얼마나 퍼져 있는지 나타내는 값</span><br>
+      <strong id="t-var-desc-title">분산 (Variance)</strong>: <span id="t-var-desc">표준편차의 제곱. 편차의 평균</span>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span id="t-r1">퍼센트 계산기</span>
+      </a>
+      <a class="related-item" href="/base-converter/">
+        <span class="related-icon">🔢</span>
+        <span id="t-r2">진법 변환기</span>
+      </a>
+      <a class="related-item" href="/gpa-calculator/">
+        <span class="related-icon">🎓</span>
+        <span id="t-r3">학점 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">평균과 중앙값 중 어떤 것이 더 정확한가요?</div>
+      <div class="faq-a" id="fa1">이상값(극단적으로 크거나 작은 값)이 있을 때는 중앙값이 더 대표적입니다. 예) 연봉 통계에서 억대 연봉자가 포함되면 평균이 크게 올라가지만 중앙값은 크게 변하지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">표준편차가 작을수록 좋은 건가요?</div>
+      <div class="faq-a" id="fa2">표준편차가 작을수록 데이터가 평균에 가깝게 모여 있다는 의미입니다. 품질 관리·성적 분포 등에서 표준편차가 작으면 균일하다는 뜻입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">최빈값이 여러 개일 수 있나요?</div>
+      <div class="faq-a" id="fa3">네, 같은 빈도로 나타나는 값이 여러 개면 모두 최빈값입니다. 이를 다봉분포(multimodal)라고 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">모표준편차와 표본표준편차의 차이는?</div>
+      <div class="faq-a" id="fa4">모표준편차는 전체 모집단을 대상으로 계산(÷N), 표본표준편차는 일부 샘플로 전체를 추정할 때 사용(÷N-1)합니다. 이 계산기는 두 가지 모두 제공합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+
+const T = {
+  ko: {
+    title:'통계 계산기', sub:'숫자를 입력하면 평균·중앙값·표준편차 등 주요 통계값을 즉시 계산합니다.',
+    inputLabel:'숫자 입력 (쉼표, 공백, 줄바꿈으로 구분)',
+    hint:'쉼표(,) 공백 또는 줄바꿈으로 숫자를 구분하세요.',
+    exLabel:'예시 데이터', calc:'통계 계산하기',
+    ex1:'간단 데이터', ex2:'시험 점수', ex3:'교과서 예제', ex4:'키 데이터',
+    hist:'데이터 분포', histHint:'막대 높이 = 해당 구간의 데이터 수',
+    sorted:'정렬된 데이터', detail:'상세 통계',
+    stats: {
+      mean:'평균', median:'중앙값', mode:'최빈값', stdPop:'표준편차(모)', stdSam:'표준편차(표본)',
+      varPop:'분산(모)', varSam:'분산(표본)', min:'최솟값', max:'최댓값', count:'데이터 수', sum:'합계', range:'범위',
+      q1:'1사분위수 (Q1)', q2:'2사분위수 (Q2)', q3:'3사분위수 (Q3)', iqr:'사분위 범위 (IQR)',
+      cv:'변동계수 (CV)',
+    },
+    seoH:'통계 계산기 사용 방법', seoP:'숫자를 쉼표·공백·줄바꿈으로 구분해 입력하면 평균·중앙값·표준편차 등 주요 통계값을 즉시 계산합니다.',
+    seoH2:'주요 통계 용어', related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'퍼센트 계산기', r2:'진법 변환기', r3:'학점 계산기',
+    copied:'복사됨!', footer:'© 2026 TopTools365 · 무료 온라인 계산기',
+    median_mark:'← 중앙값',
+    noMode:'없음 (모든 값이 동일한 빈도)',
+  },
+  en: {
+    title:'Statistics Calculator', sub:'Enter numbers to instantly calculate mean, median, standard deviation, and more.',
+    inputLabel:'Enter Numbers (separated by comma, space, or newline)',
+    hint:'Separate numbers with commas, spaces, or newlines.',
+    exLabel:'Example Data', calc:'Calculate Statistics',
+    ex1:'Simple', ex2:'Test Scores', ex3:'Textbook Ex', ex4:'Height Data',
+    hist:'Data Distribution', histHint:'Bar height = number of values in that range',
+    sorted:'Sorted Data', detail:'Detailed Statistics',
+    stats: {
+      mean:'Mean', median:'Median', mode:'Mode', stdPop:'Std Dev (Pop)', stdSam:'Std Dev (Sample)',
+      varPop:'Variance (Pop)', varSam:'Variance (Sample)', min:'Min', max:'Max', count:'Count', sum:'Sum', range:'Range',
+      q1:'Q1 (25th pct)', q2:'Q2 (Median)', q3:'Q3 (75th pct)', iqr:'IQR',
+      cv:'Coeff of Variation',
+    },
+    seoH:'How to Use the Statistics Calculator', seoP:'Enter numbers separated by commas, spaces, or newlines to instantly calculate mean, median, standard deviation, and more.',
+    seoH2:'Key Statistical Terms', related:'Related Tools', faq:'FAQ',
+    r1:'Percentage Calculator', r2:'Base Converter', r3:'GPA Calculator',
+    copied:'Copied!', footer:'© 2026 TopTools365 · Free Online Calculator',
+    median_mark:'← Median',
+    noMode:'None (all values equally frequent)',
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-input-label').textContent = t.inputLabel;
+  document.getElementById('t-hint').textContent = t.hint;
+  document.getElementById('t-ex-label').textContent = t.exLabel;
+  document.getElementById('t-calc').textContent = t.calc;
+  document.getElementById('ex1').textContent = t.ex1;
+  document.getElementById('ex2').textContent = t.ex2;
+  document.getElementById('ex3').textContent = t.ex3;
+  document.getElementById('ex4').textContent = t.ex4;
+  document.getElementById('t-hist').textContent = t.hist;
+  document.getElementById('t-hist-hint').textContent = t.histHint;
+  document.getElementById('t-sorted').textContent = t.sorted;
+  document.getElementById('t-detail').textContent = t.detail;
+  document.getElementById('t-seo-h').textContent = t.seoH;
+  document.getElementById('t-seo-p').textContent = t.seoP;
+  document.getElementById('t-seo-h2').textContent = t.seoH2;
+  document.getElementById('t-related').textContent = t.related;
+  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-r1').textContent = t.r1;
+  document.getElementById('t-r2').textContent = t.r2;
+  document.getElementById('t-r3').textContent = t.r3;
+  document.getElementById('t-footer').textContent = t.footer;
+}
+
+function loadEx(data) {
+  document.getElementById('data-input').value = data;
+}
+
+function parseData() {
+  const raw = document.getElementById('data-input').value;
+  const nums = raw.split(/[\s,;]+/).map(s => s.trim()).filter(s => s !== '').map(Number);
+  return nums.filter(n => !isNaN(n));
+}
+
+function round4(n) { return Math.round(n * 10000) / 10000; }
+
+function calcMedian(sorted) {
+  const n = sorted.length;
+  if (n % 2 === 0) return (sorted[n/2 - 1] + sorted[n/2]) / 2;
+  return sorted[Math.floor(n/2)];
+}
+
+function calcMode(nums) {
+  const freq = {};
+  nums.forEach(n => { freq[n] = (freq[n] || 0) + 1; });
+  const maxFreq = Math.max(...Object.values(freq));
+  if (maxFreq === 1) return null; // 모든 값이 1회
+  return Object.keys(freq).filter(k => freq[k] === maxFreq).map(Number).sort((a,b)=>a-b);
+}
+
+function calcPercentile(sorted, p) {
+  const n = sorted.length;
+  const idx = (p / 100) * (n - 1);
+  const lower = Math.floor(idx);
+  const frac = idx - lower;
+  if (lower + 1 >= n) return sorted[n - 1];
+  return sorted[lower] + frac * (sorted[lower + 1] - sorted[lower]);
+}
+
+function calculate() {
+  const nums = parseData();
+  if (nums.length < 2) {
+    alert(lang === 'ko' ? '숫자를 2개 이상 입력해주세요.' : 'Please enter at least 2 numbers.');
+    return;
+  }
+
+  const t = T[lang];
+  const n = nums.length;
+  const sorted = [...nums].sort((a, b) => a - b);
+  const sum = nums.reduce((s, v) => s + v, 0);
+  const mean = sum / n;
+  const median = calcMedian(sorted);
+  const mode = calcMode(nums);
+  const varPop = nums.reduce((s, v) => s + (v - mean) ** 2, 0) / n;
+  const varSam = nums.reduce((s, v) => s + (v - mean) ** 2, 0) / (n - 1);
+  const stdPop = Math.sqrt(varPop);
+  const stdSam = Math.sqrt(varSam);
+  const min = sorted[0];
+  const max = sorted[n - 1];
+  const range = max - min;
+  const q1 = calcPercentile(sorted, 25);
+  const q3 = calcPercentile(sorted, 75);
+  const iqr = q3 - q1;
+  const cv = (stdPop / Math.abs(mean) * 100);
+
+  // 주요 통계 카드
+  const statsConfig = [
+    { key:'mean',    val:round4(mean),   color:'var(--accent)',  colorL:'var(--accent-light)' },
+    { key:'median',  val:round4(median), color:'var(--green)',   colorL:'var(--green-light)' },
+    { key:'mode',    val:mode ? mode.join(', ') : t.noMode, color:'var(--purple)', colorL:'var(--purple-light)' },
+    { key:'stdPop',  val:round4(stdPop), color:'var(--orange)',  colorL:'var(--orange-light)' },
+    { key:'min',     val:min,            color:'var(--accent)',  colorL:'var(--bg)' },
+    { key:'max',     val:max,            color:'var(--red)',     colorL:'var(--red-light)' },
+  ];
+
+  const grid = document.getElementById('stat-grid');
+  grid.innerHTML = '';
+  statsConfig.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'stat-box';
+    div.style.borderColor = s.color;
+    div.style.background = s.colorL;
+    div.innerHTML = `
+      <div class="sl" style="color:${s.color}">${t.stats[s.key]}</div>
+      <div class="sv" style="color:${s.color}">${s.val}</div>
+    `;
+    div.onclick = () => { navigator.clipboard.writeText(String(s.val)); showToast(t.copied); };
+    grid.appendChild(div);
+  });
+
+  // 히스토그램
+  const bins = Math.min(10, Math.ceil(Math.sqrt(n)));
+  const binSize = range / bins || 1;
+  const binCounts = new Array(bins).fill(0);
+  nums.forEach(v => {
+    const idx = Math.min(Math.floor((v - min) / binSize), bins - 1);
+    binCounts[idx]++;
+  });
+  const maxCount = Math.max(...binCounts);
+  const hist = document.getElementById('hist-wrap');
+  hist.innerHTML = '';
+  binCounts.forEach((count, i) => {
+    const barHeight = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
+    const rangeStart = round4(min + i * binSize);
+    const rangeEnd = round4(min + (i + 1) * binSize);
+    const col = document.createElement('div');
+    col.className = 'hist-bar-col';
+    col.innerHTML = `
+      <div class="hist-bar" style="height:${barHeight}%;background:var(--accent)" title="${rangeStart}~${rangeEnd}: ${count}개"></div>
+      <div class="hist-label">${rangeStart}</div>
+    `;
+    hist.appendChild(col);
+  });
+
+  // 정렬된 데이터
+  const medianIdx = n % 2 === 0 ? [n/2 - 1, n/2] : [Math.floor(n/2)];
+  const sortedHtml = sorted.map((v, i) =>
+    medianIdx.includes(i)
+      ? `<span class="highlight">${v}</span>`
+      : v
+  ).join(', ');
+  document.getElementById('sorted-data').innerHTML = sortedHtml;
+
+  // 상세 통계
+  const details = [
+    { label: t.stats.count,  val: n },
+    { label: t.stats.sum,    val: round4(sum) },
+    { label: t.stats.mean,   val: round4(mean) },
+    { label: t.stats.median, val: round4(median) },
+    { label: t.stats.mode,   val: mode ? mode.join(', ') : t.noMode },
+    { label: t.stats.min,    val: min },
+    { label: t.stats.max,    val: max },
+    { label: t.stats.range,  val: round4(range) },
+    { label: t.stats.stdPop, val: round4(stdPop) },
+    { label: t.stats.stdSam, val: round4(stdSam) },
+    { label: t.stats.varPop, val: round4(varPop) },
+    { label: t.stats.varSam, val: round4(varSam) },
+    { label: t.stats.q1,     val: round4(q1) },
+    { label: t.stats.q2,     val: round4(median) },
+    { label: t.stats.q3,     val: round4(q3) },
+    { label: t.stats.iqr,    val: round4(iqr) },
+    { label: t.stats.cv,     val: round4(cv) + '%' },
+  ];
+
+  document.getElementById('detail-rows').innerHTML = details.map(d => `
+    <div class="detail-row">
+      <span class="detail-label">${d.label}</span>
+      <span class="detail-val">${d.val}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1500);
+}
+</script>
+</body>
+</html>
