@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 예산 계산기 - 여행 경비 한눈에 정리 | TopTools365</title>
+<meta name="description" content="항공·숙박·식비·교통·관광 등 여행 경비를 항목별로 입력하면 총 예산과 1인당 비용을 즉시 계산합니다. 환율 변환 포함. 완전 무료.">
+<meta name="keywords" content="여행예산계산기,여행경비계산,해외여행경비,여행비용계산,여행예산정리,1인당여행비용,여행경비표">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/travel-budget-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="여행 예산 계산기 - 여행 경비 한눈에 정리 | TopTools365">
+<meta property="og:description" content="항공·숙박·식비·교통·관광 항목별 여행 경비 입력 → 총 예산·1인당 비용 즉시 계산. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"여행 예산 계산기","description":"여행 경비를 항목별로 입력해 총 예산과 1인당 비용을 계산하는 무료 온라인 도구","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --purple: #6d28d9; --purple-light: #ede9fe;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510;
+      --purple: #a78bfa; --purple-light: #1e1030; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 기본 정보 */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+  @media(max-width:520px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .field input, .field select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600; outline: none; transition: border-color .15s; }
+  .field input:focus, .field select:focus { border-color: var(--accent); }
+
+  /* 예산 항목 */
+  .budget-section { margin-bottom: 8px; }
+  .budget-section-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .budget-item { display: grid; grid-template-columns: 32px 1fr auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .budget-icon { font-size: 20px; text-align: center; }
+  .budget-input-wrap { position: relative; }
+  .budget-input-wrap input { width: 100%; padding: 10px 48px 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600; outline: none; transition: border-color .15s; }
+  .budget-input-wrap input:focus { border-color: var(--accent); }
+  .budget-input-wrap .currency { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); font-weight: 500; pointer-events: none; }
+  .budget-label { font-size: 13px; font-weight: 500; color: var(--muted); white-space: nowrap; min-width: 70px; text-align: right; }
+
+  /* 커스텀 항목 추가 */
+  .custom-item { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 8px; }
+  .custom-item input { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; outline: none; }
+  .custom-item input:focus { border-color: var(--accent); }
+  .del-btn { width: 36px; height: 36px; border: none; border-radius: 8px; background: var(--red-light); color: var(--red); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; align-self: center; }
+  .del-btn:hover { background: var(--red); color: #fff; }
+  .add-custom-btn { width: 100%; padding: 10px; border: 1.5px dashed var(--border); border-radius: 8px; background: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .add-custom-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 총 예산 히어로 */
+  .budget-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .budget-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 22px 16px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box .hl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .hero-box .hv { font-size: 36px; font-weight: 900; line-height: 1; }
+  .hero-box .hs { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  /* 항목별 바 차트 */
+  .cat-bar { margin-bottom: 10px; }
+  .cat-bar-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .cat-bar-track { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+  .cat-bar-fill { height: 100%; border-radius: 5px; transition: width .4s; }
+  .cat-bar-pct { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .detail-val { font-weight: 700; }
+
+  /* 절약 팁 */
+  .tip-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; margin-bottom: 8px; }
+  .tip-icon { font-size: 16px; flex-shrink: 0; }
+  .tip-text { color: var(--muted); line-height: 1.6; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">여행 예산 계산기</h1>
+  <p class="subtitle" id="t-sub">항공·숙박·식비 등 여행 경비를 항목별로 입력하면 총 예산과 1인당 비용을 계산합니다.</p>
+
+  <!-- 기본 정보 -->
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)" id="t-basic">기본 정보</div>
+    <div class="info-grid">
+      <div class="field">
+        <label id="t-dest">여행지</label>
+        <input type="text" id="destination" placeholder="예: 도쿄, 파리">
+      </div>
+      <div class="field">
+        <label id="t-days">여행 기간</label>
+        <input type="number" id="travel-days" placeholder="5" value="5" min="1">
+      </div>
+      <div class="field">
+        <label id="t-people">인원 수</label>
+        <input type="number" id="travel-people" placeholder="2" value="2" min="1">
+      </div>
+    </div>
+  </div>
+
+  <!-- 예산 항목 -->
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)" id="t-budget-items">예산 항목</div>
+
+    <!-- 교통 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>✈️</span> <span id="t-cat-transport">교통</span></div>
+      <div class="budget-item">
+        <div class="budget-icon">🛫</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-flight" placeholder="0" value="0" min="0">
+          <span class="currency">원</span>
+        </div>
+        <span class="budget-label" id="t-flight">항공권</span>
+      </div>
+      <div class="budget-item">
+        <div class="budget-icon">🚌</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-local-transport" placeholder="0" value="0" min="0">
+          <span class="currency">원</span>
+        </div>
+        <span class="budget-label" id="t-local-transport">현지 교통</span>
+      </div>
+    </div>
+
+    <!-- 숙박 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>🏨</span> <span id="t-cat-stay">숙박</span></div>
+      <div class="budget-item">
+        <div class="budget-icon">🛏️</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-hotel" placeholder="0" value="0" min="0">
+          <span class="currency">원/박</span>
+        </div>
+        <span class="budget-label" id="t-hotel">숙박비/박</span>
+      </div>
+    </div>
+
+    <!-- 식비 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>🍽️</span> <span id="t-cat-food">식비</span></div>
+      <div class="budget-item">
+        <div class="budget-icon">🍱</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-food" placeholder="0" value="0" min="0">
+          <span class="currency">원/일</span>
+        </div>
+        <span class="budget-label" id="t-food">식비/일</span>
+      </div>
+      <div class="budget-item">
+        <div class="budget-icon">☕</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-cafe" placeholder="0" value="0" min="0">
+          <span class="currency">원/일</span>
+        </div>
+        <span class="budget-label" id="t-cafe">카페·간식/일</span>
+      </div>
+    </div>
+
+    <!-- 관광·엔터 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>🎡</span> <span id="t-cat-activity">관광·활동</span></div>
+      <div class="budget-item">
+        <div class="budget-icon">🎟️</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-activity" placeholder="0" value="0" min="0">
+          <span class="currency">원/일</span>
+        </div>
+        <span class="budget-label" id="t-activity">관광·입장료/일</span>
+      </div>
+    </div>
+
+    <!-- 쇼핑·기타 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>🛍️</span> <span id="t-cat-etc">쇼핑·기타</span></div>
+      <div class="budget-item">
+        <div class="budget-icon">🛍️</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-shopping" placeholder="0" value="0" min="0">
+          <span class="currency">원</span>
+        </div>
+        <span class="budget-label" id="t-shopping">쇼핑</span>
+      </div>
+      <div class="budget-item">
+        <div class="budget-icon">🛡️</div>
+        <div class="budget-input-wrap">
+          <input type="number" id="b-insurance" placeholder="0" value="0" min="0">
+          <span class="currency">원</span>
+        </div>
+        <span class="budget-label" id="t-insurance">여행자보험</span>
+      </div>
+    </div>
+
+    <!-- 커스텀 항목 -->
+    <div class="budget-section">
+      <div class="budget-section-title"><span>➕</span> <span id="t-cat-custom">추가 항목</span></div>
+      <div id="custom-items"></div>
+      <button class="add-custom-btn" id="t-add-custom" onclick="addCustomItem()">+ 항목 추가</button>
+    </div>
+
+    <div style="height:12px"></div>
+    <button class="calc-btn" id="t-calc" onclick="calculate()">총 예산 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <!-- 히어로 -->
+    <div class="budget-hero">
+      <div class="hero-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="hl" style="color:var(--accent)" id="t-total">총 예산</div>
+        <div class="hv" style="color:var(--accent)" id="r-total">-</div>
+        <div class="hs" id="r-total-sub">-</div>
+      </div>
+      <div class="hero-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="hl" style="color:var(--orange)" id="t-per-person">1인당 예산</div>
+        <div class="hv" style="color:var(--orange)" id="r-per-person">-</div>
+        <div class="hs" id="r-per-person-sub">-</div>
+      </div>
+    </div>
+
+    <!-- 항목별 비율 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-breakdown">항목별 예산 비율</div>
+      <div id="breakdown-bars"></div>
+    </div>
+
+    <!-- 상세 내역 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-detail">상세 내역</div>
+      <div id="detail-rows"></div>
+    </div>
+
+    <!-- 절약 팁 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-tips">절약 팁</div>
+      <div id="tip-list"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2 id="t-seo-h">여행 예산 계산기 사용 방법</h2>
+    <p id="t-seo-p">여행지·기간·인원을 설정하고 항목별 예산을 입력하면 총 예산과 1인당 비용을 즉시 계산합니다. 숙박비는 박당, 식비·교통은 일당으로 입력하면 기간에 맞게 자동 계산됩니다.</p>
+    <h3 id="t-seo-h2">여행 예산 짜는 방법</h3>
+    <div class="info-box" id="t-seo-box">
+      <strong>50-30-20 법칙</strong>: 예산의 50%는 필수(항공·숙박), 30%는 활동(식비·관광), 20%는 여유 자금으로 설정하면 균형 잡힌 여행 예산이 됩니다.
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/timezone-calculator/">
+        <span class="related-icon">🌍</span>
+        <span id="t-r1">시차 계산기</span>
+      </a>
+      <a class="related-item" href="/dday-calculator/">
+        <span class="related-icon">📅</span>
+        <span id="t-r2">D-day 계산기</span>
+      </a>
+      <a class="related-item" href="/percentage-calculator/">
+        <span class="related-icon">💹</span>
+        <span id="t-r3">퍼센트 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">여행 예산을 얼마나 잡아야 하나요?</div>
+      <div class="faq-a" id="fa1">목적지·여행 스타일에 따라 다르지만 일반적으로 일본 3박4일 1인 기준 60~90만원, 유럽 7박8일은 200~300만원 수준입니다. 예비비로 전체 예산의 10~15%를 추가로 준비하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">숙박비 절약 방법은?</div>
+      <div class="faq-a" id="fa2">에어비앤비·호스텔·게스트하우스를 활용하거나, 성수기를 피해 예약하면 숙박비를 크게 줄일 수 있습니다. 조식 포함 여부도 꼭 확인하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">항공권 저렴하게 사는 방법은?</div>
+      <div class="faq-a" id="fa3">출발 2~3개월 전 예약, 화·수요일 출발, 경유 노선 활용, 항공사 마일리지 사용 등이 효과적입니다. 스카이스캐너·카약 등으로 가격을 비교하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">예비비는 얼마나 필요한가요?</div>
+      <div class="faq-a" id="fa4">총 예산의 10~15% 정도를 예비비로 준비하는 것을 권장합니다. 긴급 상황, 추가 쇼핑, 예상 못한 교통비 등에 대비할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let lang = 'ko';
+let customCount = 0;
+
+const T = {
+  ko: {
+    title:'여행 예산 계산기', sub:'항공·숙박·식비 등 여행 경비를 항목별로 입력하면 총 예산과 1인당 비용을 계산합니다.',
+    basic:'기본 정보', dest:'여행지', days:'여행 기간', people:'인원 수',
+    budgetItems:'예산 항목',
+    catTransport:'교통', catStay:'숙박', catFood:'식비', catActivity:'관광·활동', catEtc:'쇼핑·기타', catCustom:'추가 항목',
+    flight:'항공권', localTransport:'현지 교통', hotel:'숙박비/박',
+    food:'식비/일', cafe:'카페·간식/일', activity:'관광·입장료/일',
+    shopping:'쇼핑', insurance:'여행자보험',
+    addCustom:'+ 항목 추가', calc:'총 예산 계산하기',
+    total:'총 예산', perPerson:'1인당 예산',
+    breakdown:'항목별 예산 비율', detail:'상세 내역', tips:'절약 팁',
+    related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'시차 계산기', r2:'D-day 계산기', r3:'퍼센트 계산기',
+    seoH:'여행 예산 계산기 사용 방법',
+    seoP:'여행지·기간·인원을 설정하고 항목별 예산을 입력하면 총 예산과 1인당 비용을 즉시 계산합니다.',
+    seoH2:'여행 예산 짜는 방법',
+    currency:'원', perDay:'/일', perNight:'/박',
+    perPersonUnit:'1인당', totalDays:'일',
+    won:'원',
+    tips_list:[
+      {icon:'✈️', text:'항공권은 출발 2~3개월 전 화·수요일에 예약하면 저렴합니다.'},
+      {icon:'🏨', text:'숙박은 조식 포함 여부와 위치(교통 접근성)를 꼭 확인하세요.'},
+      {icon:'🍱', text:'현지 마트·편의점·로컬 식당을 활용하면 식비를 크게 줄일 수 있습니다.'},
+      {icon:'💳', text:'해외 결제 시 환전 수수료 없는 트래블 체크카드를 활용하세요.'},
+      {icon:'🛡️', text:'여행자보험은 필수입니다. 출발 전 반드시 가입하세요.'},
+    ],
+    footer:'© 2026 TopTools365 · 무료 온라인 계산기',
+  },
+  en: {
+    title:'Travel Budget Calculator', sub:'Enter expenses by category to instantly calculate total budget and per-person cost.',
+    basic:'Basic Info', dest:'Destination', days:'Duration', people:'People',
+    budgetItems:'Budget Items',
+    catTransport:'Transport', catStay:'Accommodation', catFood:'Food', catActivity:'Activities', catEtc:'Shopping & Others', catCustom:'Custom Items',
+    flight:'Flights', localTransport:'Local Transport', hotel:'Hotel/night',
+    food:'Food/day', cafe:'Cafe & Snacks/day', activity:'Attractions/day',
+    shopping:'Shopping', insurance:'Travel Insurance',
+    addCustom:'+ Add Item', calc:'Calculate Budget',
+    total:'Total Budget', perPerson:'Per Person',
+    breakdown:'Budget Breakdown', detail:'Details', tips:'Money-Saving Tips',
+    related:'Related Tools', faq:'FAQ',
+    r1:'Time Zone Calculator', r2:'D-day Calculator', r3:'Percentage Calculator',
+    seoH:'How to Use the Travel Budget Calculator',
+    seoP:'Set destination, duration, and number of travelers, then enter costs by category to instantly calculate total and per-person budget.',
+    seoH2:'How to Plan a Travel Budget',
+    currency:'KRW', perDay:'/day', perNight:'/night',
+    perPersonUnit:'per person', totalDays:'days',
+    won:'KRW',
+    tips_list:[
+      {icon:'✈️', text:'Book flights 2-3 months in advance on Tue/Wed for the best prices.'},
+      {icon:'🏨', text:'Check if breakfast is included and consider location/transport access.'},
+      {icon:'🍱', text:'Save on food by visiting local markets, convenience stores, and local restaurants.'},
+      {icon:'💳', text:'Use a travel card with no foreign transaction fees to save on currency exchange.'},
+      {icon:'🛡️', text:'Travel insurance is essential. Purchase before departure.'},
+    ],
+    footer:'© 2026 TopTools365 · Free Online Calculator',
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const ids = {
+    't-title':t.title,'t-sub':t.sub,'t-basic':t.basic,'t-dest':t.dest,
+    't-days':t.days,'t-people':t.people,'t-budget-items':t.budgetItems,
+    't-cat-transport':t.catTransport,'t-cat-stay':t.catStay,'t-cat-food':t.catFood,
+    't-cat-activity':t.catActivity,'t-cat-etc':t.catEtc,'t-cat-custom':t.catCustom,
+    't-flight':t.flight,'t-local-transport':t.localTransport,'t-hotel':t.hotel,
+    't-food':t.food,'t-cafe':t.cafe,'t-activity':t.activity,
+    't-shopping':t.shopping,'t-insurance':t.insurance,
+    't-add-custom':t.addCustom,'t-calc':t.calc,
+    't-total':t.total,'t-per-person':t.perPerson,
+    't-breakdown':t.breakdown,'t-detail':t.detail,'t-tips':t.tips,
+    't-related':t.related,'t-faq':t.faq,
+    't-r1':t.r1,'t-r2':t.r2,'t-r3':t.r3,
+    't-seo-h':t.seoH,'t-seo-p':t.seoP,'t-seo-h2':t.seoH2,
+    't-footer':t.footer,
+  };
+  Object.entries(ids).forEach(([id, val]) => {
+    const el2 = document.getElementById(id);
+    if (el2) el2.textContent = val;
+  });
+}
+
+function fmt(n) {
+  return Math.round(n).toLocaleString('ko-KR') + (lang==='ko'?'원':' KRW');
+}
+
+function addCustomItem() {
+  customCount++;
+  const div = document.createElement('div');
+  div.className = 'custom-item';
+  div.id = `custom-${customCount}`;
+  div.innerHTML = `
+    <input type="text" placeholder="${lang==='ko'?'항목명':'Item name'}" style="font-size:14px">
+    <input type="number" placeholder="0" value="0" min="0" style="font-size:15px;font-weight:600">
+    <button class="del-btn" onclick="document.getElementById('custom-${customCount}').remove()">×</button>
+  `;
+  document.getElementById('custom-items').appendChild(div);
+}
+
+function getCustomItems() {
+  const items = [];
+  document.querySelectorAll('.custom-item').forEach(div => {
+    const inputs = div.querySelectorAll('input');
+    const name = inputs[0].value || (lang==='ko'?'기타':'Other');
+    const amount = parseFloat(inputs[1].value) || 0;
+    if (amount > 0) items.push({ name, amount });
+  });
+  return items;
+}
+
+function calculate() {
+  const days = parseInt(document.getElementById('travel-days').value) || 1;
+  const people = parseInt(document.getElementById('travel-people').value) || 1;
+  const dest = document.getElementById('destination').value || (lang==='ko'?'여행':'Trip');
+  const t = T[lang];
+
+  const flight = parseFloat(document.getElementById('b-flight').value) || 0;
+  const localTransport = parseFloat(document.getElementById('b-local-transport').value) || 0;
+  const hotel = parseFloat(document.getElementById('b-hotel').value) || 0;
+  const food = parseFloat(document.getElementById('b-food').value) || 0;
+  const cafe = parseFloat(document.getElementById('b-cafe').value) || 0;
+  const activity = parseFloat(document.getElementById('b-activity').value) || 0;
+  const shopping = parseFloat(document.getElementById('b-shopping').value) || 0;
+  const insurance = parseFloat(document.getElementById('b-insurance').value) || 0;
+  const customItems = getCustomItems();
+
+  // 총액 계산 (숙박은 박수, 식비·카페·관광은 일수 곱하기)
+  const hotelTotal = hotel * days;
+  const foodTotal = food * days;
+  const cafeTotal = cafe * days;
+  const activityTotal = activity * days;
+  const customTotal = customItems.reduce((s, i) => s + i.amount, 0);
+
+  const categories = [
+    { name: `✈️ ${t.catTransport}`, amount: flight + localTransport, color: '#1a5c8a' },
+    { name: `🏨 ${t.catStay}`,      amount: hotelTotal,               color: '#6d28d9' },
+    { name: `🍽️ ${t.catFood}`,      amount: foodTotal + cafeTotal,    color: '#b45309' },
+    { name: `🎡 ${t.catActivity}`,   amount: activityTotal,            color: '#1a6b4a' },
+    { name: `🛍️ ${t.catEtc}`,       amount: shopping + insurance,      color: '#c84b2a' },
+  ];
+  customItems.forEach(i => categories.push({ name: `➕ ${i.name}`, amount: i.amount, color: '#6b6b66' }));
+
+  const total = categories.reduce((s, c) => s + c.amount, 0);
+  if (total === 0) { alert(lang==='ko'?'예산을 입력해주세요.':'Please enter budget amounts.'); return; }
+
+  const perPerson = total / people;
+  const perPersonPerDay = perPerson / days;
+
+  // 히어로
+  document.getElementById('r-total').textContent = fmt(total);
+  document.getElementById('r-total-sub').textContent =
+    `${dest} · ${days}${lang==='ko'?'박':'nights'} ${days}${lang==='ko'?'일':'days'} · ${people}${lang==='ko'?'명':'people'}`;
+  document.getElementById('r-per-person').textContent = fmt(perPerson);
+  document.getElementById('r-per-person-sub').textContent =
+    `${lang==='ko'?'1인 하루 평균':'Per person/day'}: ${fmt(perPersonPerDay)}`;
+
+  // 바 차트
+  const bars = document.getElementById('breakdown-bars');
+  bars.innerHTML = '';
+  const maxAmount = Math.max(...categories.filter(c=>c.amount>0).map(c=>c.amount));
+  categories.filter(c => c.amount > 0).forEach(cat => {
+    const pct = Math.round(cat.amount / total * 100);
+    const div = document.createElement('div');
+    div.className = 'cat-bar';
+    div.innerHTML = `
+      <div class="cat-bar-header">
+        <span>${cat.name}</span>
+        <span style="color:var(--accent);font-weight:700">${fmt(cat.amount)}</span>
+      </div>
+      <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%;background:${cat.color}"></div></div>
+      <div class="cat-bar-pct">${pct}%</div>
+    `;
+    bars.appendChild(div);
+  });
+
+  // 상세 내역
+  const detailRows = document.getElementById('detail-rows');
+  const details = [
+    { label:`🛫 ${t.flight}`,           val: flight,        note: '' },
+    { label:`🚌 ${t.localTransport}`,   val: localTransport, note: '' },
+    { label:`🛏️ ${t.hotel}`,            val: hotel,          note: `× ${days}${lang==='ko'?'박':'nights'} = ${fmt(hotelTotal)}` },
+    { label:`🍱 ${t.food}`,             val: food,           note: `× ${days}${lang==='ko'?'일':'days'} = ${fmt(foodTotal)}` },
+    { label:`☕ ${t.cafe}`,             val: cafe,           note: `× ${days}${lang==='ko'?'일':'days'} = ${fmt(cafeTotal)}` },
+    { label:`🎟️ ${t.activity}`,         val: activity,       note: `× ${days}${lang==='ko'?'일':'days'} = ${fmt(activityTotal)}` },
+    { label:`🛍️ ${t.shopping}`,         val: shopping,       note: '' },
+    { label:`🛡️ ${t.insurance}`,        val: insurance,      note: '' },
+  ].filter(d => d.val > 0);
+
+  customItems.forEach(i => details.push({ label:`➕ ${i.name}`, val: i.amount, note: '' }));
+  details.push({ label: lang==='ko'?'💰 총 합계':'💰 Total', val: total, note: '', highlight: true });
+
+  detailRows.innerHTML = details.map(d => `
+    <div class="detail-row">
+      <span class="detail-label">${d.label}${d.note ? ` <small style="color:var(--muted);font-size:11px">(${d.note})</small>` : ''}</span>
+      <span class="detail-val" ${d.highlight ? 'style="color:var(--accent);font-size:16px"' : ''}>${fmt(d.highlight ? total : d.val)}</span>
+    </div>
+  `).join('');
+
+  // 절약 팁
+  const tipList = document.getElementById('tip-list');
+  tipList.innerHTML = t.tips_list.map(tip =>
+    `<div class="tip-item"><span class="tip-icon">${tip.icon}</span><span class="tip-text">${tip.text}</span></div>`
+  ).join('');
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+</script>
+</body>
+</html>
