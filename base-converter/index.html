@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진법 변환기 - 2진수 8진수 10진수 16진수 즉시 변환 | TopTools365</title>
+<meta name="description" content="2진수·8진수·10진수·16진수를 즉시 변환합니다. 숫자를 입력하면 모든 진법으로 동시 변환. 비트 연산 지원. 개발자·학생 필수 도구. 완전 무료.">
+<meta name="keywords" content="진법변환기,2진수변환,16진수변환,8진수변환,이진수변환기,헥사변환,바이너리변환,진법계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/base-converter/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="진법 변환기 - 2진수 8진수 10진수 16진수 즉시 변환 | TopTools365">
+<meta property="og:description" content="2·8·10·16진수 즉시 변환. 모든 진법 동시 표시. 개발자·학생 필수. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"진법 변환기","description":"2진수·8진수·10진수·16진수를 즉시 변환하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a5c8a; --accent-light: #e8f2f9;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --purple: #6d28d9; --purple-light: #ede9fe;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #4a9fd4; --accent-light: #0d2233;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --purple: #a78bfa; --purple-light: #1e1030;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 입력 베이스 선택 */
+  .base-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .base-tab { padding: 8px 18px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .base-tab.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 입력 */
+  .input-wrap { position: relative; margin-bottom: 8px; }
+  .input-wrap input { width: 100%; padding: 14px 80px 14px 16px; border: 2px solid var(--accent); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 22px; font-weight: 700; font-family: 'Courier New', monospace; outline: none; letter-spacing: .05em; }
+  .input-wrap .base-badge { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 4px 10px; border-radius: 6px; pointer-events: none; }
+  .input-hint { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+
+  /* 빠른 예시 */
+  .example-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ex-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; font-family: 'Courier New', monospace; }
+  .ex-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 결과 카드들 */
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .result-grid { grid-template-columns: 1fr; } }
+  .result-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; position: relative; cursor: pointer; transition: border-color .15s; }
+  .result-box:hover { border-color: var(--accent); }
+  .result-box .rb-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .result-box .rb-value { font-size: 20px; font-weight: 800; font-family: 'Courier New', monospace; word-break: break-all; letter-spacing: .04em; }
+  .result-box .rb-copy { position: absolute; top: 10px; right: 10px; font-size: 14px; opacity: .4; }
+  .result-box:hover .rb-copy { opacity: 1; }
+
+  /* 비트 시각화 */
+  .bit-display { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+  .bit { width: 28px; height: 28px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; font-family: 'Courier New', monospace; border: 1px solid; flex-shrink: 0; }
+  .bit.one { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+  .bit.zero { background: var(--bg); border-color: var(--border); color: var(--muted); }
+  .bit-group-sep { width: 4px; }
+
+  /* 비트 연산 */
+  .op-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px) { .op-grid { grid-template-columns: 1fr; } }
+  .op-input { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; font-weight: 700; font-family: 'Courier New', monospace; outline: none; width: 100%; }
+  .op-input:focus { border-color: var(--accent); }
+  .op-btn-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+  .op-btn { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; font-family: monospace; }
+  .op-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .op-result { background: var(--green-light); border: 1px solid var(--green); border-radius: 8px; padding: 12px 16px; font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; color: var(--green); margin-top: 8px; min-height: 44px; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">진법 변환기</h1>
+  <p class="subtitle" id="t-sub">2진수·8진수·10진수·16진수를 즉시 변환합니다. 숫자를 입력하면 모든 진법으로 동시 변환됩니다.</p>
+
+  <!-- 메인 변환 -->
+  <div class="card">
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px" id="t-input-base">입력 진법 선택</div>
+    <div class="base-tabs">
+      <button class="base-tab on" onclick="setBase(10,this)" id="tab-10" data-ko="10진수 (DEC)" data-en="Decimal (DEC)">10진수 (DEC)</button>
+      <button class="base-tab" onclick="setBase(2,this)" id="tab-2" data-ko="2진수 (BIN)" data-en="Binary (BIN)">2진수 (BIN)</button>
+      <button class="base-tab" onclick="setBase(8,this)" id="tab-8" data-ko="8진수 (OCT)" data-en="Octal (OCT)">8진수 (OCT)</button>
+      <button class="base-tab" onclick="setBase(16,this)" id="tab-16" data-ko="16진수 (HEX)" data-en="Hex (HEX)">16진수 (HEX)</button>
+    </div>
+
+    <div class="input-wrap">
+      <input type="text" id="main-input" placeholder="숫자 입력..." oninput="onInput()" autocomplete="off" spellcheck="false">
+      <span class="base-badge" id="input-badge">DEC</span>
+    </div>
+    <div class="input-hint" id="input-hint">0~9 입력 가능</div>
+
+    <!-- 빠른 예시 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px" id="t-examples">예시</div>
+    <div class="example-row" id="example-row"></div>
+  </div>
+
+  <!-- 변환 결과 -->
+  <div class="result-grid" id="result-grid"></div>
+
+  <!-- 비트 시각화 (32비트) -->
+  <div class="card" id="bit-card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:12px" id="t-bit-vis">32비트 시각화</div>
+    <div class="bit-display" id="bit-display"></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px" id="t-bit-hint">파란색=1, 회색=0 · 4비트씩 구분</div>
+  </div>
+
+  <!-- 비트 연산 -->
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-bitwise">비트 연산</div>
+    <div class="op-grid">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px" id="t-op-a">A (10진수)</label>
+        <input type="text" class="op-input" id="op-a" placeholder="255" value="255">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px" id="t-op-b">B (10진수)</label>
+        <input type="text" class="op-input" id="op-b" placeholder="170" value="170">
+      </div>
+    </div>
+    <div class="op-btn-row">
+      <button class="op-btn" onclick="bitOp('AND')">AND (&amp;)</button>
+      <button class="op-btn" onclick="bitOp('OR')">OR (|)</button>
+      <button class="op-btn" onclick="bitOp('XOR')">XOR (^)</button>
+      <button class="op-btn" onclick="bitOp('NOT_A')">NOT A (~)</button>
+      <button class="op-btn" onclick="bitOp('LSHIFT')">A &lt;&lt; 1</button>
+      <button class="op-btn" onclick="bitOp('RSHIFT')">A &gt;&gt; 1</button>
+    </div>
+    <div class="op-result" id="op-result">—</div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2 id="t-seo-h">진법 변환기 사용 방법</h2>
+    <p id="t-seo-p">입력 진법을 선택하고 숫자를 입력하면 2·8·10·16진수로 즉시 변환됩니다. 결과 박스를 클릭하면 복사됩니다.</p>
+    <h3 id="t-seo-h2">진법이란?</h3>
+    <div class="info-box">
+      <strong id="t-b2">2진수 (Binary)</strong>: <span id="t-b2-desc">0과 1만 사용. 컴퓨터가 데이터를 처리하는 기본 방식.</span><br>
+      <strong id="t-b8">8진수 (Octal)</strong>: <span id="t-b8-desc">0~7 사용. Unix 파일 권한 등에서 활용.</span><br>
+      <strong id="t-b10">10진수 (Decimal)</strong>: <span id="t-b10-desc">0~9 사용. 일상에서 쓰는 숫자 체계.</span><br>
+      <strong id="t-b16">16진수 (Hexadecimal)</strong>: <span id="t-b16-desc">0~9와 A~F 사용. 색상 코드(#FF5733), 메모리 주소 등에서 사용.</span>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/color-converter/">
+        <span class="related-icon">🎨</span>
+        <span id="t-r1">색상 코드 변환기</span>
+      </a>
+      <a class="related-item" href="/unit-converter/">
+        <span class="related-icon">📐</span>
+        <span id="t-r2">단위 변환기</span>
+      </a>
+      <a class="related-item" href="/url-encoder/">
+        <span class="related-icon">🔗</span>
+        <span id="t-r3">URL 인코더</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">16진수에서 A~F는 무엇인가요?</div>
+      <div class="faq-a" id="fa1">A=10, B=11, C=12, D=13, E=14, F=15를 의미합니다. 10진수로 10 이상의 값을 한 자리로 표현하기 위해 사용합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">색상 코드 #FF5733은 어떻게 해석하나요?</div>
+      <div class="faq-a" id="fa2">#FF5733에서 FF=빨강(255), 57=초록(87), 33=파랑(51)입니다. 각 2자리 16진수가 0~255의 색상 채널 값을 나타냅니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">비트 AND 연산이란?</div>
+      <div class="faq-a" id="fa3">두 숫자의 각 비트를 비교해 둘 다 1일 때만 1을 반환합니다. 예) 1100 AND 1010 = 1000</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">2진수로 변환하는 방법은?</div>
+      <div class="faq-a" id="fa4">10진수를 2로 나눈 나머지를 아래에서 위로 읽으면 됩니다. 예) 13 ÷ 2 = 6 나머지 1, 6 ÷ 2 = 3 나머지 0, 3 ÷ 2 = 1 나머지 1, 1 ÷ 2 = 0 나머지 1 → 1101</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+let currentBase = 10;
+let currentValue = 0;
+
+const BASE_INFO = {
+  2:  { badge:'BIN', hint_ko:'0과 1만 입력 가능', hint_en:'Only 0 and 1 allowed',
+        color:'var(--green)',  colorLight:'var(--green-light)',  label_ko:'2진수 (Binary)',  label_en:'Binary (BIN)' },
+  8:  { badge:'OCT', hint_ko:'0~7 입력 가능',     hint_en:'Only 0–7 allowed',
+        color:'var(--orange)', colorLight:'var(--orange-light)', label_ko:'8진수 (Octal)',   label_en:'Octal (OCT)' },
+  10: { badge:'DEC', hint_ko:'0~9 입력 가능',     hint_en:'0–9 allowed',
+        color:'var(--accent)', colorLight:'var(--accent-light)', label_ko:'10진수 (Decimal)',label_en:'Decimal (DEC)' },
+  16: { badge:'HEX', hint_ko:'0~9, A~F 입력 가능',hint_en:'0–9 and A–F allowed',
+        color:'var(--purple)', colorLight:'var(--purple-light)', label_ko:'16진수 (Hex)',    label_en:'Hex (HEX)' },
+};
+
+const EXAMPLES = {
+  10: [42, 255, 1024, 65535],
+  2:  ['101010', '11111111', '10000000000', '1111111111111111'],
+  8:  ['52', '377', '2000', '177777'],
+  16: ['2A', 'FF', '400', 'FFFF'],
+};
+
+const T = {
+  ko: {
+    title:'진법 변환기', sub:'2진수·8진수·10진수·16진수를 즉시 변환합니다. 숫자를 입력하면 모든 진법으로 동시 변환됩니다.',
+    inputBase:'입력 진법 선택', examples:'예시', bitVis:'32비트 시각화',
+    bitHint:'파란색=1, 회색=0 · 4비트씩 구분', bitwise:'비트 연산',
+    opA:'A (10진수)', opB:'B (10진수)',
+    seoH:'진법 변환기 사용 방법', seoP:'입력 진법을 선택하고 숫자를 입력하면 2·8·10·16진수로 즉시 변환됩니다. 결과 박스를 클릭하면 복사됩니다.',
+    seoH2:'진법이란?', related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'색상 코드 변환기', r2:'단위 변환기', r3:'URL 인코더',
+    copied:'복사됨!', footer:'© 2026 TopTools365 · 무료 온라인 계산기',
+    opResult_ko: (op, a, b, r, rb, db) =>
+      `${op}: ${a} ${op} ${b} = ${r}\n10진수: ${db} | 2진수: ${rb}`,
+  },
+  en: {
+    title:'Number Base Converter', sub:'Instantly convert between binary, octal, decimal, and hexadecimal. Enter a number to see all bases at once.',
+    inputBase:'Select Input Base', examples:'Examples', bitVis:'32-bit Visualization',
+    bitHint:'Blue=1, Gray=0 · Grouped by 4 bits', bitwise:'Bitwise Operations',
+    opA:'A (Decimal)', opB:'B (Decimal)',
+    seoH:'How to Use the Base Converter', seoP:'Select the input base and enter a number to instantly convert to binary, octal, decimal, and hexadecimal. Click any result to copy.',
+    seoH2:'What are Number Bases?', related:'Related Tools', faq:'FAQ',
+    r1:'Color Code Converter', r2:'Unit Converter', r3:'URL Encoder',
+    copied:'Copied!', footer:'© 2026 TopTools365 · Free Online Calculator',
+  },
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-input-base').textContent = t.inputBase;
+  document.getElementById('t-examples').textContent = t.examples;
+  document.getElementById('t-bit-vis').textContent = t.bitVis;
+  document.getElementById('t-bit-hint').textContent = t.bitHint;
+  document.getElementById('t-bitwise').textContent = t.bitwise;
+  document.getElementById('t-op-a').textContent = t.opA;
+  document.getElementById('t-op-b').textContent = t.opB;
+  document.getElementById('t-seo-h').textContent = t.seoH;
+  document.getElementById('t-seo-p').textContent = t.seoP;
+  document.getElementById('t-seo-h2').textContent = t.seoH2;
+  document.getElementById('t-related').textContent = t.related;
+  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-r1').textContent = t.r1;
+  document.getElementById('t-r2').textContent = t.r2;
+  document.getElementById('t-r3').textContent = t.r3;
+  document.getElementById('t-footer').textContent = t.footer;
+  // base tab 텍스트 업데이트
+  [2,8,10,16].forEach(b => {
+    const tab = document.getElementById('tab-' + b);
+    if (tab) tab.textContent = tab.getAttribute('data-' + l);
+  });
+  updateHint();
+  renderExamples();
+  renderResults();
+}
+
+function setBase(base, el) {
+  currentBase = base;
+  document.querySelectorAll('.base-tab').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('main-input').value = '';
+  document.getElementById('input-badge').textContent = BASE_INFO[base].badge;
+  currentValue = 0;
+  updateHint();
+  renderExamples();
+  renderResults();
+}
+
+function updateHint() {
+  const info = BASE_INFO[currentBase];
+  document.getElementById('input-hint').textContent = lang === 'ko' ? info.hint_ko : info.hint_en;
+}
+
+function renderExamples() {
+  const row = document.getElementById('example-row');
+  row.innerHTML = '';
+  EXAMPLES[currentBase].forEach(ex => {
+    const btn = document.createElement('button');
+    btn.className = 'ex-btn';
+    btn.textContent = String(ex);
+    btn.onclick = () => {
+      document.getElementById('main-input').value = String(ex);
+      onInput();
+    };
+    row.appendChild(btn);
+  });
+}
+
+function onInput() {
+  const raw = document.getElementById('main-input').value.toUpperCase().trim();
+  if (!raw) { currentValue = 0; renderResults(); renderBits(0); return; }
+
+  // 유효성 검사
+  const validators = { 2:/^[01]+$/, 8:/^[0-7]+$/, 10:/^\d+$/, 16:/^[0-9A-F]+$/ };
+  if (!validators[currentBase].test(raw)) return;
+
+  const val = parseInt(raw, currentBase);
+  if (isNaN(val) || val < 0) return;
+  currentValue = val;
+  renderResults();
+  renderBits(val);
+}
+
+function renderResults() {
+  const grid = document.getElementById('result-grid');
+  const bases = [
+    { base:2,  label_ko:'2진수 (Binary)',   label_en:'Binary',      color:'var(--green)',  colorL:'var(--green-light)' },
+    { base:8,  label_ko:'8진수 (Octal)',     label_en:'Octal',       color:'var(--orange)', colorL:'var(--orange-light)' },
+    { base:10, label_ko:'10진수 (Decimal)',  label_en:'Decimal',     color:'var(--accent)', colorL:'var(--accent-light)' },
+    { base:16, label_ko:'16진수 (Hex)',      label_en:'Hexadecimal', color:'var(--purple)', colorL:'var(--purple-light)' },
+  ];
+  grid.innerHTML = '';
+  bases.forEach(b => {
+    const val = currentValue.toString(b.base).toUpperCase();
+    const label = lang === 'ko' ? b.label_ko : b.label_en;
+    const isCurrent = b.base === currentBase;
+    const div = document.createElement('div');
+    div.className = 'result-box';
+    div.style.borderColor = isCurrent ? b.color : '';
+    div.style.background = isCurrent ? b.colorL : '';
+    div.innerHTML = `
+      <div class="rb-label" style="color:${b.color}">${label}</div>
+      <div class="rb-value" style="color:${b.color}">${val || '0'}</div>
+      <span class="rb-copy">📋</span>
+    `;
+    div.onclick = () => copyText(val || '0');
+    grid.appendChild(div);
+  });
+}
+
+function renderBits(val) {
+  const display = document.getElementById('bit-display');
+  display.innerHTML = '';
+  const bits = (val >>> 0).toString(2).padStart(32, '0');
+  for (let i = 0; i < 32; i++) {
+    if (i > 0 && i % 4 === 0) {
+      const sep = document.createElement('div');
+      sep.className = 'bit-group-sep';
+      display.appendChild(sep);
+    }
+    const bit = document.createElement('div');
+    bit.className = 'bit ' + (bits[i] === '1' ? 'one' : 'zero');
+    bit.textContent = bits[i];
+    display.appendChild(bit);
+  }
+}
+
+function bitOp(op) {
+  const a = parseInt(document.getElementById('op-a').value) || 0;
+  const b = parseInt(document.getElementById('op-b').value) || 0;
+  let result;
+  let opStr;
+  switch(op) {
+    case 'AND':    result = a & b;  opStr = `${a} & ${b}`; break;
+    case 'OR':     result = a | b;  opStr = `${a} | ${b}`; break;
+    case 'XOR':    result = a ^ b;  opStr = `${a} ^ ${b}`; break;
+    case 'NOT_A':  result = ~a;     opStr = `~${a}`; break;
+    case 'LSHIFT': result = a << 1; opStr = `${a} << 1`; break;
+    case 'RSHIFT': result = a >> 1; opStr = `${a} >> 1`; break;
+  }
+  const r32 = result >>> 0;
+  document.getElementById('op-result').innerHTML =
+    `${opStr} = <strong>${result}</strong> (10진수)<br>` +
+    `2진수: ${r32.toString(2)} | 16진수: ${r32.toString(16).toUpperCase()}`;
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast(T[lang].copied);
+  } catch(e) { showToast(T[lang].copied); }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1500);
+}
+
+// 초기화
+renderExamples();
+renderResults();
+renderBits(0);
+</script>
+</body>
+</html>
