@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>냉장고 유통기한 계산기 - 식품 보관 기간 즉시 확인 | TopTools365</title>
+<meta name="description" content="식품별 냉장·냉동 보관 가능 기간을 즉시 확인합니다. 개봉일 또는 구입일을 입력하면 소비 기한을 자동 계산합니다. 100여 종 식품 지원. 완전 무료.">
+<meta name="keywords" content="냉장고유통기한,식품보관기간,음식유통기한,냉장보관기간,냉동보관기간,식품유효기간,음식보관방법,식품안전">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/food-expiry-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="냉장고 유통기한 계산기 - 식품 보관 기간 즉시 확인 | TopTools365">
+<meta property="og:description" content="식품별 냉장·냉동 보관 기간 즉시 확인. 소비 기한 자동 계산. 100여 종 지원. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"냉장고 유통기한 계산기","description":"식품별 냉장·냉동 보관 기간을 확인하고 소비 기한을 계산하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #1a6b4a; --accent-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --orange: #b45309; --orange-light: #fef3e2;
+    --red: #c84b2a; --red-light: #fdf0ec;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #2daa72; --accent-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233;
+      --orange: #e8a832; --orange-light: #2a1f0a;
+      --red: #e8704a; --red-light: #2a1510; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .back-link:hover { color: var(--accent); }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+
+  /* 카테고리 탭 */
+  .cat-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .cat-btn { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .cat-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 식품 검색 */
+  .search-wrap { position: relative; margin-bottom: 14px; }
+  .search-wrap input { width: 100%; padding: 12px 16px 12px 40px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: 15px; outline: none; transition: border-color .15s; }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+
+  /* 식품 그리드 */
+  .food-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 300px; overflow-y: auto; }
+  @media(max-width:480px) { .food-grid { grid-template-columns: repeat(2, 1fr); } }
+  .food-btn { padding: 10px 8px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 12px; cursor: pointer; transition: all .15s; text-align: left; display: flex; flex-direction: column; gap: 3px; }
+  .food-btn:hover { border-color: var(--accent); }
+  .food-btn.on { border-color: var(--accent); background: var(--accent-light); }
+  .food-btn .fn { font-weight: 600; font-size: 13px; }
+  .food-btn.on .fn { color: var(--accent); }
+  .food-btn .fd { font-size: 11px; color: var(--muted); }
+
+  /* 날짜 입력 */
+  .date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  @media(max-width:480px) { .date-grid { grid-template-columns: 1fr; } }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .field input[type="date"] { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 15px; outline: none; transition: border-color .15s; }
+  .field input[type="date"]:focus { border-color: var(--accent); }
+
+  .calc-btn { width: 100%; margin-top: 16px; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 상태 히어로 */
+  .status-hero { padding: 24px; border-radius: 14px; text-align: center; border: 2px solid; margin-bottom: 16px; }
+  .status-hero .sh-icon { font-size: 48px; margin-bottom: 10px; }
+  .status-hero .sh-status { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .status-hero .sh-desc { font-size: 14px; opacity: .8; }
+
+  /* 보관 기간 카드 */
+  .storage-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .storage-grid { grid-template-columns: 1fr; } }
+  .storage-box { padding: 16px 12px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .storage-box .sl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .storage-box .sv { font-size: 18px; font-weight: 800; }
+  .storage-box .ss { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* D-day 표시 */
+  .dday-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .dday-row { flex-direction: column; } }
+  .dday-box { flex: 1; padding: 16px; border-radius: 10px; text-align: center; border: 1px solid; }
+  .dday-box .dl { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .dday-box .dv { font-size: 22px; font-weight: 900; }
+  .dday-box .ds { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 보관 팁 */
+  .tip-list { display: flex; flex-direction: column; gap: 8px; }
+  .tip-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { color: var(--muted); line-height: 1.6; }
+
+  /* 전체 식품 보관표 */
+  .storage-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .storage-table th { background: var(--accent-light); color: var(--accent); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+  .storage-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .storage-table tr:last-child td { border-bottom: none; }
+  .storage-table tr.selected td { background: var(--accent-light); font-weight: 700; color: var(--accent); }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">냉장고 유통기한 계산기</h1>
+  <p class="subtitle" id="t-sub">식품을 선택하고 개봉일을 입력하면 냉장·냉동 보관 가능 기간과 소비 기한을 계산합니다.</p>
+
+  <!-- 식품 선택 -->
+  <div class="card">
+    <div id="t-cat-label" style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">카테고리</div>
+    <div class="cat-row" id="cat-row"></div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="food-search" placeholder="식품 검색..." oninput="searchFood()">
+    </div>
+
+    <div class="food-grid" id="food-grid"></div>
+
+    <!-- 선택된 식품 표시 -->
+    <div id="selected-food" style="display:none;margin-top:14px;padding:12px 16px;background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;font-size:13px;font-weight:600;color:var(--accent)"></div>
+  </div>
+
+  <!-- 날짜 입력 -->
+  <div class="card">
+    <div class="date-grid">
+      <div class="field">
+        <label id="t-open-label">개봉일 / 구입일</label>
+        <input type="date" id="open-date">
+      </div>
+      <div class="field">
+        <label id="t-today-label">오늘 날짜</label>
+        <input type="date" id="today-date">
+      </div>
+    </div>
+    <button class="calc-btn" id="t-calc" onclick="calculate()">소비 기한 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <!-- 상태 히어로 -->
+    <div class="status-hero" id="status-hero">
+      <div class="sh-icon" id="sh-icon">-</div>
+      <div class="sh-status" id="sh-status">-</div>
+      <div class="sh-desc" id="sh-desc">-</div>
+    </div>
+
+    <!-- D-day -->
+    <div class="dday-row">
+      <div class="dday-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="dl" id="t-dd1">냉장 소비 기한까지</div>
+        <div class="dv" style="color:var(--accent)" id="r-fridge-dday">-</div>
+        <div class="ds" id="r-fridge-until">-</div>
+      </div>
+      <div class="dday-box" style="background:var(--blue-light);border-color:var(--blue)">
+        <div class="dl" id="t-dd2">냉동 보관 가능 기간</div>
+        <div class="dv" style="color:var(--blue)" id="r-freeze-period">-</div>
+        <div class="ds" id="r-freeze-until">-</div>
+      </div>
+    </div>
+
+    <!-- 보관 기간 -->
+    <div class="storage-grid">
+      <div class="storage-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="sl" style="color:var(--accent)" id="t-room">실온</div>
+        <div class="sv" style="color:var(--accent)" id="r-room">-</div>
+        <div class="ss" id="r-room-note">-</div>
+      </div>
+      <div class="storage-box" style="background:var(--blue-light);border-color:var(--blue)">
+        <div class="sl" style="color:var(--blue)" id="t-fridge">냉장 (0~5°C)</div>
+        <div class="sv" style="color:var(--blue)" id="r-fridge">-</div>
+        <div class="ss" id="r-fridge-note">-</div>
+      </div>
+      <div class="storage-box" style="background:var(--orange-light);border-color:var(--orange)">
+        <div class="sl" style="color:var(--orange)" id="t-freeze">냉동 (-18°C)</div>
+        <div class="sv" style="color:var(--orange)" id="r-freeze">-</div>
+        <div class="ss" id="r-freeze-note">-</div>
+      </div>
+    </div>
+
+    <!-- 상세 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label" id="t-food-name">식품</span><span class="detail-val" id="r-food-name">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-open-date-label">개봉일</span><span class="detail-val" id="r-open-date">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-elapsed">경과 일수</span><span class="detail-val" id="r-elapsed">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-fridge-exp">냉장 소비 기한</span><span class="detail-val" id="r-fridge-exp">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-freeze-exp">냉동 보관 마감</span><span class="detail-val" id="r-freeze-exp">-</span></div>
+    </div>
+
+    <!-- 보관 팁 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-tips">보관 팁</div>
+      <div class="tip-list" id="tip-list"></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <section class="seo-section">
+    <h2 id="t-seo-h">냉장고 유통기한 계산기 사용 방법</h2>
+    <p id="t-seo-p">식품 카테고리를 선택하거나 검색으로 식품을 찾은 후 개봉일을 입력하면 냉장·냉동 보관 가능 기간과 소비 기한을 즉시 확인할 수 있습니다.</p>
+
+    <h3 id="t-seo-h2">냉장 vs 냉동 보관 온도</h3>
+    <div class="info-box">
+      <strong id="t-fridge-temp">냉장 (0~5°C)</strong>: <span id="t-fridge-desc">세균 증식이 느려지지만 완전히 멈추지 않음. 신선 식품 단기 보관.</span><br>
+      <strong id="t-freeze-temp">냉동 (-18°C 이하)</strong>: <span id="t-freeze-desc">세균 활동이 거의 멈춤. 장기 보관 가능하지만 해동 후 품질 저하 가능.</span>
+    </div>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/calorie-calculator/">
+        <span class="related-icon">🍽️</span>
+        <span id="t-r1">칼로리 계산기</span>
+      </a>
+      <a class="related-item" href="/cooking-converter/">
+        <span class="related-icon">🍳</span>
+        <span id="t-r2">요리 단위 환산기</span>
+      </a>
+      <a class="related-item" href="/dday-calculator/">
+        <span class="related-icon">📅</span>
+        <span id="t-r3">D-day 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">냉동 보관하면 영원히 먹을 수 있나요?</div>
+      <div class="faq-a" id="fa1">냉동 보관도 시간이 지나면 맛과 품질이 저하됩니다. 세균은 죽지 않고 활동이 멈출 뿐이라 해동 시 다시 번식할 수 있습니다. 식품별 냉동 보관 기간을 지키는 것이 좋습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">냉장고 온도는 몇 도가 적당한가요?</div>
+      <div class="faq-a" id="fa2">냉장실은 0~5°C, 냉동실은 -18°C 이하가 적당합니다. 냉장고 문을 자주 열면 온도가 올라가므로 주의하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">해동한 식품을 다시 냉동해도 되나요?</div>
+      <div class="faq-a" id="fa3">원칙적으로 해동한 식품을 다시 냉동하는 것은 권장되지 않습니다. 세균이 번식한 상태에서 다시 냉동하면 안전하지 않을 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">유통기한과 소비기한의 차이는?</div>
+      <div class="faq-a" id="fa4">유통기한은 판매 가능한 기한, 소비기한은 실제로 먹어도 안전한 기한입니다. 한국은 2023년부터 소비기한 표시제를 시행하고 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq5">개봉 후 유통기한과 미개봉 유통기한이 다른가요?</div>
+      <div class="faq-a" id="fa5">네, 개봉 후에는 공기·세균에 노출되므로 미개봉보다 훨씬 짧습니다. 이 계산기는 개봉 후 보관 기간을 기준으로 합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 식품 상태에 따라 다를 수 있습니다. 의심스러우면 버리세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let lang = 'ko';
+let selectedFood = null;
+let currentCat = '전체';
+
+// 식품 데이터 (한국어명, 영어명, 실온일, 냉장일, 냉동일, 팁)
+const FOODS = [
+  { cat:'육류·해산물', ko:'소고기 (생)', en:'Beef (raw)', room:0, fridge:3, freeze:180, tips:{ko:['밀봉하여 냉장 보관','냉동 시 1회 사용량으로 소분','해동은 냉장실에서 천천히'], en:['Store sealed in refrigerator','Divide into single servings for freezing','Thaw slowly in refrigerator']} },
+  { cat:'육류·해산물', ko:'돼지고기 (생)', en:'Pork (raw)', room:0, fridge:3, freeze:180, tips:{ko:['핏물 제거 후 보관','냉동 시 랩으로 밀봉'], en:['Remove blood before storing','Seal tightly when freezing']} },
+  { cat:'육류·해산물', ko:'닭고기 (생)', en:'Chicken (raw)', room:0, fridge:2, freeze:270, tips:{ko:['다른 식품과 분리 보관','사용 전 충분히 가열'], en:['Store separately from other foods','Cook thoroughly before eating']} },
+  { cat:'육류·해산물', ko:'다진 고기', en:'Ground meat', room:0, fridge:1, freeze:90, tips:{ko:['구입 당일 사용 권장','냉동 시 납작하게 펴서 보관'], en:['Best used on day of purchase','Flatten when freezing']} },
+  { cat:'육류·해산물', ko:'햄·소시지 (개봉)', en:'Ham/Sausage (opened)', room:0, fridge:5, freeze:60, tips:{ko:['개봉 후 밀봉 보관','냉동 시 품질 저하 가능'], en:['Seal after opening','Quality may decline when frozen']} },
+  { cat:'육류·해산물', ko:'생선 (생)', en:'Fish (raw)', room:0, fridge:2, freeze:180, tips:{ko:['비닐 봉투에 밀봉 후 냉장','내장 제거 후 보관'], en:['Seal in plastic bag','Remove innards before storing']} },
+  { cat:'육류·해산물', ko:'새우 (생)', en:'Shrimp (raw)', room:0, fridge:2, freeze:180, tips:{ko:['소금물로 세척 후 보관','냉동 시 껍질째 보관'], en:['Wash with salt water','Freeze with shells on']} },
+  { cat:'육류·해산물', ko:'참치캔 (개봉)', en:'Canned tuna (opened)', room:0, fridge:3, freeze:0, tips:{ko:['다른 용기에 옮겨 냉장','캔째 보관 금지'], en:['Transfer to another container','Do not store in can']} },
+  { cat:'육류·해산물', ko:'훈제연어', en:'Smoked salmon', room:0, fridge:5, freeze:90, tips:{ko:['개봉 후 밀봉 필수','냉동 시 품질 저하'], en:['Must seal after opening','Quality decreases when frozen']} },
+  { cat:'유제품·달걀', ko:'우유 (개봉)', en:'Milk (opened)', room:0, fridge:5, freeze:90, tips:{ko:['뚜껑 꼭 닫아 보관','냉동 우유는 해동 후 물처럼 변할 수 있음'], en:['Keep tightly closed','Frozen milk may become watery after thawing']} },
+  { cat:'유제품·달걀', ko:'달걀', en:'Eggs', room:14, fridge:30, freeze:0, tips:{ko:['뾰족한 쪽 아래로 보관','달걀은 냉동 불가'], en:['Store with pointed end down','Do not freeze whole eggs']} },
+  { cat:'유제품·달걀', ko:'버터 (개봉)', en:'Butter (opened)', room:1, fridge:30, freeze:180, tips:{ko:['밀봉하여 보관','냉동 버터는 직접 사용 가능'], en:['Store sealed','Frozen butter can be used directly']} },
+  { cat:'유제품·달걀', ko:'치즈 (슬라이스)', en:'Cheese (sliced)', room:0, fridge:7, freeze:60, tips:{ko:['각 장 사이에 종이 끼워 냉동','해동 후 바로 사용'], en:['Place paper between slices when freezing','Use immediately after thawing']} },
+  { cat:'유제품·달걀', ko:'요거트', en:'Yogurt', room:0, fridge:7, freeze:30, tips:{ko:['개봉 후 빨리 소비','냉동 요거트는 아이스크림처럼 활용'], en:['Consume quickly after opening','Frozen yogurt can be used like ice cream']} },
+  { cat:'유제품·달걀', ko:'생크림', en:'Heavy cream', room:0, fridge:5, freeze:90, tips:{ko:['거품 낸 후 냉동 가능','아이스 트레이에 얼려 소분'], en:['Can freeze after whipping','Freeze in ice trays for portioning']} },
+  { cat:'채소·과일', ko:'시금치', en:'Spinach', room:0, fridge:5, freeze:365, tips:{ko:['살짝 데친 후 냉동','냉장 시 키친타올로 수분 제거'], en:['Blanch before freezing','Remove moisture with paper towel in fridge']} },
+  { cat:'채소·과일', ko:'당근', en:'Carrot', room:3, fridge:14, freeze:365, tips:{ko:['흙 제거 후 보관','냉동 시 데친 후 보관'], en:['Remove soil before storing','Blanch before freezing']} },
+  { cat:'채소·과일', ko:'양파', en:'Onion', room:30, fridge:60, freeze:180, tips:{ko:['서늘하고 통풍 잘 되는 곳에 보관','썬 양파는 냉장 보관'], en:['Store in cool well-ventilated place','Refrigerate cut onions']} },
+  { cat:'채소·과일', ko:'감자', en:'Potato', room:14, fridge:30, freeze:0, tips:{ko:['어둡고 서늘한 곳에 보관','감자는 냉동 불가'], en:['Store in dark cool place','Do not freeze - texture degrades']} },
+  { cat:'채소·과일', ko:'토마토', en:'Tomato', room:3, fridge:7, freeze:90, tips:{ko:['실온에서 숙성 후 냉장','냉동 시 껍질이 쉽게 벗겨짐'], en:['Ripen at room temperature then refrigerate','Skin peels easily after freezing']} },
+  { cat:'채소·과일', ko:'사과', en:'Apple', room:5, fridge:30, freeze:365, tips:{ko:['에틸렌 가스로 다른 과일 빨리 익음','냉동 시 썰어서 보관'], en:['Releases ethylene that ripens other fruits','Slice before freezing']} },
+  { cat:'채소·과일', ko:'딸기', en:'Strawberry', room:1, fridge:3, freeze:365, tips:{ko:['씻지 않고 보관','냉동 시 설탕에 버무려 보관'], en:['Store unwashed','Toss with sugar before freezing']} },
+  { cat:'채소·과일', ko:'바나나', en:'Banana', room:5, fridge:3, freeze:90, tips:{ko:['껍질 까서 냉동 가능','냉장 시 껍질이 검어지지만 맛은 유지'], en:['Can freeze peeled','Skin turns black in fridge but taste is maintained']} },
+  { cat:'채소·과일', ko:'브로콜리', en:'Broccoli', room:0, fridge:5, freeze:365, tips:{ko:['데친 후 냉동 권장','냉장 시 물에 담가 보관'], en:['Blanch before freezing','Store in water in refrigerator']} },
+  { cat:'채소·과일', ko:'마늘', en:'Garlic', room:30, fridge:30, freeze:180, tips:{ko:['통마늘은 실온 보관','다진 마늘은 냉동 소분'], en:['Store whole garlic at room temperature','Freeze minced garlic in portions']} },
+  { cat:'조리식품', ko:'밥', en:'Cooked rice', room:0, fridge:3, freeze:30, tips:{ko:['한 공기씩 래핑해서 냉동','전자레인지 해동 가능'], en:['Wrap individual servings for freezing','Can be microwaved from frozen']} },
+  { cat:'조리식품', ko:'국·찌개', en:'Soup/Stew', room:0, fridge:3, freeze:90, tips:{ko:['완전히 식힌 후 보관','국물 음식은 냉동 적합'], en:['Cool completely before storing','Soups and stews freeze well']} },
+  { cat:'조리식품', ko:'볶음밥', en:'Fried rice', room:0, fridge:2, freeze:30, tips:{ko:['한 끼 분량씩 냉동','전자레인지로 해동 후 바로 사용'], en:['Freeze in single servings','Microwave from frozen and use immediately']} },
+  { cat:'조리식품', ko:'피자', en:'Pizza', room:0, fridge:3, freeze:60, tips:{ko:['한 조각씩 랩으로 싸서 냉동','오븐에서 재가열 권장'], en:['Wrap individual slices for freezing','Reheat in oven for best results']} },
+  { cat:'조리식품', ko:'삶은 달걀', en:'Hard-boiled eggs', room:0, fridge:7, freeze:0, tips:{ko:['껍질 벗기지 않고 냉장','껍질 까면 3일 이내'], en:['Refrigerate with shell on','Use within 3 days if peeled']} },
+  { cat:'조리식품', ko:'두부', en:'Tofu', room:0, fridge:3, freeze:90, tips:{ko:['물에 담가 냉장 보관','냉동 두부는 식감이 달라짐'], en:['Store submerged in water in fridge','Frozen tofu has different texture']} },
+  { cat:'가공식품', ko:'식빵 (개봉)', en:'Bread (opened)', room:3, fridge:7, freeze:90, tips:{ko:['냉동 보관 후 토스터로 해동','직사광선 피해 보관'], en:['Freeze and reheat in toaster','Avoid direct sunlight']} },
+  { cat:'가공식품', ko:'마요네즈 (개봉)', en:'Mayonnaise (opened)', room:0, fridge:60, freeze:0, tips:{ko:['냉동 불가 - 분리됨','서늘한 곳 보관'], en:['Do not freeze - will separate','Store in cool place']} },
+  { cat:'가공식품', ko:'잼 (개봉)', en:'Jam (opened)', room:0, fridge:90, freeze:0, tips:{ko:['뚜껑 꼭 닫아 냉장','세균 오염 주의'], en:['Keep tightly sealed in fridge','Prevent contamination']} },
+  { cat:'가공식품', ko:'케첩 (개봉)', en:'Ketchup (opened)', room:0, fridge:180, freeze:0, tips:{ko:['냉장 보관 필수','곰팡이 확인 후 사용'], en:['Must refrigerate after opening','Check for mold before use']} },
+  { cat:'가공식품', ko:'두유 (개봉)', en:'Soy milk (opened)', room:0, fridge:5, freeze:30, tips:{ko:['흔들어 마시기','개봉 후 빨리 소비'], en:['Shake before drinking','Consume quickly after opening']} },
+];
+
+// 카테고리 목록
+const CATS_KO = ['전체', '육류·해산물', '유제품·달걀', '채소·과일', '조리식품', '가공식품'];
+const CATS_EN = ['All', 'Meat & Seafood', 'Dairy & Eggs', 'Vegetables & Fruits', 'Cooked Foods', 'Processed Foods'];
+
+const T = {
+  ko: {
+    title: '냉장고 유통기한 계산기',
+    sub: '식품을 선택하고 개봉일을 입력하면 냉장·냉동 보관 기간과 소비 기한을 계산합니다.',
+    catLabel: '카테고리',
+    searchPlaceholder: '식품 검색...',
+    openLabel: '개봉일 / 구입일',
+    todayLabel: '오늘 날짜',
+    calc: '소비 기한 계산하기',
+    dd1: '냉장 소비 기한까지',
+    dd2: '냉동 보관 가능 기간',
+    room: '실온',
+    fridge: '냉장 (0~5°C)',
+    freeze: '냉동 (-18°C)',
+    foodName: '식품',
+    openDateLabel: '개봉일',
+    elapsed: '경과 일수',
+    fridgeExp: '냉장 소비 기한',
+    freezeExp: '냉동 보관 마감',
+    tips: '보관 팁',
+    seoH: '냉장고 유통기한 계산기 사용 방법',
+    seoP: '식품 카테고리를 선택하거나 검색으로 식품을 찾은 후 개봉일을 입력하면 냉장·냉동 보관 가능 기간과 소비 기한을 즉시 확인할 수 있습니다.',
+    related: '관련 툴', faq: '자주 묻는 질문',
+    r1: '칼로리 계산기', r2: '요리 단위 환산기', r3: 'D-day 계산기',
+    status: { safe: '✅ 안전', caution: '⚠️ 주의', danger: '🚫 위험' },
+    safe_desc: '아직 안전하게 드실 수 있습니다.',
+    caution_desc: '유통기한이 얼마 남지 않았습니다. 빨리 드세요.',
+    danger_desc: '보관 기간을 초과했습니다. 섭취를 삼가세요.',
+    days: '일', already: '이미 지남', remain: '남음', noFreeze: '냉동 불가',
+    notSelected: '식품을 선택해주세요.',
+  },
+  en: {
+    title: 'Food Expiry Calculator',
+    sub: 'Select a food and enter the opening date to calculate safe refrigerator and freezer storage periods.',
+    catLabel: 'Category',
+    searchPlaceholder: 'Search food...',
+    openLabel: 'Opened / Purchase Date',
+    todayLabel: "Today's Date",
+    calc: 'Calculate Expiry',
+    dd1: 'Until fridge expiry',
+    dd2: 'Freezer storage period',
+    room: 'Room Temp',
+    fridge: 'Refrigerator (0~5°C)',
+    freeze: 'Freezer (-18°C)',
+    foodName: 'Food',
+    openDateLabel: 'Opened Date',
+    elapsed: 'Days Elapsed',
+    fridgeExp: 'Fridge Expiry',
+    freezeExp: 'Freezer Deadline',
+    tips: 'Storage Tips',
+    seoH: 'How to Use Food Expiry Calculator',
+    seoP: 'Select a food category or search, then enter the opening date to instantly see refrigerator and freezer storage periods.',
+    related: 'Related Tools', faq: 'FAQ',
+    r1: 'Calorie Calculator', r2: 'Cooking Converter', r3: 'D-day Calculator',
+    status: { safe: '✅ Safe', caution: '⚠️ Caution', danger: '🚫 Danger' },
+    safe_desc: 'Still safe to eat.',
+    caution_desc: 'Expiry approaching. Consume soon.',
+    danger_desc: 'Storage period exceeded. Do not consume.',
+    days: ' days', already: 'Expired', remain: 'remaining', noFreeze: 'Do not freeze',
+    notSelected: 'Please select a food.',
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-cat-label').textContent = t.catLabel;
+  document.getElementById('food-search').placeholder = t.searchPlaceholder;
+  document.getElementById('t-open-label').textContent = t.openLabel;
+  document.getElementById('t-today-label').textContent = t.todayLabel;
+  document.getElementById('t-calc').textContent = t.calc;
+  document.getElementById('t-dd1').textContent = t.dd1;
+  document.getElementById('t-dd2').textContent = t.dd2;
+  document.getElementById('t-room').textContent = t.room;
+  document.getElementById('t-fridge').textContent = t.fridge;
+  document.getElementById('t-freeze').textContent = t.freeze;
+  document.getElementById('t-food-name').textContent = t.foodName;
+  document.getElementById('t-open-date-label').textContent = t.openDateLabel;
+  document.getElementById('t-elapsed').textContent = t.elapsed;
+  document.getElementById('t-fridge-exp').textContent = t.fridgeExp;
+  document.getElementById('t-freeze-exp').textContent = t.freezeExp;
+  document.getElementById('t-tips').textContent = t.tips;
+  document.getElementById('t-seo-h').textContent = t.seoH;
+  document.getElementById('t-seo-p').textContent = t.seoP;
+  document.getElementById('t-related').textContent = t.related;
+  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-r1').textContent = t.r1;
+  document.getElementById('t-r2').textContent = t.r2;
+  document.getElementById('t-r3').textContent = t.r3;
+  currentCat = l === 'ko' ? '전체' : 'All';
+  renderCats();
+  renderFoods('');
+  if (selectedFood) {
+    document.getElementById('selected-food').textContent =
+      `✅ ${l === 'ko' ? selectedFood.ko : selectedFood.en} ${lang === 'ko' ? '선택됨' : 'selected'}`;
+  }
+}
+
+function renderCats() {
+  const cats = lang === 'ko' ? CATS_KO : CATS_EN;
+  const row = document.getElementById('cat-row');
+  row.innerHTML = '';
+  cats.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    const isAll = i === 0;
+    const isCurrent = (lang === 'ko' ? cat : cat) === currentCat ||
+      (isAll && (currentCat === '전체' || currentCat === 'All'));
+    btn.className = 'cat-btn' + (isCurrent ? ' on' : '');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      currentCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      renderFoods('');
+      document.getElementById('food-search').value = '';
+    };
+    row.appendChild(btn);
+  });
+}
+
+function renderFoods(query) {
+  const grid = document.getElementById('food-grid');
+  grid.innerHTML = '';
+  const allKo = '전체', allEn = 'All';
+
+  let filtered = FOODS.filter(f => {
+    const matchCat = currentCat === allKo || currentCat === allEn || f.cat === currentCat ||
+      CATS_EN[CATS_KO.indexOf(f.cat)] === currentCat;
+    const name = lang === 'ko' ? f.ko : f.en;
+    const matchQuery = !query || name.toLowerCase().includes(query.toLowerCase());
+    return matchCat && matchQuery;
+  });
+
+  filtered.forEach(f => {
+    const btn = document.createElement('button');
+    btn.className = 'food-btn' + (selectedFood && selectedFood.ko === f.ko ? ' on' : '');
+    const name = lang === 'ko' ? f.ko : f.en;
+    const fridgeText = lang === 'ko' ? `냉장 ${f.fridge}일` : `Fridge ${f.fridge}d`;
+    btn.innerHTML = `<span class="fn">${name}</span><span class="fd">${fridgeText}</span>`;
+    btn.onclick = () => {
+      selectedFood = f;
+      document.querySelectorAll('.food-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const selEl = document.getElementById('selected-food');
+      selEl.style.display = 'block';
+      selEl.textContent = `✅ ${name} ${lang === 'ko' ? '선택됨' : 'selected'}`;
+    };
+    grid.appendChild(btn);
+  });
+}
+
+function searchFood() {
+  renderFoods(document.getElementById('food-search').value);
+}
+
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function formatDate(d) {
+  return d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
+}
+
+function calculate() {
+  const t = T[lang];
+  if (!selectedFood) { alert(t.notSelected); return; }
+
+  const openStr = document.getElementById('open-date').value;
+  const todayStr = document.getElementById('today-date').value;
+  if (!openStr) { alert(lang === 'ko' ? '개봉일을 입력해주세요.' : 'Please enter opening date.'); return; }
+
+  const openDate = new Date(openStr);
+  const today = new Date(todayStr || new Date().toISOString().split('T')[0]);
+  const elapsed = Math.floor((today - openDate) / 86400000);
+
+  const fridgeExpDate = addDays(openDate, selectedFood.fridge);
+  const fridgeDdayLeft = selectedFood.fridge - elapsed;
+
+  // 상태 판단
+  let statusKey, bgColor, borderColor;
+  if (fridgeDdayLeft < 0) { statusKey='danger'; bgColor='var(--red-light)'; borderColor='var(--red)'; }
+  else if (fridgeDdayLeft <= 2) { statusKey='caution'; bgColor='var(--orange-light)'; borderColor='var(--orange)'; }
+  else { statusKey='safe'; bgColor='var(--accent-light)'; borderColor='var(--accent)'; }
+
+  // 히어로
+  const hero = document.getElementById('status-hero');
+  hero.style.background = bgColor;
+  hero.style.borderColor = borderColor;
+  const icons = { safe:'✅', caution:'⚠️', danger:'🚫' };
+  document.getElementById('sh-icon').textContent = icons[statusKey];
+  document.getElementById('sh-status').textContent = t.status[statusKey];
+  document.getElementById('sh-status').style.color = borderColor;
+  document.getElementById('sh-desc').textContent = t[statusKey + '_desc'];
+
+  // D-day
+  const fridgeDday = fridgeDdayLeft < 0
+    ? t.already
+    : fridgeDdayLeft === 0
+    ? (lang === 'ko' ? '오늘 마감' : 'Expires today')
+    : `${fridgeDdayLeft}${t.days} ${t.remain}`;
+  document.getElementById('r-fridge-dday').textContent = fridgeDday;
+  document.getElementById('r-fridge-until').textContent = formatDate(fridgeExpDate);
+
+  const freePeriod = selectedFood.freeze === 0 ? t.noFreeze : `${selectedFood.freeze}${t.days}`;
+  document.getElementById('r-freeze-period').textContent = freePeriod;
+  const freezeExpDate = selectedFood.freeze > 0 ? addDays(openDate, selectedFood.freeze) : null;
+  document.getElementById('r-freeze-until').textContent = freezeExpDate ? formatDate(freezeExpDate) : '-';
+
+  // 보관 기간 박스
+  const roomText = selectedFood.room === 0 ? (lang==='ko'?'냉장 보관':'Refrigerate') : `${selectedFood.room}${t.days}`;
+  document.getElementById('r-room').textContent = roomText;
+  document.getElementById('r-room-note').textContent = selectedFood.room === 0 ? (lang==='ko'?'실온 불가':'Not safe at room temp') : '';
+  document.getElementById('r-fridge').textContent = `${selectedFood.fridge}${t.days}`;
+  document.getElementById('r-fridge-note').textContent = lang==='ko'?'개봉 후 기준':'After opening';
+  document.getElementById('r-freeze').textContent = selectedFood.freeze === 0 ? t.noFreeze : `${selectedFood.freeze}${t.days}`;
+  document.getElementById('r-freeze-note').textContent = selectedFood.freeze > 0 ? (lang==='ko'?'개봉일 기준':'From opening date') : '';
+
+  // 상세
+  document.getElementById('r-food-name').textContent = lang === 'ko' ? selectedFood.ko : selectedFood.en;
+  document.getElementById('r-open-date').textContent = formatDate(openDate);
+  document.getElementById('r-elapsed').textContent = `${elapsed}${t.days}`;
+  document.getElementById('r-fridge-exp').textContent = formatDate(fridgeExpDate);
+  document.getElementById('r-freeze-exp').textContent = freezeExpDate ? formatDate(freezeExpDate) : t.noFreeze;
+
+  // 보관 팁
+  const tips = selectedFood.tips[lang] || selectedFood.tips['ko'];
+  const tipIcons = ['❄️','🧊','📦','💡','⚡'];
+  document.getElementById('tip-list').innerHTML = tips.map((tip, i) =>
+    `<div class="tip-item"><span class="tip-icon">${tipIcons[i]||'💡'}</span><span class="tip-text">${tip}</span></div>`
+  ).join('');
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// 초기화
+const today = new Date();
+const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+document.getElementById('today-date').value = todayStr;
+document.getElementById('open-date').value = todayStr;
+renderCats();
+renderFoods('');
+</script>
+</body>
+</html>
