@@ -156,7 +156,7 @@
   .share-btn:hover { opacity: .85; }
   .share-native { background: var(--blue); color: #fff; border: none; }
   .share-link { background: var(--accent); color: #fff; border: none; }
-  .bookmark-tip { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--accent); font-weight: 600; text-align: center; margin-top: 10px; }
+
 
   .seo-section { margin-top: 48px; }
   .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
@@ -201,6 +201,8 @@
     <button onclick="nativeShare()" style="flex:1;min-width:120px;padding:10px 14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📤 <span id="t-share-top">공유하기</span></button>
     <button onclick="copyLink()" style="flex:1;min-width:120px;padding:10px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">🔗 <span id="t-link-top">링크 복사</span></button>
   </div>
+
+
 
   <div class="notice-box">
     <strong id="t-notice-title">의료 안내</strong>: <span id="t-notice">이 계산기는 참고용입니다. 정확한 성장 평가는 소아과 전문의와 상담하세요. 백분위보다 성장 추세가 더 중요합니다.</span>
@@ -314,9 +316,7 @@
           🔗 <span id="t-copy-link">링크 복사</span>
         </button>
       </div>
-      <div class="bookmark-tip" id="t-bookmark">
-        ⭐ 즐겨찾기(Ctrl+D)에 추가해두면 다음 검진 때도 바로 사용할 수 있어요!
-      </div>
+
     </div>
   </div>
 
@@ -490,7 +490,6 @@ const T = {
     related:'관련 툴', faq:'자주 묻는 질문',
     r1:'BMI 계산기', r2:'물 섭취량 계산기', r3:'임신 주수 계산기',
     footer:'본 계산기는 참고용이며 정확한 성장 평가는 소아과 전문의와 상담하세요.',
-    bookmark:'⭐ 즐겨찾기(Ctrl+D)에 추가해두면 다음 검진 때도 바로 사용할 수 있어요!',
     evalLabels: {
       great:'🌟 균형 잡힌 성장', good:'✅ 정상 성장', low:'⚠️ 저성장 의심', high:'⚠️ 과성장 의심'
     },
@@ -522,7 +521,6 @@ const T = {
     related:'Related Tools', faq:'FAQ',
     r1:'BMI Calculator', r2:'Water Intake Calculator', r3:'Pregnancy Week Calculator',
     footer:'This calculator is for reference. Consult a pediatrician for accurate assessment.',
-    bookmark:'⭐ Bookmark this page (Ctrl+D) to use it again at your next checkup!',
     evalLabels: {
       great:'🌟 Balanced Growth', good:'✅ Normal Growth', low:'⚠️ Possible Low Growth', high:'⚠️ Possible High Growth'
     },
@@ -577,7 +575,7 @@ function setLang(l, el) {
   document.getElementById('t-r2').textContent = t.r2;
   document.getElementById('t-r3').textContent = t.r3;
   document.getElementById('t-footer').textContent = t.footer;
-  const bm = document.getElementById('t-bookmark'); if(bm) bm.textContent = t.bookmark;
+  const bmt = document.getElementById('t-bookmark-top'); if(bmt) bmt.textContent = t.bookmarkTop;
   const kt = document.getElementById('t-share-top'); if(kt) kt.textContent = t.kakao;
   const lt = document.getElementById('t-link-top'); if(lt) lt.textContent = t.copyLink;
 }
