@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>벽지 계산기 - 방 크기로 벽지 롤 수 즉시 계산 | TopTools365</title>
+<meta name="description" content="방의 가로·세로·높이를 입력하면 필요한 벽지 롤 수를 즉시 계산합니다. 문·창문 면적 자동 차감. 실크·합지·수입벽지 규격 지원. 여유분 포함 정확한 롤 수 계산. 인테리어 셀프 시공 필수 도구. 완전 무료.">
+<meta name="keywords" content="벽지계산기,벽지롤수계산,방벽지계산,도배계산기,도배롤수계산,벽지면적계산,셀프도배계산,실크벽지계산,합지벽지계산,벽지수량계산,인테리어벽지계산,도배지계산기">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/wallpaper-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="벽지 계산기 - 방 크기로 벽지 롤 수 즉시 계산 | TopTools365">
+<meta property="og:description" content="방 크기 입력 → 벽지 롤 수 즉시 계산. 문·창문 차감. 여유분 포함. 실크·합지·수입벽지 지원. 무료.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"벽지 계산기","description":"방 크기로 필요한 벽지 롤 수를 계산하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"벽지 한 롤로 몇 평 도배할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"국산 실크벽지 기준(폭 53cm × 길이 15.6m) 한 롤로 약 5~6m² 시공 가능합니다. 10평(33m²) 방이라면 약 6~8롤이 필요합니다."}},
+{"@type":"Question","name":"벽지 계산 시 여유분은 얼마나 두어야 하나요?","acceptedAnswer":{"@type":"Answer","text":"일반적으로 10~15%의 여유분을 추가로 준비하는 것을 권장합니다. 패턴 매칭이 필요한 벽지는 20% 이상 여유분이 필요할 수 있습니다."}},
+{"@type":"Question","name":"실크벽지와 합지벽지의 차이는?","acceptedAnswer":{"@type":"Answer","text":"실크벽지는 PVC 소재로 내구성이 강하고 세척이 가능합니다. 합지벽지는 종이 소재로 가격이 저렴하고 친환경적이지만 수분에 약합니다. 이 계산기는 두 규격 모두 지원합니다."}}
+]}
+</script>
+<style>
+  :root {
+    --bg: #f8f7f4; --card: #fff; --border: #e2e0d8; --text: #1a1a18; --muted: #6b6b66;
+    --accent: #b45309; --accent-light: #fef3e2;
+    --green: #1a6b4a; --green-light: #e8f5ef;
+    --blue: #1a5c8a; --blue-light: #e8f2f9;
+    --radius: 12px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
+      --accent: #e8a832; --accent-light: #2a1f0a;
+      --green: #2daa72; --green-light: #0e2a1e;
+      --blue: #4a9fd4; --blue-light: #0d2233; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
+  .back-link:hover { opacity: .8; }
+  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
+  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .section-label { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* 벽지 종류 선택 */
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+  .type-btn { padding: 12px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; line-height: 1.5; }
+  .type-btn .ti { font-size: 20px; display: block; margin-bottom: 4px; }
+  .type-btn .ts { font-size: 10px; font-weight: 400; color: var(--muted); display: block; }
+  .type-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+
+  /* 방 크기 입력 */
+  .dim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media(max-width:480px) { .dim-grid { grid-template-columns: 1fr; } }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
+  .field .tip { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  .input-wrap { position: relative; }
+  .input-wrap input { width: 100%; padding: 12px 44px 12px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 700; outline: none; transition: border-color .15s; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap .unit { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); pointer-events: none; }
+
+  /* 방 미리보기 */
+  .room-preview { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .room-svg-wrap { text-align: center; }
+  svg.room-svg { max-width: 280px; width: 100%; }
+
+  /* 문·창문 차감 */
+  .opening-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+  .opening-item { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; align-items: center; }
+  @media(max-width:480px) { .opening-item { grid-template-columns: 1fr 1fr; } }
+  .opening-item input { padding: 9px 10px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; font-weight: 600; outline: none; width: 100%; }
+  .opening-item input:focus { border-color: var(--accent); }
+  .opening-item .ol { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .del-btn { width: 32px; height: 32px; border: none; border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; border: 1px solid var(--border); }
+  .del-btn:hover { background: #fdf0ec; color: #c84b2a; }
+  .add-open-btn { padding: 8px 14px; border: 1.5px dashed var(--border); border-radius: 8px; background: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; width: 100%; }
+  .add-open-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 여유분 슬라이더 */
+  .margin-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .margin-row label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .margin-slider { flex: 1; -webkit-appearance: none; height: 6px; border-radius: 3px; background: var(--border); outline: none; cursor: pointer; min-width: 120px; }
+  .margin-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .margin-val { font-size: 16px; font-weight: 800; color: var(--accent); min-width: 40px; }
+
+  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+  .calc-btn:hover { opacity: .88; }
+
+  /* 결과 */
+  .results { display: none; }
+  .results.show { display: block; }
+
+  /* 히어로 */
+  .result-hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  @media(max-width:480px) { .result-hero { grid-template-columns: 1fr; } }
+  .hero-box { padding: 18px 12px; border-radius: 12px; text-align: center; border: 2px solid; }
+  .hero-box .hl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .hero-box .hv { font-size: 36px; font-weight: 900; line-height: 1; }
+  .hero-box .hs { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--muted); }
+  .detail-val { font-weight: 700; }
+
+  /* 벽면별 내역 */
+  .wall-list { display: flex; flex-direction: column; gap: 8px; }
+  .wall-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+  .wi-name { font-weight: 600; }
+  .wi-area { color: var(--muted); }
+  .wi-rolls { font-weight: 800; color: var(--accent); }
+
+  /* 비용 추정 */
+  .cost-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .cost-grid { grid-template-columns: 1fr; } }
+  .cost-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid var(--border); background: var(--bg); }
+  .cost-box .cl { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 5px; }
+  .cost-box .cv { font-size: 16px; font-weight: 800; color: var(--accent); }
+  .cost-box .cs { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  .seo-section { margin-top: 48px; }
+  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
+  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.9; margin-bottom: 12px; }
+  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 2.0; margin: 16px 0; }
+  .info-box strong { color: var(--accent); }
+
+  .related-section { margin-top: 48px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
+  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .related-icon { font-size: 20px; flex-shrink: 0; }
+
+  .faq { margin-top: 40px; }
+  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">벽지 계산기</h1>
+  <p class="subtitle" id="t-sub">방의 가로·세로·높이를 입력하면 필요한 벽지 롤 수를 즉시 계산합니다. 문·창문 면적 자동 차감, 여유분 포함.</p>
+
+  <!-- 벽지 종류 -->
+  <div class="card">
+    <div class="section-label" id="t-type-label">① 벽지 종류 선택</div>
+    <div class="type-grid" id="type-grid"></div>
+
+    <!-- 방 크기 -->
+    <div class="section-label" id="t-dim-label" style="margin-top:20px">② 방 크기 입력</div>
+    <div class="dim-grid">
+      <div class="field">
+        <label id="t-width">가로 (폭)</label>
+        <div class="input-wrap">
+          <input type="number" id="room-width" placeholder="4.0" value="4" min="0.1" step="0.1">
+          <span class="unit">m</span>
+        </div>
+        <p class="tip" id="t-width-tip">방의 가로 길이</p>
+      </div>
+      <div class="field">
+        <label id="t-depth">세로 (깊이)</label>
+        <div class="input-wrap">
+          <input type="number" id="room-depth" placeholder="3.5" value="3.5" min="0.1" step="0.1">
+          <span class="unit">m</span>
+        </div>
+        <p class="tip" id="t-depth-tip">방의 세로 길이</p>
+      </div>
+      <div class="field">
+        <label id="t-height">천장 높이</label>
+        <div class="input-wrap">
+          <input type="number" id="room-height" placeholder="2.4" value="2.4" min="0.1" step="0.1">
+          <span class="unit">m</span>
+        </div>
+        <p class="tip" id="t-height-tip">바닥에서 천장까지</p>
+      </div>
+    </div>
+
+    <!-- 문·창문 차감 -->
+    <div class="section-label" id="t-opening-label">③ 문·창문 차감 (선택)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--muted)" id="th-type">종류</span>
+      <span style="font-size:11px;font-weight:600;color:var(--muted)" id="th-w">폭(m)</span>
+      <span style="font-size:11px;font-weight:600;color:var(--muted)" id="th-h">높이(m)</span>
+      <span></span>
+    </div>
+    <div class="opening-list" id="opening-list"></div>
+    <button class="add-open-btn" id="t-add-opening" onclick="addOpening()">+ 문·창문 추가</button>
+
+    <!-- 여유분 -->
+    <div style="margin-top:20px;margin-bottom:8px">
+      <div class="section-label" id="t-margin-label">④ 여유분 설정</div>
+      <div class="margin-row">
+        <label id="t-margin-text">여유분</label>
+        <input type="range" class="margin-slider" id="margin-slider" min="5" max="30" value="10" step="5" oninput="updateMargin()">
+        <span class="margin-val" id="margin-display">10%</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted)" id="t-margin-tip">패턴 있는 벽지는 20% 이상 권장. 무지는 10% 적당.</p>
+    </div>
+
+    <button class="calc-btn" id="t-calc" onclick="calculate()">벽지 롤 수 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+    <!-- 히어로 -->
+    <div class="result-hero">
+      <div class="hero-box" style="background:var(--accent-light);border-color:var(--accent)">
+        <div class="hl" style="color:var(--accent)" id="t-r-rolls">필요 롤 수</div>
+        <div class="hv" style="color:var(--accent)" id="r-rolls">-</div>
+        <div class="hs" id="t-rolls-unit">롤</div>
+      </div>
+      <div class="hero-box" style="background:var(--green-light);border-color:var(--green)">
+        <div class="hl" style="color:var(--green)" id="t-r-area">총 벽면 면적</div>
+        <div class="hv" style="color:var(--green)" id="r-area">-</div>
+        <div class="hs">m²</div>
+      </div>
+      <div class="hero-box" style="background:var(--blue-light);border-color:var(--blue)">
+        <div class="hl" style="color:var(--blue)" id="t-r-rolls-margin">여유분 포함</div>
+        <div class="hv" style="color:var(--blue)" id="r-rolls-margin">-</div>
+        <div class="hs" id="t-rolls-unit2">롤 (권장)</div>
+      </div>
+    </div>
+
+    <!-- 상세 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label" id="t-d1">방 둘레</span><span class="detail-val" id="r-perimeter">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d2">총 벽면 면적</span><span class="detail-val" id="r-total-area">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d3">문·창문 차감 면적</span><span class="detail-val" id="r-opening-area">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d4">실제 도배 면적</span><span class="detail-val" id="r-net-area">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d5">롤당 면적</span><span class="detail-val" id="r-roll-area">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d6">기본 롤 수</span><span class="detail-val" id="r-base-rolls">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d7">여유분 포함 롤 수</span><span class="detail-val" style="color:var(--accent);font-size:16px" id="r-final-rolls">-</span></div>
+    </div>
+
+    <!-- 벽지 규격 정보 -->
+    <div class="card" id="spec-card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-spec">선택한 벽지 규격</div>
+      <div id="spec-info"></div>
+    </div>
+
+    <!-- 비용 추정 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-cost">예상 비용 (재료비 기준)</div>
+      <div class="cost-grid" id="cost-grid"></div>
+      <p style="font-size:11px;color:var(--muted);margin-top:10px" id="t-cost-note">※ 시공 인건비 별도. 벽지 가격은 제품에 따라 상이합니다.</p>
+    </div>
+  </div>
+
+  <!-- SEO 풍부한 설명 -->
+  <section class="seo-section">
+    <h2 id="t-seo-h1">벽지 계산기 사용 방법</h2>
+    <p id="t-seo-p1">셀프 도배나 인테리어를 계획할 때 벽지 롤 수를 잘못 계산하면 중간에 재료가 부족해지거나 과도하게 남을 수 있습니다. 이 계산기에 방의 가로·세로·높이를 입력하고 문과 창문 크기를 차감하면 필요한 벽지 롤 수를 정확하게 계산할 수 있습니다.</p>
+
+    <h3 id="t-seo-h2">벽지 종류별 규격 정리</h3>
+    <div class="info-box">
+      <strong>국산 실크벽지</strong>: 폭 53cm × 길이 15.6m / 롤당 면적 약 8.3m²<br>
+      <strong>국산 합지벽지</strong>: 폭 93cm × 길이 17.75m / 롤당 면적 약 16.5m²<br>
+      <strong>수입벽지 (유럽형)</strong>: 폭 53cm × 길이 10m / 롤당 면적 약 5.3m²<br>
+      <strong>광폭벽지</strong>: 폭 106cm × 길이 15.6m / 롤당 면적 약 16.5m²
+    </div>
+
+    <h3 id="t-seo-h3">벽지 계산 공식</h3>
+    <p id="t-seo-p3">벽지 소요량 계산 공식: 도배 면적(m²) = (가로+세로) × 2 × 천장높이 - 문창문면적. 필요 롤 수 = 도배 면적 ÷ 롤당 면적. 여기에 여유분 10~15%를 추가합니다. 패턴이 있는 벽지는 패턴 반복 간격(리포트)에 따라 낭비분이 더 발생하므로 20% 이상 여유분을 권장합니다.</p>
+
+    <h3 id="t-seo-h4">셀프 도배 시 주의사항</h3>
+    <p id="t-seo-p4">벽지를 구매할 때는 같은 로트(LOT) 번호의 제품을 한 번에 구매하는 것이 중요합니다. 로트가 다르면 미세한 색상 차이가 발생할 수 있습니다. 또한 시공 전 벽면 상태를 확인하고 크랙이나 이물질을 제거해야 합니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/paint-calculator/">
+        <span class="related-icon">🎨</span>
+        <span id="t-r1">페인트 계산기</span>
+      </a>
+      <a class="related-item" href="/tile-calculator/">
+        <span class="related-icon">🪟</span>
+        <span id="t-r2">타일 계산기</span>
+      </a>
+      <a class="related-item" href="/pyeong-calculator/">
+        <span class="related-icon">📐</span>
+        <span id="t-r3">평수 계산기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">벽지 한 롤로 몇 평 도배할 수 있나요?</div>
+      <div class="faq-a" id="fa1">국산 실크벽지 기준(폭 53cm × 길이 15.6m) 한 롤로 약 8.3m² 시공 가능합니다. 10평(약 33m²) 방이라면 벽면 면적 기준 약 6~8롤이 필요합니다. 단, 방의 천장 높이와 문·창문 수에 따라 달라집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">벽지 계산 시 여유분은 얼마나 두어야 하나요?</div>
+      <div class="faq-a" id="fa2">무지(단색) 벽지는 10%, 패턴이 있는 벽지는 15~20% 이상의 여유분을 권장합니다. 벽지 시공 중 오시공이나 손상이 발생할 수 있어 여유분이 중요합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">실크벽지와 합지벽지의 차이는?</div>
+      <div class="faq-a" id="fa3">실크벽지는 PVC 소재로 내구성이 강하고 물걸레 청소가 가능합니다. 합지벽지는 종이 소재로 가격이 저렴하고 친환경적이지만 수분에 약합니다. 거실·침실에는 실크, 베란다·다용도실에는 합지를 주로 사용합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">천장 벽지도 계산이 되나요?</div>
+      <div class="faq-a" id="fa4">이 계산기는 사방 벽면 기준입니다. 천장 도배가 필요한 경우 방의 가로×세로 면적을 별도로 계산해 추가하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq5">수입벽지 계산 방법이 다른가요?</div>
+      <div class="faq-a" id="fa5">수입벽지는 국산보다 롤당 길이가 짧아(보통 10m) 더 많은 롤이 필요합니다. 이 계산기에서 수입벽지를 선택하면 자동으로 해당 규격으로 계산합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 시공 전 전문가와 확인하세요.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+
+<script>
+let lang = 'ko';
+let selectedType = 'silk';
+let openingCount = 0;
+
+// 벽지 종류별 규격 (폭m, 길이m, 롤당면적m², 가격범위)
+const WALLPAPER_TYPES = [
+  { key:'silk', icon:'✨', ko:'국산 실크', en:'Domestic Silk',
+    width:0.53, length:15.6, area:8.27,
+    specKo:'폭 53cm × 길이 15.6m / 롤당 약 8.3m²',
+    specEn:'Width 53cm × Length 15.6m / ~8.3m² per roll',
+    priceMin:15000, priceMax:40000 },
+  { key:'habjee', icon:'📄', ko:'국산 합지', en:'Domestic Habjee',
+    width:0.93, length:17.75, area:16.51,
+    specKo:'폭 93cm × 길이 17.75m / 롤당 약 16.5m²',
+    specEn:'Width 93cm × Length 17.75m / ~16.5m² per roll',
+    priceMin:8000, priceMax:20000 },
+  { key:'import', icon:'🌍', ko:'수입벽지', en:'Imported',
+    width:0.53, length:10, area:5.3,
+    specKo:'폭 53cm × 길이 10m / 롤당 약 5.3m²',
+    specEn:'Width 53cm × Length 10m / ~5.3m² per roll',
+    priceMin:30000, priceMax:100000 },
+];
+
+// 문·창문 기본값
+const DEFAULT_OPENINGS = [
+  { ko:'문', en:'Door', w:0.9, h:2.1 },
+  { ko:'창문', en:'Window', w:1.2, h:1.0 },
+];
+
+const T = {
+  ko: {
+    title:'벽지 계산기',
+    sub:'방의 가로·세로·높이를 입력하면 필요한 벽지 롤 수를 즉시 계산합니다. 문·창문 면적 자동 차감, 여유분 포함.',
+    typeLabel:'① 벽지 종류 선택', dimLabel:'② 방 크기 입력',
+    width:'가로 (폭)', depth:'세로 (깊이)', height:'천장 높이',
+    widthTip:'방의 가로 길이', depthTip:'방의 세로 길이', heightTip:'바닥에서 천장까지',
+    openingLabel:'③ 문·창문 차감 (선택)', thType:'종류', thW:'폭(m)', thH:'높이(m)',
+    addOpening:'+ 문·창문 추가', marginLabel:'④ 여유분 설정', marginText:'여유분',
+    marginTip:'패턴 있는 벽지는 20% 이상 권장. 무지는 10% 적당.',
+    calc:'벽지 롤 수 계산하기',
+    rRolls:'필요 롤 수', rArea:'총 벽면 면적', rRollsMargin:'여유분 포함',
+    rollsUnit:'롤', rollsUnit2:'롤 (권장)',
+    d1:'방 둘레', d2:'총 벽면 면적', d3:'문·창문 차감 면적',
+    d4:'실제 도배 면적', d5:'롤당 면적', d6:'기본 롤 수', d7:'여유분 포함 롤 수',
+    spec:'선택한 벽지 규격', cost:'예상 비용 (재료비 기준)',
+    costNote:'※ 시공 인건비 별도. 벽지 가격은 제품에 따라 상이합니다.',
+    related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'페인트 계산기', r2:'타일 계산기', r3:'평수 계산기',
+    footer:'본 계산기는 참고용이며 실제 시공 전 전문가와 확인하세요.',
+    costLabels: ['저가형', '중간가격', '고가형'],
+    openingPlaceholder: ['문', '창문'],
+    noOpening:'없음',
+  },
+  en: {
+    title:'Wallpaper Calculator',
+    sub:'Enter room dimensions to instantly calculate the number of wallpaper rolls needed. Door/window deductions and waste factor included.',
+    typeLabel:'① Select Wallpaper Type', dimLabel:'② Room Dimensions',
+    width:'Width', depth:'Depth', height:'Ceiling Height',
+    widthTip:'Room width', depthTip:'Room depth', heightTip:'Floor to ceiling',
+    openingLabel:'③ Door/Window Deductions (optional)', thType:'Type', thW:'Width(m)', thH:'Height(m)',
+    addOpening:'+ Add Door/Window', marginLabel:'④ Waste Factor', marginText:'Waste',
+    marginTip:'Pattern wallpaper: 20%+ recommended. Plain: 10% is fine.',
+    calc:'Calculate Rolls',
+    rRolls:'Rolls Needed', rArea:'Total Wall Area', rRollsMargin:'With Waste Factor',
+    rollsUnit:'rolls', rollsUnit2:'rolls (recommended)',
+    d1:'Room Perimeter', d2:'Total Wall Area', d3:'Door/Window Area',
+    d4:'Net Area', d5:'Area per Roll', d6:'Base Rolls', d7:'Rolls with Waste',
+    spec:'Selected Wallpaper Specs', cost:'Estimated Cost (materials only)',
+    costNote:'※ Labour costs excluded. Prices vary by product.',
+    related:'Related Tools', faq:'FAQ',
+    r1:'Paint Calculator', r2:'Tile Calculator', r3:'Pyeong Calculator',
+    footer:'This calculator is for reference. Consult a professional before installation.',
+    costLabels: ['Budget', 'Mid-range', 'Premium'],
+    openingPlaceholder: ['Door', 'Window'],
+    noOpening:'None',
+  }
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const ids = {
+    't-title':t.title,'t-sub':t.sub,'t-type-label':t.typeLabel,'t-dim-label':t.dimLabel,
+    't-width':t.width,'t-depth':t.depth,'t-height':t.height,
+    't-width-tip':t.widthTip,'t-depth-tip':t.depthTip,'t-height-tip':t.heightTip,
+    't-opening-label':t.openingLabel,'th-type':t.thType,'th-w':t.thW,'th-h':t.thH,
+    't-add-opening':t.addOpening,'t-margin-label':t.marginLabel,'t-margin-text':t.marginText,
+    't-margin-tip':t.marginTip,'t-calc':t.calc,
+    't-r-rolls':t.rRolls,'t-r-area':t.rArea,'t-r-rolls-margin':t.rRollsMargin,
+    't-rolls-unit':t.rollsUnit,'t-rolls-unit2':t.rollsUnit2,
+    't-d1':t.d1,'t-d2':t.d2,'t-d3':t.d3,'t-d4':t.d4,'t-d5':t.d5,'t-d6':t.d6,'t-d7':t.d7,
+    't-spec':t.spec,'t-cost':t.cost,'t-cost-note':t.costNote,
+    't-related':t.related,'t-faq':t.faq,
+    't-r1':t.r1,'t-r2':t.r2,'t-r3':t.r3,'t-footer':t.footer,
+  };
+  Object.entries(ids).forEach(([id,val])=>{ const e=document.getElementById(id); if(e) e.textContent=val; });
+  renderTypes();
+}
+
+function renderTypes() {
+  const grid = document.getElementById('type-grid');
+  grid.innerHTML = '';
+  WALLPAPER_TYPES.forEach(tp => {
+    const btn = document.createElement('button');
+    btn.className = 'type-btn' + (tp.key === selectedType ? ' on' : '');
+    btn.innerHTML = `<span class="ti">${tp.icon}</span>${lang==='ko'?tp.ko:tp.en}<span class="ts">${lang==='ko'?tp.specKo:tp.specEn}</span>`;
+    btn.onclick = () => { selectedType = tp.key; renderTypes(); };
+    grid.appendChild(btn);
+  });
+}
+
+function updateMargin() {
+  document.getElementById('margin-display').textContent = document.getElementById('margin-slider').value + '%';
+}
+
+function addOpening(nameKo='문', nameEn='Door', w=0.9, h=2.1) {
+  openingCount++;
+  const id = openingCount;
+  const t = T[lang];
+  const div = document.createElement('div');
+  div.className = 'opening-item';
+  div.id = 'opening-' + id;
+  div.innerHTML = `
+    <input type="text" placeholder="${lang==='ko'?nameKo:nameEn}" value="${lang==='ko'?nameKo:nameEn}" style="font-size:13px;padding:9px 10px">
+    <input type="number" placeholder="0.9" value="${w}" min="0.1" max="10" step="0.1">
+    <input type="number" placeholder="2.1" value="${h}" min="0.1" max="5" step="0.1">
+    <button class="del-btn" onclick="document.getElementById('opening-${id}').remove()">×</button>
+  `;
+  document.getElementById('opening-list').appendChild(div);
+}
+
+function getOpenings() {
+  const openings = [];
+  document.querySelectorAll('.opening-item').forEach(item => {
+    const inputs = item.querySelectorAll('input[type="number"]');
+    const w = parseFloat(inputs[0].value) || 0;
+    const h = parseFloat(inputs[1].value) || 0;
+    if (w > 0 && h > 0) openings.push({ w, h });
+  });
+  return openings;
+}
+
+function calculate() {
+  const W = parseFloat(document.getElementById('room-width').value) || 0;
+  const D = parseFloat(document.getElementById('room-depth').value) || 0;
+  const H = parseFloat(document.getElementById('room-height').value) || 0;
+  const margin = parseInt(document.getElementById('margin-slider').value) || 10;
+
+  if (!W || !D || !H) { alert(lang==='ko'?'방 크기를 입력해주세요.':'Please enter room dimensions.'); return; }
+
+  const tp = WALLPAPER_TYPES.find(t => t.key === selectedType);
+  const t = T[lang];
+
+  const perimeter = 2 * (W + D);
+  const totalWallArea = perimeter * H;
+  const openings = getOpenings();
+  const openingArea = openings.reduce((s, o) => s + o.w * o.h, 0);
+  const netArea = Math.max(0, totalWallArea - openingArea);
+  const baseRolls = Math.ceil(netArea / tp.area);
+  const marginRolls = Math.ceil(baseRolls * (1 + margin / 100));
+
+  // 히어로
+  document.getElementById('r-rolls').textContent = baseRolls;
+  document.getElementById('r-area').textContent = netArea.toFixed(1);
+  document.getElementById('r-rolls-margin').textContent = marginRolls;
+
+  // 상세
+  document.getElementById('r-perimeter').textContent = perimeter.toFixed(1) + 'm';
+  document.getElementById('r-total-area').textContent = totalWallArea.toFixed(1) + 'm²';
+  document.getElementById('r-opening-area').textContent = openingArea > 0 ? '-' + openingArea.toFixed(1) + 'm²' : t.noOpening;
+  document.getElementById('r-net-area').textContent = netArea.toFixed(1) + 'm²';
+  document.getElementById('r-roll-area').textContent = tp.area.toFixed(1) + 'm²';
+  document.getElementById('r-base-rolls').textContent = baseRolls + (lang==='ko'?'롤':'rolls');
+  document.getElementById('r-final-rolls').textContent = marginRolls + (lang==='ko'?'롤 (여유분 '+margin+'% 포함)':' rolls ('+margin+'% waste included)');
+
+  // 벽지 규격
+  document.getElementById('spec-info').innerHTML = `
+    <div class="detail-row"><span class="detail-label">${lang==='ko'?'종류':'Type'}</span><span class="detail-val">${lang==='ko'?tp.ko:tp.en}</span></div>
+    <div class="detail-row"><span class="detail-label">${lang==='ko'?'규격':'Specs'}</span><span class="detail-val">${lang==='ko'?tp.specKo:tp.specEn}</span></div>
+    <div class="detail-row"><span class="detail-label">${lang==='ko'?'롤당 면적':'Area/Roll'}</span><span class="detail-val">${tp.area}m²</span></div>
+  `;
+
+  // 비용 추정
+  const costGrid = document.getElementById('cost-grid');
+  const priceMin = tp.priceMin, priceMax = tp.priceMax;
+  const priceMid = Math.round((priceMin + priceMax) / 2);
+  const labels = t.costLabels;
+  costGrid.innerHTML = [
+    { label: labels[0], price: priceMin },
+    { label: labels[1], price: priceMid },
+    { label: labels[2], price: priceMax },
+  ].map(c => `
+    <div class="cost-box">
+      <div class="cl">${c.label}</div>
+      <div class="cv">${(marginRolls * c.price).toLocaleString()}원</div>
+      <div class="cs">${c.price.toLocaleString()}원/롤 × ${marginRolls}롤</div>
+    </div>
+  `).join('');
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// 초기화
+renderTypes();
+// 기본 문·창문 추가
+addOpening('문','Door',0.9,2.1);
+addOpening('창문','Window',1.2,1.0);
+</script>
+</body>
+</html>
