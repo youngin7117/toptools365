@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>타임스탬프 변환기 - Unix 타임스탬프 날짜 즉시 변환 | TopTools365</title>
+<meta name="description" content="Unix 타임스탬프와 날짜를 즉시 변환합니다. 초·밀리초 단위 지원. 현재 타임스탬프 즉시 확인. 시간대 변환. 개발자 필수 도구. 완전 무료.">
+<meta name="keywords" content="타임스탬프변환기,Unix타임스탬프변환,epoch변환,타임스탬프날짜변환,밀리초변환,초단위타임스탬프,timestamp converter,epoch to date,유닉스시간변환,타임스탬프계산기,날짜타임스탬프,개발자툴">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/timestamp-converter/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/timestamp-converter/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/timestamp-converter/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/timestamp-converter/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="타임스탬프 변환기 - Unix 타임스탬프 날짜 즉시 변환 | TopTools365">
+<meta property="og:description" content="Unix 타임스탬프 ↔ 날짜 즉시 변환. 초·밀리초 지원. 현재 타임스탬프 확인. 개발자 필수. 무료.">
+<meta property="og:url" content="https://www.toptools365.com/timestamp-converter/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"타임스탬프 변환기","description":"Unix 타임스탬프와 날짜를 즉시 변환하는 무료 온라인 개발자 도구","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Unix 타임스탬프란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"Unix 타임스탬프(Epoch Time)는 1970년 1월 1일 00:00:00 UTC를 기준으로 경과한 초(또는 밀리초) 수입니다. 프로그래밍에서 날짜와 시간을 숫자로 표현하는 표준 방식입니다."}},
+{"@type":"Question","name":"타임스탬프 초와 밀리초 차이는?","acceptedAnswer":{"@type":"Answer","text":"초(seconds) 타임스탬프는 10자리 숫자(예: 1700000000), 밀리초(milliseconds) 타임스탬프는 13자리 숫자(예: 1700000000000)입니다. JavaScript의 Date.now()는 밀리초를 반환합니다."}},
+{"@type":"Question","name":"현재 Unix 타임스탬프 확인 방법은?","acceptedAnswer":{"@type":"Answer","text":"이 페이지의 '현재 타임스탬프' 섹션에서 실시간으로 확인할 수 있습니다. 터미널에서는 date +%s (Linux/Mac) 또는 JavaScript의 Math.floor(Date.now()/1000)으로 확인 가능합니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"개발자 도구","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"타임스탬프 변환기","item":"https://www.toptools365.com/timestamp-converter/"}
+]}
+</script>
+<style>
+  :root{--bg:#f8f7f4;--card:#fff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#059669;--accent-light:#ecfdf5;--blue:#1a5c8a;--blue-light:#e8f2f9;--orange:#b45309;--orange-light:#fef3e2;--green:#1a6b4a;--green-light:#e8f5ef;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06)}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#2daa72;--accent-light:#0e2a1e;--blue:#4a9fd4;--blue-light:#0d2233;--orange:#e8a832;--orange-light:#2a1f0a;--green:#2daa72;--green-light:#0e2a1e}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  .lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+  .lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer}
+  .lang-btn.on{border-color:var(--accent);color:var(--accent)}
+  h1{font-size:24px;font-weight:700;margin-bottom:4px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+  .section-label{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:var(--blue);color:#fff}
+  .btn-copy-link{background:var(--accent);color:#fff}
+
+  /* 현재 타임스탬프 */
+  .now-box{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-bottom:16px}
+  .now-label{font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .now-ts{font-size:32px;font-weight:900;color:var(--accent);font-family:'Courier New',monospace;letter-spacing:-1px;cursor:pointer;transition:opacity .15s}
+  .now-ts:hover{opacity:.75}
+  .now-ms{font-size:14px;font-weight:600;color:var(--accent);opacity:.7;margin-top:4px;font-family:'Courier New',monospace}
+  .now-date{font-size:14px;color:var(--muted);margin-top:8px}
+  .copy-now-btn{margin-top:12px;padding:7px 18px;border:none;border-radius:20px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .15s}
+  .copy-now-btn:hover{opacity:.85}
+
+  /* 입력 */
+  .input-wrap{position:relative;margin-bottom:12px}
+  .input-wrap input{width:100%;padding:12px 52px 12px 14px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:18px;font-weight:700;font-family:'Courier New',monospace;outline:none;transition:border-color .15s}
+  .input-wrap input:focus{border-color:var(--accent)}
+  .input-wrap .unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-weight:600;pointer-events:none}
+
+  /* 단위 선택 */
+  .unit-row{display:flex;gap:8px;margin-bottom:14px}
+  .unit-btn{flex:1;padding:9px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+  .unit-btn.on{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+
+  .conv-btn{width:100%;padding:13px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .15s}
+  .conv-btn:hover{opacity:.88}
+
+  /* 날짜 → 타임스탬프 */
+  .date-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+  @media(max-width:480px){.date-grid{grid-template-columns:1fr 1fr}}
+  .date-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .date-field input{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px;font-weight:700;font-family:'Courier New',monospace;outline:none;transition:border-color .15s}
+  .date-field input:focus{border-color:var(--accent)}
+
+  /* 결과 카드 */
+  .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  @media(max-width:480px){.result-grid{grid-template-columns:1fr}}
+  .result-box{padding:14px;border-radius:10px;border:2px solid}
+  .result-box .rl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .result-box .rv{font-size:18px;font-weight:900;font-family:'Courier New',monospace;line-height:1.3;word-break:break-all;cursor:pointer}
+  .result-box .rv:hover{opacity:.75}
+  .result-box .rs{font-size:11px;color:var(--muted);margin-top:4px}
+
+  /* 포맷 목록 */
+  .format-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+  .format-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);gap:10px}
+  .format-item .fl{font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0}
+  .format-item .fv{font-size:13px;font-weight:700;font-family:'Courier New',monospace;word-break:break-all}
+  .format-item .fc{padding:4px 10px;border:none;border-radius:20px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0}
+  .format-item .fc:hover{opacity:.8}
+
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:28px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:2.0;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">타임스탬프 변환기</h1>
+  <p class="subtitle" id="t-sub">Unix 타임스탬프 ↔ 날짜·시간 즉시 변환. 초·밀리초 단위 지원. 현재 타임스탬프 실시간 확인.</p>
+
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy-link" onclick="copyLink()">🔗 <span id="t-copy-link">링크 복사</span></button>
+  </div>
+
+  <!-- 현재 타임스탬프 -->
+  <div class="now-box">
+    <div class="now-label" id="t-now-label">현재 Unix 타임스탬프 (실시간)</div>
+    <div class="now-ts" id="now-sec" onclick="copyNow('sec')" title="클릭하여 복사">0</div>
+    <div class="now-ms" id="now-ms">밀리초: 0</div>
+    <div class="now-date" id="now-date">-</div>
+    <button class="copy-now-btn" onclick="copyNow('sec')" id="t-copy-now">📋 초 단위 복사</button>
+    <button class="copy-now-btn" style="margin-left:6px;background:var(--blue)" onclick="copyNow('ms')" id="t-copy-now-ms">📋 밀리초 복사</button>
+  </div>
+
+  <!-- 타임스탬프 → 날짜 -->
+  <div class="card">
+    <div class="section-label" id="t-ts-label">⏱ 타임스탬프 → 날짜·시간 변환</div>
+
+    <div class="unit-row">
+      <button class="unit-btn on" id="unit-sec" onclick="setUnit('sec',this)" id="t-unit-sec">초 (seconds)</button>
+      <button class="unit-btn" id="unit-ms" onclick="setUnit('ms',this)" id="t-unit-ms">밀리초 (ms)</button>
+    </div>
+
+    <div class="input-wrap">
+      <input type="number" id="ts-input" placeholder="1700000000" oninput="onTsInput()">
+      <span class="unit" id="ts-unit-label">sec</span>
+    </div>
+
+    <button class="conv-btn" onclick="convertTsToDate()" id="t-ts-btn">날짜로 변환하기</button>
+
+    <div id="ts-result" style="display:none;margin-top:16px">
+      <div class="result-grid">
+        <div class="result-box" style="border-color:var(--accent);background:var(--accent-light)">
+          <div class="rl" style="color:var(--accent)" id="t-local-label">로컬 시간</div>
+          <div class="rv" style="color:var(--accent)" id="r-local" onclick="copyText('r-local')">-</div>
+          <div class="rs" id="r-local-tz">-</div>
+        </div>
+        <div class="result-box" style="border-color:var(--blue);background:var(--blue-light)">
+          <div class="rl" style="color:var(--blue)" id="t-utc-label">UTC 시간</div>
+          <div class="rv" style="color:var(--blue)" id="r-utc" onclick="copyText('r-utc')">-</div>
+          <div class="rs">UTC+0</div>
+        </div>
+      </div>
+      <div class="format-list" id="format-list"></div>
+    </div>
+  </div>
+
+  <!-- 날짜 → 타임스탬프 -->
+  <div class="card">
+    <div class="section-label" id="t-date-label">📅 날짜·시간 → 타임스탬프 변환</div>
+    <div class="date-grid">
+      <div class="date-field">
+        <label id="t-year">연도</label>
+        <input type="number" id="d-year" placeholder="2026" min="1970" max="2099">
+      </div>
+      <div class="date-field">
+        <label id="t-month">월</label>
+        <input type="number" id="d-month" placeholder="1" min="1" max="12">
+      </div>
+      <div class="date-field">
+        <label id="t-day">일</label>
+        <input type="number" id="d-day" placeholder="1" min="1" max="31">
+      </div>
+      <div class="date-field">
+        <label id="t-hour">시</label>
+        <input type="number" id="d-hour" placeholder="0" min="0" max="23" value="0">
+      </div>
+      <div class="date-field">
+        <label id="t-minute">분</label>
+        <input type="number" id="d-minute" placeholder="0" min="0" max="59" value="0">
+      </div>
+      <div class="date-field">
+        <label id="t-second">초</label>
+        <input type="number" id="d-second" placeholder="0" min="0" max="59" value="0">
+      </div>
+    </div>
+
+    <button class="conv-btn" onclick="convertDateToTs()" id="t-date-btn" style="background:var(--blue)">타임스탬프로 변환하기</button>
+
+    <div id="date-result" style="display:none;margin-top:16px">
+      <div class="result-grid">
+        <div class="result-box" style="border-color:var(--accent);background:var(--accent-light)">
+          <div class="rl" style="color:var(--accent)" id="t-res-sec">초 (seconds)</div>
+          <div class="rv" style="color:var(--accent)" id="r-date-sec" onclick="copyText('r-date-sec')">-</div>
+          <div class="rs" id="t-click-copy-sec">클릭하여 복사</div>
+        </div>
+        <div class="result-box" style="border-color:var(--blue);background:var(--blue-light)">
+          <div class="rl" style="color:var(--blue)" id="t-res-ms">밀리초 (ms)</div>
+          <div class="rv" style="color:var(--blue)" id="r-date-ms" onclick="copyText('r-date-ms')">-</div>
+          <div class="rs" id="t-click-copy-ms">클릭하여 복사</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2 id="t-seo-h1">타임스탬프 변환기 사용 방법</h2>
+    <p id="t-seo-p1">개발 중 API 응답이나 데이터베이스에서 Unix 타임스탬프를 만났을 때 이 도구로 즉시 날짜·시간으로 변환하세요. 타임스탬프를 입력하면 로컬 시간과 UTC 시간, 다양한 날짜 형식으로 변환 결과를 보여줍니다. 반대로 특정 날짜를 타임스탬프로 변환할 수도 있습니다.</p>
+    <h3 id="t-seo-h2">Unix 타임스탬프 기본 지식</h3>
+    <div class="info-box">
+      <strong>Unix Epoch</strong>: 1970년 1월 1일 00:00:00 UTC 기준<br>
+      <strong>초 단위 (seconds)</strong>: 10자리 숫자 (예: 1700000000)<br>
+      <strong>밀리초 단위 (ms)</strong>: 13자리 숫자 (예: 1700000000000)<br>
+      <strong>JavaScript</strong>: Date.now() → 밀리초 / Math.floor(Date.now()/1000) → 초<br>
+      <strong>Python</strong>: import time; time.time() → 소수점 포함 초<br>
+      <strong>Linux/Mac</strong>: date +%s → 초 단위 타임스탬프
+    </div>
+    <h3 id="t-seo-h3">초와 밀리초 구별 방법</h3>
+    <p id="t-seo-p3">타임스탬프가 10자리면 초 단위, 13자리면 밀리초 단위입니다. 이 도구는 입력값이 10자리인지 13자리인지 자동으로 판단해주지는 않으므로, 단위 선택 버튼으로 직접 지정해주세요. 현재(2026년) 초 단위 타임스탬프는 17억대 숫자입니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/json-formatter/"><span class="related-icon">📋</span><span id="t-r1">JSON 포맷터/검증기</span></a>
+      <a class="related-item" href="/date-calculator/"><span class="related-icon">📆</span><span id="t-r2">날짜 계산기</span></a>
+      <a class="related-item" href="/url-encoder/"><span class="related-icon">🔗</span><span id="t-r3">URL 인코더/디코더</span></a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">Unix 타임스탬프란 무엇인가요?</div>
+      <div class="faq-a" id="fa1">Unix 타임스탬프(Epoch Time)는 1970년 1월 1일 00:00:00 UTC를 기준으로 경과한 초(또는 밀리초) 수입니다. 프로그래밍에서 날짜와 시간을 숫자로 표현하는 표준 방식입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">타임스탬프 초와 밀리초 차이는?</div>
+      <div class="faq-a" id="fa2">초(seconds) 타임스탬프는 10자리(예: 1700000000), 밀리초는 13자리(예: 1700000000000)입니다. JavaScript의 Date.now()는 밀리초를 반환합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">현재 Unix 타임스탬프 확인 방법은?</div>
+      <div class="faq-a" id="fa3">이 페이지 상단에서 실시간으로 확인할 수 있습니다. 코드에서는 JavaScript: Math.floor(Date.now()/1000), Python: import time; int(time.time()), Linux: date +%s 로 확인 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">2038년 문제란?</div>
+      <div class="faq-a" id="fa4">32비트 정수로 저장된 Unix 타임스탬프는 2038년 1월 19일에 최댓값을 초과합니다. 이를 'Year 2038 Problem'이라 합니다. 현대 64비트 시스템에서는 문제가 없으나, 일부 레거시 시스템에서 주의가 필요합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 조건에 따라 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+let tsUnit = 'sec';
+let nowTimer = null;
+
+const T = {
+  ko:{
+    title:'타임스탬프 변환기',
+    sub:'Unix 타임스탬프 ↔ 날짜·시간 즉시 변환. 초·밀리초 단위 지원. 현재 타임스탬프 실시간 확인.',
+    share:'공유하기', copyLink:'링크 복사',
+    nowLabel:'현재 Unix 타임스탬프 (실시간)',
+    copyNow:'📋 초 단위 복사', copyNowMs:'📋 밀리초 복사',
+    tsLabel:'⏱ 타임스탬프 → 날짜·시간 변환',
+    unitSec:'초 (seconds)', unitMs:'밀리초 (ms)',
+    tsBtn:'날짜로 변환하기',
+    localLabel:'로컬 시간', utcLabel:'UTC 시간',
+    dateLabel:'📅 날짜·시간 → 타임스탬프 변환',
+    year:'연도', month:'월', day:'일', hour:'시', minute:'분', second:'초',
+    dateBtn:'타임스탬프로 변환하기',
+    resSec:'초 (seconds)', resMs:'밀리초 (ms)',
+    clickCopy:'클릭하여 복사',
+    related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'JSON 포맷터/검증기', r2:'날짜 계산기', r3:'URL 인코더/디코더',
+    copied:'✅ 복사됐어요!', linkCopied:'✅ 링크가 복사됐어요!',
+    formats: [
+      { label:'ISO 8601',    fn: d => d.toISOString() },
+      { label:'로컬 날짜',   fn: d => d.toLocaleDateString('ko-KR') },
+      { label:'로컬 시간',   fn: d => d.toLocaleTimeString('ko-KR') },
+      { label:'전체',        fn: d => d.toLocaleString('ko-KR') },
+      { label:'UTC 문자열',  fn: d => d.toUTCString() },
+    ],
+  },
+  en:{
+    title:'Timestamp Converter',
+    sub:'Instantly convert Unix timestamps ↔ date/time. Seconds & milliseconds. Live current timestamp.',
+    share:'Share', copyLink:'Copy Link',
+    nowLabel:'Current Unix Timestamp (Live)',
+    copyNow:'📋 Copy Seconds', copyNowMs:'📋 Copy Milliseconds',
+    tsLabel:'⏱ Timestamp → Date/Time',
+    unitSec:'Seconds', unitMs:'Milliseconds (ms)',
+    tsBtn:'Convert to Date',
+    localLabel:'Local Time', utcLabel:'UTC Time',
+    dateLabel:'📅 Date/Time → Timestamp',
+    year:'Year', month:'Month', day:'Day', hour:'Hour', minute:'Min', second:'Sec',
+    dateBtn:'Convert to Timestamp',
+    resSec:'Seconds', resMs:'Milliseconds',
+    clickCopy:'Click to copy',
+    related:'Related Tools', faq:'FAQ',
+    r1:'JSON Formatter/Validator', r2:'Date Calculator', r3:'URL Encoder/Decoder',
+    copied:'✅ Copied!', linkCopied:'✅ Link copied!',
+    formats: [
+      { label:'ISO 8601',    fn: d => d.toISOString() },
+      { label:'Local Date',  fn: d => d.toLocaleDateString('en-US') },
+      { label:'Local Time',  fn: d => d.toLocaleTimeString('en-US') },
+      { label:'Full',        fn: d => d.toLocaleString('en-US') },
+      { label:'UTC String',  fn: d => d.toUTCString() },
+    ],
+  },
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const ids = {
+    't-title':t.title, 't-sub':t.sub, 't-share':t.share, 't-copy-link':t.copyLink,
+    't-now-label':t.nowLabel, 't-copy-now':t.copyNow, 't-copy-now-ms':t.copyNowMs,
+    't-ts-label':t.tsLabel, 't-ts-btn':t.tsBtn,
+    't-local-label':t.localLabel, 't-utc-label':t.utcLabel,
+    't-date-label':t.dateLabel, 't-date-btn':t.dateBtn,
+    't-year':t.year, 't-month':t.month, 't-day':t.day,
+    't-hour':t.hour, 't-minute':t.minute, 't-second':t.second,
+    't-res-sec':t.resSec, 't-res-ms':t.resMs,
+    't-click-copy-sec':t.clickCopy, 't-click-copy-ms':t.clickCopy,
+    't-related':t.related, 't-faq':t.faq,
+    't-r1':t.r1, 't-r2':t.r2, 't-r3':t.r3,
+  };
+  Object.entries(ids).forEach(([id,val]) => { const e=document.getElementById(id); if(e) e.textContent=val; });
+  document.getElementById('unit-sec').textContent = t.unitSec;
+  document.getElementById('unit-ms').textContent  = t.unitMs;
+}
+
+function setUnit(u, el) {
+  tsUnit = u;
+  document.getElementById('unit-sec').classList.toggle('on', u==='sec');
+  document.getElementById('unit-ms').classList.toggle('on',  u==='ms');
+  document.getElementById('ts-unit-label').textContent = u==='sec'?'sec':'ms';
+}
+
+// 실시간 현재 타임스탬프
+function updateNow() {
+  const now = Date.now();
+  const sec = Math.floor(now / 1000);
+  const d   = new Date(now);
+  document.getElementById('now-sec').textContent  = sec;
+  document.getElementById('now-ms').textContent   = (lang==='ko'?'밀리초: ':'ms: ') + now;
+  document.getElementById('now-date').textContent = d.toLocaleString(lang==='ko'?'ko-KR':'en-US');
+}
+
+function copyNow(type) {
+  const now = Date.now();
+  const val = type==='ms' ? String(now) : String(Math.floor(now/1000));
+  doClipboard(val, T[lang].copied);
+}
+
+// 타임스탬프 → 날짜
+function onTsInput() {
+  // 자동 단위 감지 (10자리 → sec, 13자리 → ms)
+  const val = document.getElementById('ts-input').value.trim();
+  if (val.length === 13 && tsUnit === 'sec') {
+    setUnit('ms', document.getElementById('unit-ms'));
+  } else if (val.length === 10 && tsUnit === 'ms') {
+    setUnit('sec', document.getElementById('unit-sec'));
+  }
+}
+
+function convertTsToDate() {
+  const raw = document.getElementById('ts-input').value.trim();
+  if (!raw) { showToast(lang==='ko'?'타임스탬프를 입력해주세요':'Please enter a timestamp'); return; }
+
+  const num = parseFloat(raw);
+  if (isNaN(num) || num < 0) { showToast(lang==='ko'?'올바른 숫자를 입력해주세요':'Please enter a valid number'); return; }
+
+  const ms  = tsUnit === 'ms' ? num : num * 1000;
+  const d   = new Date(ms);
+
+  if (isNaN(d.getTime())) { showToast(lang==='ko'?'유효하지 않은 타임스탬프입니다':'Invalid timestamp'); return; }
+
+  const t   = T[lang];
+  const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  document.getElementById('r-local').textContent    = d.toLocaleString(lang==='ko'?'ko-KR':'en-US');
+  document.getElementById('r-local-tz').textContent = tz;
+  document.getElementById('r-utc').textContent      = d.toUTCString();
+
+  // 포맷 목록
+  const list = document.getElementById('format-list');
+  list.innerHTML = '';
+  t.formats.forEach(fmt => {
+    let val = '';
+    try { val = fmt.fn(d); } catch(e) { val = '-'; }
+    const item = document.createElement('div');
+    item.className = 'format-item';
+    item.innerHTML = `
+      <span class="fl">${fmt.label}</span>
+      <span class="fv" id="fmt-${fmt.label.replace(/\s/g,'')}">${val}</span>
+      <button class="fc" onclick="doClipboard('${val.replace(/'/g,"\\'")}','${T[lang].copied}')">${lang==='ko'?'복사':'Copy'}</button>
+    `;
+    list.appendChild(item);
+  });
+
+  document.getElementById('ts-result').style.display = 'block';
+}
+
+// 날짜 → 타임스탬프
+function convertDateToTs() {
+  const year  = parseInt(document.getElementById('d-year').value)   || 0;
+  const month = parseInt(document.getElementById('d-month').value)  || 0;
+  const day   = parseInt(document.getElementById('d-day').value)    || 0;
+  const hour  = parseInt(document.getElementById('d-hour').value)   || 0;
+  const min   = parseInt(document.getElementById('d-minute').value) || 0;
+  const sec   = parseInt(document.getElementById('d-second').value) || 0;
+
+  if (!year || !month || !day) {
+    showToast(lang==='ko'?'연도·월·일을 입력해주세요':'Please enter year, month, and day');
+    return;
+  }
+
+  // month는 0-based
+  const d  = new Date(year, month-1, day, hour, min, sec);
+  if (isNaN(d.getTime())) { showToast(lang==='ko'?'올바른 날짜를 입력해주세요':'Please enter a valid date'); return; }
+
+  const secTs = Math.floor(d.getTime() / 1000);
+  const msTs  = d.getTime();
+
+  document.getElementById('r-date-sec').textContent = secTs;
+  document.getElementById('r-date-ms').textContent  = msTs;
+  document.getElementById('date-result').style.display = 'block';
+}
+
+function copyText(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  doClipboard(el.textContent, T[lang].copied);
+}
+
+function doClipboard(text, msg) {
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text).then(()=>showToast(msg)).catch(()=>fallbackCopy(text,msg));
+  } else { fallbackCopy(text,msg); }
+}
+
+function fallbackCopy(text, msg) {
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); showToast(msg); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function nativeShare() {
+  const url='https://www.toptools365.com/timestamp-converter/';
+  const title=lang==='ko'?'타임스탬프 변환기 - TopTools365':'Timestamp Converter - TopTools365';
+  const text=lang==='ko'?'Unix 타임스탬프 ↔ 날짜 즉시 변환. 개발자 필수 도구':'Convert Unix timestamps to dates instantly';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>fallbackCopy(url,T[lang].linkCopied));}
+  else{fallbackCopy(url,T[lang].linkCopied);}
+}
+
+function copyLink() {
+  doClipboard('https://www.toptools365.com/timestamp-converter/', T[lang].linkCopied);
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// 초기화 & 실시간 타이머
+updateNow();
+nowTimer = setInterval(updateNow, 1000);
+</script>
+</body>
+</html>
