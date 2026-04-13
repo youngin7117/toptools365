@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON 포맷터 / 검증기 - JSON 정렬 오류 확인 즉시 | TopTools365</title>
+<meta name="description" content="JSON을 즉시 포맷·정렬·검증합니다. 문법 오류 위치 정확히 표시. 압축(미니파이)·확장·복사 지원. API 응답·설정 파일 확인. 개발자 필수 도구. 완전 무료.">
+<meta name="keywords" content="JSON포맷터,JSON검증기,JSON정렬,JSON오류확인,JSON미니파이,JSON파서,JSON뷰어,JSON예쁘게출력,API응답포맷,JSON문법검사,JSON유효성검사,개발자툴">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/json-formatter/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/json-formatter/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/json-formatter/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/json-formatter/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JSON 포맷터 / 검증기 - JSON 정렬 오류 확인 즉시 | TopTools365">
+<meta property="og:description" content="JSON 즉시 포맷·정렬·검증. 오류 위치 표시. 압축·복사. 개발자 필수 도구. 무료.">
+<meta property="og:url" content="https://www.toptools365.com/json-formatter/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"JSON 포맷터 / 검증기","description":"JSON을 포맷·정렬·검증하는 무료 온라인 개발자 도구","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"JSON 포맷터란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"JSON 포맷터는 한 줄로 압축된 JSON 데이터를 들여쓰기와 줄바꿈을 적용해 사람이 읽기 쉬운 형태로 변환하는 도구입니다. API 응답이나 설정 파일을 확인할 때 필수적으로 사용됩니다."}},
+{"@type":"Question","name":"JSON 유효성 검사 방법은?","acceptedAnswer":{"@type":"Answer","text":"JSON에 문법 오류(따옴표 누락, 쉼표 오류, 괄호 불일치 등)가 있으면 파싱이 실패합니다. 이 도구에 JSON을 붙여넣으면 오류 위치와 원인을 즉시 확인할 수 있습니다."}},
+{"@type":"Question","name":"JSON 미니파이(압축)란?","acceptedAnswer":{"@type":"Answer","text":"JSON 미니파이는 공백·줄바꿈을 제거해 JSON을 최소 크기로 압축하는 것입니다. API 전송 시 데이터 크기를 줄이거나 코드에 인라인으로 삽입할 때 사용합니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"개발자 도구","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"JSON 포맷터 / 검증기","item":"https://www.toptools365.com/json-formatter/"}
+]}
+</script>
+<style>
+  :root{--bg:#f8f7f4;--card:#fff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#059669;--accent-light:#ecfdf5;--blue:#1a5c8a;--blue-light:#e8f2f9;--red:#c84b2a;--red-light:#fdf0ec;--orange:#b45309;--orange-light:#fef3e2;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06)}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#2daa72;--accent-light:#0e2a1e;--blue:#4a9fd4;--blue-light:#0d2233;--red:#e8704a;--red-light:#2a1510;--orange:#e8a832;--orange-light:#2a1f0a}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:900px;margin:0 auto;padding:32px 16px 64px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  .lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+  .lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer}
+  .lang-btn.on{border-color:var(--accent);color:var(--accent)}
+  h1{font-size:24px;font-weight:700;margin-bottom:4px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+
+  /* 공유 */
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:var(--blue);color:#fff}
+  .btn-copy-link{background:var(--accent);color:#fff}
+
+  /* 액션 버튼 바 */
+  .action-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .action-btn{padding:9px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+  .action-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .action-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .action-btn.primary:hover{opacity:.88}
+  .action-btn.danger{border-color:var(--red);color:var(--red)}
+  .action-btn.danger:hover{background:var(--red-light)}
+
+  /* 에디터 영역 */
+  .editor-wrap{position:relative}
+  .editor{width:100%;min-height:260px;padding:14px;border:2px solid var(--border);border-radius:10px;background:#1e1e1e;color:#d4d4d4;font-family:'Courier New',Consolas,monospace;font-size:13px;line-height:1.7;resize:vertical;outline:none;transition:border-color .15s;tab-size:2;-webkit-tab-size:2}
+  .editor:focus{border-color:var(--accent)}
+  .editor.error{border-color:var(--red)}
+  .editor.success{border-color:var(--accent)}
+  .editor-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+  .char-count{font-size:11px;color:var(--muted)}
+
+  /* 들여쓰기 선택 */
+  .indent-row{display:flex;gap:6px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .indent-row label{font-size:12px;font-weight:600;color:var(--muted)}
+  .indent-btn{padding:5px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--bg);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+  .indent-btn.on{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+
+  /* 상태 메시지 */
+  .status-bar{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:12px;display:none;line-height:1.6}
+  .status-bar.ok{background:var(--accent-light);border:1px solid var(--accent);color:var(--accent);display:block}
+  .status-bar.err{background:var(--red-light);border:1px solid var(--red);color:var(--red);display:block}
+
+  /* 출력 영역 */
+  .output-wrap{position:relative}
+  .output{width:100%;min-height:200px;padding:14px;border:2px solid var(--border);border-radius:10px;background:#1e1e1e;color:#d4d4d4;font-family:'Courier New',Consolas,monospace;font-size:13px;line-height:1.7;resize:vertical;outline:none;white-space:pre}
+  .copy-output-btn{position:absolute;top:10px;right:10px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+  .copy-output-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* 통계 */
+  .stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+  .stat-chip{padding:5px 12px;background:var(--accent-light);border-radius:20px;font-size:12px;font-weight:600;color:var(--accent)}
+
+  /* 예시 */
+  .example-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .ex-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s}
+  .ex-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:28px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:2.0;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">JSON 포맷터 / 검증기</h1>
+  <p class="subtitle" id="t-sub">JSON을 즉시 포맷·정렬·검증합니다. 문법 오류 위치 정확히 표시. 압축·복사 지원. 개발자 필수 도구.</p>
+
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy-link" onclick="copyLink()">🔗 <span id="t-copy-link">링크 복사</span></button>
+  </div>
+
+  <div class="card">
+    <!-- 예시 버튼 -->
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px" id="t-example-label">예시 불러오기</div>
+    <div class="example-row">
+      <button class="ex-btn" onclick="loadExample('simple')" id="ex-simple">간단한 JSON</button>
+      <button class="ex-btn" onclick="loadExample('nested')" id="ex-nested">중첩 구조</button>
+      <button class="ex-btn" onclick="loadExample('array')" id="ex-array">배열</button>
+      <button class="ex-btn" onclick="loadExample('error')" id="ex-error">오류 있는 JSON</button>
+    </div>
+
+    <!-- 들여쓰기 -->
+    <div class="indent-row">
+      <label id="t-indent-label">들여쓰기</label>
+      <button class="indent-btn on" id="ind-2" onclick="setIndent(2,this)">2칸</button>
+      <button class="indent-btn" id="ind-4" onclick="setIndent(4,this)">4칸</button>
+      <button class="indent-btn" id="ind-tab" onclick="setIndent('tab',this)">탭</button>
+    </div>
+
+    <!-- 입력 -->
+    <div class="editor-label">
+      <span id="t-input-label">JSON 입력</span>
+      <span class="char-count" id="char-count">0자</span>
+    </div>
+    <div class="editor-wrap">
+      <textarea class="editor" id="json-input" placeholder='{"name":"홍길동","age":30}' oninput="onInput()" spellcheck="false"></textarea>
+    </div>
+
+    <!-- 액션 버튼 -->
+    <div class="action-bar" style="margin-top:12px">
+      <button class="action-btn primary" onclick="formatJson()" id="t-format">✨ 포맷 (정렬)</button>
+      <button class="action-btn" onclick="minifyJson()" id="t-minify">⚡ 압축 (미니파이)</button>
+      <button class="action-btn" onclick="validateJson()" id="t-validate">✅ 검증만</button>
+      <button class="action-btn danger" onclick="clearAll()" id="t-clear">🗑 초기화</button>
+    </div>
+  </div>
+
+  <!-- 상태 메시지 -->
+  <div class="status-bar" id="status-bar"></div>
+
+  <!-- 출력 -->
+  <div class="card" id="output-card" style="display:none">
+    <div class="editor-label">
+      <span id="t-output-label">결과</span>
+      <button class="copy-output-btn" onclick="copyOutput()" id="t-copy-output">📋 복사</button>
+    </div>
+    <div class="output-wrap">
+      <textarea class="output" id="json-output" readonly spellcheck="false"></textarea>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2 id="t-seo-h1">JSON 포맷터 / 검증기 사용 방법</h2>
+    <p id="t-seo-p1">API 응답, 설정 파일, 데이터 파일의 JSON을 확인하거나 정리할 때 이 도구를 사용하세요. JSON을 입력창에 붙여넣고 포맷 버튼을 누르면 들여쓰기와 줄바꿈이 적용된 읽기 쉬운 형태로 변환됩니다. 문법 오류가 있으면 오류 위치와 원인을 정확히 알려줍니다.</p>
+    <h3 id="t-seo-h2">JSON 주요 문법 규칙</h3>
+    <div class="info-box">
+      <strong>문자열</strong>: 반드시 큰따옴표("") 사용. 작은따옴표('') 사용 불가<br>
+      <strong>키(key)</strong>: 반드시 큰따옴표로 감싸야 함. {name: ...} 형태 불가<br>
+      <strong>쉼표</strong>: 마지막 항목 뒤에 쉼표 불가 (trailing comma)<br>
+      <strong>값 타입</strong>: 문자열, 숫자, boolean(true/false), null, 배열[], 객체{}<br>
+      <strong>주석</strong>: JSON 표준에서 주석(//) 미지원
+    </div>
+    <h3 id="t-seo-h3">JSON 미니파이(압축) 용도</h3>
+    <p id="t-seo-p3">JSON 미니파이는 공백·줄바꿈을 제거해 데이터 크기를 최소화합니다. API 전송 시 페이로드 크기 절약, 코드에 JSON 인라인 삽입, 스토리지 공간 절약 등에 활용됩니다. 반대로 포맷터는 압축된 JSON을 사람이 읽기 쉽게 펼쳐줍니다.</p>
+  </section>
+
+  <!-- 관련 툴 -->
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/url-encoder/"><span class="related-icon">🔗</span><span id="t-r1">URL 인코더/디코더</span></a>
+      <a class="related-item" href="/timestamp-converter/"><span class="related-icon">🕐</span><span id="t-r2">타임스탬프 변환기</span></a>
+      <a class="related-item" href="/base-converter/"><span class="related-icon">🔢</span><span id="t-r3">진법 변환기</span></a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">JSON 포맷터란 무엇인가요?</div>
+      <div class="faq-a" id="fa1">JSON 포맷터는 압축된 JSON 데이터를 들여쓰기와 줄바꿈을 적용해 사람이 읽기 쉬운 형태로 변환하는 도구입니다. API 응답이나 설정 파일 확인 시 필수적으로 사용됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">JSON 유효성 검사 방법은?</div>
+      <div class="faq-a" id="fa2">JSON에 문법 오류(따옴표 누락, 쉼표 오류, 괄호 불일치 등)가 있으면 파싱이 실패합니다. 이 도구에 JSON을 붙여넣으면 오류 위치와 원인을 즉시 확인할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">JSON 미니파이(압축)란?</div>
+      <div class="faq-a" id="fa3">공백·줄바꿈을 제거해 JSON을 최소 크기로 압축하는 것입니다. API 전송 시 데이터 크기를 줄이거나 코드에 인라인으로 삽입할 때 사용합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">JSON과 JavaScript 객체의 차이는?</div>
+      <div class="faq-a" id="fa4">JavaScript 객체는 키에 따옴표 없이 쓸 수 있고 주석도 허용됩니다. JSON은 표준 데이터 교환 형식으로 키에 반드시 큰따옴표가 필요하고 주석이 불가합니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+let indentVal = 2;
+
+const EXAMPLES = {
+  simple: '{"name":"홍길동","age":30,"email":"hong@example.com","active":true}',
+  nested: '{"user":{"id":1,"name":"김철수","address":{"city":"서울","zip":"12345"}},"scores":[95,87,92],"metadata":{"created":"2026-01-01","tags":["개발","API"]}}',
+  array:  '[{"id":1,"product":"노트북","price":1200000},{"id":2,"product":"마우스","price":35000},{"id":3,"product":"키보드","price":85000}]',
+  error:  '{"name":"홍길동", "age": 30, "city": "서울", \'country\': "Korea", }',
+};
+
+const EXAMPLES_EN = {
+  simple: '{"name":"John Doe","age":30,"email":"john@example.com","active":true}',
+  nested: '{"user":{"id":1,"name":"Jane Smith","address":{"city":"Seoul","zip":"12345"}},"scores":[95,87,92],"metadata":{"created":"2026-01-01","tags":["dev","API"]}}',
+  array:  '[{"id":1,"product":"Laptop","price":1200},{"id":2,"product":"Mouse","price":35},{"id":3,"product":"Keyboard","price":85}]',
+  error:  '{"name":"John", "age": 30, \'city\': "Seoul", }',
+};
+
+const T = {
+  ko:{
+    title:'JSON 포맷터 / 검증기',
+    sub:'JSON을 즉시 포맷·정렬·검증합니다. 문법 오류 위치 정확히 표시. 압축·복사 지원. 개발자 필수 도구.',
+    share:'공유하기',copyLink:'링크 복사',
+    exampleLabel:'예시 불러오기',
+    exSimple:'간단한 JSON',exNested:'중첩 구조',exArray:'배열',exError:'오류 있는 JSON',
+    indentLabel:'들여쓰기',
+    inputLabel:'JSON 입력',
+    format:'✨ 포맷 (정렬)',minify:'⚡ 압축 (미니파이)',validate:'✅ 검증만',clear:'🗑 초기화',
+    outputLabel:'결과',copyOutput:'📋 복사',
+    related:'관련 툴',faq:'자주 묻는 질문',
+    r1:'URL 인코더/디코더',r2:'타임스탬프 변환기',r3:'진법 변환기',
+    footer:'© 2026 TopTools365 · 무료 온라인 계산기',
+    copied:'✅ 복사됐어요!',linkCopied:'✅ 링크가 복사됐어요!',
+    statusOk:'✅ 유효한 JSON입니다',
+    statusErr:(msg)=>`❌ JSON 오류: ${msg}`,
+    statKeys:(n)=>`키: ${n}개`,
+    statChars:(n)=>`${n}자`,
+    statSize:(n)=>`${n} bytes`,
+    statType:(t)=>`타입: ${t}`,
+  },
+  en:{
+    title:'JSON Formatter / Validator',
+    sub:'Instantly format, minify, and validate JSON. Highlights error locations. Copy support. Developer essential.',
+    share:'Share',copyLink:'Copy Link',
+    exampleLabel:'Load Example',
+    exSimple:'Simple JSON',exNested:'Nested',exArray:'Array',exError:'With Error',
+    indentLabel:'Indent',
+    inputLabel:'JSON Input',
+    format:'✨ Format',minify:'⚡ Minify',validate:'✅ Validate',clear:'🗑 Clear',
+    outputLabel:'Output',copyOutput:'📋 Copy',
+    related:'Related Tools',faq:'FAQ',
+    r1:'URL Encoder/Decoder',r2:'Timestamp Converter',r3:'Base Converter',
+    footer:'© 2026 TopTools365 · Free Online Calculator',
+    copied:'✅ Copied!',linkCopied:'✅ Link copied!',
+    statusOk:'✅ Valid JSON',
+    statusErr:(msg)=>`❌ JSON Error: ${msg}`,
+    statKeys:(n)=>`Keys: ${n}`,
+    statChars:(n)=>`${n} chars`,
+    statSize:(n)=>`${n} bytes`,
+    statType:(t)=>`Type: ${t}`,
+  },
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  document.getElementById('t-title').textContent = t.title;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-share').textContent = t.share;
+  document.getElementById('t-copy-link').textContent = t.copyLink;
+  document.getElementById('t-example-label').textContent = t.exampleLabel;
+  document.getElementById('ex-simple').textContent = t.exSimple;
+  document.getElementById('ex-nested').textContent = t.exNested;
+  document.getElementById('ex-array').textContent = t.exArray;
+  document.getElementById('ex-error').textContent = t.exError;
+  document.getElementById('t-indent-label').textContent = t.indentLabel;
+  document.getElementById('t-input-label').textContent = t.inputLabel;
+  document.getElementById('t-format').textContent = t.format;
+  document.getElementById('t-minify').textContent = t.minify;
+  document.getElementById('t-validate').textContent = t.validate;
+  document.getElementById('t-clear').textContent = t.clear;
+  document.getElementById('t-output-label').textContent = t.outputLabel;
+  document.getElementById('t-copy-output').textContent = t.copyOutput;
+  document.getElementById('t-related').textContent = t.related;
+  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-r1').textContent = t.r1;
+  document.getElementById('t-r2').textContent = t.r2;
+  document.getElementById('t-r3').textContent = t.r3;
+  document.getElementById('t-footer').textContent = t.footer;
+}
+
+function setIndent(val, el) {
+  indentVal = val;
+  document.querySelectorAll('.indent-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function loadExample(type) {
+  const examples = lang === 'ko' ? EXAMPLES : EXAMPLES_EN;
+  document.getElementById('json-input').value = examples[type];
+  onInput();
+  // 오류 예시 제외하고 자동 포맷
+  if (type !== 'error') formatJson();
+}
+
+function onInput() {
+  const val = document.getElementById('json-input').value;
+  document.getElementById('char-count').textContent = val.length + (lang==='ko'?'자':' chars');
+  // 상태바 초기화
+  hideStatus();
+}
+
+function tryParse(str) {
+  try {
+    return { ok: true, data: JSON.parse(str) };
+  } catch(e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+function getIndentValue() {
+  return indentVal === 'tab' ? '\t' : indentVal;
+}
+
+function formatJson() {
+  const input = document.getElementById('json-input').value.trim();
+  if (!input) { showStatus('err', lang==='ko'?'JSON을 입력해주세요.':'Please enter JSON.'); return; }
+
+  const result = tryParse(input);
+  if (!result.ok) {
+    showStatus('err', T[lang].statusErr(result.error));
+    document.getElementById('json-input').className = 'editor error';
+    return;
+  }
+
+  const formatted = JSON.stringify(result.data, null, getIndentValue());
+  document.getElementById('json-input').className = 'editor success';
+  showOutput(formatted, result.data);
+  showStatus('ok', T[lang].statusOk);
+}
+
+function minifyJson() {
+  const input = document.getElementById('json-input').value.trim();
+  if (!input) { showStatus('err', lang==='ko'?'JSON을 입력해주세요.':'Please enter JSON.'); return; }
+
+  const result = tryParse(input);
+  if (!result.ok) {
+    showStatus('err', T[lang].statusErr(result.error));
+    document.getElementById('json-input').className = 'editor error';
+    return;
+  }
+
+  const minified = JSON.stringify(result.data);
+  document.getElementById('json-input').className = 'editor success';
+  showOutput(minified, result.data);
+  showStatus('ok', T[lang].statusOk);
+}
+
+function validateJson() {
+  const input = document.getElementById('json-input').value.trim();
+  if (!input) { showStatus('err', lang==='ko'?'JSON을 입력해주세요.':'Please enter JSON.'); return; }
+
+  const result = tryParse(input);
+  if (result.ok) {
+    document.getElementById('json-input').className = 'editor success';
+    showStatus('ok', T[lang].statusOk);
+    document.getElementById('output-card').style.display = 'none';
+  } else {
+    document.getElementById('json-input').className = 'editor error';
+    showStatus('err', T[lang].statusErr(result.error));
+    document.getElementById('output-card').style.display = 'none';
+  }
+}
+
+function showOutput(text, data) {
+  document.getElementById('json-output').value = text;
+  document.getElementById('output-card').style.display = 'block';
+
+  // 통계
+  const t = T[lang];
+  const stats = [];
+  stats.push(t.statChars(text.length));
+  stats.push(t.statSize(new TextEncoder().encode(text).length));
+
+  if (Array.isArray(data)) {
+    stats.push(t.statType(lang==='ko'?`배열 (${data.length}개 항목)`:`Array (${data.length} items)`));
+  } else if (typeof data === 'object' && data !== null) {
+    stats.push(t.statType(lang==='ko'?'객체':'Object'));
+    stats.push(t.statKeys(Object.keys(data).length));
+  } else {
+    stats.push(t.statType(typeof data));
+  }
+
+  document.getElementById('stats-row').innerHTML = stats
+    .map(s => `<span class="stat-chip">${s}</span>`)
+    .join('');
+
+  document.getElementById('output-card').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function showStatus(type, msg) {
+  const bar = document.getElementById('status-bar');
+  bar.className = `status-bar ${type}`;
+  bar.textContent = msg;
+}
+
+function hideStatus() {
+  const bar = document.getElementById('status-bar');
+  bar.className = 'status-bar';
+  document.getElementById('json-input').className = 'editor';
+}
+
+function clearAll() {
+  document.getElementById('json-input').value = '';
+  document.getElementById('json-input').className = 'editor';
+  document.getElementById('json-output').value = '';
+  document.getElementById('output-card').style.display = 'none';
+  document.getElementById('stats-row').innerHTML = '';
+  hideStatus();
+  document.getElementById('char-count').textContent = '0' + (lang==='ko'?'자':' chars');
+}
+
+function copyOutput() {
+  const text = document.getElementById('json-output').value;
+  if (!text) return;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast(T[lang].copied)).catch(() => fallbackCopy(text));
+  } else { fallbackCopy(text); }
+}
+
+function nativeShare() {
+  const url = 'https://www.toptools365.com/json-formatter/';
+  const title = lang==='ko'?'JSON 포맷터 / 검증기 - TopTools365':'JSON Formatter / Validator - TopTools365';
+  const text  = lang==='ko'?'JSON 즉시 포맷·검증. 오류 위치 표시. 개발자 필수 도구':'Format, validate and minify JSON instantly';
+  if (navigator.share) { navigator.share({title,text,url}).catch(()=>fallbackCopy(url)); }
+  else { fallbackCopy(url); }
+}
+
+function copyLink() {
+  const url = 'https://www.toptools365.com/json-formatter/';
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(url).then(()=>showToast(T[lang].linkCopied)).catch(()=>fallbackCopy(url));
+  } else { fallbackCopy(url); }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); showToast(T[lang].copied); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// Ctrl+Enter 단축키
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    formatJson();
+  }
+});
+</script>
+</body>
+</html>
