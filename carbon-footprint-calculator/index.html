@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탄소 발자국 계산기 - 연간 CO₂ 배출량 즉시 계산 | TopTools365</title>
+<meta name="description" content="자동차·비행기·전기·식단별 CO₂ 배출량을 즉시 계산합니다. 연간 탄소 발자국 분석. 한국 평균과 비교. 감축 팁 제공. 탄소중립 실천 가이드. 완전 무료.">
+<meta name="keywords" content="탄소발자국계산기,CO2배출량계산,탄소발자국,이산화탄소계산,자동차탄소배출,비행기탄소발자국,전기탄소배출,식단탄소발자국,탄소중립계산,환경계산기,온실가스계산,개인탄소발자국">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.toptools365.com/carbon-footprint-calculator/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/carbon-footprint-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/carbon-footprint-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/carbon-footprint-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="탄소 발자국 계산기 - 연간 CO₂ 배출량 즉시 계산 | TopTools365">
+<meta property="og:description" content="자동차·비행기·전기·식단 CO₂ 배출량 즉시 계산. 한국 평균 비교. 감축 팁. 무료.">
+<meta property="og:url" content="https://www.toptools365.com/carbon-footprint-calculator/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"탄소 발자국 계산기","description":"자동차·비행기·전기·식단별 CO₂ 배출량을 계산하는 무료 온라인 환경 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"탄소 발자국이란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"탄소 발자국은 개인·기업·제품 등이 직간접적으로 배출하는 온실가스 총량을 CO₂ 환산값(kgCO₂eq)으로 표현한 지표입니다. 기후변화의 주요 원인인 탄소 배출량을 가시화하는 데 사용됩니다."}},
+{"@type":"Question","name":"한국인 1인당 평균 탄소 발자국은?","acceptedAnswer":{"@type":"Answer","text":"한국인 1인당 연간 평균 탄소 발자국은 약 13.6톤 CO₂eq입니다. 이는 OECD 평균(약 8톤)보다 높은 수준으로, 에너지 집약적 산업 구조와 화석연료 의존도가 주요 원인입니다."}},
+{"@type":"Question","name":"탄소 발자국을 줄이는 가장 효과적인 방법은?","acceptedAnswer":{"@type":"Answer","text":"가장 효과적인 방법은 비행기 이용 줄이기, 채식 위주 식단, 전기차 또는 대중교통 이용, 재생에너지 전기 사용 등입니다. 장거리 비행 한 번이 수개월의 자동차 이용과 비슷한 탄소를 배출합니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"환경","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"탄소 발자국 계산기","item":"https://www.toptools365.com/carbon-footprint-calculator/"}
+]}
+</script>
+<style>
+  :root{--bg:#f8f7f4;--card:#fff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#1a6b4a;--accent-light:#e8f5ef;--blue:#1a5c8a;--blue-light:#e8f2f9;--orange:#b45309;--orange-light:#fef3e2;--red:#c84b2a;--red-light:#fdf0ec;--sky:#0369a1;--sky-light:#e0f2fe;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06)}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#2daa72;--accent-light:#0e2a1e;--blue:#4a9fd4;--blue-light:#0d2233;--orange:#e8a832;--orange-light:#2a1f0a;--red:#e8704a;--red-light:#2a1510;--sky:#38bdf8;--sky-light:#0c1f2a}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  .lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+  .lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer}
+  .lang-btn.on{border-color:var(--accent);color:var(--accent)}
+  h1{font-size:24px;font-weight:700;margin-bottom:4px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+  .section-label{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:var(--blue);color:#fff}
+  .btn-copy{background:var(--accent);color:#fff}
+
+  /* 카테고리 입력 섹션 */
+  .cat-section{margin-bottom:20px}
+  .cat-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .cat-icon{font-size:24px}
+  .cat-title{font-size:15px;font-weight:700}
+  .cat-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .input-row label{font-size:12px;font-weight:600;color:var(--muted);min-width:120px;flex-shrink:0}
+  .input-wrap{position:relative;flex:1;min-width:100px}
+  .input-wrap input,.input-wrap select{width:100%;padding:10px 52px 10px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px;font-weight:600;outline:none;transition:border-color .15s}
+  .input-wrap select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b66' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+  .input-wrap input:focus,.input-wrap select:focus{border-color:var(--accent)}
+  .input-wrap .unit{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-weight:600;pointer-events:none}
+
+  .calc-btn{width:100%;padding:14px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s}
+  .calc-btn:hover{opacity:.88}
+
+  /* 결과 */
+  .results{display:none}
+  .results.show{display:block}
+
+  /* 총합 히어로 */
+  .total-hero{background:var(--accent-light);border:2px solid var(--accent);border-radius:14px;padding:24px;text-align:center;margin-bottom:16px}
+  .total-hero .tl{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px}
+  .total-hero .tv{font-size:40px;font-weight:900;color:var(--accent);line-height:1}
+  .total-hero .tu{font-size:16px;font-weight:600;color:var(--accent);margin-top:4px}
+  .total-hero .ts{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.7}
+
+  /* 한국 평균 비교 바 */
+  .compare-wrap{margin-bottom:16px}
+  .compare-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:6px}
+  .compare-track{height:20px;background:var(--border);border-radius:10px;overflow:hidden;position:relative}
+  .compare-avg{position:absolute;top:0;width:3px;background:var(--orange);height:100%;z-index:2}
+  .compare-fill{height:100%;border-radius:10px;transition:width .6s}
+  .compare-legends{display:flex;gap:16px;margin-top:6px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+  .compare-legends span{display:flex;align-items:center;gap:4px}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+  /* 카테고리별 결과 */
+  .cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+  @media(max-width:480px){.cat-grid{grid-template-columns:1fr}}
+  .cat-box{padding:16px;border-radius:12px;border:2px solid}
+  .cat-box .cl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .cat-box .cv{font-size:22px;font-weight:900;line-height:1}
+  .cat-box .cs{font-size:11px;color:var(--muted);margin-top:4px}
+  .cat-box .cpct{font-size:12px;font-weight:700;margin-top:6px;padding:3px 10px;border-radius:10px;display:inline-block}
+
+  /* 절감 팁 */
+  .tips-list{display:flex;flex-direction:column;gap:10px}
+  .tip-item{display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--accent-light);border-radius:8px;border:1px solid var(--accent)}
+  .tip-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+  .tip-content .tip-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:3px}
+  .tip-content .tip-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:28px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:2.0;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">탄소 발자국 계산기</h1>
+  <p class="subtitle" id="t-sub">자동차·비행기·전기·식단별 CO₂ 배출량을 계산합니다. 연간 탄소 발자국 분석과 감축 팁을 제공합니다.</p>
+
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy" onclick="copyLink()">🔗 <span id="t-copy">링크 복사</span></button>
+  </div>
+
+  <div class="card">
+    <!-- 🚗 자동차 -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🚗</span>
+        <div>
+          <div class="cat-title" id="t-car-title">자동차 이용</div>
+          <div class="cat-sub" id="t-car-sub">연간 주행거리와 연료 종류를 입력해주세요</div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-car-km">연간 주행거리</label>
+        <div class="input-wrap">
+          <input type="number" id="car-km" placeholder="15000" min="0" step="100" value="0">
+          <span class="unit">km</span>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-car-type">연료 종류</label>
+        <div class="input-wrap">
+          <select id="car-type">
+            <option value="0.21" id="opt-gas">휘발유 (0.21 kgCO₂/km)</option>
+            <option value="0.17" id="opt-diesel">경유 (0.17 kgCO₂/km)</option>
+            <option value="0.09" id="opt-ev">전기차 (0.09 kgCO₂/km)</option>
+            <option value="0.14" id="opt-hybrid">하이브리드 (0.14 kgCO₂/km)</option>
+            <option value="0.15" id="opt-lpg">LPG (0.15 kgCO₂/km)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✈️ 비행기 -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">✈️</span>
+        <div>
+          <div class="cat-title" id="t-flight-title">비행기 이용</div>
+          <div class="cat-sub" id="t-flight-sub">연간 비행 시간 또는 횟수를 입력해주세요</div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-short-flight">단거리 비행 (3h 이내)</label>
+        <div class="input-wrap">
+          <input type="number" id="short-flight" placeholder="0" min="0" step="1" value="0">
+          <span class="unit" id="t-flight-unit">회/년</span>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-long-flight">장거리 비행 (3h 초과)</label>
+        <div class="input-wrap">
+          <input type="number" id="long-flight" placeholder="0" min="0" step="1" value="0">
+          <span class="unit" id="t-flight-unit2">회/년</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⚡ 전기 -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">⚡</span>
+        <div>
+          <div class="cat-title" id="t-elec-title">전기 사용</div>
+          <div class="cat-sub" id="t-elec-sub">월평균 전기 사용량을 입력해주세요</div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-elec-kwh">월 전기 사용량</label>
+        <div class="input-wrap">
+          <input type="number" id="elec-kwh" placeholder="350" min="0" step="10" value="0">
+          <span class="unit">kWh</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🍽️ 식단 -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🍽️</span>
+        <div>
+          <div class="cat-title" id="t-diet-title">식단 유형</div>
+          <div class="cat-sub" id="t-diet-sub">주요 식단 유형을 선택해주세요</div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label id="t-diet-type">식단 선택</label>
+        <div class="input-wrap">
+          <select id="diet-type">
+            <option value="3285" id="opt-meat-heavy">육식 위주 (하루 3회 이상 육류)</option>
+            <option value="2500" id="opt-meat-avg" selected>일반 (육류 포함 균형식단)</option>
+            <option value="1900" id="opt-meat-less">육류 적게 (주 2~3회)</option>
+            <option value="1500" id="opt-pescatarian">페스코 채식 (생선 허용)</option>
+            <option value="1100" id="opt-vegetarian">채식 (유제품 허용)</option>
+            <option value="700" id="opt-vegan">비건 (완전 채식)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="t-calc" onclick="calculate()">탄소 발자국 계산하기</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="results" id="results">
+
+    <!-- 총합 히어로 -->
+    <div class="total-hero">
+      <div class="tl" id="t-total-label">나의 연간 탄소 발자국</div>
+      <div class="tv" id="r-total">0</div>
+      <div class="tu">톤 CO₂eq / 년</div>
+      <div class="ts" id="r-total-compare">-</div>
+    </div>
+
+    <!-- 한국 평균 비교 바 -->
+    <div class="card">
+      <div class="section-label" id="t-compare-label">한국 평균과 비교</div>
+      <div class="compare-wrap">
+        <div class="compare-label">
+          <span id="r-compare-my">나의 탄소: 0톤</span>
+          <span id="r-compare-avg">한국 평균: 13.6톤</span>
+        </div>
+        <div class="compare-track">
+          <div class="compare-avg" id="compare-avg-line" style="left:50%"></div>
+          <div class="compare-fill" id="compare-fill" style="width:0%"></div>
+        </div>
+        <div class="compare-legends">
+          <span><span class="legend-dot" style="background:var(--accent)"></span><span id="t-legend-my">나의 탄소</span></span>
+          <span><span class="legend-dot" style="background:var(--orange)"></span><span id="t-legend-avg">한국 평균 (13.6톤)</span></span>
+          <span><span class="legend-dot" style="background:var(--sky)"></span><span id="t-legend-world">세계 평균 (4.8톤)</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리별 결과 -->
+    <div class="cat-grid">
+      <div class="cat-box" style="border-color:var(--orange);background:var(--orange-light)">
+        <div class="cl" style="color:var(--orange)">🚗 <span id="t-r-car">자동차</span></div>
+        <div class="cv" style="color:var(--orange)" id="r-car">0</div>
+        <div class="cs" id="t-r-car-unit">톤 CO₂/년</div>
+        <div class="cpct" style="background:var(--orange);color:#fff" id="r-car-pct">0%</div>
+      </div>
+      <div class="cat-box" style="border-color:var(--sky);background:var(--sky-light)">
+        <div class="cl" style="color:var(--sky)">✈️ <span id="t-r-flight">비행기</span></div>
+        <div class="cv" style="color:var(--sky)" id="r-flight">0</div>
+        <div class="cs" id="t-r-flight-unit">톤 CO₂/년</div>
+        <div class="cpct" style="background:var(--sky);color:#fff" id="r-flight-pct">0%</div>
+      </div>
+      <div class="cat-box" style="border-color:var(--accent);background:var(--accent-light)">
+        <div class="cl" style="color:var(--accent)">⚡ <span id="t-r-elec">전기</span></div>
+        <div class="cv" style="color:var(--accent)" id="r-elec">0</div>
+        <div class="cs" id="t-r-elec-unit">톤 CO₂/년</div>
+        <div class="cpct" style="background:var(--accent);color:#fff" id="r-elec-pct">0%</div>
+      </div>
+      <div class="cat-box" style="border-color:var(--red);background:var(--red-light)">
+        <div class="cl" style="color:var(--red)">🍽️ <span id="t-r-diet">식단</span></div>
+        <div class="cv" style="color:var(--red)" id="r-diet">0</div>
+        <div class="cs" id="t-r-diet-unit">톤 CO₂/년</div>
+        <div class="cpct" style="background:var(--red);color:#fff" id="r-diet-pct">0%</div>
+      </div>
+    </div>
+
+    <!-- 절감 팁 -->
+    <div class="card">
+      <div class="section-label" id="t-tips-label">🌱 탄소 절감 팁</div>
+      <div class="tips-list" id="tips-list"></div>
+    </div>
+  </div>
+
+  <!-- SEO 설명 -->
+  <section class="seo-section">
+    <h2 id="t-seo-h1">탄소 발자국 계산기 사용 방법</h2>
+    <p id="t-seo-p1">자동차 주행거리, 비행기 이용 횟수, 전기 사용량, 식단 유형을 입력하면 연간 탄소 발자국(CO₂ 배출량)을 즉시 계산합니다. 계산 결과를 한국 평균(13.6톤)과 세계 평균(4.8톤)과 비교하고 개인 맞춤 감축 팁을 제공합니다.</p>
+
+    <h3 id="t-seo-h2">탄소 발자국 주요 배출 계수</h3>
+    <div class="info-box">
+      <strong>자동차</strong>: 휘발유 0.21 kgCO₂/km, 경유 0.17, 전기차 0.09, 하이브리드 0.14<br>
+      <strong>비행기</strong>: 단거리(3h 이내) 편도 약 0.255톤, 장거리(3h 초과) 편도 약 0.9톤<br>
+      <strong>전기</strong>: 한국 전력 기준 0.459 kgCO₂/kWh (2023년 기준)<br>
+      <strong>식단</strong>: 육식 위주 3.285톤/년 ~ 비건 0.7톤/년
+    </div>
+
+    <h3 id="t-seo-h3">탄소 발자국을 줄이는 방법</h3>
+    <p id="t-seo-p3">개인이 탄소를 가장 많이 줄일 수 있는 방법은 비행기 이용 줄이기, 채식 위주 식단, 대중교통·전기차 이용, 재생에너지 전기 사용 등입니다. 장거리 비행 한 번(유럽 왕복 약 1.8톤)은 휘발유차로 약 8,500km를 주행하는 것과 같은 탄소를 배출합니다.</p>
+  </section>
+
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/electricity-calculator/"><span class="related-icon">⚡</span><span id="t-r1">전기요금 계산기</span></a>
+      <a class="related-item" href="/fuel-calculator/"><span class="related-icon">⛽</span><span id="t-r2">주유비 계산기</span></a>
+      <a class="related-item" href="/flight-time-calculator/"><span class="related-icon">🛫</span><span id="t-r3">비행시간 계산기</span></a>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q" id="fq1">탄소 발자국이란 무엇인가요?</div>
+      <div class="faq-a" id="fa1">탄소 발자국은 개인·기업·제품 등이 직간접적으로 배출하는 온실가스 총량을 CO₂ 환산값(kgCO₂eq)으로 표현한 지표입니다. 기후변화의 주요 원인인 탄소 배출량을 가시화하는 데 사용됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq2">한국인 1인당 평균 탄소 발자국은?</div>
+      <div class="faq-a" id="fa2">한국인 1인당 연간 평균 탄소 발자국은 약 13.6톤 CO₂eq입니다. 이는 OECD 평균(약 8톤)보다 높은 수준으로, 에너지 집약적 산업 구조와 화석연료 의존도가 주요 원인입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq3">탄소 발자국을 줄이는 가장 효과적인 방법은?</div>
+      <div class="faq-a" id="fa3">비행기 이용 줄이기, 채식 위주 식단, 전기차 또는 대중교통 이용, 재생에너지 전기 사용 등입니다. 장거리 비행 한 번이 수개월의 자동차 이용과 비슷한 탄소를 배출합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" id="fq4">탄소 중립이란?</div>
+      <div class="faq-a" id="fa4">탄소 중립(Net Zero)은 배출한 탄소만큼 흡수·제거해 실질적인 탄소 배출량을 '0'으로 만드는 것입니다. 한국은 2050년 탄소 중립을 목표로 하고 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 조건에 따라 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+
+// 배출 계수
+const KR_AVG   = 13.6;  // 한국 평균 (톤/년)
+const WORLD_AVG = 4.8;  // 세계 평균 (톤/년)
+const ELEC_FACTOR = 0.459; // 한국 전력 배출 계수 (kgCO₂/kWh)
+const SHORT_FLIGHT = 0.255; // 단거리 편도 (톤)
+const LONG_FLIGHT  = 0.9;  // 장거리 편도 (톤)
+
+const T = {
+  ko:{
+    title:'탄소 발자국 계산기',
+    sub:'자동차·비행기·전기·식단별 CO₂ 배출량을 계산합니다. 연간 탄소 발자국 분석과 감축 팁을 제공합니다.',
+    share:'공유하기', copy:'링크 복사',
+    carTitle:'자동차 이용', carSub:'연간 주행거리와 연료 종류를 입력해주세요',
+    carKm:'연간 주행거리', carType:'연료 종류',
+    flightTitle:'비행기 이용', flightSub:'연간 비행 횟수를 입력해주세요',
+    shortFlight:'단거리 비행 (3h 이내)', longFlight:'장거리 비행 (3h 초과)',
+    flightUnit:'회/년',
+    elecTitle:'전기 사용', elecSub:'월평균 전기 사용량을 입력해주세요',
+    elecKwh:'월 전기 사용량',
+    dietTitle:'식단 유형', dietSub:'주요 식단 유형을 선택해주세요',
+    dietType:'식단 선택',
+    calc:'탄소 발자국 계산하기',
+    totalLabel:'나의 연간 탄소 발자국',
+    compareLabel:'한국 평균과 비교',
+    legendMy:'나의 탄소', legendAvg:'한국 평균 (13.6톤)', legendWorld:'세계 평균 (4.8톤)',
+    rCar:'자동차', rFlight:'비행기', rElec:'전기', rDiet:'식단',
+    rUnit:'톤 CO₂/년',
+    tipsLabel:'🌱 탄소 절감 팁',
+    related:'관련 툴', faq:'자주 묻는 질문',
+    r1:'전기요금 계산기', r2:'주유비 계산기', r3:'비행시간 계산기',
+    copied:'✅ 링크가 복사됐어요!',
+    compareMy:(n)=>`나의 탄소: ${n}톤`,
+    compareAvg:`한국 평균: 13.6톤`,
+    totalCompare:(n,avg)=>n<avg
+      ?`한국 평균(${avg}톤)보다 ${(avg-n).toFixed(1)}톤 적게 배출합니다 🎉`
+      :`한국 평균(${avg}톤)보다 ${(n-avg).toFixed(1)}톤 더 배출합니다`,
+    ton:'톤',
+    carOptions:['휘발유 (0.21 kgCO₂/km)','경유 (0.17 kgCO₂/km)','전기차 (0.09 kgCO₂/km)','하이브리드 (0.14 kgCO₂/km)','LPG (0.15 kgCO₂/km)'],
+    dietOptions:['육식 위주 (하루 3회 이상 육류)','일반 (육류 포함 균형식단)','육류 적게 (주 2~3회)','페스코 채식 (생선 허용)','채식 (유제품 허용)','비건 (완전 채식)'],
+  },
+  en:{
+    title:'Carbon Footprint Calculator',
+    sub:'Calculate your annual CO₂ emissions from car, flights, electricity, and diet.',
+    share:'Share', copy:'Copy Link',
+    carTitle:'Car Usage', carSub:'Enter annual mileage and fuel type',
+    carKm:'Annual Mileage', carType:'Fuel Type',
+    flightTitle:'Flights', flightSub:'Enter annual number of flights',
+    shortFlight:'Short-haul (≤3h)', longFlight:'Long-haul (>3h)',
+    flightUnit:'flights/yr',
+    elecTitle:'Electricity', elecSub:'Enter monthly electricity usage',
+    elecKwh:'Monthly Usage',
+    dietTitle:'Diet Type', dietSub:'Select your main diet type',
+    dietType:'Select Diet',
+    calc:'Calculate Carbon Footprint',
+    totalLabel:'My Annual Carbon Footprint',
+    compareLabel:'Compare to Korean Average',
+    legendMy:'My Carbon', legendAvg:'Korea avg (13.6t)', legendWorld:'World avg (4.8t)',
+    rCar:'Car', rFlight:'Flights', rElec:'Electricity', rDiet:'Diet',
+    rUnit:'tonnes CO₂/yr',
+    tipsLabel:'🌱 Reduction Tips',
+    related:'Related Tools', faq:'FAQ',
+    r1:'Electricity Calculator', r2:'Fuel Cost Calculator', r3:'Flight Time Calculator',
+    copied:'✅ Link copied!',
+    compareMy:(n)=>`My carbon: ${n}t`,
+    compareAvg:`Korea avg: 13.6t`,
+    totalCompare:(n,avg)=>n<avg
+      ?`${(avg-n).toFixed(1)}t below Korean average (${avg}t) 🎉`
+      :`${(n-avg).toFixed(1)}t above Korean average (${avg}t)`,
+    ton:'t',
+    carOptions:['Gasoline (0.21 kgCO₂/km)','Diesel (0.17 kgCO₂/km)','Electric (0.09 kgCO₂/km)','Hybrid (0.14 kgCO₂/km)','LPG (0.15 kgCO₂/km)'],
+    dietOptions:['Heavy meat (3+ times/day)','Average (balanced with meat)','Low meat (2-3x/week)','Pescatarian','Vegetarian','Vegan'],
+  },
+};
+
+const TIPS_KO = [
+  { cond: d=>d.car>2,    icon:'🚗', title:'자동차 대신 대중교통', desc:'대중교통 이용 시 자동차 대비 탄소 배출을 80% 이상 줄일 수 있습니다. 전기차로 전환하면 절반 수준으로 감소합니다.' },
+  { cond: d=>d.flight>1, icon:'✈️', title:'비행기 이용 줄이기', desc:'장거리 비행 1회는 자동차로 약 4,300km 주행하는 것과 같습니다. 화상회의나 기차를 활용해보세요.' },
+  { cond: d=>d.elec>2,   icon:'⚡', title:'전기 절약 습관', desc:'LED 조명 교체, 사용하지 않는 전자기기 플러그 뽑기, 에너지 효율 등급 높은 가전 구매로 전기 사용량을 줄이세요.' },
+  { cond: d=>d.diet>2,   icon:'🥗', title:'채식 식단 늘리기', desc:'주 2~3회만 채식으로 바꿔도 연간 0.5톤 이상 탄소를 줄일 수 있습니다. 소고기를 닭고기나 생선으로 대체하는 것만으로도 큰 효과가 있습니다.' },
+  { cond: d=>d.total>KR_AVG, icon:'🌱', title:'탄소 오프셋 참여', desc:'나무 심기, 재생에너지 크레딧 구매 등으로 불가피한 탄소를 상쇄할 수 있습니다. 한 그루의 나무는 연간 약 22kg CO₂를 흡수합니다.' },
+];
+const TIPS_EN = [
+  { cond: d=>d.car>2,    icon:'🚗', title:'Use Public Transport', desc:'Public transport reduces car carbon by 80%+. Switching to an EV can cut it in half.' },
+  { cond: d=>d.flight>1, icon:'✈️', title:'Reduce Flights', desc:'One long-haul flight equals ~4,300km by car. Try video calls or trains instead.' },
+  { cond: d=>d.elec>2,   icon:'⚡', title:'Save Electricity', desc:'LED lighting, unplugging unused devices, and energy-efficient appliances can significantly reduce your electricity emissions.' },
+  { cond: d=>d.diet>2,   icon:'🥗', title:'Eat More Plant-Based', desc:'Going vegetarian 2-3 times a week can save 0.5+ tonnes/year. Swapping beef for chicken or fish also helps significantly.' },
+  { cond: d=>d.total>KR_AVG, icon:'🌱', title:'Carbon Offsetting', desc:'Tree planting or renewable energy credits can offset unavoidable emissions. One tree absorbs ~22kg CO₂ per year.' },
+];
+
+function setLang(l, el) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const ids = {
+    't-title':t.title,'t-sub':t.sub,'t-share':t.share,'t-copy':t.copy,
+    't-car-title':t.carTitle,'t-car-sub':t.carSub,'t-car-km':t.carKm,'t-car-type':t.carType,
+    't-flight-title':t.flightTitle,'t-flight-sub':t.flightSub,
+    't-short-flight':t.shortFlight,'t-long-flight':t.longFlight,
+    't-flight-unit':t.flightUnit,'t-flight-unit2':t.flightUnit,
+    't-elec-title':t.elecTitle,'t-elec-sub':t.elecSub,'t-elec-kwh':t.elecKwh,
+    't-diet-title':t.dietTitle,'t-diet-sub':t.dietSub,'t-diet-type':t.dietType,
+    't-calc':t.calc,'t-total-label':t.totalLabel,'t-compare-label':t.compareLabel,
+    't-legend-my':t.legendMy,'t-legend-avg':t.legendAvg,'t-legend-world':t.legendWorld,
+    't-r-car':t.rCar,'t-r-flight':t.rFlight,'t-r-elec':t.rElec,'t-r-diet':t.rDiet,
+    't-r-car-unit':t.rUnit,'t-r-flight-unit':t.rUnit,'t-r-elec-unit':t.rUnit,'t-r-diet-unit':t.rUnit,
+    't-tips-label':t.tipsLabel,
+    't-related':t.related,'t-faq':t.faq,'t-r1':t.r1,'t-r2':t.r2,'t-r3':t.r3,
+  };
+  Object.entries(ids).forEach(([id,val])=>{ const e=document.getElementById(id); if(e) e.textContent=val; });
+  // 셀렉트 옵션 업데이트
+  const carOpts = document.getElementById('car-type').options;
+  const carVals = ['0.21','0.17','0.09','0.14','0.15'];
+  t.carOptions.forEach((txt,i) => { if(carOpts[i]) carOpts[i].text = txt; });
+  const dietOpts = document.getElementById('diet-type').options;
+  const dietVals = ['3285','2500','1900','1500','1100','700'];
+  t.dietOptions.forEach((txt,i) => { if(dietOpts[i]) dietOpts[i].text = txt; });
+}
+
+function calculate() {
+  const carKm    = parseFloat(document.getElementById('car-km').value)    || 0;
+  const carFactor= parseFloat(document.getElementById('car-type').value)  || 0.21;
+  const shortF   = parseFloat(document.getElementById('short-flight').value) || 0;
+  const longF    = parseFloat(document.getElementById('long-flight').value)  || 0;
+  const elecKwh  = parseFloat(document.getElementById('elec-kwh').value)  || 0;
+  const dietKg   = parseFloat(document.getElementById('diet-type').value) || 2500;
+  const t        = T[lang];
+
+  // CO₂ 계산 (톤 단위)
+  const carCo2    = Math.round(carKm * carFactor) / 1000;
+  const flightCo2 = Math.round((shortF * SHORT_FLIGHT + longF * LONG_FLIGHT) * 1000) / 1000;
+  const elecCo2   = Math.round(elecKwh * 12 * ELEC_FACTOR) / 1000;
+  const dietCo2   = Math.round(dietKg) / 1000;
+  const total     = Math.round((carCo2 + flightCo2 + elecCo2 + dietCo2) * 100) / 100;
+
+  // 총합 히어로
+  document.getElementById('r-total').textContent = total.toFixed(2);
+  document.getElementById('r-total-compare').textContent = t.totalCompare(total, KR_AVG);
+
+  // 비교 바
+  const maxRef = Math.max(total, KR_AVG) * 1.2;
+  const myPct  = Math.min(100, Math.round(total / maxRef * 100));
+  const avgPct = Math.min(100, Math.round(KR_AVG / maxRef * 100));
+  document.getElementById('compare-fill').style.width = myPct + '%';
+  document.getElementById('compare-fill').style.background = total <= KR_AVG ? 'var(--accent)' : 'var(--red)';
+  document.getElementById('compare-avg-line').style.left = avgPct + '%';
+  document.getElementById('r-compare-my').textContent  = t.compareMy(total.toFixed(2));
+  document.getElementById('r-compare-avg').textContent = t.compareAvg;
+
+  // 카테고리 결과
+  const cats = [
+    { id:'car',   val:carCo2    },
+    { id:'flight',val:flightCo2 },
+    { id:'elec',  val:elecCo2   },
+    { id:'diet',  val:dietCo2   },
+  ];
+  cats.forEach(cat => {
+    const pct = total > 0 ? Math.round(cat.val / total * 100) : 0;
+    document.getElementById('r-'+cat.id).textContent     = cat.val.toFixed(2);
+    document.getElementById('r-'+cat.id+'-pct').textContent = pct + '%';
+  });
+
+  // 절감 팁
+  const tipData = { car:carCo2, flight:flightCo2, elec:elecCo2, diet:dietCo2, total };
+  const TIPS = lang==='ko' ? TIPS_KO : TIPS_EN;
+  const tipsList = document.getElementById('tips-list');
+  tipsList.innerHTML = '';
+  let shown = 0;
+  TIPS.forEach(tip => {
+    if (tip.cond(tipData) && shown < 3) {
+      const div = document.createElement('div');
+      div.className = 'tip-item';
+      div.innerHTML = `<span class="tip-icon">${tip.icon}</span><div class="tip-content"><div class="tip-title">${tip.title}</div><div class="tip-desc">${tip.desc}</div></div>`;
+      tipsList.appendChild(div);
+      shown++;
+    }
+  });
+  // 팁이 없으면 기본 팁
+  if (shown === 0) {
+    const div = document.createElement('div');
+    div.className = 'tip-item';
+    div.innerHTML = `<span class="tip-icon">🌱</span><div class="tip-content"><div class="tip-title">${lang==='ko'?'탄소 절감 실천 중':'Doing Great!'}</div><div class="tip-desc">${lang==='ko'?'이미 낮은 탄소 발자국을 유지하고 있습니다. 재생에너지 사용, 채식 확대, 대중교통 이용을 지속해주세요!':'You already have a low carbon footprint! Keep using renewable energy, plant-based diet, and public transport.'}</div></div>`;
+    tipsList.appendChild(div);
+  }
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function nativeShare() {
+  const url='https://www.toptools365.com/carbon-footprint-calculator/';
+  const title=lang==='ko'?'탄소 발자국 계산기 - TopTools365':'Carbon Footprint Calculator - TopTools365';
+  const text=lang==='ko'?'연간 CO₂ 배출량 즉시 계산. 자동차·비행기·전기·식단 포함':'Calculate your annual CO₂ emissions instantly';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function copyLink() {
+  const url='https://www.toptools365.com/carbon-footprint-calculator/';
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(url).then(()=>showToast(T[lang].copied)).catch(()=>fallbackCopy(url));
+  }else{fallbackCopy(url);}
+}
+function fallbackCopy(text) {
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast(T[lang].copied);}catch(e){}
+  document.body.removeChild(ta);
+}
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+</script>
+</body>
+</html>
