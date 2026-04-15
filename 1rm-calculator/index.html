@@ -8,9 +8,21 @@
 <meta name="keywords" content="1RM계산기,1회반복최대중량,최대중량계산,벤치프레스1RM,스쿼트1RM,데드리프트1RM,운동강도계산,1rm공식,헬스중량계산,파워리프팅계산기,rm계산기,중량설정방법,운동무게계산">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.toptools365.com/1rm-calculator/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/1rm-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/1rm-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/1rm-calculator/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="1RM 계산기 - 벤치프레스·스쿼트·데드리프트 최대 중량 즉시 계산 | TopTools365">
 <meta property="og:description" content="무게·반복횟수 입력 → 1RM 즉시 계산. 6가지 공식 비교. 운동 강도별 목표 중량 자동 제시. 무료.">
+<meta property="og:url" content="https://www.toptools365.com/1rm-calculator/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="1RM 계산기 - 벤치프레스·스쿼트·데드리프트 최대 중량 즉시 계산 | TopTools365">
+<meta name="twitter:description" content="무게·반복횟수 입력 → 1RM 즉시 계산. 6가지 공식 비교. 운동 강도별 목표 중량 자동 제시. 무료.">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"1RM 계산기","description":"무게와 반복 횟수로 1RM을 계산하고 운동 강도별 목표 중량을 제시하는 무료 온라인 도구","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
 </script>
@@ -20,6 +32,13 @@
 {"@type":"Question","name":"1RM을 직접 테스트하지 않고 계산할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네, 가능합니다. 자신이 들 수 있는 무게와 반복 횟수를 입력하면 Epley, Brzycki 등 검증된 공식으로 1RM을 추정할 수 있습니다. 1~10회 반복 범위에서 가장 정확합니다."}},
 {"@type":"Question","name":"벤치프레스 1RM 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"예를 들어 80kg으로 5회 반복할 수 있다면, Epley 공식으로 1RM = 80 × (1 + 5/30) = 약 93.3kg입니다. 이 계산기에 무게와 횟수를 입력하면 즉시 계산됩니다."}},
 {"@type":"Question","name":"1RM의 몇 %로 운동해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"목적에 따라 다릅니다. 근력 향상은 85~95%(1~5회), 근육 성장(근비대)은 67~85%(6~12회), 근지구력은 50~67%(15회 이상)가 일반적으로 권장됩니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"건강 계산기","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"1RM 계산기","item":"https://www.toptools365.com/1rm-calculator/"}
 ]}
 </script>
 <style>
@@ -51,15 +70,16 @@
   h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
-
-  /* 운동 선택 */
+  .share-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .share-btn { flex: 1; min-width: 120px; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity .15s; display: flex; align-items: center; justify-content: center; gap: 6px; border: none; }
+  .share-btn:hover { opacity: .85; }
+  .btn-share { background: var(--accent); color: #fff; }
+  .btn-copy  { background: var(--green);  color: #fff; }
   .exercise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
   @media(max-width:480px) { .exercise-grid { grid-template-columns: repeat(2, 1fr); } }
   .ex-btn { padding: 12px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
   .ex-btn .ei { font-size: 22px; display: block; margin-bottom: 4px; }
   .ex-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
-
-  /* 입력 */
   .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
   @media(max-width:480px) { .input-row { grid-template-columns: 1fr; } }
   .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
@@ -68,26 +88,17 @@
   .input-wrap input { width: 100%; padding: 13px 52px 13px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 22px; font-weight: 700; outline: none; transition: border-color .15s; }
   .input-wrap input:focus { border-color: var(--accent); }
   .input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); font-weight: 500; pointer-events: none; }
-
-  /* 반복 횟수 슬라이더 */
   .reps-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--border); outline: none; margin-top: 8px; cursor: pointer; }
   .reps-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; }
-
-  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+  .calc-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--green); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
   .calc-btn:hover { opacity: .88; }
-
-  /* 결과 */
   .results { display: none; }
   .results.show { display: block; }
-
-  /* 1RM 히어로 */
   .rm-hero { text-align: center; padding: 28px 24px; background: var(--accent-light); border: 2px solid var(--accent); border-radius: 16px; margin-bottom: 16px; }
   .rm-hero .rh-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
   .rm-hero .rh-val { font-size: 72px; font-weight: 900; color: var(--accent); line-height: 1; }
   .rm-hero .rh-unit { font-size: 22px; color: var(--accent); font-weight: 700; }
   .rm-hero .rh-sub { font-size: 13px; color: var(--muted); margin-top: 8px; }
-
-  /* 공식별 비교 */
   .formula-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .formula-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
   .formula-item.best { border-color: var(--accent); background: var(--accent-light); }
@@ -96,8 +107,6 @@
   .fi-bar { height: 100%; background: var(--accent); border-radius: 4px; }
   .fi-val { font-size: 15px; font-weight: 800; color: var(--accent); min-width: 65px; text-align: right; }
   .fi-badge { font-size: 10px; font-weight: 700; background: var(--accent); color: #fff; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
-
-  /* 운동 강도별 중량 */
   .zone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
   @media(max-width:480px) { .zone-grid { grid-template-columns: repeat(2, 1fr); } }
   .zone-box { padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid; }
@@ -105,20 +114,16 @@
   .zone-box .zw { font-size: 18px; font-weight: 900; }
   .zone-box .zr { font-size: 11px; color: var(--muted); margin-top: 3px; }
   .zone-box .zpurpose { font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-
-  /* 운동별 세계 기록 비교 */
   .compare-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .compare-row:last-child { border-bottom: none; }
   .cr-label { color: var(--muted); }
   .cr-val { font-weight: 700; }
-
   .seo-section { margin-top: 48px; }
   .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
   .seo-section h3 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
   .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.9; margin-bottom: 12px; }
   .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 2.0; margin: 16px 0; }
   .info-box strong { color: var(--accent); }
-
   .related-section { margin-top: 48px; }
   .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
   .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -126,13 +131,14 @@
   .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
   .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .related-icon { font-size: 20px; flex-shrink: 0; }
-
   .faq { margin-top: 40px; }
   .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
   .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
   .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
   .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
   footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -145,12 +151,14 @@
   <h1 id="t-title">1RM 계산기</h1>
   <p class="subtitle" id="t-sub">무게와 반복 횟수를 입력하면 1RM(1회 반복 최대 중량)과 운동 강도별 목표 중량을 즉시 계산합니다. 벤치프레스·스쿼트·데드리프트·오버헤드프레스 지원.</p>
 
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy"  onclick="copyLink()">🔗 <span id="t-copy">링크 복사</span></button>
+  </div>
+
   <div class="card">
-    <!-- 운동 선택 -->
     <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px" id="t-exercise-label">운동 선택</div>
     <div class="exercise-grid" id="exercise-grid"></div>
-
-    <!-- 무게·반복횟수 입력 -->
     <div class="input-row">
       <div class="field">
         <label id="t-weight-label">들어올린 무게</label>
@@ -170,47 +178,39 @@
         <p class="tip" id="t-reps-tip">1~10회 범위에서 가장 정확합니다</p>
       </div>
     </div>
-
     <button class="calc-btn" id="t-calc" onclick="calculate()">1RM 계산하기</button>
   </div>
 
-  <!-- 결과 -->
   <div class="results" id="results">
-
-    <!-- 1RM 히어로 -->
     <div class="rm-hero">
       <div class="rh-label" id="t-1rm-label">추정 1RM (평균값)</div>
       <div><span class="rh-val" id="r-1rm">-</span><span class="rh-unit"> kg</span></div>
       <div class="rh-sub" id="r-1rm-sub">-</div>
     </div>
-
-    <!-- 6가지 공식 비교 -->
     <div class="card">
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-formulas">6가지 공식 비교</div>
       <div class="formula-grid" id="formula-grid"></div>
       <div style="font-size:11px;color:var(--muted);margin-top:10px" id="t-formula-note">★ 추천: 1~10회 반복에서 가장 정확한 공식</div>
     </div>
-
-    <!-- 운동 강도별 목표 중량 -->
     <div class="card">
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-zones">운동 강도별 목표 중량 (1RM 기준)</div>
       <div class="zone-grid" id="zone-grid"></div>
     </div>
-
-    <!-- 운동별 세계 평균 비교 -->
     <div class="card">
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-compare-label">나의 1RM vs 평균 비교</div>
       <div id="compare-rows"></div>
     </div>
-
+    <!-- 결과 하단 공유 버튼 -->
+    <div class="share-row">
+      <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share2">공유하기</span></button>
+      <button class="share-btn btn-copy"  onclick="copyLink()">🔗 <span id="t-copy2">링크 복사</span></button>
+    </div>
   </div>
 
-  <!-- SEO 풍부한 설명 -->
   <section class="seo-section">
     <h2 id="t-seo-h1">1RM 계산기 사용 방법</h2>
     <p id="t-seo-p1">1RM(One Repetition Maximum, 1회 반복 최대 중량)은 헬스·파워리프팅·크로스핏 등 모든 근력 운동의 기준이 되는 수치입니다. 직접 최대 중량을 테스트하지 않아도, 여러 번 반복할 수 있는 무게와 횟수를 입력하면 6가지 과학적 공식으로 1RM을 정확하게 추정할 수 있습니다.</p>
     <p id="t-seo-p2">예를 들어 벤치프레스를 80kg으로 5회 반복할 수 있다면, 이 계산기는 Epley 공식 기준 약 93kg의 1RM을 추정합니다. 이를 바탕으로 오늘 세션의 목표 중량(예: 1RM의 80% = 74.4kg)을 바로 설정할 수 있습니다.</p>
-
     <h3 id="t-seo-h2">1RM 계산 공식 6가지 비교</h3>
     <div class="info-box">
       <strong>Epley 공식</strong> (가장 널리 사용): w × (1 + r/30)<br>
@@ -221,56 +221,28 @@
       <strong>O'Conner 공식</strong>: w × (1 + 0.025 × r)<br>
       <span id="t-formula-w-note">w = 무게(kg), r = 반복 횟수</span>
     </div>
-
     <h3 id="t-seo-h3">운동 목적별 1RM 활용법</h3>
-    <p id="t-seo-p3">1RM을 알면 운동 목적에 맞는 중량을 정확히 설정할 수 있습니다. 근력 향상을 원한다면 1RM의 85~95%(1~5회 반복), 근육 성장(근비대)이 목표라면 67~85%(6~12회), 근지구력 향상은 50~67%(15회 이상)가 권장됩니다. 무작정 무거운 것을 드는 것보다 자신의 1RM을 기준으로 체계적으로 훈련하는 것이 부상 예방과 근성장 모두에 훨씬 효과적입니다.</p>
-
+    <p id="t-seo-p3">1RM을 알면 운동 목적에 맞는 중량을 정확히 설정할 수 있습니다. 근력 향상을 원한다면 1RM의 85~95%(1~5회 반복), 근육 성장(근비대)이 목표라면 67~85%(6~12회), 근지구력 향상은 50~67%(15회 이상)가 권장됩니다.</p>
     <h3 id="t-seo-h4">1RM 계산 시 주의사항</h3>
-    <p id="t-seo-p4">이 계산기로 산출된 1RM은 추정값입니다. 실제 1RM은 당일 컨디션·수면·식사·피로 상태에 따라 달라질 수 있습니다. 초보자는 직접 1RM 테스트보다 계산기를 활용해 안전하게 중량을 설정하는 것을 권장합니다. 10회 이상 반복 데이터로 계산할 경우 오차가 커질 수 있으니 1~10회 범위의 데이터를 사용하는 것이 가장 정확합니다.</p>
+    <p id="t-seo-p4">이 계산기로 산출된 1RM은 추정값입니다. 실제 1RM은 당일 컨디션·수면·식사·피로 상태에 따라 달라질 수 있습니다. 초보자는 직접 1RM 테스트보다 계산기를 활용해 안전하게 중량을 설정하는 것을 권장합니다.</p>
   </section>
 
-  <!-- 관련 툴 -->
   <section class="related-section">
     <h2 id="t-related">관련 툴</h2>
     <div class="related-grid">
-      <a class="related-item" href="/exercise-calorie-calculator/">
-        <span class="related-icon">🔥</span>
-        <span id="t-r1">운동 칼로리 계산기</span>
-      </a>
-      <a class="related-item" href="/bmi-calculator/">
-        <span class="related-icon">⚖️</span>
-        <span id="t-r2">BMI 계산기</span>
-      </a>
-      <a class="related-item" href="/protein-calculator/">
-        <span class="related-icon">💪</span>
-        <span id="t-r3">단백질 섭취량 계산기</span>
-      </a>
+      <a class="related-item" href="/exercise-calorie-calculator/"><span class="related-icon">🔥</span><span id="t-r1">운동 칼로리 계산기</span></a>
+      <a class="related-item" href="/bmi-calculator/"><span class="related-icon">⚖️</span><span id="t-r2">BMI 계산기</span></a>
+      <a class="related-item" href="/protein-calculator/"><span class="related-icon">💪</span><span id="t-r3">단백질 섭취량 계산기</span></a>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="faq">
     <h2 id="t-faq">자주 묻는 질문</h2>
-    <div class="faq-item">
-      <div class="faq-q" id="fq1">1RM이란 무엇인가요?</div>
-      <div class="faq-a" id="fa1">1RM(One Rep Max)은 1회 반복 최대 중량으로, 정확한 자세로 단 한 번만 들어올릴 수 있는 최대 무게입니다. 운동 강도와 프로그램을 설계할 때 기준이 되는 핵심 수치입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" id="fq2">1RM을 직접 테스트하지 않고 계산할 수 있나요?</div>
-      <div class="faq-a" id="fa2">네, 가능합니다. 자신이 여러 번 반복할 수 있는 무게와 횟수를 입력하면 Epley, Brzycki 등 검증된 공식으로 1RM을 안전하게 추정할 수 있습니다. 특히 초보자에게 권장되는 방법입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" id="fq3">벤치프레스 80kg 5회면 1RM이 얼마인가요?</div>
-      <div class="faq-a" id="fa3">Epley 공식 기준 약 93.3kg입니다. 계산식: 80 × (1 + 5/30) = 80 × 1.167 ≈ 93.3kg. 실제 값은 개인 차이로 약간 다를 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" id="fq4">근비대(근육 성장)를 위한 적정 무게는 1RM의 몇 %인가요?</div>
-      <div class="faq-a" id="fa4">근비대에는 1RM의 67~85% 범위(6~12회 반복)가 가장 효과적입니다. 예를 들어 1RM이 100kg이라면 67~85kg으로 6~12회 반복하는 것이 근육 성장에 최적입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" id="fq5">1RM이 늘지 않을 때 어떻게 해야 하나요?</div>
-      <div class="faq-a" id="fa5">점진적 과부하 원칙(Progressive Overload)을 적용하세요. 매 세션마다 무게나 반복 횟수를 조금씩 늘리는 것이 핵심입니다. 충분한 수면(7~9시간)과 단백질 섭취도 1RM 향상에 필수적입니다.</div>
-    </div>
+    <div class="faq-item"><div class="faq-q" id="fq1">1RM이란 무엇인가요?</div><div class="faq-a" id="fa1">1RM(One Rep Max)은 1회 반복 최대 중량으로, 정확한 자세로 단 한 번만 들어올릴 수 있는 최대 무게입니다. 운동 강도와 프로그램을 설계할 때 기준이 되는 핵심 수치입니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq2">1RM을 직접 테스트하지 않고 계산할 수 있나요?</div><div class="faq-a" id="fa2">네, 가능합니다. 자신이 여러 번 반복할 수 있는 무게와 횟수를 입력하면 Epley, Brzycki 등 검증된 공식으로 1RM을 안전하게 추정할 수 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq3">벤치프레스 80kg 5회면 1RM이 얼마인가요?</div><div class="faq-a" id="fa3">Epley 공식 기준 약 93.3kg입니다. 계산식: 80 × (1 + 5/30) = 80 × 1.167 ≈ 93.3kg. 실제 값은 개인 차이로 약간 다를 수 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq4">근비대(근육 성장)를 위한 적정 무게는 1RM의 몇 %인가요?</div><div class="faq-a" id="fa4">근비대에는 1RM의 67~85% 범위(6~12회 반복)가 가장 효과적입니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq5">1RM이 늘지 않을 때 어떻게 해야 하나요?</div><div class="faq-a" id="fa5">점진적 과부하 원칙(Progressive Overload)을 적용하세요. 매 세션마다 무게나 반복 횟수를 조금씩 늘리는 것이 핵심입니다. 충분한 수면(7~9시간)과 단백질 섭취도 1RM 향상에 필수적입니다.</div></div>
   </section>
 
   <footer>
@@ -278,39 +250,40 @@
     <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
   </footer>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 let lang = 'ko';
 let selectedExercise = 'bench';
 
 const EXERCISES = [
-  { key:'bench', icon:'🏋️', ko:'벤치프레스', en:'Bench Press',
+  { key:'bench',    icon:'🏋️', ko:'벤치프레스',     en:'Bench Press',
     avgKo:['남성 평균 60~80kg','여성 평균 30~45kg'], avgEn:['Men avg 60–80kg','Women avg 30–45kg'] },
-  { key:'squat', icon:'🦵', ko:'스쿼트', en:'Squat',
+  { key:'squat',    icon:'🦵', ko:'스쿼트',          en:'Squat',
     avgKo:['남성 평균 80~110kg','여성 평균 45~65kg'], avgEn:['Men avg 80–110kg','Women avg 45–65kg'] },
-  { key:'deadlift', icon:'💪', ko:'데드리프트', en:'Deadlift',
+  { key:'deadlift', icon:'💪', ko:'데드리프트',      en:'Deadlift',
     avgKo:['남성 평균 100~130kg','여성 평균 55~80kg'], avgEn:['Men avg 100–130kg','Women avg 55–80kg'] },
-  { key:'ohp', icon:'🙌', ko:'오버헤드프레스', en:'Overhead Press',
+  { key:'ohp',      icon:'🙌', ko:'오버헤드프레스', en:'Overhead Press',
     avgKo:['남성 평균 40~60kg','여성 평균 20~35kg'], avgEn:['Men avg 40–60kg','Women avg 20–35kg'] },
 ];
 
-// 운동 강도 존
 const ZONES = [
-  { pct:95, reps:'1~2회', ko:'최대 근력', en:'Max Strength', color:'var(--red)', colorL:'var(--red-light)' },
-  { pct:90, reps:'2~3회', ko:'근력', en:'Strength', color:'var(--orange)', colorL:'var(--orange-light)' },
-  { pct:85, reps:'4~5회', ko:'근력/근비대', en:'Strength/Hypertrophy', color:'var(--orange)', colorL:'var(--orange-light)' },
-  { pct:80, reps:'6~8회', ko:'근비대', en:'Hypertrophy', color:'var(--accent)', colorL:'var(--accent-light)' },
-  { pct:75, reps:'8~10회', ko:'근비대', en:'Hypertrophy', color:'var(--accent)', colorL:'var(--accent-light)' },
-  { pct:70, reps:'10~12회', ko:'근비대/근지구력', en:'Hypertrophy/Endurance', color:'var(--green)', colorL:'var(--green-light)' },
-  { pct:65, reps:'12~15회', ko:'근지구력', en:'Endurance', color:'var(--green)', colorL:'var(--green-light)' },
-  { pct:60, reps:'15~20회', ko:'근지구력', en:'Endurance', color:'var(--green)', colorL:'var(--green-light)' },
-  { pct:55, reps:'20~25회', ko:'워밍업/재활', en:'Warm-up/Rehab', color:'var(--muted)', colorL:'var(--bg)' },
+  { pct:95, reps:'1~2회',   ko:'최대 근력',        en:'Max Strength',            color:'var(--red)',    colorL:'var(--red-light)'    },
+  { pct:90, reps:'2~3회',   ko:'근력',             en:'Strength',                color:'var(--orange)', colorL:'var(--orange-light)' },
+  { pct:85, reps:'4~5회',   ko:'근력/근비대',      en:'Strength/Hypertrophy',    color:'var(--orange)', colorL:'var(--orange-light)' },
+  { pct:80, reps:'6~8회',   ko:'근비대',           en:'Hypertrophy',             color:'var(--accent)', colorL:'var(--accent-light)' },
+  { pct:75, reps:'8~10회',  ko:'근비대',           en:'Hypertrophy',             color:'var(--accent)', colorL:'var(--accent-light)' },
+  { pct:70, reps:'10~12회', ko:'근비대/근지구력',  en:'Hypertrophy/Endurance',   color:'var(--green)',  colorL:'var(--green-light)'  },
+  { pct:65, reps:'12~15회', ko:'근지구력',         en:'Endurance',               color:'var(--green)',  colorL:'var(--green-light)'  },
+  { pct:60, reps:'15~20회', ko:'근지구력',         en:'Endurance',               color:'var(--green)',  colorL:'var(--green-light)'  },
+  { pct:55, reps:'20~25회', ko:'워밍업/재활',      en:'Warm-up/Rehab',           color:'var(--muted)',  colorL:'var(--bg)'           },
 ];
 
 const T = {
   ko: {
     title:'1RM 계산기',
     sub:'무게와 반복 횟수를 입력하면 1RM(1회 반복 최대 중량)과 운동 강도별 목표 중량을 즉시 계산합니다.',
+    share:'공유하기', copy:'링크 복사',
     exerciseLabel:'운동 선택', weightLabel:'들어올린 무게', repsLabel:'반복 횟수',
     repsUnit:'회', weightTip:'최대로 들 수 있는 무게가 아닌, 여러 번 반복한 무게',
     repsTip:'1~10회 범위에서 가장 정확합니다',
@@ -325,10 +298,12 @@ const T = {
     recommended:'추천',
     exerciseSub: (ex, w, r) => `${ex} ${w}kg × ${r}회 기준`,
     compareAvg: '일반인 평균',
+    copied:'✅ 링크가 복사됐어요!',
   },
   en: {
     title:'1RM Calculator',
     sub:'Enter weight and reps to instantly calculate your 1RM (One Rep Max) and target weights for each training intensity.',
+    share:'Share', copy:'Copy Link',
     exerciseLabel:'Select Exercise', weightLabel:'Weight Lifted', repsLabel:'Reps',
     repsUnit:'reps', weightTip:'The weight you actually lifted (not your max)',
     repsTip:'Most accurate for 1–10 reps',
@@ -343,52 +318,57 @@ const T = {
     recommended:'Best',
     exerciseSub: (ex, w, r) => `${ex} ${w}kg × ${r} reps`,
     compareAvg: 'General Population Avg',
+    copied:'✅ Link copied!',
   }
 };
 
-// 6가지 1RM 공식
 function calcFormulas(w, r) {
   return {
-    'Epley':     Math.round(w * (1 + r / 30) * 10) / 10,
-    'Brzycki':   Math.round(w * (36 / (37 - r)) * 10) / 10,
-    'Lander':    Math.round((100 * w) / (101.3 - 2.67123 * r) * 10) / 10,
-    'Lombardi':  Math.round(w * Math.pow(r, 0.1) * 10) / 10,
-    'Mayhew':    Math.round((100 * w) / (52.2 + 41.9 * Math.exp(-0.055 * r)) * 10) / 10,
-    "O'Conner":  Math.round(w * (1 + 0.025 * r) * 10) / 10,
+    'Epley':    Math.round(w*(1+r/30)*10)/10,
+    'Brzycki':  Math.round(w*(36/(37-r))*10)/10,
+    'Lander':   Math.round((100*w)/(101.3-2.67123*r)*10)/10,
+    'Lombardi': Math.round(w*Math.pow(r,0.1)*10)/10,
+    'Mayhew':   Math.round((100*w)/(52.2+41.9*Math.exp(-0.055*r))*10)/10,
+    "O'Conner": Math.round(w*(1+0.025*r)*10)/10,
   };
 }
 
-// 추천 공식: 반복 횟수에 따라 달라짐
 function getBestFormula(r) {
-  if (r <= 5) return 'Brzycki';
-  if (r <= 10) return 'Epley';
+  if (r<=5) return 'Brzycki';
+  if (r<=10) return 'Epley';
   return 'Mayhew';
 }
 
 function setLang(l, el) {
   lang = l;
+  document.documentElement.lang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
   el.classList.add('on');
   const t = T[l];
   document.getElementById('t-title').textContent = t.title;
   document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-share').textContent = t.share;
+  document.getElementById('t-copy').textContent  = t.copy;
+  document.getElementById('t-share2').textContent = t.share;
+  document.getElementById('t-copy2').textContent  = t.copy;
   document.getElementById('t-exercise-label').textContent = t.exerciseLabel;
-  document.getElementById('t-weight-label').textContent = t.weightLabel;
-  document.getElementById('t-reps-label').innerHTML = t.repsLabel + ': <span id="reps-display" style="color:var(--accent)">' + (document.getElementById('reps-input').value || 5) + (l==='ko'?'회':' reps') + '</span>';
-  document.getElementById('t-reps-unit').textContent = t.repsUnit;
-  document.getElementById('t-weight-tip').textContent = t.weightTip;
-  document.getElementById('t-reps-tip').textContent = t.repsTip;
-  document.getElementById('t-calc').textContent = t.calc;
-  document.getElementById('t-formulas').textContent = t.formulas;
-  document.getElementById('t-formula-note').textContent = t.formulaNote;
-  document.getElementById('t-zones').textContent = t.zones;
-  document.getElementById('t-compare-label').textContent = t.compareLabel;
-  document.getElementById('t-related').textContent = t.related;
-  document.getElementById('t-faq').textContent = t.faq;
+  document.getElementById('t-weight-label').textContent   = t.weightLabel;
+  document.getElementById('t-reps-unit').textContent      = t.repsUnit;
+  document.getElementById('t-weight-tip').textContent     = t.weightTip;
+  document.getElementById('t-reps-tip').textContent       = t.repsTip;
+  document.getElementById('t-calc').textContent           = t.calc;
+  document.getElementById('t-formulas').textContent       = t.formulas;
+  document.getElementById('t-formula-note').textContent   = t.formulaNote;
+  document.getElementById('t-zones').textContent          = t.zones;
+  document.getElementById('t-compare-label').textContent  = t.compareLabel;
+  document.getElementById('t-related').textContent        = t.related;
+  document.getElementById('t-faq').textContent            = t.faq;
   document.getElementById('t-r1').textContent = t.r1;
   document.getElementById('t-r2').textContent = t.r2;
   document.getElementById('t-r3').textContent = t.r3;
   document.getElementById('t-footer').textContent = t.footer;
+  const rv = document.getElementById('reps-input').value || 5;
+  document.getElementById('t-reps-label').innerHTML = t.repsLabel+': <span id="reps-display" style="color:var(--accent)">'+rv+(l==='ko'?'회':' reps')+'</span>';
   renderExercises();
 }
 
@@ -397,16 +377,16 @@ function renderExercises() {
   grid.innerHTML = '';
   EXERCISES.forEach(ex => {
     const btn = document.createElement('button');
-    btn.className = 'ex-btn' + (ex.key === selectedExercise ? ' on' : '');
+    btn.className = 'ex-btn'+(ex.key===selectedExercise?' on':'');
     btn.innerHTML = `<span class="ei">${ex.icon}</span>${lang==='ko'?ex.ko:ex.en}`;
-    btn.onclick = () => { selectedExercise = ex.key; renderExercises(); };
+    btn.onclick = () => { selectedExercise=ex.key; renderExercises(); };
     grid.appendChild(btn);
   });
 }
 
 function syncSlider() {
-  const v = parseInt(document.getElementById('reps-input').value) || 1;
-  document.getElementById('reps-slider').value = Math.min(30, Math.max(1, v));
+  const v = parseInt(document.getElementById('reps-input').value)||1;
+  document.getElementById('reps-slider').value = Math.min(30,Math.max(1,v));
   updateRepsDisplay(v);
 }
 
@@ -417,93 +397,87 @@ function syncReps() {
 }
 
 function updateRepsDisplay(v) {
-  const unit = lang === 'ko' ? '회' : ' reps';
+  const unit = lang==='ko'?'회':' reps';
   const el = document.getElementById('reps-display');
-  if (el) el.textContent = v + unit;
+  if (el) el.textContent = v+unit;
 }
 
 function calculate() {
-  const w = parseFloat(document.getElementById('weight-input').value) || 0;
-  const r = parseInt(document.getElementById('reps-input').value) || 1;
-  if (w <= 0) { alert(lang==='ko'?'무게를 입력해주세요.':'Please enter a weight.'); return; }
-  if (r < 1 || r > 30) { alert(lang==='ko'?'반복 횟수는 1~30회 사이로 입력해주세요.':'Please enter reps between 1 and 30.'); return; }
-  if (r === 1) {
-    // 1회라면 그 자체가 1RM
+  const w = parseFloat(document.getElementById('weight-input').value)||0;
+  const r = parseInt(document.getElementById('reps-input').value)||1;
+  if (w<=0) { alert(lang==='ko'?'무게를 입력해주세요.':'Please enter a weight.'); return; }
+  if (r<1||r>30) { alert(lang==='ko'?'반복 횟수는 1~30회 사이로 입력해주세요.':'Please enter reps between 1 and 30.'); return; }
+  const t = T[lang];
+  if (r===1) {
     document.getElementById('r-1rm').textContent = w;
     document.getElementById('r-1rm-sub').textContent = lang==='ko'?`입력값 그대로 = ${w}kg이 1RM입니다`:`Input is already 1RM: ${w}kg`;
-    showZones(w, r, w);
+    showZones(w,r,w);
     document.getElementById('results').classList.add('show');
-    document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
     return;
   }
-
-  const t = T[lang];
-  const formulas = calcFormulas(w, r);
+  const formulas = calcFormulas(w,r);
   const vals = Object.values(formulas);
-  const avg = Math.round(vals.reduce((s,v)=>s+v,0) / vals.length * 10) / 10;
+  const avg = Math.round(vals.reduce((s,v)=>s+v,0)/vals.length*10)/10;
   const bestKey = getBestFormula(r);
-
-  // 히어로
   document.getElementById('r-1rm').textContent = avg;
-  const ex = EXERCISES.find(e => e.key === selectedExercise);
-  document.getElementById('r-1rm-sub').textContent = t.exerciseSub(lang==='ko'?ex.ko:ex.en, w, r);
-
-  // 공식별 비교
+  const ex = EXERCISES.find(e=>e.key===selectedExercise);
+  document.getElementById('r-1rm-sub').textContent = t.exerciseSub(lang==='ko'?ex.ko:ex.en,w,r);
   const maxVal = Math.max(...vals);
   const grid = document.getElementById('formula-grid');
   grid.innerHTML = '';
-  Object.entries(formulas).forEach(([name, val]) => {
-    const isBest = name === bestKey;
+  Object.entries(formulas).forEach(([name,val]) => {
+    const isBest = name===bestKey;
     const div = document.createElement('div');
-    div.className = 'formula-item' + (isBest ? ' best' : '');
-    div.innerHTML = `
-      <span class="fi-name" style="${isBest?'color:var(--accent)':''}">${name}${isBest?`<span class="fi-badge">${t.recommended}</span>`:''}</span>
-      <div class="fi-bar-wrap"><div class="fi-bar" style="width:${(val/maxVal*100).toFixed(0)}%"></div></div>
-      <span class="fi-val">${val}kg</span>
-    `;
+    div.className = 'formula-item'+(isBest?' best':'');
+    div.innerHTML = `<span class="fi-name" style="${isBest?'color:var(--accent)':''}">${name}${isBest?`<span class="fi-badge">${t.recommended}</span>`:''}</span><div class="fi-bar-wrap"><div class="fi-bar" style="width:${(val/maxVal*100).toFixed(0)}%"></div></div><span class="fi-val">${val}kg</span>`;
     grid.appendChild(div);
   });
-
-  showZones(w, r, avg);
-
-  // 평균 비교
+  showZones(w,r,avg);
   const compareRows = document.getElementById('compare-rows');
-  const avgData = ex.avgKo;
-  compareRows.innerHTML = (lang==='ko'?ex.avgKo:ex.avgEn).map(line => `
-    <div class="compare-row">
-      <span class="cr-label">${t.compareAvg}</span>
-      <span class="cr-val">${line}</span>
-    </div>
-  `).join('') + `
-    <div class="compare-row">
-      <span class="cr-label" style="font-weight:700">${lang==='ko'?'나의 추정 1RM':'My Estimated 1RM'}</span>
-      <span class="cr-val" style="color:var(--accent);font-size:16px">${avg}kg</span>
-    </div>`;
-
+  compareRows.innerHTML = (lang==='ko'?ex.avgKo:ex.avgEn).map(line=>`<div class="compare-row"><span class="cr-label">${t.compareAvg}</span><span class="cr-val">${line}</span></div>`).join('')+`<div class="compare-row"><span class="cr-label" style="font-weight:700">${lang==='ko'?'나의 추정 1RM':'My Estimated 1RM'}</span><span class="cr-val" style="color:var(--accent);font-size:16px">${avg}kg</span></div>`;
   document.getElementById('results').classList.add('show');
-  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function showZones(w, r, oneRM) {
+function showZones(w,r,oneRM) {
   const grid = document.getElementById('zone-grid');
   grid.innerHTML = '';
   ZONES.forEach(z => {
-    const target = Math.round(oneRM * z.pct / 100 * 2) / 2; // 0.5kg 단위
+    const target = Math.round(oneRM*z.pct/100*2)/2;
     const div = document.createElement('div');
     div.className = 'zone-box';
     div.style.borderColor = z.color;
     div.style.background = z.colorL;
-    div.innerHTML = `
-      <div class="zp" style="color:${z.color}">${z.pct}%</div>
-      <div class="zw" style="color:${z.color}">${target}kg</div>
-      <div class="zr">${z.reps}</div>
-      <div class="zpurpose">${lang==='ko'?z.ko:z.en}</div>
-    `;
+    div.innerHTML = `<div class="zp" style="color:${z.color}">${z.pct}%</div><div class="zw" style="color:${z.color}">${target}kg</div><div class="zr">${z.reps}</div><div class="zpurpose">${lang==='ko'?z.ko:z.en}</div>`;
     grid.appendChild(div);
   });
 }
 
-// 초기화
+function nativeShare() {
+  const url='https://www.toptools365.com/1rm-calculator/';
+  const title=lang==='ko'?'1RM 계산기 - TopTools365':'1RM Calculator - TopTools365';
+  const text=lang==='ko'?'벤치프레스·스쿼트 1RM 즉시 계산. 6가지 공식 비교':'Calculate 1RM instantly with 6 formulas';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function copyLink(){
+  const url='https://www.toptools365.com/1rm-calculator/';
+  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(url).then(()=>showToast(T[lang].copied)).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast(T[lang].copied);}catch(e){}
+  document.body.removeChild(ta);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
 renderExercises();
 </script>
 </body>
