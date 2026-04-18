@@ -5,161 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI 계산기 - 체질량지수 즉시 계산 | TopTools365</title>
 <meta name="description" content="키와 몸무게를 입력하면 BMI(체질량지수)를 즉시 계산합니다. 저체중·정상·과체중·비만 판정 기준 포함. 완전 무료.">
-<meta name="keywords" content="BMI계산기, 체질량지수계산기, BMI계산, 비만도계산기, 체중계산기, bmi측정">
+<meta name="keywords" content="BMI계산기,체질량지수계산기,BMI계산,비만도계산기,체중계산기,bmi측정,표준체중계산,비만판정기준,정상BMI범위">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.toptools365.com/bmi-calculator/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/bmi-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/bmi-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/bmi-calculator/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="BMI 계산기 - 체질량지수 즉시 계산 | TopTools365">
 <meta property="og:description" content="키·몸무게 입력 → BMI 즉시 계산. 저체중·정상·과체중·비만 판정. 무료.">
+<meta property="og:url" content="https://www.toptools365.com/bmi-calculator/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMI 계산기 - 체질량지수 즉시 계산 | TopTools365">
+<meta name="twitter:description" content="키·몸무게 입력 → BMI 즉시 계산. 저체중·정상·과체중·비만 판정. 무료.">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"BMI 계산기","alternateName":"체질량지수 계산기","description":"키와 몸무게를 입력하면 BMI를 즉시 계산하는 무료 온라인 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"BMI 정상 범위는?","acceptedAnswer":{"@type":"Answer","text":"WHO 기준 BMI 18.5~24.9가 정상 범위입니다. 한국 기준은 18.5~22.9를 정상으로 봅니다."}},{"@type":"Question","name":"BMI 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"BMI = 체중(kg) ÷ 키(m)²입니다. 예를 들어 키 170cm, 몸무게 65kg이면 BMI = 65 ÷ (1.7 × 1.7) = 22.5입니다."}},{"@type":"Question","name":"BMI가 높으면 무조건 비만인가요?","acceptedAnswer":{"@type":"Answer","text":"BMI는 체지방과 근육을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 비만이 아닐 수 있습니다. BMI는 참고 지표로만 활용하는 것이 좋습니다."}},{"@type":"Question","name":"표준 체중은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"표준 체중 = 키(m)² × 22입니다. 예를 들어 키 170cm이면 표준 체중 = 1.7 × 1.7 × 22 = 63.6kg입니다."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"BMI 정상 범위는?","acceptedAnswer":{"@type":"Answer","text":"WHO 기준 BMI 18.5~24.9가 정상 범위입니다. 한국 기준은 18.5~22.9를 정상으로 봅니다."}},
+{"@type":"Question","name":"BMI 계산 방법은?","acceptedAnswer":{"@type":"Answer","text":"BMI = 체중(kg) ÷ 키(m)²입니다. 예를 들어 키 170cm, 몸무게 65kg이면 BMI = 65 ÷ (1.7 × 1.7) = 22.5입니다."}},
+{"@type":"Question","name":"BMI가 높으면 무조건 비만인가요?","acceptedAnswer":{"@type":"Answer","text":"BMI는 체지방과 근육을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 비만이 아닐 수 있습니다. BMI는 참고 지표로만 활용하는 것이 좋습니다."}},
+{"@type":"Question","name":"표준 체중은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"표준 체중 = 키(m)² × 22입니다. 예를 들어 키 170cm이면 표준 체중 = 1.7 × 1.7 × 22 = 63.6kg입니다."}}
+]}
 </script>
-<style>
-  :root {
-    --bg: #f8f7f4;
-    --card: #ffffff;
-    --border: #e2e0d8;
-    --text: #1a1a18;
-    --muted: #6b6b66;
-    --accent: #1a6b4a;
-    --accent-light: #e8f5ef;
-    --radius: 12px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
-
-    --bmi-thin: #4a9fd4;
-    --bmi-normal: #1a6b4a;
-    --bmi-over: #e8a832;
-    --bmi-obese: #c84b2a;
-  }
-  @media(prefers-color-scheme:dark) {
-    :root {
-      --bg: #1a1a18; --card: #242422; --border: #3a3a36;
-      --text: #f0efe8; --muted: #9a9a92;
-      --accent: #2daa72; --accent-light: #0e2a1e;
-      --bmi-thin: #5ab5e8;
-      --bmi-normal: #2daa72;
-      --bmi-over: #e8b84a;
-      --bmi-obese: #e8704a;
-    }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 16px 80px; }
-
-  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
-  .back-link:hover { opacity: .8; }
-
-  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
-  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
-
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); margin-bottom: 16px; }
-
-  .unit-toggle { display: flex; gap: 8px; margin-bottom: 24px; }
-  .unit-btn { flex: 1; padding: 10px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; }
-  .unit-btn.on { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
-
-  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media(max-width:480px) { .input-grid { grid-template-columns: 1fr; } }
-
-  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
-  .input-wrap { position: relative; }
-  .input-wrap input { width: 100%; padding: 14px 52px 14px 16px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 18px; font-weight: 600; outline: none; transition: border-color .15s; }
-  .input-wrap input:focus { border-color: var(--accent); }
-  .input-wrap .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); pointer-events: none; font-weight: 500; }
-
-  .calc-btn { width: 100%; margin-top: 20px; padding: 16px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .15s; letter-spacing: .02em; }
-  .calc-btn:hover { opacity: .88; }
-
-  /* 결과 */
-  .results { display: none; }
-  .results.show { display: block; }
-
-  .bmi-main { text-align: center; padding: 32px; border-radius: 12px; margin-bottom: 16px; border: 2px solid; }
-  .bmi-main .bmi-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
-  .bmi-main .bmi-value { font-size: 64px; font-weight: 800; line-height: 1; margin-bottom: 8px; }
-  .bmi-main .bmi-grade { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-  .bmi-main .bmi-range { font-size: 13px; opacity: .7; }
-
-  .bmi-thin-box   { background: #eef6fd; border-color: var(--bmi-thin);   color: var(--bmi-thin); }
-  .bmi-normal-box { background: var(--accent-light); border-color: var(--bmi-normal); color: var(--bmi-normal); }
-  .bmi-over-box   { background: #fef8ec; border-color: var(--bmi-over);   color: var(--bmi-over); }
-  .bmi-obese-box  { background: #fdf0ec; border-color: var(--bmi-obese);  color: var(--bmi-obese); }
-  @media(prefers-color-scheme:dark) {
-    .bmi-thin-box   { background: #0d2233; }
-    .bmi-normal-box { background: #0e2a1e; }
-    .bmi-over-box   { background: #2a1f0a; }
-    .bmi-obese-box  { background: #2a1510; }
-  }
-
-  /* BMI 게이지 바 */
-  .gauge-wrap { margin: 8px 0 4px; }
-  .gauge-track { height: 12px; border-radius: 6px; background: linear-gradient(to right, var(--bmi-thin) 0%, var(--bmi-thin) 20%, var(--bmi-normal) 20%, var(--bmi-normal) 52%, var(--bmi-over) 52%, var(--bmi-over) 70%, var(--bmi-obese) 70%, var(--bmi-obese) 100%); position: relative; }
-  .gauge-marker { position: absolute; top: -4px; width: 4px; height: 20px; background: var(--text); border-radius: 2px; transform: translateX(-50%); transition: left .4s; }
-  .gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 6px; }
-
-  .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  @media(max-width:480px) { .detail-grid { grid-template-columns: 1fr 1fr; } }
-  .detail-item { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
-  .detail-item .dlabel { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-  .detail-item .dval { font-size: 18px; font-weight: 700; }
-
-  /* BMI 범위 표 */
-  .range-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
-  .range-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--border); }
-  .range-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-  .range-table tr:last-child td { border-bottom: none; }
-  .range-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
-
-  /* SEO 섹션 */
-  .seo-section { margin-top: 48px; }
-  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
-  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
-  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.8; margin: 16px 0; }
-  .info-box strong { color: var(--accent); }
-
-  .faq { margin-top: 40px; }
-  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
-  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-  .lang-row { display: flex; gap: 8px; margin-bottom: 20px; justify-content: flex-end; }
-  .lang-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: none; color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
-  .lang-btn.on { border-color: var(--accent); color: var(--accent); }
-
-  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
-
-  /* 관련 툴 */
-  .related-section { margin-top: 48px; }
-  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
-  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
-  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
-  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-  .related-icon { font-size: 20px; flex-shrink: 0; }
-
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"건강 계산기","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"BMI 계산기","item":"https://www.toptools365.com/bmi-calculator/"}
+]}
+</script><style>
+  :root{--bg:#f8f7f4;--card:#ffffff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#1a6b4a;--accent-light:#e8f5ef;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.06);--bmi-thin:#4a9fd4;--bmi-normal:#1a6b4a;--bmi-over:#e8a832;--bmi-obese:#c84b2a}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#2daa72;--accent-light:#0e2a1e;--bmi-thin:#5ab5e8;--bmi-normal:#2daa72;--bmi-over:#e8b84a;--bmi-obese:#e8704a}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:680px;margin:0 auto;padding:32px 16px 80px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  .lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+  .lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s}
+  .lang-btn.on{border-color:var(--accent);color:var(--accent)}
+  h1{font-size:26px;font-weight:700;margin-bottom:6px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:#1a5c8a;color:#fff}
+  .btn-copy{background:var(--accent);color:#fff}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);margin-bottom:16px}
+  .unit-toggle{display:flex;gap:8px;margin-bottom:24px}
+  .unit-btn{flex:1;padding:10px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}
+  .unit-btn.on{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+  .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:480px){.input-grid{grid-template-columns:1fr}}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+  .input-wrap{position:relative}
+  .input-wrap input{width:100%;padding:14px 52px 14px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:18px;font-weight:600;outline:none;transition:border-color .15s}
+  .input-wrap input:focus{border-color:var(--accent)}
+  .input-wrap .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none;font-weight:500}
+  .calc-btn{width:100%;margin-top:20px;padding:16px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:opacity .15s;letter-spacing:.02em}
+  .calc-btn:hover{opacity:.88}
+  .results{display:none}
+  .results.show{display:block}
+  .bmi-main{text-align:center;padding:32px;border-radius:12px;margin-bottom:16px;border:2px solid}
+  .bmi-main .bmi-label{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+  .bmi-main .bmi-value{font-size:64px;font-weight:800;line-height:1;margin-bottom:8px}
+  .bmi-main .bmi-grade{font-size:22px;font-weight:700;margin-bottom:4px}
+  .bmi-main .bmi-range{font-size:13px;opacity:.7}
+  .bmi-thin-box{background:#eef6fd;border-color:var(--bmi-thin);color:var(--bmi-thin)}
+  .bmi-normal-box{background:var(--accent-light);border-color:var(--bmi-normal);color:var(--bmi-normal)}
+  .bmi-over-box{background:#fef8ec;border-color:var(--bmi-over);color:var(--bmi-over)}
+  .bmi-obese-box{background:#fdf0ec;border-color:var(--bmi-obese);color:var(--bmi-obese)}
+  @media(prefers-color-scheme:dark){.bmi-thin-box{background:#0d2233}.bmi-normal-box{background:#0e2a1e}.bmi-over-box{background:#2a1f0a}.bmi-obese-box{background:#2a1510}}
+  .gauge-wrap{margin:8px 0 4px}
+  .gauge-track{height:12px;border-radius:6px;background:linear-gradient(to right,var(--bmi-thin) 0%,var(--bmi-thin) 20%,var(--bmi-normal) 20%,var(--bmi-normal) 52%,var(--bmi-over) 52%,var(--bmi-over) 70%,var(--bmi-obese) 70%,var(--bmi-obese) 100%);position:relative}
+  .gauge-marker{position:absolute;top:-4px;width:4px;height:20px;background:var(--text);border-radius:2px;transform:translateX(-50%);transition:left .4s}
+  .gauge-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}
+  .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:480px){.detail-grid{grid-template-columns:1fr 1fr}}
+  .detail-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+  .detail-item .dlabel{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .detail-item .dval{font-size:18px;font-weight:700}
+  .range-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  .range-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border)}
+  .range-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+  .range-table tr:last-child td{border-bottom:none}
+  .range-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:24px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:1.8;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="back-link" href="/">← TopTools365 홈으로</a>
-
   <div class="lang-row">
     <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
     <button class="lang-btn" onclick="setLang('en',this)">English</button>
   </div>
-
   <h1 id="t-title">BMI 계산기</h1>
   <p class="subtitle" id="t-sub">키와 몸무게를 입력하면 BMI(체질량지수)와 비만도를 즉시 확인할 수 있습니다.</p>
 
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy" onclick="copyLink()">🔗 <span id="t-copy">링크 복사</span></button>
+  </div>
+
   <div class="card">
     <div class="unit-toggle">
-      <button class="unit-btn on" onclick="setUnit('metric', this)" id="btn-metric">kg / cm</button>
-      <button class="unit-btn" onclick="setUnit('imperial', this)" id="btn-imperial">lb / ft·in</button>
+      <button class="unit-btn on" onclick="setUnit('metric',this)" id="btn-metric">kg / cm</button>
+      <button class="unit-btn" onclick="setUnit('imperial',this)" id="btn-imperial">lb / ft·in</button>
     </div>
     <div class="input-grid">
       <div class="field">
@@ -189,281 +168,229 @@
     </div>
 
     <div class="card">
-      <!-- 게이지 바 -->
       <div class="gauge-wrap">
         <div class="gauge-track">
           <div class="gauge-marker" id="gauge-marker" style="left:0%"></div>
         </div>
-        <div class="gauge-labels">
-          <span>저체중</span>
-          <span>정상</span>
-          <span>과체중</span>
-          <span>비만</span>
+        <div class="gauge-labels" id="gauge-labels">
+          <span id="t-gl1">저체중</span><span id="t-gl2">정상</span><span id="t-gl3">과체중</span><span id="t-gl4">비만</span>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="detail-grid">
-        <div class="detail-item">
-          <div class="dlabel" id="t-d1">표준 체중</div>
-          <div class="dval" id="r-standard">-</div>
-        </div>
-        <div class="detail-item">
-          <div class="dlabel" id="t-d2">체중 차이</div>
-          <div class="dval" id="r-diff">-</div>
-        </div>
-        <div class="detail-item">
-          <div class="dlabel" id="t-d3">정상 체중 범위</div>
-          <div class="dval" id="r-normal-range">-</div>
-        </div>
+        <div class="detail-item"><div class="dlabel" id="t-d1">표준 체중</div><div class="dval" id="r-standard">-</div></div>
+        <div class="detail-item"><div class="dlabel" id="t-d2">체중 차이</div><div class="dval" id="r-diff">-</div></div>
+        <div class="detail-item"><div class="dlabel" id="t-d3">정상 범위</div><div class="dval" id="r-normal-range">-</div></div>
       </div>
     </div>
 
     <div class="card">
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-range-title">BMI 판정 기준</div>
       <table class="range-table">
-        <thead>
-          <tr>
-            <th id="t-th1">구분</th>
-            <th id="t-th2">BMI 범위</th>
-            <th id="t-th3">기준</th>
-          </tr>
-        </thead>
+        <thead><tr><th id="t-th1">구분</th><th id="t-th2">BMI 범위</th><th id="t-th3">기준</th></tr></thead>
         <tbody>
-          <tr>
-            <td><span class="range-dot" style="background:var(--bmi-thin)"></span><span id="t-thin">저체중</span></td>
-            <td>18.5 미만</td>
-            <td id="t-thin-desc">한국/WHO 공통</td>
-          </tr>
-          <tr>
-            <td><span class="range-dot" style="background:var(--bmi-normal)"></span><span id="t-normal">정상</span></td>
-            <td>18.5 ~ 22.9</td>
-            <td id="t-normal-desc">한국 기준</td>
-          </tr>
-          <tr>
-            <td><span class="range-dot" style="background:var(--bmi-over)"></span><span id="t-over">과체중</span></td>
-            <td>23.0 ~ 24.9</td>
-            <td id="t-over-desc">한국 기준</td>
-          </tr>
-          <tr>
-            <td><span class="range-dot" style="background:var(--bmi-obese)"></span><span id="t-obese">비만</span></td>
-            <td>25.0 이상</td>
-            <td id="t-obese-desc">한국 기준</td>
-          </tr>
+          <tr><td><span class="range-dot" style="background:var(--bmi-thin)"></span><span id="t-thin">저체중</span></td><td>18.5 미만</td><td id="t-thin-desc">한국/WHO 공통</td></tr>
+          <tr><td><span class="range-dot" style="background:var(--bmi-normal)"></span><span id="t-normal">정상</span></td><td>18.5 ~ 22.9</td><td id="t-normal-desc">한국 기준</td></tr>
+          <tr><td><span class="range-dot" style="background:var(--bmi-over)"></span><span id="t-over">과체중</span></td><td>23.0 ~ 24.9</td><td id="t-over-desc">한국 기준</td></tr>
+          <tr><td><span class="range-dot" style="background:var(--bmi-obese)"></span><span id="t-obese">비만</span></td><td>25.0 이상</td><td id="t-obese-desc">한국 기준</td></tr>
         </tbody>
       </table>
     </div>
+
+    <div class="share-row">
+      <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share2">공유하기</span></button>
+      <button class="share-btn btn-copy" onclick="copyLink()">🔗 <span id="t-copy2">링크 복사</span></button>
+    </div>
   </div>
 
-  <!-- SEO 설명 섹션 -->
   <section class="seo-section">
     <h2>BMI 계산기 사용 방법</h2>
     <p>키(cm)와 몸무게(kg)를 입력하고 계산하기 버튼을 누르면 BMI 수치와 비만도 판정을 즉시 확인할 수 있습니다. 파운드·피트 단위도 지원하며, 표준 체중과 정상 체중 범위도 함께 계산됩니다.</p>
-
     <h3>BMI 계산 공식</h3>
     <div class="info-box">
       <strong>BMI = 체중(kg) ÷ 키(m)²</strong><br><br>
       예시: 키 170cm, 몸무게 65kg<br>
       BMI = 65 ÷ (1.70 × 1.70) = 65 ÷ 2.89 = <strong>22.5 (정상)</strong>
     </div>
-
     <h3>한국 기준 vs WHO 기준</h3>
-    <p>WHO(세계보건기구) 기준은 BMI 25 이상을 과체중으로 분류하지만, 한국을 포함한 아시아 기준은 BMI 23 이상을 과체중으로 더 엄격하게 적용합니다. 같은 BMI라도 아시아인은 서양인에 비해 체지방률이 높은 경향이 있어 더 낮은 기준을 적용합니다.</p>
-
+    <p>WHO(세계보건기구) 기준은 BMI 25 이상을 과체중으로 분류하지만, 한국을 포함한 아시아 기준은 BMI 23 이상을 과체중으로 더 엄격하게 적용합니다.</p>
     <h3>표준 체중 계산법</h3>
-    <p>표준 체중은 BMI 22를 기준으로 계산합니다. 표준 체중(kg) = 키(m)² × 22입니다. 예를 들어 키 170cm라면 표준 체중 = 1.70² × 22 = 63.6kg입니다. 정상 체중 범위는 BMI 18.5~22.9에 해당하는 체중 구간입니다.</p>
-
+    <p>표준 체중은 BMI 22를 기준으로 계산합니다. 표준 체중(kg) = 키(m)² × 22입니다. 예를 들어 키 170cm라면 표준 체중 = 1.70² × 22 = 63.6kg입니다.</p>
     <h3>BMI의 한계</h3>
-    <p>BMI는 체지방과 근육량을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 체지방률이 낮을 수 있으며, 반대로 BMI가 정상이어도 체지방률이 높을 수 있습니다. BMI는 참고 지표로만 활용하고, 정확한 체성분 분석은 전문 기관에서 받는 것이 좋습니다.</p>
+    <p>BMI는 체지방과 근육량을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 체지방률이 낮을 수 있습니다. BMI는 참고 지표로만 활용하세요.</p>
   </section>
 
-  <!-- FAQ -->
   <section class="faq">
     <h2>자주 묻는 질문</h2>
-    <div class="faq-item">
-      <div class="faq-q">BMI 정상 범위는 얼마인가요?</div>
-      <div class="faq-a">한국 기준 BMI 18.5~22.9가 정상 범위입니다. WHO 기준은 18.5~24.9를 정상으로 보지만, 아시아인은 더 낮은 기준을 적용합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">BMI 계산 방법은?</div>
-      <div class="faq-a">BMI = 체중(kg) ÷ 키(m)²입니다. 예를 들어 키 170cm, 몸무게 65kg이면 BMI = 65 ÷ (1.7 × 1.7) = 22.5입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">BMI가 높으면 무조건 비만인가요?</div>
-      <div class="faq-a">아닙니다. BMI는 체지방과 근육을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 비만이 아닐 수 있습니다. 참고 지표로만 활용하세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">표준 체중은 어떻게 계산하나요?</div>
-      <div class="faq-a">표준 체중(kg) = 키(m)² × 22입니다. 키 170cm라면 1.7 × 1.7 × 22 = 63.6kg이 표준 체중입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">소아·청소년 BMI 기준도 같은가요?</div>
-      <div class="faq-a">아닙니다. 소아·청소년은 성장 단계에 따라 BMI 기준이 다릅니다. 성인 기준 BMI를 소아·청소년에게 적용하면 정확하지 않으므로 소아과 전문의에게 상담하는 것이 좋습니다.</div>
-    </div>
+    <div class="faq-item"><div class="faq-q">BMI 정상 범위는 얼마인가요?</div><div class="faq-a">한국 기준 BMI 18.5~22.9가 정상 범위입니다. WHO 기준은 18.5~24.9를 정상으로 보지만, 아시아인은 더 낮은 기준을 적용합니다.</div></div>
+    <div class="faq-item"><div class="faq-q">BMI 계산 방법은?</div><div class="faq-a">BMI = 체중(kg) ÷ 키(m)²입니다. 예를 들어 키 170cm, 몸무게 65kg이면 BMI = 65 ÷ (1.7 × 1.7) = 22.5입니다.</div></div>
+    <div class="faq-item"><div class="faq-q">BMI가 높으면 무조건 비만인가요?</div><div class="faq-a">아닙니다. BMI는 체지방과 근육을 구분하지 못합니다. 근육이 많은 운동선수는 BMI가 높아도 비만이 아닐 수 있습니다. 참고 지표로만 활용하세요.</div></div>
+    <div class="faq-item"><div class="faq-q">표준 체중은 어떻게 계산하나요?</div><div class="faq-a">표준 체중(kg) = 키(m)² × 22입니다. 키 170cm라면 1.7 × 1.7 × 22 = 63.6kg이 표준 체중입니다.</div></div>
+    <div class="faq-item"><div class="faq-q">소아·청소년 BMI 기준도 같은가요?</div><div class="faq-a">아닙니다. 소아·청소년은 성장 단계에 따라 BMI 기준이 다릅니다. 소아과 전문의에게 상담하는 것이 좋습니다.</div></div>
   </section>
 
-  <!-- 관련 툴 -->
   <section class="related-section">
     <h2>관련 툴</h2>
     <div class="related-grid">
-    <a class="related-item" href="/unit-converter/">
-      <span class="related-icon">📐</span>
-      <span>단위 변환기</span>
-    </a>
-    <a class="related-item" href="/dday-calculator/">
-      <span class="related-icon">📅</span>
-      <span>D-day 계산기</span>
-    </a>
-    <a class="related-item" href="/character-counter/">
-      <span class="related-icon">📝</span>
-      <span>글자수 세기</span>
-    </a>
+      <a class="related-item" href="/unit-converter/"><span class="related-icon">📐</span><span>단위 변환기</span></a>
+      <a class="related-item" href="/dday-calculator/"><span class="related-icon">📅</span><span>D-day 계산기</span></a>
+      <a class="related-item" href="/character-counter/"><span class="related-icon">📝</span><span>글자수 세기</span></a>
     </div>
   </section>
 
   <footer>
-    <p>본 계산기는 참고용이며 의학적 진단을 대체하지 않습니다.</p>
-    <p style="margin-top:6px">© 2025 TopTools365 · 무료 온라인 계산기</p>
+    <p id="t-footer">본 계산기는 참고용이며 의학적 진단을 대체하지 않습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
   </footer>
 </div>
-
+<div class="toast" id="toast"></div>
 <script>
 let unitMode = 'metric';
 let lang = 'ko';
 
 const T = {
-  ko: {
-    title: 'BMI 계산기', sub: '키와 몸무게를 입력하면 BMI(체질량지수)와 비만도를 즉시 확인할 수 있습니다.',
-    height: '키', weight: '몸무게', calc: 'BMI 계산하기',
-    label: '체질량지수 (BMI)',
-    grades: ['저체중', '정상', '과체중', '비만', '고도비만'],
-    ranges: ['BMI 18.5 미만', 'BMI 18.5 ~ 22.9', 'BMI 23.0 ~ 24.9', 'BMI 25.0 ~ 29.9', 'BMI 30.0 이상'],
-    d1: '표준 체중', d2: '체중 차이', d3: '정상 범위',
-    rangeTitle: 'BMI 판정 기준',
-    th: ['구분', 'BMI 범위', '기준'],
-    thin: '저체중', normal: '정상', over: '과체중', obese: '비만',
-    thinDesc: '한국/WHO 공통', normalDesc: '한국 기준', overDesc: '한국 기준', obeseDesc: '한국 기준',
-    unitH: 'cm', unitW: 'kg', metricBtn: 'kg / cm', imperialBtn: 'lb / ft·in'
+  ko:{
+    title:'BMI 계산기',sub:'키와 몸무게를 입력하면 BMI(체질량지수)와 비만도를 즉시 확인할 수 있습니다.',
+    share:'공유하기',copy:'링크 복사',
+    height:'키',weight:'몸무게',calc:'BMI 계산하기',
+    label:'체질량지수 (BMI)',
+    grades:['저체중','정상','과체중','비만','고도비만'],
+    ranges:['BMI 18.5 미만','BMI 18.5 ~ 22.9','BMI 23.0 ~ 24.9','BMI 25.0 ~ 29.9','BMI 30.0 이상'],
+    d1:'표준 체중',d2:'체중 차이',d3:'정상 범위',
+    rangeTitle:'BMI 판정 기준',
+    th:['구분','BMI 범위','기준'],
+    thin:'저체중',normal:'정상',over:'과체중',obese:'비만',
+    thinDesc:'한국/WHO 공통',normalDesc:'한국 기준',overDesc:'한국 기준',obeseDesc:'한국 기준',
+    gaugeLabels:['저체중','정상','과체중','비만'],
+    footer:'본 계산기는 참고용이며 의학적 진단을 대체하지 않습니다.',
+    copied:'✅ 링크가 복사됐어요!',
   },
-  en: {
-    title: 'BMI Calculator', sub: 'Enter your height and weight to instantly calculate your BMI.',
-    height: 'Height', weight: 'Weight', calc: 'Calculate BMI',
-    label: 'Body Mass Index (BMI)',
-    grades: ['Underweight', 'Normal', 'Overweight', 'Obese', 'Severely Obese'],
-    ranges: ['BMI < 18.5', 'BMI 18.5 ~ 24.9', 'BMI 25.0 ~ 29.9', 'BMI 30.0 ~ 34.9', 'BMI ≥ 35.0'],
-    d1: 'Ideal Weight', d2: 'Difference', d3: 'Normal Range',
-    rangeTitle: 'BMI Classification',
-    th: ['Category', 'BMI Range', 'Standard'],
-    thin: 'Underweight', normal: 'Normal', over: 'Overweight', obese: 'Obese',
-    thinDesc: 'WHO / Korea', normalDesc: 'WHO Standard', overDesc: 'WHO Standard', obeseDesc: 'WHO Standard',
-    unitH: 'cm', unitW: 'kg', metricBtn: 'kg / cm', imperialBtn: 'lb / ft·in'
+  en:{
+    title:'BMI Calculator',sub:'Enter your height and weight to instantly calculate your BMI.',
+    share:'Share',copy:'Copy Link',
+    height:'Height',weight:'Weight',calc:'Calculate BMI',
+    label:'Body Mass Index (BMI)',
+    grades:['Underweight','Normal','Overweight','Obese','Severely Obese'],
+    ranges:['BMI < 18.5','BMI 18.5 ~ 24.9','BMI 25.0 ~ 29.9','BMI 30.0 ~ 34.9','BMI ≥ 35.0'],
+    d1:'Ideal Weight',d2:'Difference',d3:'Normal Range',
+    rangeTitle:'BMI Classification',
+    th:['Category','BMI Range','Standard'],
+    thin:'Underweight',normal:'Normal',over:'Overweight',obese:'Obese',
+    thinDesc:'WHO / Korea',normalDesc:'WHO Standard',overDesc:'WHO Standard',obeseDesc:'WHO Standard',
+    gaugeLabels:['Underweight','Normal','Overweight','Obese'],
+    footer:'This calculator is for reference and does not replace medical advice.',
+    copied:'✅ Link copied!',
   }
 };
 
 function setLang(l, el) {
   lang = l;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
   const t = T[l];
-  document.getElementById('t-title').textContent = t.title;
-  document.getElementById('t-sub').textContent = t.sub;
-  document.getElementById('t-height').textContent = t.height;
-  document.getElementById('t-weight').textContent = t.weight;
-  document.getElementById('t-calc').textContent = t.calc;
-  document.getElementById('t-d1').textContent = t.d1;
-  document.getElementById('t-d2').textContent = t.d2;
-  document.getElementById('t-d3').textContent = t.d3;
-  document.getElementById('t-range-title').textContent = t.rangeTitle;
-  document.getElementById('btn-metric').textContent = t.metricBtn;
-  document.getElementById('btn-imperial').textContent = t.imperialBtn;
-  ['thin','normal','over','obese'].forEach(k => {
-    document.getElementById('t-'+k).textContent = t[k];
-    document.getElementById('t-'+k+'-desc').textContent = t[k+'Desc'];
+  const ids = {
+    't-title':t.title,'t-sub':t.sub,'t-share':t.share,'t-copy':t.copy,
+    't-share2':t.share,'t-copy2':t.copy,
+    't-height':t.height,'t-weight':t.weight,'t-calc':t.calc,
+    't-d1':t.d1,'t-d2':t.d2,'t-d3':t.d3,
+    't-range-title':t.rangeTitle,'t-footer':t.footer,
+  };
+  Object.entries(ids).forEach(([id,val])=>{const e=document.getElementById(id);if(e)e.textContent=val;});
+  ['thin','normal','over','obese'].forEach(k=>{
+    const e1=document.getElementById('t-'+k); if(e1) e1.textContent=t[k];
+    const e2=document.getElementById('t-'+k+'-desc'); if(e2) e2.textContent=t[k+'Desc'];
   });
-  const ths = document.querySelectorAll('.range-table thead th');
-  t.th.forEach((h, i) => { if (ths[i]) ths[i].textContent = h; });
+  t.th.forEach((h,i)=>{const e=document.getElementById('t-th'+(i+1));if(e)e.textContent=h;});
+  t.gaugeLabels.forEach((g,i)=>{const e=document.getElementById('t-gl'+(i+1));if(e)e.textContent=g;});
 }
 
 function setUnit(mode, el) {
   unitMode = mode;
-  document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.unit-btn').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
-  if (mode === 'metric') {
-    document.getElementById('unit-h').textContent = 'cm';
-    document.getElementById('unit-w').textContent = 'kg';
-    document.getElementById('height').placeholder = '170';
-    document.getElementById('weight').placeholder = '65';
-    document.getElementById('height').value = '170';
-    document.getElementById('weight').value = '65';
+  if (mode==='metric') {
+    document.getElementById('unit-h').textContent='cm';
+    document.getElementById('unit-w').textContent='kg';
+    document.getElementById('height').placeholder='170';
+    document.getElementById('weight').placeholder='65';
+    document.getElementById('height').value='170';
+    document.getElementById('weight').value='65';
   } else {
-    document.getElementById('unit-h').textContent = 'in';
-    document.getElementById('unit-w').textContent = 'lb';
-    document.getElementById('height').placeholder = '67';
-    document.getElementById('weight').placeholder = '143';
-    document.getElementById('height').value = '67';
-    document.getElementById('weight').value = '143';
+    document.getElementById('unit-h').textContent='in';
+    document.getElementById('unit-w').textContent='lb';
+    document.getElementById('height').placeholder='67';
+    document.getElementById('weight').placeholder='143';
+    document.getElementById('height').value='67';
+    document.getElementById('weight').value='143';
   }
 }
 
 function calculate() {
   let h = parseFloat(document.getElementById('height').value);
   let w = parseFloat(document.getElementById('weight').value);
-  if (!h || !w) return;
-
-  let hM, wKg;
-  if (unitMode === 'metric') {
-    hM = h / 100;
-    wKg = w;
-  } else {
-    hM = h * 0.0254;
-    wKg = w * 0.453592;
-  }
-
-  const bmi = wKg / (hM * hM);
-  const bmiRounded = Math.round(bmi * 10) / 10;
-
-  // 한국 기준
-  let gradeIdx, gradeClass;
+  if (!h||!w) return;
+  const hM = unitMode==='metric' ? h/100 : h*0.0254;
+  const wKg = unitMode==='metric' ? w : w*0.453592;
+  const bmi = wKg/(hM*hM);
+  const bmiRounded = Math.round(bmi*10)/10;
   const t = T[lang];
-  if (bmi < 18.5) { gradeIdx = 0; gradeClass = 'bmi-thin-box'; }
-  else if (bmi < 23) { gradeIdx = 1; gradeClass = 'bmi-normal-box'; }
-  else if (bmi < 25) { gradeIdx = 2; gradeClass = 'bmi-over-box'; }
-  else if (bmi < 30) { gradeIdx = 3; gradeClass = 'bmi-obese-box'; }
-  else { gradeIdx = 4; gradeClass = 'bmi-obese-box'; }
-
-  // 표준 체중 (BMI 22 기준)
-  const standard = hM * hM * 22;
-  const diff = wKg - standard;
-  const normalMin = hM * hM * 18.5;
-  const normalMax = hM * hM * 22.9;
-
-  const fmt = n => Math.round(n * 10) / 10;
-
-  document.getElementById('r-bmi').textContent = bmiRounded;
-  document.getElementById('r-grade').textContent = t.grades[gradeIdx];
-  document.getElementById('r-range').textContent = t.ranges[gradeIdx];
-
-  const box = document.getElementById('bmi-main-box');
-  box.className = 'bmi-main ' + gradeClass;
-  document.getElementById('r-label').textContent = t.label;
-
-  if (unitMode === 'metric') {
-    document.getElementById('r-standard').textContent = fmt(standard) + 'kg';
-    document.getElementById('r-diff').textContent = (diff >= 0 ? '+' : '') + fmt(diff) + 'kg';
-    document.getElementById('r-normal-range').textContent = fmt(normalMin) + '~' + fmt(normalMax) + 'kg';
+  let gradeIdx, gradeClass;
+  if (bmi<18.5) {gradeIdx=0;gradeClass='bmi-thin-box';}
+  else if (bmi<23) {gradeIdx=1;gradeClass='bmi-normal-box';}
+  else if (bmi<25) {gradeIdx=2;gradeClass='bmi-over-box';}
+  else if (bmi<30) {gradeIdx=3;gradeClass='bmi-obese-box';}
+  else {gradeIdx=4;gradeClass='bmi-obese-box';}
+  const standard=hM*hM*22;
+  const diff=wKg-standard;
+  const normalMin=hM*hM*18.5;
+  const normalMax=hM*hM*22.9;
+  const fmt=n=>Math.round(n*10)/10;
+  document.getElementById('r-bmi').textContent=bmiRounded;
+  document.getElementById('r-grade').textContent=t.grades[gradeIdx];
+  document.getElementById('r-range').textContent=t.ranges[gradeIdx];
+  document.getElementById('bmi-main-box').className='bmi-main '+gradeClass;
+  document.getElementById('r-label').textContent=t.label;
+  if (unitMode==='metric') {
+    document.getElementById('r-standard').textContent=fmt(standard)+'kg';
+    document.getElementById('r-diff').textContent=(diff>=0?'+':'')+fmt(diff)+'kg';
+    document.getElementById('r-normal-range').textContent=fmt(normalMin)+'~'+fmt(normalMax)+'kg';
   } else {
-    document.getElementById('r-standard').textContent = fmt(standard / 0.453592) + 'lb';
-    document.getElementById('r-diff').textContent = (diff >= 0 ? '+' : '') + fmt(diff / 0.453592) + 'lb';
-    document.getElementById('r-normal-range').textContent = fmt(normalMin / 0.453592) + '~' + fmt(normalMax / 0.453592) + 'lb';
+    document.getElementById('r-standard').textContent=fmt(standard/0.453592)+'lb';
+    document.getElementById('r-diff').textContent=(diff>=0?'+':'')+fmt(diff/0.453592)+'lb';
+    document.getElementById('r-normal-range').textContent=fmt(normalMin/0.453592)+'~'+fmt(normalMax/0.453592)+'lb';
   }
-
-  // 게이지 마커 위치 (BMI 15~35 범위)
-  const pct = Math.min(100, Math.max(0, (bmi - 15) / (35 - 15) * 100));
-  document.getElementById('gauge-marker').style.left = pct + '%';
-
+  const pct=Math.min(100,Math.max(0,(bmi-15)/(35-15)*100));
+  document.getElementById('gauge-marker').style.left=pct+'%';
   document.getElementById('results').classList.add('show');
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function nativeShare(){
+  const url='https://www.toptools365.com/bmi-calculator/';
+  const title=lang==='ko'?'BMI 계산기 - TopTools365':'BMI Calculator - TopTools365';
+  const text=lang==='ko'?'키·몸무게 입력 → BMI 즉시 계산. 비만도 판정. 무료':'Enter height & weight to instantly calculate BMI';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function copyLink(){
+  const url='https://www.toptools365.com/bmi-calculator/';
+  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(url).then(()=>showToast(T[lang].copied)).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast(T[lang].copied);}catch(e){}
+  document.body.removeChild(ta);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
 }
 
 calculate();
