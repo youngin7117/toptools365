@@ -236,10 +236,6 @@
       <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-tips">보관 팁</div>
       <div class="tip-list" id="tip-list"></div>
     </div>
-    <div class="share-row">
-      <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share2">공유하기</span></button>
-      <button class="share-btn btn-copy" onclick="copyLink()">🔗 <span id="t-copy2">링크 복사</span></button>
-    </div>
   </div>
 
   <section class="seo-section">
@@ -409,7 +405,6 @@ function setLang(l, el) {
   const t = T[l];
   const ids = {
     't-title':t.title,'t-sub':t.sub,'t-share':t.share,'t-copy':t.copy,
-    't-share2':t.share,'t-copy2':t.copy,
     't-cat-label':t.catLabel,'t-open-label':t.openLabel,'t-today-label':t.todayLabel,
     't-calc':t.calc,'t-dd1':t.dd1,'t-dd2':t.dd2,'t-room':t.room,
     't-fridge':t.fridge,'t-freeze':t.freeze,'t-food-name':t.foodName,
