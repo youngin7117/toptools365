@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>단리 복리 계산기 - 이자·원리합계 즉시 계산 💰 2026 단리계산기 | TopTools365</title>
+<meta name="description" content="원금·이자율·기간 입력 → 단리·복리 이자와 원리합계 즉시 계산. 단리 vs 복리 차이 비교표 제공. 월복리·연복리 선택. 2026년 기준. 완전 무료.">
+<meta name="keywords" content="단리계산기,복리계산기,단리복리계산기,이자계산기,원리합계계산,단리이자계산,복리이자계산,단리vs복리,연복리계산,월복리계산,적금이자계산,투자수익계산">
+<meta name="robots" content="index, follow">
+<meta name="author" content="TopTools365">
+<meta name="publisher" content="TopTools365">
+<link rel="canonical" href="https://www.toptools365.com/simple-interest-calculator/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/simple-interest-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/simple-interest-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/simple-interest-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="단리 복리 계산기 - 이자·원리합계 즉시 계산 💰 2026 단리계산기">
+<meta property="og:description" content="원금·이자율·기간 입력 → 단리·복리 이자와 원리합계 즉시 계산. 단리 vs 복리 비교. 완전 무료.">
+<meta property="og:url" content="https://www.toptools365.com/simple-interest-calculator/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="단리 복리 계산기 - 이자·원리합계 즉시 계산 💰 2026">
+<meta name="twitter:description" content="원금·이자율·기간 입력 → 단리·복리 이자와 원리합계 즉시 계산. 완전 무료.">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"단리 복리 계산기","description":"원금, 이자율, 기간을 입력하면 단리와 복리 이자를 즉시 계산하는 무료 온라인 계산기","applicationCategory":"FinanceApplication","operatingSystem":"Web","browserRequirements":"HTML5","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"단리와 복리의 차이는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 원금 1,000만원, 연 5%, 10년 기준 단리는 1,500만원, 복리는 약 1,629만원이 됩니다. 기간이 길수록 복리의 차이가 커집니다."}},
+{"@type":"Question","name":"단리 이자 계산 공식은?","acceptedAnswer":{"@type":"Answer","text":"단리 이자 = 원금 × 이자율 × 기간. 원리합계 = 원금 + 이자. 예) 원금 1,000만원, 연 5%, 3년 → 이자 = 1,000만 × 5% × 3 = 150만원, 원리합계 = 1,150만원."}},
+{"@type":"Question","name":"복리 이자 계산 공식은?","acceptedAnswer":{"@type":"Answer","text":"복리 원리합계 = 원금 × (1 + 이자율)^기간. 예) 원금 1,000만원, 연 5%, 3년 → 원리합계 = 1,000만 × 1.05^3 = 약 1,157만원."}},
+{"@type":"Question","name":"72의 법칙이란?","acceptedAnswer":{"@type":"Answer","text":"72를 연 이자율로 나누면 원금이 2배가 되는 기간(년)을 알 수 있습니다. 예) 연 6% 복리면 72 ÷ 6 = 12년 후 원금이 2배가 됩니다."}},
+{"@type":"Question","name":"월복리와 연복리의 차이는?","acceptedAnswer":{"@type":"Answer","text":"월복리는 매달 이자가 복리로 붙고, 연복리는 1년에 한 번 붙습니다. 같은 연 이자율이라도 월복리가 연복리보다 실질 수익이 더 높습니다. 월복리 유효이자율 = (1 + 연이율/12)^12 - 1."}},
+{"@type":"Question","name":"1000만원 연 5% 10년 복리는 얼마인가요?","acceptedAnswer":{"@type":"Answer","text":"1,000만원 연 5% 10년 연복리 원리합계 = 1,000만 × 1.05^10 = 약 1,629만원. 이자만 629만원. 단리(500만원 이자)보다 129만원 더 많습니다."}},
+{"@type":"Question","name":"적금과 예금 이자는 단리인가요 복리인가요?","acceptedAnswer":{"@type":"Answer","text":"일반 정기예금은 만기 시 단리로 이자를 지급합니다. 일부 복리 적금 상품은 이자를 재투자해 복리 효과를 냅니다. 상품 가입 전 단리/복리 여부를 반드시 확인하세요."}},
+{"@type":"Question","name":"단리 복리 계산기 사용 방법은?","acceptedAnswer":{"@type":"Answer","text":"원금, 연 이자율(%), 기간(년)을 입력하고 계산하기 버튼을 누르면 됩니다. 복리 주기(연/월/분기)를 선택할 수 있으며, 단리와 복리 결과를 동시에 비교할 수 있습니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"단리 복리 계산기 사용 방법","description":"단리와 복리 이자를 계산하는 방법","step":[
+{"@type":"HowToStep","position":1,"name":"원금 입력","text":"투자하거나 저축할 원금을 만원 단위로 입력합니다."},
+{"@type":"HowToStep","position":2,"name":"이자율·기간 입력","text":"연 이자율(%)과 투자 기간(년)을 입력합니다."},
+{"@type":"HowToStep","position":3,"name":"복리 주기 선택","text":"연복리, 반기복리, 분기복리, 월복리 중 선택합니다."},
+{"@type":"HowToStep","position":4,"name":"결과 확인","text":"계산하기 버튼을 누르면 단리·복리 원리합계와 이자, 차이를 즉시 비교합니다."}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"금융 계산기","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"단리 복리 계산기","item":"https://www.toptools365.com/simple-interest-calculator/"}
+]}
+</script>
+<style>
+  :root{--bg:#f8f7f4;--card:#fff;--border:#e2e0d8;--text:#1a1a18;--muted:#6b6b66;--accent:#1a5c8a;--accent-light:#e8f2f9;--green:#1a6b4a;--green-light:#e8f5ef;--orange:#b45309;--orange-light:#fef3e2;--red:#c84b2a;--red-light:#fdf0ec;--purple:#6d28d9;--purple-light:#ede9fe;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.06)}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#4a9fd4;--accent-light:#0d2233;--green:#2daa72;--green-light:#0e2a1e;--orange:#e8a832;--orange-light:#2a1f0a;--red:#e8704a;--red-light:#2a1510;--purple:#a78bfa;--purple-light:#1e1030}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:720px;margin:0 auto;padding:32px 16px 80px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;background:var(--accent-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  .lang-row{display:flex;gap:8px;margin-bottom:20px;justify-content:flex-end}
+  .lang-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s}
+  .lang-btn.on{border-color:var(--accent);color:var(--accent)}
+  h1{font-size:26px;font-weight:700;margin-bottom:6px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:var(--accent);color:#fff}
+  .btn-copy{background:var(--green);color:#fff}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+  .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  @media(max-width:480px){.input-grid{grid-template-columns:1fr}}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+  .field .tip{font-size:11px;color:var(--muted);margin-top:5px}
+  .input-wrap{position:relative}
+  .input-wrap input{width:100%;padding:13px 52px 13px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:20px;font-weight:700;outline:none;transition:border-color .15s}
+  .input-wrap input:focus{border-color:var(--accent)}
+  .input-wrap .unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);font-weight:500;pointer-events:none}
+  /* 복리 주기 선택 */
+  .period-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  @media(max-width:480px){.period-row{grid-template-columns:repeat(2,1fr)}}
+  .period-btn{padding:9px 6px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center}
+  .period-btn.on{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+  .section-label{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .calc-btn{width:100%;padding:15px;border:none;border-radius:8px;background:var(--green);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:opacity .15s}
+  .calc-btn:hover{opacity:.88}
+  /* 결과 */
+  .results{display:none}
+  .results.show{display:block}
+  /* 비교 히어로 */
+  .compare-hero{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  @media(max-width:480px){.compare-hero{grid-template-columns:1fr}}
+  .hero-box{padding:22px 16px;border-radius:14px;text-align:center;border:2px solid}
+  .hero-box.simple{background:var(--accent-light);border-color:var(--accent)}
+  .hero-box.compound{background:var(--green-light);border-color:var(--green)}
+  .hero-box .htype{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .hero-box.simple .htype{color:var(--accent)}
+  .hero-box.compound .htype{color:var(--green)}
+  .hero-box .hamount{font-size:28px;font-weight:900;line-height:1.1;margin-bottom:4px}
+  .hero-box.simple .hamount{color:var(--accent)}
+  .hero-box.compound .hamount{color:var(--green)}
+  .hero-box .hint{font-size:13px;font-weight:600;margin-bottom:2px}
+  .hero-box.simple .hint{color:var(--accent)}
+  .hero-box.compound .hint{color:var(--green)}
+  .hero-box .hsub{font-size:11px;color:var(--muted)}
+  /* 차이 배너 */
+  .diff-banner{background:var(--orange-light);border:1px solid var(--orange);border-radius:10px;padding:14px 16px;text-align:center;margin-bottom:16px;font-size:14px;font-weight:600;color:var(--orange)}
+  /* 상세 */
+  .detail-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+  .detail-row:last-child{border-bottom:none}
+  .detail-label{color:var(--muted)}
+  .detail-val{font-weight:700}
+  /* 연도별 성장 테이블 */
+  .growth-table{width:100%;border-collapse:collapse;font-size:13px}
+  .growth-table th{background:var(--accent-light);color:var(--accent);padding:9px 12px;text-align:center;font-size:12px;font-weight:600}
+  .growth-table td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:center}
+  .growth-table tr.highlight td{background:var(--green-light);font-weight:700;color:var(--green)}
+  .growth-table tr:last-child td{border-bottom:none}
+  .growth-table td.compound-col{color:var(--green);font-weight:600}
+  .growth-table td.simple-col{color:var(--accent)}
+  /* 72 법칙 박스 */
+  .rule72-box{background:var(--purple-light);border:1px solid var(--purple);border-radius:10px;padding:14px 16px;font-size:13px;margin-bottom:16px}
+  .rule72-box .r72-title{font-weight:700;color:var(--purple);margin-bottom:6px;font-size:14px}
+  .rule72-box .r72-val{font-size:24px;font-weight:900;color:var(--purple);margin-bottom:4px}
+  .rule72-box .r72-sub{font-size:12px;color:var(--muted)}
+  /* SEO / 참고표 */
+  .ref-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+  .ref-table th{background:var(--accent-light);color:var(--accent);padding:9px 12px;text-align:left;font-size:12px;font-weight:600}
+  .ref-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+  .ref-table tr:last-child td{border-bottom:none}
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:24px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:1.9;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="/">← TopTools365 홈으로</a>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('ko',this)">한국어</button>
+    <button class="lang-btn" onclick="setLang('en',this)">English</button>
+  </div>
+  <h1 id="t-title">단리 복리 계산기</h1>
+  <p class="subtitle" id="t-sub">원금·이자율·기간을 입력하면 단리와 복리 이자·원리합계를 즉시 계산하고 비교합니다.</p>
+
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 <span id="t-share">공유하기</span></button>
+    <button class="share-btn btn-copy" onclick="copyLink()">🔗 <span id="t-copy">링크 복사</span></button>
+  </div>
+
+  <div class="card">
+    <div class="section-label" id="t-input-label">① 투자 정보 입력</div>
+    <div class="input-grid">
+      <div class="field">
+        <label id="t-principal">원금</label>
+        <div class="input-wrap">
+          <input type="number" id="principal" placeholder="1000" value="1000" min="1">
+          <span class="unit" id="t-unit-man">만원</span>
+        </div>
+      </div>
+      <div class="field">
+        <label id="t-rate">연 이자율</label>
+        <div class="input-wrap">
+          <input type="number" id="rate" placeholder="5" value="5" min="0.01" max="100" step="0.1">
+          <span class="unit">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label id="t-years">기간</label>
+        <div class="input-wrap">
+          <input type="number" id="years" placeholder="10" value="10" min="1" max="100">
+          <span class="unit" id="t-unit-year">년</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" id="t-period-label">② 복리 주기 선택</div>
+    <div class="period-row">
+      <button class="period-btn on" onclick="setPeriod(1,this)" id="t-p1">연복리</button>
+      <button class="period-btn" onclick="setPeriod(2,this)" id="t-p2">반기복리</button>
+      <button class="period-btn" onclick="setPeriod(4,this)" id="t-p3">분기복리</button>
+      <button class="period-btn" onclick="setPeriod(12,this)" id="t-p4">월복리</button>
+    </div>
+
+    <button class="calc-btn" id="t-calc" onclick="calculate()">단리 · 복리 계산하기</button>
+  </div>
+
+  <div class="results" id="results">
+    <!-- 비교 히어로 -->
+    <div class="compare-hero">
+      <div class="hero-box simple">
+        <div class="htype" id="t-simple-type">단리</div>
+        <div class="hamount" id="r-simple-total">-</div>
+        <div class="hint" id="r-simple-interest">-</div>
+        <div class="hsub" id="t-simple-sub">원리합계 (이자)</div>
+      </div>
+      <div class="hero-box compound">
+        <div class="htype" id="t-compound-type">복리</div>
+        <div class="hamount" id="r-compound-total">-</div>
+        <div class="hint" id="r-compound-interest">-</div>
+        <div class="hsub" id="t-compound-sub">원리합계 (이자)</div>
+      </div>
+    </div>
+
+    <!-- 차이 배너 -->
+    <div class="diff-banner" id="diff-banner">-</div>
+
+    <!-- 72의 법칙 -->
+    <div class="rule72-box">
+      <div class="r72-title" id="t-rule72-title">72의 법칙 — 원금이 2배가 되는 기간</div>
+      <div class="r72-val" id="r-rule72">-</div>
+      <div class="r72-sub" id="r-rule72-sub">-</div>
+    </div>
+
+    <!-- 상세 -->
+    <div class="card">
+      <div class="detail-row"><span class="detail-label" id="t-d1">원금</span><span class="detail-val" id="r-principal">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d2">연 이자율</span><span class="detail-val" id="r-rate">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d3">기간</span><span class="detail-val" id="r-years">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d4">복리 주기</span><span class="detail-val" id="r-period">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d5">단리 이자</span><span class="detail-val" style="color:var(--accent)" id="r-d-simple-int">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d6">복리 이자</span><span class="detail-val" style="color:var(--green)" id="r-d-compound-int">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d7">복리 추가 수익</span><span class="detail-val" style="color:var(--orange)" id="r-d-diff">-</span></div>
+      <div class="detail-row"><span class="detail-label" id="t-d8">유효 연이율 (복리)</span><span class="detail-val" id="r-effective-rate">-</span></div>
+    </div>
+
+    <!-- 연도별 성장 테이블 -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px" id="t-growth-title">연도별 원리합계 비교</div>
+      <div style="overflow-x:auto">
+        <table class="growth-table" id="growth-table">
+          <thead><tr>
+            <th id="th1">기간</th>
+            <th id="th2">단리 원리합계</th>
+            <th id="th3">복리 원리합계</th>
+            <th id="th4">복리 추가수익</th>
+          </tr></thead>
+          <tbody id="growth-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <section class="seo-section">
+    <h2 id="t-seo-h1">단리 복리 계산기 사용 방법</h2>
+    <p id="t-seo-p1">원금, 연 이자율, 투자 기간을 입력하면 단리와 복리 원리합계를 즉시 계산하고 비교합니다. 복리 주기(연/반기/분기/월)를 선택할 수 있으며, 연도별 성장 테이블과 72의 법칙도 함께 제공합니다.</p>
+
+    <h3 id="t-seo-h2">단리 vs 복리 계산 공식</h3>
+    <div class="info-box">
+      <strong>단리 원리합계</strong> = 원금 × (1 + 이자율 × 기간)<br>
+      <strong>복리 원리합계</strong> = 원금 × (1 + 이자율 ÷ n)^(n × 기간)  [n = 복리 주기/년]<br>
+      <strong>72의 법칙</strong>: 72 ÷ 연이율 = 원금이 2배가 되는 기간(년)
+    </div>
+
+    <h3 id="t-seo-h3">원금 1,000만원 이자율별 복리 원리합계 참고표 (연복리)</h3>
+    <div style="overflow-x:auto">
+      <table class="ref-table">
+        <thead><tr><th>연 이자율</th><th>5년 후</th><th>10년 후</th><th>20년 후</th><th>30년 후</th></tr></thead>
+        <tbody>
+          <tr><td>3%</td><td>1,159만원</td><td>1,344만원</td><td>1,806만원</td><td>2,427만원</td></tr>
+          <tr><td>5%</td><td>1,276만원</td><td>1,629만원</td><td>2,653만원</td><td>4,322만원</td></tr>
+          <tr><td>7%</td><td>1,403만원</td><td>1,967만원</td><td>3,870만원</td><td>7,612만원</td></tr>
+          <tr><td>10%</td><td>1,611만원</td><td>2,594만원</td><td>6,727만원</td><td>17,449만원</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="t-seo-h4">단리와 복리의 차이</h3>
+    <p id="t-seo-p4">단리는 원금에만 이자가 붙는 방식으로 계산이 간단합니다. 복리는 이자에도 이자가 붙어 시간이 지날수록 차이가 커집니다. 아인슈타인이 "세계 8번째 불가사의"라고 불렀을 만큼, 장기 투자에서 복리 효과는 매우 강력합니다.</p>
+  </section>
+
+  <section class="related-section">
+    <h2 id="t-related">관련 툴</h2>
+    <div class="related-grid">
+      <a class="related-item" href="/investment-calculator/"><span class="related-icon">📈</span><span id="t-r1">투자 수익률 계산기</span></a>
+      <a class="related-item" href="/savings-calculator/"><span class="related-icon">🏦</span><span id="t-r2">적금 계산기</span></a>
+      <a class="related-item" href="/loan-calculator/"><span class="related-icon">💳</span><span id="t-r3">대출 이자 계산기</span></a>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2 id="t-faq">자주 묻는 질문</h2>
+    <div class="faq-item"><div class="faq-q" id="fq1">단리와 복리의 차이는 무엇인가요?</div><div class="faq-a" id="fa1">단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 기간이 길수록 복리의 차이가 커집니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq2">단리 이자 계산 공식은?</div><div class="faq-a" id="fa2">단리 이자 = 원금 × 이자율 × 기간. 원금 1,000만원, 연 5%, 3년 → 이자 150만원, 원리합계 1,150만원.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq3">복리 이자 계산 공식은?</div><div class="faq-a" id="fa3">복리 원리합계 = 원금 × (1 + 이자율)^기간. 원금 1,000만원, 연 5%, 3년 → 원리합계 약 1,157만원.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq4">72의 법칙이란?</div><div class="faq-a" id="fa4">72를 연 이자율로 나누면 원금이 2배가 되는 기간(년)을 알 수 있습니다. 연 6% → 72÷6 = 12년 후 2배.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq5">월복리와 연복리의 차이는?</div><div class="faq-a" id="fa5">월복리는 매달 이자가 복리로 붙어 연복리보다 실질 수익이 더 높습니다. 연 5% 월복리 유효이자율은 약 5.12%입니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq6">1000만원 연 5% 10년 복리는 얼마인가요?</div><div class="faq-a" id="fa6">1,000만원 연 5% 연복리 10년 → 원리합계 약 1,629만원. 단리(1,500만원)보다 129만원 더 많습니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq7">적금과 예금 이자는 단리인가요 복리인가요?</div><div class="faq-a" id="fa7">일반 정기예금은 만기 시 단리로 이자를 지급합니다. 복리 적금 상품은 이자를 재투자해 복리 효과를 냅니다. 가입 전 반드시 확인하세요.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq8">단리 복리 계산기 사용 방법은?</div><div class="faq-a" id="fa8">원금, 연 이자율(%), 기간(년)을 입력하고 복리 주기(연/반기/분기/월)를 선택한 후 계산하기 버튼을 누르면 됩니다.</div></div>
+  </section>
+
+  <footer>
+    <p id="t-footer">본 계산기는 참고용이며 실제 금융 상품 수익률과 다를 수 있습니다.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 계산기</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let lang = 'ko';
+let compoundN = 1; // 복리 주기 (년당 횟수)
+
+const T = {
+  ko:{title:'단리 복리 계산기',sub:'원금·이자율·기간을 입력하면 단리와 복리 이자·원리합계를 즉시 계산하고 비교합니다.',share:'공유하기',copy:'링크 복사',inputLabel:'① 투자 정보 입력',principal:'원금',rate:'연 이자율',years:'기간',unitMan:'만원',unitYear:'년',periodLabel:'② 복리 주기 선택',p1:'연복리',p2:'반기복리',p3:'분기복리',p4:'월복리',calc:'단리 · 복리 계산하기',simpleType:'단리',compoundType:'복리',simpleSub:'원리합계 (이자)',compoundSub:'원리합계 (이자)',rule72Title:'72의 법칙 — 원금이 2배가 되는 기간',d1:'원금',d2:'연 이자율',d3:'기간',d4:'복리 주기',d5:'단리 이자',d6:'복리 이자',d7:'복리 추가 수익',d8:'유효 연이율 (복리)',growthTitle:'연도별 원리합계 비교',th:['기간','단리 원리합계','복리 원리합계','복리 추가수익'],related:'관련 툴',faq:'자주 묻는 질문',r1:'투자 수익률 계산기',r2:'적금 계산기',r3:'대출 이자 계산기',footer:'본 계산기는 참고용이며 실제 금융 상품 수익률과 다를 수 있습니다.',copied:'링크가 복사됐어요!',periodNames:['연복리','반기복리','분기복리','월복리'],yearUnit:'년',doublesIn:'년 후 2배',rule72sub:(r,y)=>`연 이자율 ${r}% 복리 → 약 ${y}년 후 원금 2배`,diffMsg:(n)=>`복리가 단리보다 ${n}만원 더 많아요 💰`,wan:'만원'},
+  en:{title:'Simple & Compound Interest Calculator',sub:'Enter principal, rate, and term to instantly calculate and compare simple vs compound interest.',share:'Share',copy:'Copy Link',inputLabel:'① Enter Investment Info',principal:'Principal',rate:'Annual Rate',years:'Term',unitMan:'10k KRW',unitYear:'yr',periodLabel:'② Compounding Frequency',p1:'Annually',p2:'Semi-annually',p3:'Quarterly',p4:'Monthly',calc:'Calculate Interest',simpleType:'Simple Interest',compoundType:'Compound Interest',simpleSub:'Total (Interest)',compoundSub:'Total (Interest)',rule72Title:'Rule of 72 — Years to Double',d1:'Principal',d2:'Annual Rate',d3:'Term',d4:'Compounding',d5:'Simple Interest',d6:'Compound Interest',d7:'Extra Compound Gain',d8:'Effective Annual Rate',growthTitle:'Year-by-Year Comparison',th:['Year','Simple Total','Compound Total','Extra Gain'],related:'Related Tools',faq:'FAQ',r1:'Investment Return Calculator',r2:'Savings Calculator',r3:'Loan Calculator',footer:'This calculator is for reference. Actual returns may vary.',copied:'Link copied!',periodNames:['Annual','Semi-annual','Quarterly','Monthly'],yearUnit:'yr',doublesIn:'yrs to double',rule72sub:(r,y)=>`At ${r}% annually → doubles in ~${y} years`,diffMsg:(n)=>`Compound earns ${n} more than simple 💰`,wan:' (x10k KRW)'},
+};
+
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + (lang==='ko'?'만원':''); }
+function fmtNum(n) { return Math.round(n).toLocaleString('ko-KR'); }
+
+function setLang(l, el) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  const t = T[l];
+  const ids={'t-title':t.title,'t-sub':t.sub,'t-share':t.share,'t-copy':t.copy,'t-input-label':t.inputLabel,'t-principal':t.principal,'t-rate':t.rate,'t-years':t.years,'t-unit-man':t.unitMan,'t-unit-year':t.unitYear,'t-period-label':t.periodLabel,'t-p1':t.p1,'t-p2':t.p2,'t-p3':t.p3,'t-p4':t.p4,'t-calc':t.calc,'t-simple-type':t.simpleType,'t-compound-type':t.compoundType,'t-simple-sub':t.simpleSub,'t-compound-sub':t.compoundSub,'t-rule72-title':t.rule72Title,'t-d1':t.d1,'t-d2':t.d2,'t-d3':t.d3,'t-d4':t.d4,'t-d5':t.d5,'t-d6':t.d6,'t-d7':t.d7,'t-d8':t.d8,'t-growth-title':t.growthTitle,'t-related':t.related,'t-faq':t.faq,'t-r1':t.r1,'t-r2':t.r2,'t-r3':t.r3,'t-footer':t.footer};
+  Object.entries(ids).forEach(([id,val])=>{const e=document.getElementById(id);if(e)e.textContent=val;});
+  t.th.forEach((h,i)=>{const e=document.getElementById('th'+(i+1));if(e)e.textContent=h;});
+}
+
+function setPeriod(n, el) {
+  compoundN = n;
+  document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function calculate() {
+  const principal = parseFloat(document.getElementById('principal').value) || 0;
+  const rate = parseFloat(document.getElementById('rate').value) || 0;
+  const years = parseFloat(document.getElementById('years').value) || 0;
+  const t = T[lang];
+
+  if(!principal || !rate || !years) {
+    alert(lang==='ko'?'원금, 이자율, 기간을 모두 입력해주세요.':'Please enter principal, rate, and term.'); return;
+  }
+
+  const r = rate / 100;
+  const n = compoundN;
+
+  // 단리
+  const simpleInterest = principal * r * years;
+  const simpleTotal = principal + simpleInterest;
+
+  // 복리
+  const compoundTotal = principal * Math.pow(1 + r/n, n * years);
+  const compoundInterest = compoundTotal - principal;
+
+  // 차이
+  const diff = compoundTotal - simpleTotal;
+
+  // 유효 연이율
+  const effectiveRate = (Math.pow(1 + r/n, n) - 1) * 100;
+
+  // 72의 법칙
+  const rule72Years = (72 / rate).toFixed(1);
+
+  // 히어로
+  document.getElementById('r-simple-total').textContent = fmt(simpleTotal);
+  document.getElementById('r-simple-interest').textContent = (lang==='ko'?'이자 ':'Interest: ') + fmt(simpleInterest);
+  document.getElementById('r-compound-total').textContent = fmt(compoundTotal);
+  document.getElementById('r-compound-interest').textContent = (lang==='ko'?'이자 ':'Interest: ') + fmt(compoundInterest);
+
+  // 차이 배너
+  document.getElementById('diff-banner').textContent = t.diffMsg(fmtNum(diff));
+
+  // 72의 법칙
+  document.getElementById('r-rule72').textContent = rule72Years + (lang==='ko'?' 년':' yrs');
+  document.getElementById('r-rule72-sub').textContent = t.rule72sub(rate, rule72Years);
+
+  // 상세
+  document.getElementById('r-principal').textContent = fmt(principal);
+  document.getElementById('r-rate').textContent = rate + '%';
+  document.getElementById('r-years').textContent = years + (lang==='ko'?' 년':' yrs');
+  const pIdx = [1,2,4,12].indexOf(n);
+  document.getElementById('r-period').textContent = pIdx>=0 ? t.periodNames[pIdx] : n+(lang==='ko'?'회/년':'/yr');
+  document.getElementById('r-d-simple-int').textContent = fmt(simpleInterest);
+  document.getElementById('r-d-compound-int').textContent = fmt(compoundInterest);
+  document.getElementById('r-d-diff').textContent = '+' + fmt(diff);
+  document.getElementById('r-effective-rate').textContent = effectiveRate.toFixed(4) + '%';
+
+  // 연도별 테이블
+  const tbody = document.getElementById('growth-tbody');
+  tbody.innerHTML = '';
+  const maxYears = Math.min(years, 30);
+  const step = maxYears <= 10 ? 1 : maxYears <= 20 ? 2 : 5;
+  for(let y = step; y <= years; y += step) {
+    const sT = principal + principal * r * y;
+    const cT = principal * Math.pow(1 + r/n, n * y);
+    const d = cT - sT;
+    const tr = document.createElement('tr');
+    if(y === years) tr.className = 'highlight';
+    tr.innerHTML = `<td>${y}${t.yearUnit}</td><td class="simple-col">${fmt(sT)}</td><td class="compound-col">${fmt(cT)}</td><td style="color:var(--orange);font-weight:600">+${fmt(d)}</td>`;
+    tbody.appendChild(tr);
+  }
+  if(years % step !== 0) {
+    const sT = principal + principal * r * years;
+    const cT = principal * Math.pow(1 + r/n, n * years);
+    const d = cT - sT;
+    const tr = document.createElement('tr');
+    tr.className = 'highlight';
+    tr.innerHTML = `<td>${years}${t.yearUnit}</td><td class="simple-col">${fmt(sT)}</td><td class="compound-col">${fmt(cT)}</td><td style="color:var(--orange);font-weight:600">+${fmt(d)}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function nativeShare(){
+  const url='https://www.toptools365.com/simple-interest-calculator/';
+  const title=lang==='ko'?'단리 복리 계산기':'Simple & Compound Interest Calculator';
+  const text=lang==='ko'?'원금·이자율·기간 입력 → 단리·복리 즉시 계산 비교':'Compare simple and compound interest instantly';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function copyLink(){
+  const url='https://www.toptools365.com/simple-interest-calculator/';
+  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(url).then(()=>showToast(T[lang].copied)).catch(()=>fallbackCopy(url));}
+  else{fallbackCopy(url);}
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast(T[lang].copied);}catch(e){}
+  document.body.removeChild(ta);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+</script>
+</body>
+</html>
