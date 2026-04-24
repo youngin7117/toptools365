@@ -425,11 +425,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url><loc>https://www.toptools365.com/privacy/</loc>
+  <url>
+    <loc>https://www.toptools365.com/privacy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url><loc>https://www.toptools365.com/terms/</loc>
+  <url>
+    <loc>https://www.toptools365.com/terms/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -437,6 +439,11 @@
     <loc>https://www.toptools365.com/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.toptools365.com/simple-interest-calculator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
