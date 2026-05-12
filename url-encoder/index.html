@@ -3,111 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URL 인코더/디코더 - URL Base64 HTML 인코딩 변환 | TopTools365</title>
-<meta name="description" content="URL 인코딩·디코딩, Base64 인코딩·디코딩, HTML 엔티티 변환을 즉시 처리합니다. 쿼리스트링 파싱 포함. 개발자·마케터 필수 도구. 완전 무료.">
-<meta name="keywords" content="URL인코더,URL디코더,URL인코딩,Base64인코딩,Base64디코딩,HTML엔티티,쿼리스트링파싱,퍼센트인코딩">
+<title>URL 인코더/디코더 - URL Base64 HTML 인코딩 변환 🔗 2026 | TopTools365</title>
+<meta name="description" content="URL 인코딩·디코딩, Base64 인코딩·디코딩, HTML 엔티티 변환 즉시 처리. 쿼리스트링 파싱 포함. 개발자·마케터 필수 도구. 완전 무료.">
+<meta name="keywords" content="URL인코더,URL디코더,URL인코딩,Base64인코딩,Base64디코딩,HTML엔티티,쿼리스트링파싱,퍼센트인코딩,한글URL인코딩">
 <meta name="robots" content="index, follow">
+<meta name="author" content="TopTools365">
+<meta name="publisher" content="TopTools365">
 <link rel="canonical" href="https://www.toptools365.com/url-encoder/">
+<link rel="alternate" hreflang="ko" href="https://www.toptools365.com/url-encoder/">
+<link rel="alternate" hreflang="en" href="https://www.toptools365.com/url-encoder/">
+<link rel="alternate" hreflang="x-default" href="https://www.toptools365.com/url-encoder/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="URL 인코더/디코더 - URL Base64 HTML 인코딩 변환 | TopTools365">
-<meta property="og:description" content="URL·Base64·HTML 인코딩·디코딩 즉시 변환. 쿼리스트링 파싱. 개발자 필수. 무료.">
+<meta property="og:title" content="URL 인코더/디코더 - URL Base64 HTML 인코딩 변환 🔗 2026">
+<meta property="og:description" content="URL·Base64·HTML 인코딩·디코딩 즉시 변환. 쿼리스트링 파싱. 완전 무료.">
+<meta property="og:url" content="https://www.toptools365.com/url-encoder/">
+<meta property="og:site_name" content="TopTools365">
+<meta property="og:image" content="https://www.toptools365.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="URL 인코더/디코더 - URL Base64 HTML 인코딩 변환 🔗 2026">
+<meta name="twitter:description" content="URL·Base64·HTML 인코딩·디코딩 즉시 변환. 완전 무료.">
+<meta name="twitter:image" content="https://www.toptools365.com/og-image.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"URL 인코더/디코더","description":"URL 인코딩·디코딩과 Base64, HTML 엔티티 변환을 제공하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"URL 인코더/디코더","description":"URL 인코딩·디코딩과 Base64, HTML 엔티티 변환을 제공하는 무료 온라인 도구","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","browserRequirements":"HTML5","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":["ko","en"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"URL 인코딩이란?","acceptedAnswer":{"@type":"Answer","text":"URL에 사용할 수 없는 문자(한글·공백·특수문자)를 %XX 형식으로 변환하는 것입니다. 웹 요청 시 자동으로 처리되기도 하지만 직접 변환이 필요한 경우도 있습니다."}},
+{"@type":"Question","name":"Base64 인코딩은 어디에 쓰나요?","acceptedAnswer":{"@type":"Answer","text":"API 인증 토큰, 이미지 데이터 URL(data:image/...), 이메일 첨부파일, JWT 토큰 등에서 사용됩니다."}},
+{"@type":"Question","name":"HTML 엔티티가 필요한 이유는?","acceptedAnswer":{"@type":"Answer","text":"<, >, &, " 등 HTML에서 특별한 의미를 가진 문자를 그대로 표시하려면 엔티티로 변환해야 합니다. XSS 공격 방지에도 사용됩니다."}},
+{"@type":"Question","name":"encodeURI와 encodeURIComponent의 차이는?","acceptedAnswer":{"@type":"Answer","text":"encodeURI는 URL 전체를 인코딩해 /, ?, # 등은 보존합니다. encodeURIComponent는 파라미터 값 인코딩으로 더 많은 문자를 변환합니다. 이 도구는 encodeURIComponent 방식을 사용합니다."}},
+{"@type":"Question","name":"쿼리스트링 파싱이란?","acceptedAnswer":{"@type":"Answer","text":"URL의 ?key=value&key2=value2 부분을 키-값 쌍으로 분리해 보기 쉽게 정리하는 것입니다. API 디버깅이나 URL 분석에 유용합니다."}},
+{"@type":"Question","name":"한글 URL 인코딩 예시는?","acceptedAnswer":{"@type":"Answer","text":"'안녕'은 %EC%95%88%EB%85%95으로 인코딩됩니다. 공백은 %20, &는 %26, =는 %3D로 변환됩니다."}},
+{"@type":"Question","name":"Base64로 인코딩된 문자열은 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"Base64는 암호화가 아닌 인코딩입니다. 누구나 디코딩할 수 있으므로 보안 목적으로는 사용하면 안 됩니다. 단순히 바이너리 데이터를 텍스트로 전송하는 용도입니다."}},
+{"@type":"Question","name":"URL에서 쿼리스트링만 추출하려면?","acceptedAnswer":{"@type":"Answer","text":"이 도구의 쿼리스트링 파싱 탭에 URL을 붙여넣으면 ? 뒤의 파라미터를 키-값 쌍으로 자동 분리합니다. JSON으로 복사도 가능합니다."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"URL 인코더/디코더 사용 방법","description":"URL 인코딩 및 Base64 변환 방법","step":[
+{"@type":"HowToStep","position":1,"name":"탭 선택","text":"URL 인코딩, Base64, HTML 엔티티, 쿼리스트링 파싱 중 원하는 탭을 선택합니다."},
+{"@type":"HowToStep","position":2,"name":"텍스트 입력","text":"왼쪽 입력창에 변환할 텍스트 또는 URL을 입력합니다."},
+{"@type":"HowToStep","position":3,"name":"변환 실행","text":"인코딩 또는 디코딩 버튼을 클릭하면 즉시 변환됩니다."},
+{"@type":"HowToStep","position":4,"name":"결과 복사","text":"결과 복사 버튼으로 변환 결과를 클립보드에 복사합니다."}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"TopTools365","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":2,"name":"개발자 도구","item":"https://www.toptools365.com/"},
+{"@type":"ListItem","position":3,"name":"URL 인코더/디코더","item":"https://www.toptools365.com/url-encoder/"}
+]}
 </script>
 <style>
-  :root {
-    --bg: #f7f6f3; --card: #fff; --border: #e5e2d9; --text: #1a1a18; --muted: #6b6b66;
-    --accent: #6d28d9; --accent-light: #ede9fe;
-    --green: #1a6b4a; --green-light: #e8f5ef;
-    --blue: #1a5c8a; --blue-light: #e8f2f9;
-    --orange: #b45309; --orange-light: #fef3e2;
-    --radius: 14px; --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.06);
-  }
-  @media(prefers-color-scheme:dark) {
-    :root { --bg: #1a1a18; --card: #242422; --border: #3a3a36; --text: #f0efe8; --muted: #9a9a92;
-      --accent: #a78bfa; --accent-light: #1e1030;
-      --green: #2daa72; --green-light: #0e2a1e;
-      --blue: #4a9fd4; --blue-light: #0d2233;
-      --orange: #e8a832; --orange-light: #2a1f0a; }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
-  .back-link { display: inline-flex; align-items: center; margin-bottom: 20px; font-size: 14px; font-weight: 600; color: var(--green); text-decoration: none; background: var(--green-light); padding: 8px 16px; border-radius: 8px; transition: opacity .15s; }
-  .back-link:hover { opacity: .8; }
-  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
-  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
-
-  /* 탭 */
-  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px; box-shadow: var(--shadow); }
-  .tab-btn { flex: 1; min-width: 100px; padding: 10px 12px; border: none; border-radius: 8px; background: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
-  .tab-btn.on { background: var(--accent); color: #fff; }
-
-  /* 패널 */
-  .panel { display: none; }
-  .panel.show { display: block; }
-
-  /* 에디터 레이아웃 */
-  .editor-wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 12px; }
-  @media(max-width:600px) { .editor-wrap { grid-template-columns: 1fr; } }
-  .editor-box { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-  .editor-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg); border-bottom: 1px solid var(--border); }
-  .editor-label { font-size: 13px; font-weight: 700; color: var(--accent); }
-  .editor-stats { font-size: 11px; color: var(--muted); }
-  textarea { width: 100%; height: 200px; padding: 14px; border: none; background: var(--card); color: var(--text); font-size: 13px; line-height: 1.7; resize: vertical; outline: none; font-family: 'Courier New', monospace; }
-
-  /* 중앙 버튼 열 */
-  .btn-col { display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; padding-top: 40px; }
-  @media(max-width:600px) { .btn-col { flex-direction: row; padding-top: 0; } }
-  .dir-btn { padding: 10px 16px; border: 1.5px solid var(--accent); border-radius: 8px; background: var(--accent-light); color: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; white-space: nowrap; }
-  .dir-btn:hover { background: var(--accent); color: #fff; }
-
-  /* 액션 버튼 */
-  .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-  .action-btn { flex: 1; min-width: 80px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; text-align: center; }
-  .action-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .action-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .action-btn.primary:hover { opacity: .88; }
-
-  /* 쿼리스트링 파서 */
-  .qs-result { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-  .qs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .qs-table th { background: var(--accent-light); color: var(--accent); padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; }
-  .qs-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); font-family: 'Courier New', monospace; }
-  .qs-table td:first-child { color: var(--accent); font-weight: 700; }
-  .qs-table tr:last-child td { border-bottom: none; }
-  .qs-empty { padding: 20px; text-align: center; color: var(--muted); font-size: 13px; }
-
-  /* 예시 버튼 */
-  .example-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-  .ex-btn { padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
-  .ex-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* 토스트 */
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
-  .toast.show { opacity: 1; }
-
-  .seo-section { margin-top: 48px; }
-  .seo-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-  .seo-section h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
-  .seo-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
-  .info-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; font-size: 13px; color: var(--muted); line-height: 1.9; margin: 16px 0; }
-  .info-box strong { color: var(--accent); }
-
-  .related-section { margin-top: 48px; }
-  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
-  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  @media(max-width:480px) { .related-grid { grid-template-columns: 1fr; } }
-  .related-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: all .15s; }
-  .related-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-  .related-icon { font-size: 20px; flex-shrink: 0; }
-
-  .faq { margin-top: 40px; }
-  .faq h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-  .faq-item { border-top: 1px solid var(--border); padding: 16px 0; }
-  .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-  .faq-a { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+  :root{--bg:#f7f6f3;--card:#fff;--border:#e5e2d9;--text:#1a1a18;--muted:#6b6b66;--accent:#6d28d9;--accent-light:#ede9fe;--green:#1a6b4a;--green-light:#e8f5ef;--blue:#1a5c8a;--blue-light:#e8f2f9;--orange:#b45309;--orange-light:#fef3e2;--radius:14px;--shadow:0 1px 4px rgba(0,0,0,0.07),0 6px 20px rgba(0,0,0,0.06)}
+  @media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--card:#242422;--border:#3a3a36;--text:#f0efe8;--muted:#9a9a92;--accent:#a78bfa;--accent-light:#1e1030;--green:#2daa72;--green-light:#0e2a1e;--blue:#4a9fd4;--blue-light:#0d2233;--orange:#e8a832;--orange-light:#2a1f0a}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 16px 80px}
+  .back-link{display:inline-flex;align-items:center;margin-bottom:20px;font-size:14px;font-weight:600;color:var(--green);text-decoration:none;background:var(--green-light);padding:8px 16px;border-radius:8px;transition:opacity .15s}
+  .back-link:hover{opacity:.8}
+  h1{font-size:26px;font-weight:700;margin-bottom:6px}
+  .subtitle{font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+  .share-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .share-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+  .share-btn:hover{opacity:.85}
+  .btn-share{background:var(--accent);color:#fff}
+  .btn-copy-link{background:var(--green);color:#fff}
+  .tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:var(--shadow)}
+  .tab-btn{flex:1;min-width:100px;padding:10px 12px;border:none;border-radius:8px;background:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center}
+  .tab-btn.on{background:var(--accent);color:#fff}
+  .panel{display:none}
+  .panel.show{display:block}
+  .editor-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start;margin-bottom:12px}
+  @media(max-width:600px){.editor-wrap{grid-template-columns:1fr}}
+  .editor-box{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .editor-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border)}
+  .editor-label{font-size:13px;font-weight:700;color:var(--accent)}
+  .editor-stats{font-size:11px;color:var(--muted)}
+  textarea{width:100%;height:200px;padding:14px;border:none;background:var(--card);color:var(--text);font-size:13px;line-height:1.7;resize:vertical;outline:none;font-family:'Courier New',monospace}
+  .btn-col{display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;padding-top:40px}
+  @media(max-width:600px){.btn-col{flex-direction:row;padding-top:0}}
+  .dir-btn{padding:10px 16px;border:1.5px solid var(--accent);border-radius:8px;background:var(--accent-light);color:var(--accent);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+  .dir-btn:hover{background:var(--accent);color:#fff}
+  .action-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .action-btn{flex:1;min-width:80px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center}
+  .action-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .action-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .action-btn.primary:hover{opacity:.88}
+  .qs-result{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .qs-table{width:100%;border-collapse:collapse;font-size:13px}
+  .qs-table th{background:var(--accent-light);color:var(--accent);padding:10px 14px;text-align:left;font-size:12px;font-weight:600}
+  .qs-table td{padding:9px 14px;border-bottom:1px solid var(--border);font-family:'Courier New',monospace}
+  .qs-table td:first-child{color:var(--accent);font-weight:700}
+  .qs-table tr:last-child td{border-bottom:none}
+  .qs-empty{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+  .example-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .ex-btn{padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s}
+  .ex-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+  .url-ref-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+  .url-ref-table th{background:var(--accent-light);color:var(--accent);padding:9px 12px;text-align:left;font-size:12px;font-weight:600}
+  .url-ref-table td{padding:8px 12px;border-bottom:1px solid var(--border);font-family:'Courier New',monospace}
+  .url-ref-table td:last-child{font-family:inherit}
+  .url-ref-table tr:last-child td{border-bottom:none}
+  .seo-section{margin-top:48px}
+  .seo-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .seo-section h3{font-size:16px;font-weight:600;margin:24px 0 10px}
+  .seo-section p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+  .info-box{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:16px;font-size:13px;color:var(--muted);line-height:1.9;margin:16px 0}
+  .info-box strong{color:var(--accent)}
+  .related-section{margin-top:48px}
+  .related-section h2{font-size:18px;font-weight:700;margin-bottom:14px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:480px){.related-grid{grid-template-columns:1fr}}
+  .related-item{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:all .15s}
+  .related-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .related-icon{font-size:20px;flex-shrink:0}
+  .faq{margin-top:40px}
+  .faq h2{font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq-item{border-top:1px solid var(--border);padding:16px 0}
+  .faq-q{font-size:14px;font-weight:600;margin-bottom:8px}
+  .faq-a{font-size:13px;color:var(--muted);line-height:1.7}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -116,7 +136,11 @@
   <h1>URL 인코더 / 디코더</h1>
   <p class="subtitle">URL 인코딩·디코딩, Base64 변환, HTML 엔티티 변환을 즉시 처리합니다.</p>
 
-  <!-- 탭 -->
+  <div class="share-row">
+    <button class="share-btn btn-share" onclick="nativeShare()">📤 공유하기</button>
+    <button class="share-btn btn-copy-link" onclick="copyLink()">🔗 링크 복사</button>
+  </div>
+
   <div class="tab-row">
     <button class="tab-btn on" onclick="setTab('url',this)">🔗 URL 인코딩</button>
     <button class="tab-btn" onclick="setTab('base64',this)">🔐 Base64</button>
@@ -124,7 +148,6 @@
     <button class="tab-btn" onclick="setTab('qs',this)">📋 쿼리스트링 파싱</button>
   </div>
 
-  <!-- URL 인코딩 패널 -->
   <div class="panel show" id="panel-url">
     <div class="example-row">
       <button class="ex-btn" onclick="setEx('url','https://example.com/검색?q=안녕하세요&lang=ko')">한글 URL 예시</button>
@@ -154,7 +177,6 @@
     </div>
   </div>
 
-  <!-- Base64 패널 -->
   <div class="panel" id="panel-base64">
     <div class="example-row">
       <button class="ex-btn" onclick="setEx('base64','안녕하세요! Hello World!')">한글 예시</button>
@@ -184,11 +206,10 @@
     </div>
   </div>
 
-  <!-- HTML 엔티티 패널 -->
   <div class="panel" id="panel-html">
     <div class="example-row">
-      <button class="ex-btn" onclick="setEx('html','<div class="box">안녕 & 반갑습니다!</div>')">HTML 태그 예시</button>
-      <button class="ex-btn" onclick="setEx('html','2 < 5 & 10 > 3 "따옴표"')">특수문자 예시</button>
+      <button class="ex-btn" onclick="setEx('html','&lt;div class=&quot;box&quot;&gt;안녕 &amp; 반갑습니다!&lt;/div&gt;')">HTML 태그 예시</button>
+      <button class="ex-btn" onclick="setEx('html','2 &lt; 5 &amp; 10 &gt; 3')">특수문자 예시</button>
     </div>
     <div class="editor-wrap">
       <div class="editor-box">
@@ -213,7 +234,6 @@
     </div>
   </div>
 
-  <!-- 쿼리스트링 파싱 패널 -->
   <div class="panel" id="panel-qs">
     <div class="example-row">
       <button class="ex-btn" onclick="setQsEx('https://example.com/search?q=%EC%95%88%EB%85%95&lang=ko&page=1&sort=desc')">URL 예시</button>
@@ -221,21 +241,33 @@
     </div>
     <div class="editor-box" style="margin-bottom:12px">
       <div class="editor-header"><span class="editor-label">URL 또는 쿼리스트링 입력</span></div>
-      <textarea id="qs-input" placeholder="파싱할 URL 또는 쿼리스트링을 입력하세요...&#10;예) https://example.com?name=홍길동&age=30&#10;또는 name=홍길동&age=30" style="height:120px" oninput="parseQs()"></textarea>
+      <textarea id="qs-input" placeholder="파싱할 URL 또는 쿼리스트링을 입력하세요..." style="height:120px" oninput="parseQs()"></textarea>
     </div>
-    <div class="qs-result" id="qs-result">
-      <div class="qs-empty">URL을 입력하면 파라미터를 분석합니다.</div>
-    </div>
+    <div class="qs-result" id="qs-result"><div class="qs-empty">URL을 입력하면 파라미터를 분석합니다.</div></div>
     <div class="action-row" style="margin-top:12px">
       <button class="action-btn" onclick="copyQsTable()">📋 결과 복사 (JSON)</button>
       <button class="action-btn" onclick="document.getElementById('qs-input').value='';parseQs()">🗑 초기화</button>
     </div>
   </div>
 
-  <!-- SEO -->
   <section class="seo-section">
     <h2>URL 인코더/디코더 사용 방법</h2>
-    <p>탭을 선택하고 변환할 텍스트를 입력한 후 인코딩·디코딩 버튼을 누르면 즉시 변환됩니다. 결과를 복사하거나 바꾸기로 역방향 변환도 가능합니다.</p>
+    <p>탭을 선택하고 변환할 텍스트를 입력한 후 인코딩·디코딩 버튼을 누르면 즉시 변환됩니다.</p>
+
+    <h3>주요 URL 인코딩 문자 참고표</h3>
+    <div style="overflow-x:auto">
+      <table class="url-ref-table">
+        <thead><tr><th>원본 문자</th><th>URL 인코딩</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>공백 (space)</td><td>%20</td><td>URL에서 공백 표현</td></tr>
+          <tr><td>한글 "안녕"</td><td>%EC%95%88%EB%85%95</td><td>UTF-8 한글 인코딩</td></tr>
+          <tr><td>&amp; (앰퍼샌드)</td><td>%26</td><td>파라미터 구분자 인코딩</td></tr>
+          <tr><td>= (등호)</td><td>%3D</td><td>키-값 구분자 인코딩</td></tr>
+          <tr><td>/ (슬래시)</td><td>%2F</td><td>경로 구분자 인코딩</td></tr>
+          <tr><td>? (물음표)</td><td>%3F</td><td>쿼리스트링 시작 인코딩</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <h3>URL 인코딩이란?</h3>
     <div class="info-box">
@@ -244,235 +276,58 @@
       <strong>Base64 인코딩</strong>: 바이너리 데이터를 ASCII 문자로 변환합니다. API 인증·이미지 데이터 전송에 사용됩니다.<br><br>
       <strong>HTML 엔티티</strong>: HTML 특수문자(&lt; &gt; &amp; 등)를 안전하게 표시하는 방법입니다.
     </div>
-
-    <h3>URL 인코딩이 필요한 경우</h3>
-    <p>URL에 한글·특수문자가 포함된 경우 인코딩이 필요합니다. 검색 쿼리 파라미터, API 요청, 링크 공유 등에서 활용됩니다.</p>
   </section>
 
-  <!-- 관련 툴 -->
   <section class="related-section">
     <h2>관련 툴</h2>
     <div class="related-grid">
-      <a class="related-item" href="/text-cleaner/">
-        <span class="related-icon">✂️</span>
-        <span>텍스트 정리기</span>
-      </a>
-      <a class="related-item" href="/text-diff/">
-        <span class="related-icon">🔍</span>
-        <span>텍스트 비교기</span>
-      </a>
-      <a class="related-item" href="/qr-generator/">
-        <span class="related-icon">📷</span>
-        <span>QR코드 생성기</span>
-      </a>
+      <a class="related-item" href="/character-counter/"><span class="related-icon">📝</span><span>글자수 세기</span></a>
+      <a class="related-item" href="/json-formatter/"><span class="related-icon">{ }</span><span>JSON 포맷터</span></a>
+      <a class="related-item" href="/qr-generator/"><span class="related-icon">📷</span><span>QR코드 생성기</span></a>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="faq">
     <h2>자주 묻는 질문</h2>
-    <div class="faq-item">
-      <div class="faq-q">URL 인코딩이란?</div>
-      <div class="faq-a">URL에 사용할 수 없는 문자(한글·공백·특수문자)를 %XX 형식으로 변환하는 것입니다. 웹 요청 시 자동으로 처리되기도 하지만 직접 변환이 필요한 경우도 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Base64 인코딩은 어디에 쓰나요?</div>
-      <div class="faq-a">API 인증 토큰, 이미지 데이터 URL(data:image/...), 이메일 첨부파일, JWT 토큰 등에서 사용됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">HTML 엔티티가 필요한 이유는?</div>
-      <div class="faq-a">&lt;, &gt;, &amp;, " 등 HTML에서 특별한 의미를 가진 문자를 그대로 표시하려면 엔티티로 변환해야 합니다. XSS 공격 방지에도 사용됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">encodeURI와 encodeURIComponent의 차이는?</div>
-      <div class="faq-a">encodeURI는 URL 전체를 인코딩해 /, ?, # 등은 보존합니다. encodeURIComponent는 파라미터 값 인코딩으로 더 많은 문자를 변환합니다. 이 도구는 encodeURIComponent 방식을 사용합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">쿼리스트링 파싱이란?</div>
-      <div class="faq-a">URL의 ?key=value&key2=value2 부분을 키-값 쌍으로 분리해 보기 쉽게 정리하는 것입니다. API 디버깅이나 URL 분석에 유용합니다.</div>
-    </div>
+    <div class="faq-item"><div class="faq-q" id="fq1">URL 인코딩이란?</div><div class="faq-a" id="fa1">URL에 사용할 수 없는 문자(한글·공백·특수문자)를 %XX 형식으로 변환하는 것입니다. 웹 요청 시 자동으로 처리되기도 하지만 직접 변환이 필요한 경우도 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq2">Base64 인코딩은 어디에 쓰나요?</div><div class="faq-a" id="fa2">API 인증 토큰, 이미지 데이터 URL(data:image/...), 이메일 첨부파일, JWT 토큰 등에서 사용됩니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq3">HTML 엔티티가 필요한 이유는?</div><div class="faq-a" id="fa3">&lt;, &gt;, &amp;, " 등 HTML에서 특별한 의미를 가진 문자를 그대로 표시하려면 엔티티로 변환해야 합니다. XSS 공격 방지에도 사용됩니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq4">encodeURI와 encodeURIComponent의 차이는?</div><div class="faq-a" id="fa4">encodeURI는 URL 전체를 인코딩해 /, ?, # 등은 보존합니다. encodeURIComponent는 파라미터 값 인코딩으로 더 많은 문자를 변환합니다. 이 도구는 encodeURIComponent 방식을 사용합니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq5">쿼리스트링 파싱이란?</div><div class="faq-a" id="fa5">URL의 ?key=value&key2=value2 부분을 키-값 쌍으로 분리해 보기 쉽게 정리하는 것입니다. API 디버깅이나 URL 분석에 유용합니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq6">한글 URL 인코딩 예시는?</div><div class="faq-a" id="fa6">'안녕'은 %EC%95%88%EB%85%95으로 인코딩됩니다. 공백은 %20, &는 %26, =는 %3D로 변환됩니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq7">Base64로 인코딩된 문자열은 안전한가요?</div><div class="faq-a" id="fa7">Base64는 암호화가 아닌 인코딩입니다. 누구나 디코딩할 수 있으므로 보안 목적으로는 사용하면 안 됩니다.</div></div>
+    <div class="faq-item"><div class="faq-q" id="fq8">URL에서 쿼리스트링만 추출하려면?</div><div class="faq-a" id="fa8">쿼리스트링 파싱 탭에 URL을 붙여넣으면 ? 뒤의 파라미터를 키-값 쌍으로 자동 분리합니다. JSON으로 복사도 가능합니다.</div></div>
   </section>
 
   <footer>
-    <p>© 2026 TopTools365 · 무료 온라인 텍스트 도구</p>
+    <p>본 툴은 브라우저에서만 동작하며 입력 내용이 서버에 저장되지 않습니다. 2026년.</p>
+    <p style="margin-top:6px">© 2026 TopTools365 · 무료 온라인 텍스트 도구</p>
   </footer>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-let currentTab = 'url';
-
-function setTab(tab, el) {
-  currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('show'));
-  document.getElementById('panel-' + tab).classList.add('show');
-}
-
-function updateStats(inputId, statsId) {
-  const len = document.getElementById(inputId).value.length;
-  document.getElementById(statsId).textContent = len.toLocaleString() + '자';
-}
-
-// URL 인코딩/디코딩
-function urlEncode() {
-  const input = document.getElementById('url-input').value;
-  try {
-    document.getElementById('url-output').value = encodeURIComponent(input);
-    updateStats('url-output','url-out-stats');
-  } catch(e) { showToast('인코딩 오류: ' + e.message); }
-}
-
-function urlDecode() {
-  const input = document.getElementById('url-input').value;
-  try {
-    document.getElementById('url-output').value = decodeURIComponent(input);
-    updateStats('url-output','url-out-stats');
-  } catch(e) { showToast('디코딩 오류: 올바른 URL 인코딩 형식이 아닙니다.'); }
-}
-
-// Base64
-function b64Encode() {
-  const input = document.getElementById('b64-input').value;
-  try {
-    document.getElementById('b64-output').value = btoa(unescape(encodeURIComponent(input)));
-    updateStats('b64-output','b64-out-stats');
-  } catch(e) { showToast('인코딩 오류: ' + e.message); }
-}
-
-function b64Decode() {
-  const input = document.getElementById('b64-input').value.trim();
-  try {
-    document.getElementById('b64-output').value = decodeURIComponent(escape(atob(input)));
-    updateStats('b64-output','b64-out-stats');
-  } catch(e) { showToast('디코딩 오류: 올바른 Base64 형식이 아닙니다.'); }
-}
-
-// HTML 엔티티
-function htmlEncode() {
-  const input = document.getElementById('html-input').value;
-  const result = input
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-  document.getElementById('html-output').value = result;
-  updateStats('html-output','html-out-stats');
-}
-
-function htmlDecode() {
-  const input = document.getElementById('html-input').value;
-  const result = input
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n));
-  document.getElementById('html-output').value = result;
-  updateStats('html-output','html-out-stats');
-}
-
-// 쿼리스트링 파싱
-function parseQs() {
-  let input = document.getElementById('qs-input').value.trim();
-  const result = document.getElementById('qs-result');
-  if (!input) { result.innerHTML = '<div class="qs-empty">URL을 입력하면 파라미터를 분석합니다.</div>'; return; }
-
-  // URL에서 쿼리스트링 추출
-  try {
-    if (input.includes('://') || input.startsWith('http')) {
-      const url = new URL(input.includes('://') ? input : 'https://' + input);
-      input = url.search.slice(1); // ? 제거
-    }
-    if (input.startsWith('?')) input = input.slice(1);
-    if (!input) { result.innerHTML = '<div class="qs-empty">쿼리스트링 파라미터가 없습니다.</div>'; return; }
-
-    const params = new URLSearchParams(input);
-    const entries = [...params.entries()];
-    if (entries.length === 0) { result.innerHTML = '<div class="qs-empty">파싱 가능한 파라미터가 없습니다.</div>'; return; }
-
-    let html = '<table class="qs-table"><thead><tr><th>키 (Key)</th><th>값 (Value, 디코딩됨)</th><th>원본 값</th></tr></thead><tbody>';
-    entries.forEach(([k, v]) => {
-      const rawV = input.split('&').find(p => p.split('=')[0] === k)?.split('=').slice(1).join('=') || v;
-      html += `<tr><td>${escHtml(k)}</td><td>${escHtml(v)}</td><td style="color:var(--muted)">${escHtml(rawV)}</td></tr>`;
-    });
-    html += '</tbody></table>';
-    result.innerHTML = html;
-  } catch(e) {
-    result.innerHTML = `<div class="qs-empty">파싱 오류: ${e.message}</div>`;
-  }
-}
-
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// 공통 유틸
-function setEx(type, val) {
-  if (type === 'b64d') {
-    document.getElementById('b64-input').value = val;
-    updateStats('b64-input','b64-in-stats');
-  } else if (type === 'url') {
-    document.getElementById('url-input').value = val;
-    updateStats('url-input','url-in-stats');
-  } else if (type === 'base64') {
-    document.getElementById('b64-input').value = val;
-    updateStats('b64-input','b64-in-stats');
-  } else if (type === 'html') {
-    document.getElementById('html-input').value = val;
-    updateStats('html-input','html-in-stats');
-  }
-}
-
-function setQsEx(val) {
-  document.getElementById('qs-input').value = val;
-  parseQs();
-}
-
-function swapIO(inId, outId) {
-  const a = document.getElementById(inId).value;
-  const b = document.getElementById(outId).value;
-  document.getElementById(inId).value = b;
-  document.getElementById(outId).value = a;
-}
-
-function clearPanel(inId, outId) {
-  document.getElementById(inId).value = '';
-  document.getElementById(outId).value = '';
-}
-
-async function copyOutput(id) {
-  const val = document.getElementById(id).value;
-  if (!val) { showToast('복사할 내용이 없습니다.'); return; }
-  await navigator.clipboard.writeText(val).catch(()=>{});
-  showToast('✅ 복사 완료!');
-}
-
-function copyQsTable() {
-  const input = document.getElementById('qs-input').value.trim();
-  if (!input) { showToast('내용을 입력해주세요.'); return; }
-  try {
-    let qs = input;
-    if (qs.includes('?')) qs = qs.split('?')[1];
-    if (qs.startsWith('?')) qs = qs.slice(1);
-    const params = new URLSearchParams(qs);
-    const obj = {};
-    for (const [k,v] of params.entries()) obj[k] = v;
-    navigator.clipboard.writeText(JSON.stringify(obj, null, 2)).catch(()=>{});
-    showToast('✅ JSON으로 복사 완료!');
-  } catch(e) { showToast('복사 실패'); }
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
-}
+let currentTab='url';
+function setTab(tab,el){currentTab=tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));document.getElementById('panel-'+tab).classList.add('show');}
+function updateStats(inputId,statsId){const len=document.getElementById(inputId).value.length;document.getElementById(statsId).textContent=len.toLocaleString()+'자';}
+function urlEncode(){const input=document.getElementById('url-input').value;try{document.getElementById('url-output').value=encodeURIComponent(input);updateStats('url-output','url-out-stats');}catch(e){showToast('인코딩 오류: '+e.message);}}
+function urlDecode(){const input=document.getElementById('url-input').value;try{document.getElementById('url-output').value=decodeURIComponent(input);updateStats('url-output','url-out-stats');}catch(e){showToast('디코딩 오류: 올바른 URL 인코딩 형식이 아닙니다.');}}
+function b64Encode(){const input=document.getElementById('b64-input').value;try{document.getElementById('b64-output').value=btoa(unescape(encodeURIComponent(input)));updateStats('b64-output','b64-out-stats');}catch(e){showToast('인코딩 오류: '+e.message);}}
+function b64Decode(){const input=document.getElementById('b64-input').value.trim();try{document.getElementById('b64-output').value=decodeURIComponent(escape(atob(input)));updateStats('b64-output','b64-out-stats');}catch(e){showToast('디코딩 오류: 올바른 Base64 형식이 아닙니다.');}}
+function htmlEncode(){const input=document.getElementById('html-input').value;const result=input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');document.getElementById('html-output').value=result;updateStats('html-output','html-out-stats');}
+function htmlDecode(){const input=document.getElementById('html-input').value;const result=input.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#039;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(n));document.getElementById('html-output').value=result;updateStats('html-output','html-out-stats');}
+function parseQs(){let input=document.getElementById('qs-input').value.trim();const result=document.getElementById('qs-result');if(!input){result.innerHTML='<div class="qs-empty">URL을 입력하면 파라미터를 분석합니다.</div>';return;}try{if(input.includes('://')||input.startsWith('http')){const url=new URL(input.includes('://')?input:'https://'+input);input=url.search.slice(1);}if(input.startsWith('?'))input=input.slice(1);if(!input){result.innerHTML='<div class="qs-empty">쿼리스트링 파라미터가 없습니다.</div>';return;}const params=new URLSearchParams(input);const entries=[...params.entries()];if(entries.length===0){result.innerHTML='<div class="qs-empty">파싱 가능한 파라미터가 없습니다.</div>';return;}let html='<table class="qs-table"><thead><tr><th>키 (Key)</th><th>값 (Value, 디코딩됨)</th><th>원본 값</th></tr></thead><tbody>';entries.forEach(([k,v])=>{const rawV=input.split('&').find(p=>p.split('=')[0]===k)?.split('=').slice(1).join('=')||v;html+='<tr><td>'+escHtml(k)+'</td><td>'+escHtml(v)+'</td><td style="color:var(--muted)">'+escHtml(rawV)+'</td></tr>';});html+='</tbody></table>';result.innerHTML=html;}catch(e){result.innerHTML='<div class="qs-empty">파싱 오류: '+e.message+'</div>';}}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function setEx(type,val){if(type==='b64d'){document.getElementById('b64-input').value=val;updateStats('b64-input','b64-in-stats');}else if(type==='url'){document.getElementById('url-input').value=val;updateStats('url-input','url-in-stats');}else if(type==='base64'){document.getElementById('b64-input').value=val;updateStats('b64-input','b64-in-stats');}else if(type==='html'){document.getElementById('html-input').value=val;updateStats('html-input','html-in-stats');}}
+function setQsEx(val){document.getElementById('qs-input').value=val;parseQs();}
+function swapIO(inId,outId){const a=document.getElementById(inId).value;const b=document.getElementById(outId).value;document.getElementById(inId).value=b;document.getElementById(outId).value=a;}
+function clearPanel(inId,outId){document.getElementById(inId).value='';document.getElementById(outId).value='';}
+async function copyOutput(id){const val=document.getElementById(id).value;if(!val){showToast('복사할 내용이 없습니다.');return;}await navigator.clipboard.writeText(val).catch(()=>{});showToast('✅ 복사 완료!');}
+function copyQsTable(){const input=document.getElementById('qs-input').value.trim();if(!input){showToast('내용을 입력해주세요.');return;}try{let qs=input;if(qs.includes('?'))qs=qs.split('?')[1];if(qs.startsWith('?'))qs=qs.slice(1);const params=new URLSearchParams(qs);const obj={};for(const[k,v]of params.entries())obj[k]=v;navigator.clipboard.writeText(JSON.stringify(obj,null,2)).catch(()=>{});showToast('✅ JSON으로 복사 완료!');}catch(e){showToast('복사 실패');}}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+function nativeShare(){const url='https://www.toptools365.com/url-encoder/';if(navigator.share){navigator.share({title:'URL 인코더/디코더',text:'URL·Base64·HTML 인코딩·디코딩 즉시 변환. 완전 무료.',url}).catch(()=>fallbackCopy(url));}else{fallbackCopy(url);}}
+function copyLink(){fallbackCopy('https://www.toptools365.com/url-encoder/');}
+function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showToast('링크가 복사됐어요!');}catch(e){}document.body.removeChild(ta);}
 </script>
 </body>
 </html>
